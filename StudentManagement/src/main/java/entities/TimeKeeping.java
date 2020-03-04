@@ -14,4 +14,38 @@ public class TimeKeeping {
     private Double teachingHours;
     private String rewardLevel;
     private String disciplineLevel;
+
+    public TimeKeeping() {
+    }
+
+    public TimeKeeping(Double teachingHours, String rewardLevel, String disciplineLevel) {
+        this.teachingHours = teachingHours;
+        this.rewardLevel = rewardLevel;
+        this.disciplineLevel = disciplineLevel;
+    }
+
+    public Double getTeachingHours() {
+        return teachingHours;
+    }
+
+    public void setTeachingHours(Double teachingHours) {
+        this.teachingHours = teachingHours;
+    }
+
+    public String getRewardLevel() {
+        return rewardLevel;
+    }
+
+    public void setRewardLevel(String rewardLevel) {
+        this.rewardLevel = rewardLevel;
+    }
+
+    public String getDisciplineLevel() {
+        return disciplineLevel;
+    }
+
+    public void setDisciplineLevel(String disciplineLevel) {
+        this.disciplineLevel = disciplineLevel;
+    }
+
 }

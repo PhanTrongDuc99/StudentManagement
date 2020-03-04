@@ -7,17 +7,16 @@ package common;
 
 /**
  *
- * @author PC
+ * @author USER
  */
-public enum RegisterStatus {
-    REGISTERED("Registered"), WAITTING("Waitting"), CANCEL("Cancel");
-    
-    private String note;
+public enum RegisterType {
+    INTERNET("Registered in the Internet"), MARKETING("Registered through the marketing campaign"), DIRECT("Registered at Center");
+    String note;
 
-    private RegisterStatus() {
+    private RegisterType() {
     }
 
-    private RegisterStatus(String note) {
+    private RegisterType(String note) {
         this.note = note;
     }
 
@@ -28,5 +27,4 @@ public enum RegisterStatus {
     public void setNote(String note) {
         this.note = note;
     }
-
 }
