@@ -9,11 +9,9 @@ package entities;
  *
  * @author PC
  */
-public class Teacher {
-    private String idTeacher;
-    private Profile profileTeacher;
-    private Double salary;
-    private TimeKeeping timeKeeping;
-    private String workPlace;
-    
+public class TimeKeeping {
+
+    private Double teachingHours;
+    private String rewardLevel;
+    private String disciplineLevel;
 }

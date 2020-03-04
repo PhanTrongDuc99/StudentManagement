@@ -5,15 +5,18 @@
  */
 package entities;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author PC
  */
-public class Grade {
-    private String idGrade;
-    private String nameGrade;
-    private Schedule scheduleGrade;
-    private String idTeacher;
+public class Course {
+
     private String idCourse;
-    private Integer studentQuantity;
+    private String nameCourse;
+    private LocalDate startTime;
+    private LocalDate endTime;
+    private Integer gradeQuantity;
+    private Double Cost;
 }

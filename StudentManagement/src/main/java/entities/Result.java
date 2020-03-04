@@ -9,11 +9,10 @@ package entities;
  *
  * @author PC
  */
-public class Teacher {
-    private String idTeacher;
-    private Profile profileTeacher;
-    private Double salary;
-    private TimeKeeping timeKeeping;
-    private String workPlace;
-    
+public class Result {
+
+    private Double studyMark;
+    private Double rewardMark;
+    private Double disciplineMark;
+    private Integer numberOfAbsences;
 }

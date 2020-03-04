@@ -10,7 +10,11 @@ package entities;
  * @author PC
  */
 public class Student {
-    private Integer idStudent;
-    
-    
+
+    private String idStudent;
+    private Profile profileStudent;
+    private Result result;
+    private Double discountCoefficient;
+    private Register register;
+
 }

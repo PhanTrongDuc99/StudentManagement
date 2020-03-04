@@ -5,15 +5,14 @@
  */
 package entities;
 
+import common.RegisterStatus;
+
 /**
  *
  * @author PC
  */
-public class Teacher {
-    private String idTeacher;
-    private Profile profileTeacher;
-    private Double salary;
-    private TimeKeeping timeKeeping;
-    private String workPlace;
-    
+public class Register {
+
+    private RegisterStatus status;
+    private String type;
 }

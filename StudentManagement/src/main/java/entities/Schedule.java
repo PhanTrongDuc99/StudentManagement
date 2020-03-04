@@ -5,15 +5,16 @@
  */
 package entities;
 
+import common.DayOfWeek;
+import java.time.LocalTime;
+
 /**
  *
  * @author PC
  */
-public class Teacher {
-    private String idTeacher;
-    private Profile profileTeacher;
-    private Double salary;
-    private TimeKeeping timeKeeping;
-    private String workPlace;
-    
+public class Schedule {
+
+    private DayOfWeek dayOfWeek;
+    private LocalTime startTime;
+    private LocalTime endTime;
 }
