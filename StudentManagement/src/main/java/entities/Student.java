@@ -10,21 +10,20 @@ package entities;
  * @author PC
  */
 public class Student {
-
     private String idStudent;
     private Profile profileStudent;
-    private Result result;
-    private Double discountCoefficient;
+    private Double discountStatus;
+    private Float cost;
     private Register register;
 
     public Student() {
     }
 
-    public Student(String idStudent, Profile profileStudent, Result result, Double discountCoefficient, Register register) {
+    public Student(String idStudent, Profile profileStudent, Double discountStatus, Float cost, Register register) {
         this.idStudent = idStudent;
         this.profileStudent = profileStudent;
-        this.result = result;
-        this.discountCoefficient = discountCoefficient;
+        this.discountStatus = discountStatus;
+        this.cost = cost;
         this.register = register;
     }
 
@@ -44,20 +43,20 @@ public class Student {
         this.profileStudent = profileStudent;
     }
 
-    public Result getResult() {
-        return result;
+    public Double getDiscountStatus() {
+        return discountStatus;
     }
 
-    public void setResult(Result result) {
-        this.result = result;
+    public void setDiscountStatus(Double discountStatus) {
+        this.discountStatus = discountStatus;
     }
 
-    public Double getDiscountCoefficient() {
-        return discountCoefficient;
+    public Float getCost() {
+        return cost;
     }
 
-    public void setDiscountCoefficient(Double discountCoefficient) {
-        this.discountCoefficient = discountCoefficient;
+    public void setCost(Float cost) {
+        this.cost = cost;
     }
 
     public Register getRegister() {
@@ -67,5 +66,7 @@ public class Student {
     public void setRegister(Register register) {
         this.register = register;
     }
+
+    
 
 }

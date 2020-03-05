@@ -13,6 +13,10 @@ import java.util.List;
  * @author PC
  */
 public interface StudentDao {
-    public List<Student> getAll();
+   List<Student> getAll();
+
+    void insertStudent(List<Student> students);
+
+    List<Student> readStudentFromExcelFile(String excelFilePath);
     
 }
