@@ -41,4 +41,10 @@ public class Register {
         this.type = type;
     }
 
+    @Override
+    public String toString() {
+        return "Status: "+status+" - Type: "+ type; //To change body of generated methods, choose Tools | Templates.
+    }
+    
+
 }

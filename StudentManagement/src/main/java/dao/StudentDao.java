@@ -13,7 +13,7 @@ import java.util.List;
  * @author PC
  */
 public interface StudentDao {
-   List<Student> getAll();
+   List<Student> getStudents();
 
     void insertStudent(List<Student> students);
 

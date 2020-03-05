@@ -5,10 +5,16 @@
  */
 package service;
 
+import entities.Student;
+import java.util.List;
+
 /**
  *
  * @author PC
  */
-public class StudentService {
-    
+public interface StudentService {
+
+    public List<Student> getStudents();
+    public List<Student> readStudentFromExcelFile(String excelFilePath);
 }
+

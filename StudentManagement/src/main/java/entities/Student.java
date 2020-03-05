@@ -5,21 +5,24 @@
  */
 package entities;
 
+import java.util.Objects;
+
 /**
  *
  * @author PC
  */
 public class Student {
+
     private String idStudent;
     private Profile profileStudent;
     private Double discountStatus;
-    private Float cost;
+    private Double cost;
     private Register register;
 
     public Student() {
     }
 
-    public Student(String idStudent, Profile profileStudent, Double discountStatus, Float cost, Register register) {
+    public Student(String idStudent, Profile profileStudent, Double discountStatus, Double cost, Register register) {
         this.idStudent = idStudent;
         this.profileStudent = profileStudent;
         this.discountStatus = discountStatus;
@@ -51,11 +54,57 @@ public class Student {
         this.discountStatus = discountStatus;
     }
 
-    public Float getCost() {
+    public Double getCost() {
         return cost;
     }
 
-    public void setCost(Float cost) {
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + Objects.hashCode(this.idStudent);
+        hash = 67 * hash + Objects.hashCode(this.profileStudent);
+        hash = 67 * hash + Objects.hashCode(this.discountStatus);
+        hash = 67 * hash + Objects.hashCode(this.cost);
+        hash = 67 * hash + Objects.hashCode(this.register);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Student other = (Student) obj;
+        if (!Objects.equals(this.idStudent, other.idStudent)) {
+            return false;
+        }
+        if (!Objects.equals(this.profileStudent, other.profileStudent)) {
+            return false;
+        }
+        if (!Objects.equals(this.discountStatus, other.discountStatus)) {
+            return false;
+        }
+        if (!Objects.equals(this.cost, other.cost)) {
+            return false;
+        }
+        if (!Objects.equals(this.register, other.register)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" + "idStudent=" + idStudent + ", profileStudent=" + profileStudent + ", discountStatus=" + discountStatus + ", cost=" + cost + ", register=" + register + '}';
+    }
+
+    public void setCost(Double cost) {
         this.cost = cost;
     }
 
@@ -66,7 +115,5 @@ public class Student {
     public void setRegister(Register register) {
         this.register = register;
     }
-
-    
 
 }

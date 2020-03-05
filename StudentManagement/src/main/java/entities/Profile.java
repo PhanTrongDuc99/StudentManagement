@@ -5,6 +5,7 @@
  */
 package entities;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 /**
@@ -15,7 +16,7 @@ public class Profile {
 
     private String fullName;
     private boolean gender;
-    private LocalDate dayOfBirth;
+    private Date dayOfBirth;
     private String idNumber;
     private String phoneNumber;
     private String email;
@@ -25,7 +26,7 @@ public class Profile {
     public Profile() {
     }
 
-    public Profile(String fullName, boolean gender, LocalDate dayOfBirth, String idNumber, String phoneNumber, String email, String homeTown, String currentAddress) {
+    public Profile(String fullName, boolean gender, Date dayOfBirth, String idNumber, String phoneNumber, String email, String homeTown, String currentAddress) {
         this.fullName = fullName;
         this.gender = gender;
         this.dayOfBirth = dayOfBirth;
@@ -52,12 +53,17 @@ public class Profile {
         this.gender = gender;
     }
 
-    public LocalDate getDayOfBirth() {
+    public Date getDayOfBirth() {
         return dayOfBirth;
     }
 
-    public void setDayOfBirth(LocalDate dayOfBirth) {
+    public void setDayOfBirth(Date dayOfBirth) {
         this.dayOfBirth = dayOfBirth;
+    }
+
+    @Override
+    public String toString() {
+        return "Profile{" + "fullName=" + fullName + ", gender=" + gender + ", dayOfBirth=" + dayOfBirth + ", idNumber=" + idNumber + ", phoneNumber=" + phoneNumber + ", email=" + email + ", homeTown=" + homeTown + ", currentAddress=" + currentAddress + '}';
     }
 
     public String getIdNumber() {
