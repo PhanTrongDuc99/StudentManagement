@@ -3,7 +3,10 @@
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
 -- -----------------------------------------------------
 -- Schema studentmanagement
 -- -----------------------------------------------------
@@ -12,16 +15,21 @@ DROP SCHEMA IF EXISTS `studentmanagement` ;
 -- -----------------------------------------------------
 -- Schema studentmanagement
 -- -----------------------------------------------------
-
 CREATE SCHEMA IF NOT EXISTS `studentmanagement` DEFAULT CHARACTER SET utf8 ;
-
 USE `studentmanagement` ;
+
+-- -----------------------------------------------------
+-- Table `studentmanagement`.`cost`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `studentmanagement`.`cost` ;
+
 CREATE TABLE IF NOT EXISTS `studentmanagement`.`cost` (
-  `Id` INT NOT NULL,
+  `Id` VARCHAR(20) NOT NULL,
   `Name` VARCHAR(45) NOT NULL,
-  `Price` FLOAT NOT NULL,
+  `Price` DOUBLE NOT NULL,
   PRIMARY KEY (`Id`))
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -30,19 +38,17 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `studentmanagement`.`course` ;
 
 CREATE TABLE IF NOT EXISTS `studentmanagement`.`course` (
-  `Id` INT(11) NOT NULL AUTO_INCREMENT,
+  `Id` VARCHAR(20) NOT NULL,
   `Name` TEXT NOT NULL,
   `ClassQuantity` INT(11) NOT NULL,
   `StartDay` DATE NOT NULL,
   `EndDay` DATE NOT NULL,
-  `IdCost` INT NOT NULL,
+  `IdCost` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`Id`),
   INDEX `fk_course_cost1_idx` (`IdCost` ASC) VISIBLE,
   CONSTRAINT `fk_course_cost1`
     FOREIGN KEY (`IdCost`)
-    REFERENCES `mydb`.`cost` (`Id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    REFERENCES `studentmanagement`.`cost` (`Id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
@@ -53,8 +59,8 @@ DEFAULT CHARACTER SET = utf8;
 DROP TABLE IF EXISTS `studentmanagement`.`schedule` ;
 
 CREATE TABLE IF NOT EXISTS `studentmanagement`.`schedule` (
-  `Id` INT(11) NOT NULL AUTO_INCREMENT,
-  `DaysOfWeek` INT NOT NULL,
+  `Id` VARCHAR(20) NOT NULL,
+  `DaysOfWeek` INT(11) NOT NULL,
   `StartTime` TIME NOT NULL,
   `EndTime` TIME NOT NULL,
   PRIMARY KEY (`Id`, `DaysOfWeek`, `StartTime`, `EndTime`))
@@ -76,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `studentmanagement`.`profile` (
   `CurrentAddress` TEXT NOT NULL,
   `IdNumber` VARCHAR(20) NOT NULL,
   `Email` VARCHAR(255) NOT NULL,
-  `Id` INT(11) NOT NULL AUTO_INCREMENT,
+  `Id` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`Id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
@@ -88,10 +94,10 @@ DEFAULT CHARACTER SET = utf8;
 DROP TABLE IF EXISTS `studentmanagement`.`teacher` ;
 
 CREATE TABLE IF NOT EXISTS `studentmanagement`.`teacher` (
-  `Id` INT(11) NOT NULL AUTO_INCREMENT,
+  `Id` VARCHAR(20) NOT NULL,
   `Workplace` TEXT NOT NULL,
   `Salary` DOUBLE NOT NULL,
-  `IdProfile` INT(11) NOT NULL,
+  `IdProfile` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`Id`),
   INDEX `fk_teacher_profile1_idx` (`IdProfile` ASC) VISIBLE,
   CONSTRAINT `fk_teacher_profile1`
@@ -107,12 +113,12 @@ DEFAULT CHARACTER SET = utf8;
 DROP TABLE IF EXISTS `studentmanagement`.`class` ;
 
 CREATE TABLE IF NOT EXISTS `studentmanagement`.`class` (
-  `Id` INT(11) NOT NULL AUTO_INCREMENT,
+  `Id` VARCHAR(20) NOT NULL,
   `Name` VARCHAR(50) NOT NULL,
   `StudentQuantity` INT(11) NOT NULL,
-  `IdTeacher` INT(11) NOT NULL,
-  `IdSchedule` INT(11) NOT NULL,
-  `IdCourse` INT(11) NOT NULL,
+  `IdTeacher` VARCHAR(20) NOT NULL,
+  `IdSchedule` VARCHAR(20) NOT NULL,
+  `IdCourse` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`Id`),
   INDEX `fk_class_teacher_idx` (`IdTeacher` ASC) VISIBLE,
   INDEX `fk_class_schedule1_idx` (`IdSchedule` ASC) VISIBLE,
@@ -136,10 +142,10 @@ DEFAULT CHARACTER SET = utf8;
 DROP TABLE IF EXISTS `studentmanagement`.`student` ;
 
 CREATE TABLE IF NOT EXISTS `studentmanagement`.`student` (
-  `Id` INT(11) NOT NULL,
+  `Id` VARCHAR(20) NOT NULL,
   `DiscountStatus` TINYINT(1) NOT NULL,
-  `IdProfile` INT(11) NOT NULL,
-  `Cost` FLOAT NOT NULL,
+  `IdProfile` VARCHAR(20) NOT NULL,
+  `Cost` DOUBLE NOT NULL,
   PRIMARY KEY (`Id`),
   INDEX `fk_student_profile1_idx` (`IdProfile` ASC) VISIBLE,
   CONSTRAINT `fk_student_profile1`
@@ -155,9 +161,9 @@ DEFAULT CHARACTER SET = utf8;
 DROP TABLE IF EXISTS `studentmanagement`.`register` ;
 
 CREATE TABLE IF NOT EXISTS `studentmanagement`.`register` (
-  `Status` VARCHAR(50) NOT NULL,
-  `Type` VARCHAR(50) NOT NULL,
-  `IdStudent` INT(11) NOT NULL,
+  `State` VARCHAR(50) NOT NULL,
+  `TypeOfRegister` VARCHAR(50) NOT NULL,
+  `IdStudent` VARCHAR(20) NOT NULL,
   INDEX `fk_register_student_idx` (`IdStudent` ASC) VISIBLE,
   CONSTRAINT `fk_register_student`
     FOREIGN KEY (`IdStudent`)
@@ -174,12 +180,12 @@ DEFAULT CHARACTER SET = utf8;
 DROP TABLE IF EXISTS `studentmanagement`.`result` ;
 
 CREATE TABLE IF NOT EXISTS `studentmanagement`.`result` (
-  `IdStudent` INT(11) NOT NULL,
-  `IdClass` INT(11) NOT NULL,
-  `StudyMark` FLOAT NOT NULL,
-  `RewardMark` FLOAT NOT NULL,
-  `DisciplineMark` FLOAT NOT NULL,
-  `MoneyPaid` FLOAT NOT NULL,
+  `IdStudent` VARCHAR(20) NOT NULL,
+  `IdClass` VARCHAR(20) NOT NULL,
+  `StudyMark` DOUBLE NOT NULL,
+  `RewardMark` DOUBLE NOT NULL,
+  `DisciplineMark` DOUBLE NOT NULL,
+  `MoneyPaid` DOUBLE NOT NULL,
   PRIMARY KEY (`IdStudent`, `IdClass`),
   INDEX `fk_student_has_class_class1_idx` (`IdClass` ASC) VISIBLE,
   INDEX `fk_student_has_class_student1_idx` (`IdStudent` ASC) VISIBLE,
@@ -202,7 +208,7 @@ CREATE TABLE IF NOT EXISTS `studentmanagement`.`timekeeping` (
   `TeachingHours` INT(11) NOT NULL,
   `RewardLevel` INT(11) NOT NULL,
   `DisciplineLevel` INT(11) NOT NULL,
-  `IdTeacher` INT(11) NOT NULL,
+  `IdTeacher` VARCHAR(20) NOT NULL,
   INDEX `fk_timekeeping_teacher1_idx` (`IdTeacher` ASC) VISIBLE,
   CONSTRAINT `fk_timekeeping_teacher1`
     FOREIGN KEY (`IdTeacher`)
