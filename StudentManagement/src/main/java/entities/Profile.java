@@ -5,15 +5,13 @@
  */
 package entities;
 
-import java.sql.Date;
-import java.time.LocalDate;
+import java.util.Date;
+        /**
+         *
+         * @author PC
+         */
 
-/**
- *
- * @author PC
- */
 public class Profile {
-
     private String fullName;
     private boolean gender;
     private Date dayOfBirth;

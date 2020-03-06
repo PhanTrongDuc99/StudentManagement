@@ -24,6 +24,7 @@ public class CellValue {
         }
         return null;
     }
+
     public static double getCellNumber(Cell cell) {
         return cell.getNumericCellValue();
     }

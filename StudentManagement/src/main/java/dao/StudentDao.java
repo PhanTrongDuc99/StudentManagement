@@ -15,8 +15,8 @@ import java.util.List;
 public interface StudentDao {
    List<Student> getStudents();
 
-    void insertStudent(List<Student> students);
+   void insertStudent(List<Student> students);
 
-    List<Student> readStudentFromExcelFile(String excelFilePath);
+   // List<Student> readStudentFromExcelFile(String excelFilePath);
     
 }

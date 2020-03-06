@@ -15,6 +15,6 @@ import java.util.List;
 public interface StudentService {
 
     public List<Student> getStudents();
-    public List<Student> readStudentFromExcelFile(String excelFilePath);
+    public void insertStudentsFromExcelFile();
 }
 
