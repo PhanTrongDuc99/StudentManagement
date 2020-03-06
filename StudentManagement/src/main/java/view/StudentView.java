@@ -5,6 +5,8 @@
  */
 package view;
 
+import java.util.List;
+import entities.Student;
 import service.StudentService;
 import service.StudentServiceImpl;
 
@@ -13,12 +15,13 @@ import service.StudentServiceImpl;
  * @author PC
  */
 public class StudentView {
-
+    
     public static void main(String[] args) {
         StudentService studentService = new StudentServiceImpl();
-        studentService.insertStudentsFromExcelFile();
-        ///List<Student> students = studentService.getStudents();
-        System.out.println("insert thành công");
-        //StudentDaoImpl std= new StudentDaoImpl();
+        List<Student> students = studentService.getStudents();
+        students.forEach(item -> System.out.println(item));
+        System.out.println("Count: "+students.size());
+        //studentService.insertStudentsFromExcelFile();
+        //System.out.println("Insert thành công");
     }
 }

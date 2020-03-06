@@ -35,16 +35,16 @@ import org.apache.poi.ss.usermodel.Workbook;
  * @author PC
  */
 public class StudentDaoImpl implements StudentDao {
-    
+
     private ConnectionManager connectionManager;
     private Connection connection;
     private PreparedStatement preparedStatement;
     private ResultSet result;
-    
+
     public StudentDaoImpl() {
         connectionManager = new ConnectionManagerImpl();
     }
-    
+
     @Override
     public List<Student> getStudents() {
         connection = connectionManager.getConnection();
@@ -53,11 +53,13 @@ public class StudentDaoImpl implements StudentDao {
         Profile profileStudent = null;
         Register register = null;
         boolean gender;
-        String query = "";
+        String query = "SELECT *FROM STUDENT \n"
+                + "INNER JOIN REGISTER ON STUDENT.Id= REGISTER.IdStudent\n"
+                + "INNER JOIN PROFILE ON STUDENT.Id= PROFILE.Id;";
         try {
             preparedStatement = connection.prepareStatement(query);
             result = preparedStatement.executeQuery();
-            if (result.next()) {
+            while (result.next()) {
                 if (result.getInt("Gender") == 0) {
                     gender = false;
                 } else {
@@ -65,7 +67,7 @@ public class StudentDaoImpl implements StudentDao {
                 }
                 profileStudent = new Profile(result.getString("Name"), gender, result.getDate("DayOfBirth"), result.getString("IdNumber"),
                         result.getString("PhoneNumber"), result.getString("Email"), result.getString("Hometown"), result.getString("CurrentAddress"));
-                register = converToRegister(result.getString("Status"), result.getString("Type"));
+                register = converToRegister(result.getString("State"), result.getString("TypeOfRegister"));
                 student = new Student(result.getString("Id"), profileStudent, result.getDouble("DiscountStatus"), result.getDouble("Cost"), register);
                 students.add(student);
             }
@@ -74,7 +76,7 @@ public class StudentDaoImpl implements StudentDao {
         }
         return students;
     }
-    
+
     @Override
     public void insertStudent(List<Student> students) {
         try {
@@ -82,7 +84,7 @@ public class StudentDaoImpl implements StudentDao {
             connection.setAutoCommit(false);
             String query = "INSERT INTO student(Id, DiscountStatus, Cost) VALUES(?,?,?)";
             preparedStatement = connection.prepareStatement(query);
-            
+
             for (Student student : students) {
                 preparedStatement.setString(1, student.getIdStudent());
                 preparedStatement.setDouble(2, student.getDiscountStatus());
@@ -93,7 +95,7 @@ public class StudentDaoImpl implements StudentDao {
             connection.commit();
         } catch (SQLException ex) {
             ex.printStackTrace();
-            
+
         } finally {
             try {
                 preparedStatement.close();
@@ -103,34 +105,33 @@ public class StudentDaoImpl implements StudentDao {
             }
         }
     }
-    
-    
+
     public Register converToRegister(String status, String type) {
         RegisterStatus registerStatus = null;
         RegisterType registerType = null;
         try {
-            if ("Registered".equals(result.getString("Status"))) {
+            if ("Registered".equals(status)) {
                 registerStatus = RegisterStatus.REGISTERED;
             }
-            if ("Waitting".equals(result.getString("Status"))) {
+            if ("Waitting".equals(status)) {
                 registerStatus = RegisterStatus.WAITTING;
             }
-            if ("Cancel".equals(result.getString("Status"))) {
+            if ("Cancel".equals(status)) {
                 registerStatus = RegisterStatus.CANCEL;
             }
-            if ("Internet".equals(result.getString("Status"))) {
+            if ("Internet".equals(type)) {
                 registerType = RegisterType.INTERNET;
             }
-            if ("Maketing".equals(result.getString("Status"))) {
+            if ("Maketing".equals(type)) {
                 registerType = RegisterType.MARKETING;
             }
-            if ("Direct".equals(result.getString("Status"))) {
+            if ("Direct".equals(type)) {
                 registerType = RegisterType.DIRECT;
             }
         } catch (Exception e) {
         }
-        
+
         return new Register(registerStatus, registerType);
     }
-    
+
 }
