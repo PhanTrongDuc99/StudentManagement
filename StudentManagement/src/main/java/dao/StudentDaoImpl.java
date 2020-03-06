@@ -13,7 +13,6 @@ import connection.ConnectionManager;
 import connection.ConnectionManagerImpl;
 import entities.Profile;
 import entities.Register;
-import entities.Result;
 import entities.Student;
 import java.io.File;
 import java.io.FileInputStream;
@@ -21,12 +20,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -37,16 +35,16 @@ import org.apache.poi.ss.usermodel.Workbook;
  * @author PC
  */
 public class StudentDaoImpl implements StudentDao {
-
+    
     private ConnectionManager connectionManager;
     private Connection connection;
     private PreparedStatement preparedStatement;
     private ResultSet result;
-
+    
     public StudentDaoImpl() {
         connectionManager = new ConnectionManagerImpl();
     }
-
+    
     @Override
     public List<Student> getStudents() {
         connection = connectionManager.getConnection();
@@ -76,55 +74,37 @@ public class StudentDaoImpl implements StudentDao {
         }
         return students;
     }
-
+    
     @Override
     public void insertStudent(List<Student> students) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<Student> readStudentFromExcelFile(String excelFilePath) {
-        List<Student> students = new ArrayList<>();
-        File file = new File(excelFilePath);
-        FileInputStream fileInputStream = null;
         try {
-            fileInputStream = new FileInputStream(file);
-            Workbook workbook = WorkBookValue.getWorkbook(fileInputStream, excelFilePath);
-            Sheet firstSheet = workbook.getSheetAt(0);
-            Iterator<Row> rows = firstSheet.iterator();
-            while (rows.hasNext()) {
-                Student student = new Student();
-                Row row = rows.next();
-                Iterator<Cell> cells = row.iterator();
-
-                while (cells.hasNext()) {
-                    Cell cell = cells.next();
-                    int columnIndex = cell.getColumnIndex();
-
-                    switch (columnIndex) {
-                        case 0:
-                            String idStudent = String.valueOf(CellValue.getCellNumber(cell));
-                            student.setIdStudent(idStudent);
-                            break;
-                        case 9:
-
-                            break;
-                        case 2:
-
-                            break;
-                    }
-                }
-                students.add(student);
+            connection = connectionManager.getConnection();
+            connection.setAutoCommit(false);
+            String query = "INSERT INTO student(Id, DiscountStatus, Cost) VALUES(?,?,?)";
+            preparedStatement = connection.prepareStatement(query);
+            
+            for (Student student : students) {
+                preparedStatement.setString(1, student.getIdStudent());
+                preparedStatement.setDouble(2, student.getDiscountStatus());
+                preparedStatement.setDouble(3, student.getCost());
+                preparedStatement.addBatch();
             }
-            workbook.close();
-            fileInputStream.close();
-            return students;
-        } catch (Exception e) {
-            e.printStackTrace();
+            preparedStatement.executeBatch();
+            connection.commit();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            
+        } finally {
+            try {
+                preparedStatement.close();
+                connection.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         }
-        return students;
     }
-
+    
+    
     public Register converToRegister(String status, String type) {
         RegisterStatus registerStatus = null;
         RegisterType registerType = null;
@@ -149,8 +129,8 @@ public class StudentDaoImpl implements StudentDao {
             }
         } catch (Exception e) {
         }
-
+        
         return new Register(registerStatus, registerType);
     }
-
+    
 }

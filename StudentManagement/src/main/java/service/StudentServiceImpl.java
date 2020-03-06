@@ -5,6 +5,7 @@
  */
 package service;
 
+import common.ReadFromExcelFile;
 import dao.StudentDao;
 import dao.StudentDaoImpl;
 import entities.Student;
@@ -28,8 +29,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> readStudentFromExcelFile(String excelFilePath) {
-        return studentDao.readStudentFromExcelFile(excelFilePath);
+    public void insertStudentsFromExcelFile() {
+        List<Student> students = ReadFromExcelFile.readStudentFromExcelFile("F:\\java_netbean\\DataBase\\student.xlsx");
+        studentDao.insertStudent(students);
     }
-
 }
