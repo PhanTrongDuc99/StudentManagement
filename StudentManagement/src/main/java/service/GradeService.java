@@ -3,12 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dao;
+package service;
+
+import entities.Grade;
+import java.util.List;
 
 /**
  *
- * @author USER
+ * @author PC
  */
-public class ProfileDao {
-    
+public interface GradeService {
+
+    public List<Grade> getGrades();
 }

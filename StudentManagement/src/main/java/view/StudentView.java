@@ -19,8 +19,8 @@ public class StudentView {
     public static void main(String[] args) {
         StudentService studentService = new StudentServiceImpl();
         List<Student> students = studentService.getStudents();
+        System.out.println("List students: ");
         students.forEach(item -> System.out.println(item));
-        System.out.println("Count: "+students.size());
         //studentService.insertStudentsFromExcelFile();
         //System.out.println("Insert thành công");
     }

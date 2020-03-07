@@ -5,18 +5,14 @@
  */
 package dao;
 
-import entities.Student;
+import entities.Grade;
 import java.util.List;
 
 /**
  *
  * @author PC
  */
-public interface StudentDao {
+public interface GradeDao {
 
-    public List<Student> getStudents();
-
-    public void insertStudent(List<Student> students);
-
-    //public List<Student> readStudentFromExcelFile(String excelFilePath);
+    public List<Grade> getGrades();
 }

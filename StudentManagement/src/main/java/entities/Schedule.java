@@ -14,33 +14,44 @@ import java.time.DayOfWeek;
  */
 public class Schedule {
 
-    private Integer id;
-    private Time time;
+    private String id;
+    //kiểu Time sql bị lệch lên 7h khi lấy ra tại source bên java
+    private java.sql.Time startTime;
+    private java.sql.Time endTime;
     private DayOfWeek dayOfWeek;
 
     public Schedule() {
     }
 
-    public Schedule(Integer id, Time time, DayOfWeek dayOfWeek) {
+    public Schedule(String id, java.sql.Time startTime, java.sql.Time endTime, DayOfWeek dayOfWeek) {
         this.id = id;
-        this.time = time;
+        this.startTime = startTime;
+        this.endTime = endTime;
         this.dayOfWeek = dayOfWeek;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Time getTime() {
-        return time;
+    public java.sql.Time getStartTime() {
+        return startTime;
     }
 
-    public void setTime(Time time) {
-        this.time = time;
+    public void setStartTime(java.sql.Time startTime) {
+        this.startTime = startTime;
+    }
+
+    public java.sql.Time getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(java.sql.Time endTime) {
+        this.endTime = endTime;
     }
 
     public DayOfWeek getDayOfWeek() {
@@ -49,6 +60,11 @@ public class Schedule {
 
     public void setDayOfWeek(DayOfWeek dayOfWeek) {
         this.dayOfWeek = dayOfWeek;
+    }
+
+    @Override
+    public String toString() {
+        return "Schedule{" + "id=" + id + ", Time=" + startTime + " -> " + endTime + ", dayOfWeek=" + dayOfWeek + '}';
     }
 
 }

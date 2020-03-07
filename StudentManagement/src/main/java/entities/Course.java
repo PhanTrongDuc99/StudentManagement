@@ -5,7 +5,8 @@
  */
 package entities;
 
-import java.time.LocalDate;
+import java.util.Date;
+import java.util.Objects;
 
 /**
  *
@@ -15,21 +16,21 @@ public class Course {
 
     private String idCourse;
     private String nameCourse;
-    private LocalDate startTime;
-    private LocalDate endTime;
+    private Date startTime;
+    private Date endTime;
     private Integer gradeQuantity;
-    private Double Cost;
+    private Double cost;
 
     public Course() {
     }
 
-    public Course(String idCourse, String nameCourse, LocalDate startTime, LocalDate endTime, Integer gradeQuantity, Double Cost) {
+    public Course(String idCourse, String nameCourse, Date startTime, Date endTime, Integer gradeQuantity, Double cost) {
         this.idCourse = idCourse;
         this.nameCourse = nameCourse;
         this.startTime = startTime;
         this.endTime = endTime;
         this.gradeQuantity = gradeQuantity;
-        this.Cost = Cost;
+        this.cost = cost;
     }
 
     public String getIdCourse() {
@@ -48,19 +49,19 @@ public class Course {
         this.nameCourse = nameCourse;
     }
 
-    public LocalDate getStartTime() {
+    public Date getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(LocalDate startTime) {
+    public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
 
-    public LocalDate getEndTime() {
+    public Date getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(LocalDate endTime) {
+    public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
 
@@ -73,11 +74,61 @@ public class Course {
     }
 
     public Double getCost() {
-        return Cost;
+        return cost;
     }
 
     public void setCost(Double Cost) {
-        this.Cost = Cost;
+        this.cost = Cost;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 23 * hash + Objects.hashCode(this.idCourse);
+        hash = 23 * hash + Objects.hashCode(this.nameCourse);
+        hash = 23 * hash + Objects.hashCode(this.startTime);
+        hash = 23 * hash + Objects.hashCode(this.endTime);
+        hash = 23 * hash + Objects.hashCode(this.gradeQuantity);
+        hash = 23 * hash + Objects.hashCode(this.cost);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Course other = (Course) obj;
+        if (!Objects.equals(this.idCourse, other.idCourse)) {
+            return false;
+        }
+        if (!Objects.equals(this.nameCourse, other.nameCourse)) {
+            return false;
+        }
+        if (!Objects.equals(this.startTime, other.startTime)) {
+            return false;
+        }
+        if (!Objects.equals(this.endTime, other.endTime)) {
+            return false;
+        }
+        if (!Objects.equals(this.gradeQuantity, other.gradeQuantity)) {
+            return false;
+        }
+        if (!Objects.equals(this.cost, other.cost)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "IdCourse: " + idCourse + " - " + "NameCourse: " + nameCourse + " - " + "StartDay: " + startTime + " - " + "EndDay: " + " - " + endTime + " - " + "Price: " + cost;
     }
 
 }

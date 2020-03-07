@@ -5,6 +5,8 @@
  */
 package entities;
 
+import java.util.Objects;
+
 /**
  *
  * @author PC
@@ -14,16 +16,18 @@ public class Result {
     private Double studyMark;
     private Double rewardMark;
     private Double disciplineMark;
+    private Double moneyPaid;
     private Integer numberOfAbsences;
 
     public Result() {
     }
 
-    public Result(Double studyMark, Double rewardMark, Double disciplineMark, Integer numberOfAbsences) {
+    public Result(Double studyMark, Double rewardMark, Double disciplineMark, Double moneyPaid, Integer numberOfAbsences) {
         this.studyMark = studyMark;
         this.rewardMark = rewardMark;
         this.disciplineMark = disciplineMark;
         this.numberOfAbsences = numberOfAbsences;
+        this.moneyPaid = moneyPaid;
     }
 
     public Double getStudyMark() {
@@ -56,6 +60,60 @@ public class Result {
 
     public void setNumberOfAbsences(Integer numberOfAbsences) {
         this.numberOfAbsences = numberOfAbsences;
+    }
+
+    public Double getMoneyPaid() {
+        return moneyPaid;
+    }
+
+    public void setMoneyPaid(Double moneyPaid) {
+        this.moneyPaid = moneyPaid;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 71 * hash + Objects.hashCode(this.studyMark);
+        hash = 71 * hash + Objects.hashCode(this.rewardMark);
+        hash = 71 * hash + Objects.hashCode(this.disciplineMark);
+        hash = 71 * hash + Objects.hashCode(this.moneyPaid);
+        hash = 71 * hash + Objects.hashCode(this.numberOfAbsences);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Result other = (Result) obj;
+        if (!Objects.equals(this.studyMark, other.studyMark)) {
+            return false;
+        }
+        if (!Objects.equals(this.rewardMark, other.rewardMark)) {
+            return false;
+        }
+        if (!Objects.equals(this.disciplineMark, other.disciplineMark)) {
+            return false;
+        }
+        if (!Objects.equals(this.moneyPaid, other.moneyPaid)) {
+            return false;
+        }
+        if (!Objects.equals(this.numberOfAbsences, other.numberOfAbsences)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Result{" + "studyMark=" + studyMark + ", rewardMark=" + rewardMark + ", disciplineMark=" + disciplineMark + ", moneyPaid=" + moneyPaid + ", numberOfAbsences=" + numberOfAbsences + '}';
     }
 
 }

@@ -3,20 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dao;
+package service;
 
-import entities.Student;
+import entities.Course;
 import java.util.List;
 
 /**
  *
  * @author PC
  */
-public interface StudentDao {
+public interface CourseService {
 
-    public List<Student> getStudents();
+    public List<Course> getCourses();
 
-    public void insertStudent(List<Student> students);
-
-    //public List<Student> readStudentFromExcelFile(String excelFilePath);
 }

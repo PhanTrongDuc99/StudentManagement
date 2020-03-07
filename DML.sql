@@ -1,9 +1,69 @@
+SELECT *FROM COURSE;
 SELECT *FROM STUDENT;
-SELECT *FROM REGISTER;
 SELECT *FROM PROFILE;
-SELECT *FROM STUDENT 
-INNER JOIN REGISTER ON STUDENT.Id= REGISTER.IdStudent
-INNER JOIN PROFILE ON STUDENT.Id= PROFILE.Id;
+SELECT *FROM REGISTER;
+SELECT *FROM RESULT;
+SELECT *FROM COST;
+SELECT *FROM SCHEDULE;
+SELECT *FROM CLASS;
+SELECT *FROM TEACHER;
+SELECT *FROM TIMEKEEPING;
+
+SELECT st.Id, pr.Name, pr.Gender, pr.DayOfBirth, pr.PhoneNumber, pr.Hometown, pr.CurrentAddress, pr.IdNumber, pr.Email,rg.State, rg.TypeOfRegister,st.DiscountStatus, st.Cost, rs.StudyMark, rs.RewardMark, rs.DisciplineMark, rs.MoneyPaid, rs.NumberOfAbsences
+FROM STUDENT st
+INNER JOIN REGISTER rg ON st.Id= rg.IdStudent
+INNER JOIN PROFILE pr ON st.Id= pr.Id
+INNER JOIN RESULT rs ON st.Id=rs.IdStudent;
+
+SELECT GRADE.Id, GRADE.Name, GRADE.StudentQuantity, TEACHER.IdTeacher, SCHEDULE.DaysOfWeek, SCHEDULE.StartTime, SCHEDULE.EndTime;
+
+SELECT cl.Id, cl.Name, cl.StudentQuantity, cl.IdTeacher, cl.IdCourse, cl.IdSchedule, sch.DaysOfWeek, sch.StartTime, sch.EndTime FROM CLASS cl
+INNER JOIN SCHEDULE sch ON cl.IdSchedule=sch.Id; 
+
+
+SELECT c.Id, c.Name, 
+c.ClassQuantity, c.StartDay, c.EndDay, co.Price FROM COURSE c
+INNER JOIN COST co ON c.IdCost=co.Id;
+
+INSERT INTO `studentmanagement`.`timekeeping` (`TeachingHours`, `RewardLevel`, `DisciplineLevel`, `IdTeacher`) VALUES ('0', '0', '0', 'GV01');
+INSERT INTO `studentmanagement`.`timekeeping` (`TeachingHours`, `RewardLevel`, `DisciplineLevel`, `IdTeacher`) VALUES ('0', '0', '0', 'GV02');
+INSERT INTO `studentmanagement`.`timekeeping` (`TeachingHours`, `RewardLevel`, `DisciplineLevel`, `IdTeacher`) VALUES ('0', '0', '0', 'GV03');
+INSERT INTO `studentmanagement`.`timekeeping` (`TeachingHours`, `RewardLevel`, `DisciplineLevel`, `IdTeacher`) VALUES ('0', '0', '0', 'GV04');
+INSERT INTO `studentmanagement`.`timekeeping` (`TeachingHours`, `RewardLevel`, `DisciplineLevel`, `IdTeacher`) VALUES ('0', '0', '0', 'GV05');
+
+
+
+
+INSERT INTO `studentmanagement`.`course` (`Id`, `Name`, `ClassQuantity`, `StartDay`, `EndDay`, `IdCost`) VALUES ('K01', 'JAVA', '2', '2020-3-25', '2020-9-25', 'C1');
+INSERT INTO `studentmanagement`.`course` (`Id`, `Name`, `ClassQuantity`, `StartDay`, `EndDay`, `IdCost`) VALUES ('K02', 'PHP', '2', '2020-3-26', '2020-9-26', 'C2');
+INSERT INTO `studentmanagement`.`course` (`Id`, `Name`, `ClassQuantity`, `StartDay`, `EndDay`, `IdCost`) VALUES ('K03', 'WEB', '1', '2020-3-27', '2020-9-27', 'C3');
+INSERT INTO `studentmanagement`.`course` (`Id`, `Name`, `ClassQuantity`, `StartDay`, `EndDay`, `IdCost`) VALUES ('K04', 'APP MOBILE', '0', '2020-4-1', '2020-10-1', 'C4');
+INSERT INTO `studentmanagement`.`course` (`Id`, `Name`, `ClassQuantity`, `StartDay`, `EndDay`, `IdCost`) VALUES ('K05', 'HTML', '0', '2020-4-3', '2020-10-3', 'C5');
+
+INSERT INTO `studentmanagement`.`class` (`Id`, `Name`, `StudentQuantity`, `IdTeacher`, `IdSchedule`, `IdCourse`) VALUES ('Class01', 'Java01', '15', 'GV01', '12', 'K01');
+INSERT INTO `studentmanagement`.`class` (`Id`, `Name`, `IdTeacher`, `IdSchedule`, `IdCourse`) VALUES ('Class02', 'Php01', 'GV02', '14', 'K02');
+INSERT INTO `studentmanagement`.`class` (`Id`, `Name`, `IdTeacher`, `IdSchedule`, `IdCourse`) VALUES ('Class03', 'Java03', 'GV03', '10', 'K05');
+INSERT INTO `studentmanagement`.`class` (`Id`, `Name`, `IdTeacher`, `IdSchedule`, `IdCourse`) VALUES ('Class04', 'Web01', 'GV04', '11', 'K03');
+INSERT INTO `studentmanagement`.`class` (`Id`, `Name`, `IdTeacher`, `IdSchedule`, `IdCourse`) VALUES ('Class05', 'Php02', 'GV05', '13', 'K04');
+
+INSERT INTO `studentmanagement`.`result` (`IdStudent`, `IdClass`, `StudyMark`, `RewardMark`, `DisciplineMark`, `MoneyPaid`) VALUES ('1', 'Class01', '0', '0', '0', '0');
+INSERT INTO `studentmanagement`.`result` (`IdStudent`, `IdClass`, `StudyMark`, `RewardMark`, `DisciplineMark`, `MoneyPaid`) VALUES ('2', 'Class02', '0', '0', '0', '0');
+INSERT INTO `studentmanagement`.`result` (`IdStudent`, `IdClass`, `StudyMark`, `RewardMark`, `DisciplineMark`, `MoneyPaid`) VALUES ('3', 'Class03', '0', '0', '0', '0');
+INSERT INTO `studentmanagement`.`result` (`IdStudent`, `IdClass`, `StudyMark`, `RewardMark`, `DisciplineMark`, `MoneyPaid`) VALUES ('4', 'Class04', '0', '0', '0', '0');
+INSERT INTO `studentmanagement`.`result` (`IdStudent`, `IdClass`, `StudyMark`, `RewardMark`, `DisciplineMark`, `MoneyPaid`) VALUES ('5', 'Class05', '0', '0', '0', '0');
+
+INSERT INTO `studentmanagement`.`cost` (`Id`, `Name`, `Price`) VALUES ('C1', 'M1', '100');
+INSERT INTO `studentmanagement`.`cost` (`Id`, `Name`, `Price`) VALUES ('C2', 'M2', '0');
+INSERT INTO `studentmanagement`.`cost` (`Id`, `Name`, `Price`) VALUES ('C3', 'M3', '200');
+INSERT INTO `studentmanagement`.`cost` (`Id`, `Name`, `Price`) VALUES ('C4', 'M4', '100');
+INSERT INTO `studentmanagement`.`cost` (`Id`, `Name`, `Price`) VALUES ('C5', 'M5', '0');
+
+INSERT INTO `studentmanagement`.`teacher` (`Id`, `Workplace`, `Salary`, `IdProfile`) VALUES ('GV01', 'Phú Yên', '2000000', '5');
+INSERT INTO `studentmanagement`.`teacher` (`Id`, `Workplace`, `Salary`, `IdProfile`) VALUES ('GV02', 'Da Nang', '1000000', '2');
+INSERT INTO `studentmanagement`.`teacher` (`Id`, `Workplace`, `Salary`, `IdProfile`) VALUES ('GV03', 'Ho Chi Minh', '3000000', '3');
+INSERT INTO `studentmanagement`.`teacher` (`Id`, `Workplace`, `Salary`, `IdProfile`) VALUES ('GV04', 'Ha Noi', '5000000', '1');
+INSERT INTO `studentmanagement`.`teacher` (`Id`, `Workplace`, `Salary`, `IdProfile`) VALUES ('GV05', 'Da Nang', '4500000', '4');
+
 
 INSERT INTO `studentmanagement`.`profile` (`Name`, `Gender`, `DayOfBirth`, `PhoneNumber`, `Hometown`, `CurrentAddress`, `IdNumber`, `Email`, `Id`) VALUES ('Vu Thi Bich Thu', '2', '2000-07-12', '0832890865', 'Quang Nam', 'Da Nang', '206360509', 'vuthibichthu@gmail.com', '1');
 INSERT INTO `studentmanagement`.`profile` (`Name`, `Gender`, `DayOfBirth`, `PhoneNumber`, `Hometown`, `CurrentAddress`, `IdNumber`, `Email`, `Id`) VALUES ('Phan Trong Duc', '0', '2000-04-12', '0837790865', 'Phu Yen', 'Da Nang', '306360509', 'phantrongduc@gmail.com', '2');
@@ -24,3 +84,16 @@ INSERT INTO `studentmanagement`.`register` (`State`, `TypeOfRegister`, `IdStuden
 INSERT INTO `studentmanagement`.`register` (`State`, `TypeOfRegister`, `IdStudent`) VALUES ('Waitting', 'Maketing', '4');
 INSERT INTO `studentmanagement`.`register` (`State`, `TypeOfRegister`, `IdStudent`) VALUES ('Cancel', 'Internet', '3');
 INSERT INTO `studentmanagement`.`register` (`State`, `TypeOfRegister`, `IdStudent`) VALUES ('Registered', 'Direct', '5');
+
+
+INSERT INTO `studentmanagement`.`schedule` (`Id`, `DaysOfWeek`, `StartTime`, `EndTime`) VALUES ('10', '1', '19:00:00', '22:00:00');
+INSERT INTO `studentmanagement`.`schedule` (`Id`, `DaysOfWeek`, `StartTime`, `EndTime`) VALUES ('11', '3', '15:30:00', '18:30:00');
+INSERT INTO `studentmanagement`.`schedule` (`Id`, `DaysOfWeek`, `StartTime`, `EndTime`) VALUES ('12', '5', '08:00:00', '11:00:00');
+INSERT INTO `studentmanagement`.`schedule` (`Id`, `DaysOfWeek`, `StartTime`, `EndTime`) VALUES ('13', '7', '19:00:00', '22:00:00');
+INSERT INTO `studentmanagement`.`schedule` (`Id`, `DaysOfWeek`, `StartTime`, `EndTime`) VALUES ('14', '4', '20:00:00', '23:00:00');
+
+UPDATE `studentmanagement`.`result` SET `NumberOfAbsences` = '0' WHERE (`IdStudent` = '1') and (`IdClass` = 'Class01');
+UPDATE `studentmanagement`.`result` SET `NumberOfAbsences` = '0' WHERE (`IdStudent` = '2') and (`IdClass` = 'Class02');
+UPDATE `studentmanagement`.`result` SET `NumberOfAbsences` = '0' WHERE (`IdStudent` = '3') and (`IdClass` = 'Class03');
+UPDATE `studentmanagement`.`result` SET `NumberOfAbsences` = '0' WHERE (`IdStudent` = '4') and (`IdClass` = 'Class04');
+UPDATE `studentmanagement`.`result` SET `NumberOfAbsences` = '0' WHERE (`IdStudent` = '5') and (`IdClass` = 'Class05');

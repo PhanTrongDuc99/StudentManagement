@@ -18,16 +18,18 @@ public class Student {
     private Double discountStatus;
     private Double cost;
     private Register register;
+    private Result result;
 
     public Student() {
     }
 
-    public Student(String idStudent, Profile profileStudent, Double discountStatus, Double cost, Register register) {
+    public Student(String idStudent, Profile profileStudent, Double discountStatus, Double cost, Register register, Result result) {
         this.idStudent = idStudent;
         this.profileStudent = profileStudent;
         this.discountStatus = discountStatus;
         this.cost = cost;
         this.register = register;
+        this.result = result;
     }
 
     public String getIdStudent() {
@@ -58,14 +60,23 @@ public class Student {
         return cost;
     }
 
+    public Result getResult() {
+        return result;
+    }
+
+    public void setResult(Result result) {
+        this.result = result;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 67 * hash + Objects.hashCode(this.idStudent);
-        hash = 67 * hash + Objects.hashCode(this.profileStudent);
-        hash = 67 * hash + Objects.hashCode(this.discountStatus);
-        hash = 67 * hash + Objects.hashCode(this.cost);
-        hash = 67 * hash + Objects.hashCode(this.register);
+        int hash = 5;
+        hash = 97 * hash + Objects.hashCode(this.idStudent);
+        hash = 97 * hash + Objects.hashCode(this.profileStudent);
+        hash = 97 * hash + Objects.hashCode(this.discountStatus);
+        hash = 97 * hash + Objects.hashCode(this.cost);
+        hash = 97 * hash + Objects.hashCode(this.register);
+        hash = 97 * hash + Objects.hashCode(this.result);
         return hash;
     }
 
@@ -96,12 +107,16 @@ public class Student {
         if (!Objects.equals(this.register, other.register)) {
             return false;
         }
+        if (!Objects.equals(this.result, other.result)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "Student{" + "idStudent=" + idStudent + ", profileStudent=" + profileStudent + ", discountStatus=" + discountStatus + ", cost=" + cost + ", register=" + register + '}';
+        return "Student{" + "idStudent=" + idStudent + ", profileStudent=" + profileStudent + ", discountStatus=" + discountStatus + ", cost=" + cost
+                + ", register=" + register + ", " + result + "}";
     }
 
     public void setCost(Double cost) {

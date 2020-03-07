@@ -5,6 +5,8 @@
  */
 package entities;
 
+import java.util.Objects;
+
 /**
  *
  * @author PC
@@ -66,6 +68,52 @@ public class Teacher {
 
     public void setWorkPlace(String workPlace) {
         this.workPlace = workPlace;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 73 * hash + Objects.hashCode(this.idTeacher);
+        hash = 73 * hash + Objects.hashCode(this.profileTeacher);
+        hash = 73 * hash + Objects.hashCode(this.salary);
+        hash = 73 * hash + Objects.hashCode(this.timeKeeping);
+        hash = 73 * hash + Objects.hashCode(this.workPlace);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Teacher other = (Teacher) obj;
+        if (!Objects.equals(this.idTeacher, other.idTeacher)) {
+            return false;
+        }
+        if (!Objects.equals(this.workPlace, other.workPlace)) {
+            return false;
+        }
+        if (!Objects.equals(this.profileTeacher, other.profileTeacher)) {
+            return false;
+        }
+        if (!Objects.equals(this.salary, other.salary)) {
+            return false;
+        }
+        if (!Objects.equals(this.timeKeeping, other.timeKeeping)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Teacher{" + "idTeacher=" + idTeacher + ", profileTeacher=" + profileTeacher + ", salary=" + salary + ", timeKeeping=" + timeKeeping + ", workPlace=" + workPlace + '}';
     }
 
 }

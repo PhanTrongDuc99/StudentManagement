@@ -13,6 +13,7 @@ import connection.ConnectionManager;
 import connection.ConnectionManagerImpl;
 import entities.Profile;
 import entities.Register;
+import entities.Result;
 import entities.Student;
 import java.io.File;
 import java.io.FileInputStream;
@@ -21,14 +22,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import utils.ConvertToInvalidateData;
 
 /**
  *
@@ -40,6 +45,7 @@ public class StudentDaoImpl implements StudentDao {
     private Connection connection;
     private PreparedStatement preparedStatement;
     private ResultSet result;
+    private ConvertToInvalidateData convert;
 
     public StudentDaoImpl() {
         connectionManager = new ConnectionManagerImpl();
@@ -49,13 +55,17 @@ public class StudentDaoImpl implements StudentDao {
     public List<Student> getStudents() {
         connection = connectionManager.getConnection();
         List<Student> students = new ArrayList<>();
+        convert = new ConvertToInvalidateData();
         Student student = null;
         Profile profileStudent = null;
         Register register = null;
+        Result resultStudent = null;
         boolean gender;
-        String query = "SELECT *FROM STUDENT \n"
-                + "INNER JOIN REGISTER ON STUDENT.Id= REGISTER.IdStudent\n"
-                + "INNER JOIN PROFILE ON STUDENT.Id= PROFILE.Id;";
+        String query = "SELECT st.Id, pr.Name, pr.Gender, pr.DayOfBirth, pr.PhoneNumber, pr.Hometown, pr.CurrentAddress, pr.IdNumber, pr.Email,rg.State, rg.TypeOfRegister,st.DiscountStatus, st.Cost, rs.StudyMark, rs.RewardMark, rs.DisciplineMark, rs.MoneyPaid, rs.NumberOfAbsences\n"
+                + "FROM STUDENT st\n"
+                + "INNER JOIN REGISTER rg ON st.Id= rg.IdStudent\n"
+                + "INNER JOIN PROFILE pr ON st.Id= pr.Id\n"
+                + "INNER JOIN RESULT rs ON st.Id=rs.IdStudent;";
         try {
             preparedStatement = connection.prepareStatement(query);
             result = preparedStatement.executeQuery();
@@ -67,12 +77,21 @@ public class StudentDaoImpl implements StudentDao {
                 }
                 profileStudent = new Profile(result.getString("Name"), gender, result.getDate("DayOfBirth"), result.getString("IdNumber"),
                         result.getString("PhoneNumber"), result.getString("Email"), result.getString("Hometown"), result.getString("CurrentAddress"));
-                register = converToRegister(result.getString("State"), result.getString("TypeOfRegister"));
-                student = new Student(result.getString("Id"), profileStudent, result.getDouble("DiscountStatus"), result.getDouble("Cost"), register);
+                resultStudent = new Result(result.getDouble("StudyMark"), result.getDouble("RewardMark"), result.getDouble("DisciplineMark"), result.getDouble("MoneyPaid"), result.getInt("NumberOfAbsences"));
+                register = convert.converToRegister(result.getString("State"), result.getString("TypeOfRegister"));
+                student = new Student(result.getString("Id"), profileStudent, result.getDouble("DiscountStatus"), result.getDouble("Cost"), register, resultStudent);
                 students.add(student);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
+        } finally {
+            try {
+                result.close();
+                preparedStatement.close();
+                connection.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return students;
     }
@@ -104,34 +123,6 @@ public class StudentDaoImpl implements StudentDao {
                 ex.printStackTrace();
             }
         }
-    }
-
-    public Register converToRegister(String status, String type) {
-        RegisterStatus registerStatus = null;
-        RegisterType registerType = null;
-        try {
-            if ("Registered".equals(status)) {
-                registerStatus = RegisterStatus.REGISTERED;
-            }
-            if ("Waitting".equals(status)) {
-                registerStatus = RegisterStatus.WAITTING;
-            }
-            if ("Cancel".equals(status)) {
-                registerStatus = RegisterStatus.CANCEL;
-            }
-            if ("Internet".equals(type)) {
-                registerType = RegisterType.INTERNET;
-            }
-            if ("Maketing".equals(type)) {
-                registerType = RegisterType.MARKETING;
-            }
-            if ("Direct".equals(type)) {
-                registerType = RegisterType.DIRECT;
-            }
-        } catch (Exception e) {
-        }
-
-        return new Register(registerStatus, registerType);
     }
 
 }

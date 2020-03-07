@@ -5,6 +5,8 @@
  */
 package entities;
 
+import java.util.Objects;
+
 /**
  *
  * @author PC
@@ -76,6 +78,56 @@ public class Grade {
 
     public void setStudentQuantity(Integer studentQuantity) {
         this.studentQuantity = studentQuantity;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 53 * hash + Objects.hashCode(this.idGrade);
+        hash = 53 * hash + Objects.hashCode(this.nameGrade);
+        hash = 53 * hash + Objects.hashCode(this.scheduleGrade);
+        hash = 53 * hash + Objects.hashCode(this.idTeacher);
+        hash = 53 * hash + Objects.hashCode(this.idCourse);
+        hash = 53 * hash + Objects.hashCode(this.studentQuantity);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Grade other = (Grade) obj;
+        if (!Objects.equals(this.idGrade, other.idGrade)) {
+            return false;
+        }
+        if (!Objects.equals(this.nameGrade, other.nameGrade)) {
+            return false;
+        }
+        if (!Objects.equals(this.scheduleGrade, other.scheduleGrade)) {
+            return false;
+        }
+        if (!Objects.equals(this.idTeacher, other.idTeacher)) {
+            return false;
+        }
+        if (!Objects.equals(this.idCourse, other.idCourse)) {
+            return false;
+        }
+        if (!Objects.equals(this.studentQuantity, other.studentQuantity)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Grade{" + "idGrade=" + idGrade + ", nameGrade=" + nameGrade + ", scheduleGrade=" + scheduleGrade + ", idTeacher=" + idTeacher + ", idCourse=" + idCourse + ", studentQuantity=" + studentQuantity + '}';
     }
 
 }
