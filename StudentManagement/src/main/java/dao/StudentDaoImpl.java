@@ -5,34 +5,18 @@
  */
 package dao;
 
-import common.CellValue;
-import common.RegisterStatus;
-import common.RegisterType;
-import common.WorkBookValue;
 import connection.ConnectionManager;
 import connection.ConnectionManagerImpl;
 import entities.Profile;
 import entities.Register;
 import entities.Result;
 import entities.Student;
-import java.io.File;
-import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
 import utils.ConvertToInvalidateData;
 
 /**
@@ -40,17 +24,17 @@ import utils.ConvertToInvalidateData;
  * @author PC
  */
 public class StudentDaoImpl implements StudentDao {
-
+    
     private ConnectionManager connectionManager;
     private Connection connection;
     private PreparedStatement preparedStatement;
     private ResultSet result;
     private ConvertToInvalidateData convert;
-
+    
     public StudentDaoImpl() {
         connectionManager = new ConnectionManagerImpl();
     }
-
+    
     @Override
     public List<Student> getStudents() {
         connection = connectionManager.getConnection();
@@ -75,7 +59,7 @@ public class StudentDaoImpl implements StudentDao {
                 } else {
                     gender = true;
                 }
-                profileStudent = new Profile(result.getString("Name"), gender, result.getDate("DayOfBirth"), result.getString("IdNumber"),
+                profileStudent = new Profile(result.getString("Id"), result.getString("Name"), gender, result.getDate("DayOfBirth"), result.getString("IdNumber"),
                         result.getString("PhoneNumber"), result.getString("Email"), result.getString("Hometown"), result.getString("CurrentAddress"));
                 resultStudent = new Result(result.getDouble("StudyMark"), result.getDouble("RewardMark"), result.getDouble("DisciplineMark"), result.getDouble("MoneyPaid"), result.getInt("NumberOfAbsences"));
                 register = convert.converToRegister(result.getString("State"), result.getString("TypeOfRegister"));
@@ -95,26 +79,28 @@ public class StudentDaoImpl implements StudentDao {
         }
         return students;
     }
-
+    
     @Override
     public void insertStudent(List<Student> students) {
         try {
             connection = connectionManager.getConnection();
             connection.setAutoCommit(false);
-            String query = "INSERT INTO student(Id, DiscountStatus, Cost) VALUES(?,?,?)";
-            preparedStatement = connection.prepareStatement(query);
-
+            String queryStudent = "INSERT INTO student(Id, DiscountStatus, IdProfile , Cost) VALUES(?,?,(SELECT Id from profile WHERE profile.Id=?),?)";
+            
+            preparedStatement = connection.prepareStatement(queryStudent);
+            
             for (Student student : students) {
                 preparedStatement.setString(1, student.getIdStudent());
                 preparedStatement.setDouble(2, student.getDiscountStatus());
-                preparedStatement.setDouble(3, student.getCost());
+                preparedStatement.setString(3, student.getProfileStudent().getId());
+                preparedStatement.setDouble(4, student.getCost());
                 preparedStatement.addBatch();
             }
             preparedStatement.executeBatch();
             connection.commit();
         } catch (SQLException ex) {
             ex.printStackTrace();
-
+            
         } finally {
             try {
                 preparedStatement.close();
@@ -124,5 +110,5 @@ public class StudentDaoImpl implements StudentDao {
             }
         }
     }
-
+    
 }

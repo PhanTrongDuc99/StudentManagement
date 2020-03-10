@@ -6,12 +6,15 @@
 package entities;
 
 import java.util.Date;
-        /**
-         *
-         * @author PC
-         */
+
+/**
+ *
+ * @author PC
+ */
 
 public class Profile {
+
+    private String id;
     private String fullName;
     private boolean gender;
     private Date dayOfBirth;
@@ -24,7 +27,8 @@ public class Profile {
     public Profile() {
     }
 
-    public Profile(String fullName, boolean gender, Date dayOfBirth, String idNumber, String phoneNumber, String email, String homeTown, String currentAddress) {
+    public Profile(String id, String fullName, boolean gender, Date dayOfBirth, String idNumber, String phoneNumber, String email, String homeTown, String currentAddress) {
+        this.id = id;
         this.fullName = fullName;
         this.gender = gender;
         this.dayOfBirth = dayOfBirth;
@@ -33,6 +37,14 @@ public class Profile {
         this.email = email;
         this.homeTown = homeTown;
         this.currentAddress = currentAddress;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getFullName() {
@@ -61,8 +73,10 @@ public class Profile {
 
     @Override
     public String toString() {
-        return "Profile{" + "fullName=" + fullName + ", gender=" + gender + ", dayOfBirth=" + dayOfBirth + ", idNumber=" + idNumber + ", phoneNumber=" + phoneNumber + ", email=" + email + ", homeTown=" + homeTown + ", currentAddress=" + currentAddress + '}';
+        return "Profile{" + "id=" + id + ", fullName=" + fullName + ", gender=" + gender + ", dayOfBirth=" + dayOfBirth + ", idNumber=" + idNumber + ", phoneNumber=" + phoneNumber + ", email=" + email + ", homeTown=" + homeTown + ", currentAddress=" + currentAddress + '}';
     }
+
+   
 
     public String getIdNumber() {
         return idNumber;

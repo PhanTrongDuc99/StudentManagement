@@ -5,7 +5,6 @@
  */
 package dao;
 
-import common.Time;
 import connection.ConnectionManager;
 import connection.ConnectionManagerImpl;
 import entities.Course;
@@ -16,11 +15,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import utils.ConvertToInvalidateData;
 
 /**

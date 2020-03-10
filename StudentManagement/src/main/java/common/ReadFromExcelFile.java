@@ -9,12 +9,12 @@ import entities.Profile;
 import entities.Student;
 import java.io.File;
 import java.io.FileInputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -46,49 +46,46 @@ public class ReadFromExcelFile {
                     int columnIndex = cell.getColumnIndex();
                     switch (columnIndex) {
                         case 0:
+                            cell.setCellType(CellType.STRING);
                             String idStudent = String.valueOf(CellValue.getCellValue(cell));
                             student.setIdStudent(idStudent);
+                            student.getProfileStudent().setId(idStudent);
                             System.out.println(idStudent);
                             break;
                         case 1:
                             String name = String.valueOf(CellValue.getCellValue(cell));
                             student.getProfileStudent().setFullName(name);
-                            System.out.println(name);
                             break;
                         case 2:
                             String phone = String.valueOf(CellValue.getCellValue(cell));
                             student.getProfileStudent().setPhoneNumber(phone);
-                            System.out.println(phone);
                             break;
                         case 3:
                             String email = String.valueOf(CellValue.getCellValue(cell));
                             student.getProfileStudent().setEmail(email);
-                            System.out.println(email);
                             break;
                         case 4:
                             Double doubleDayOfBirth = Double.valueOf(String.valueOf(CellValue.getCellValue(cell)));
                             Date dayOfBirth = DateUtil.getJavaDate(doubleDayOfBirth);
                             student.getProfileStudent().setDayOfBirth(dayOfBirth);
-                            System.out.println(dayOfBirth);
                             break;
                         case 5:
                             String homeTown = String.valueOf(CellValue.getCellValue(cell));
                             student.getProfileStudent().setHomeTown(homeTown);
-                            System.out.println(homeTown);
                             break;
                         case 6:
                             int numberGender = (int) CellValue.getCellNumber(cell);
                             student.getProfileStudent().setGender(numberGender == 1);
                             break;
                         case 7:
+                            cell.setCellType(CellType.STRING);
                             String idNumber = String.valueOf(CellValue.getCellValue(cell));
                             student.getProfileStudent().setIdNumber(idNumber);
                             break;
                         case 8:
                             String currentAddress = String.valueOf(CellValue.getCellValue(cell));
-                            student.getProfileStudent().setIdNumber(currentAddress);
+                            student.getProfileStudent().setCurrentAddress(currentAddress);
                             break;
-
                         case 9:
                             Double discountStatus = Double.valueOf(String.valueOf(CellValue.getCellValue(cell)));
                             student.setDiscountStatus(discountStatus);
@@ -99,7 +96,7 @@ public class ReadFromExcelFile {
                             break;
                     }
                 }
-
+                System.out.println(student);
                 students.add(student);
             }
             workbook.close();

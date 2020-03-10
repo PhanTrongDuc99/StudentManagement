@@ -10,11 +10,8 @@ import java.util.List;
 
 /**
  *
- * @author PC
+ * @author USER
  */
-public interface StudentService {
-
-    public List<Student> getStudents();
-    public void insertStudentsFromExcelFile(List<Student> students);
+public interface ProfileService {
+    public void insertProfileStudent(List<Student> students);
 }
-

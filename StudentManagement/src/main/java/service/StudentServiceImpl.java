@@ -29,8 +29,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public void insertStudentsFromExcelFile() {
-        List<Student> students = ReadFromExcelFile.readStudentFromExcelFile("E:\\GiaoTrinhHocTap\\Java\\DoAnCuoiKhoaJava06\\student.xlsx");
+    public void insertStudentsFromExcelFile(List<Student> students) {
         studentDao.insertStudent(students);
     }
 }
