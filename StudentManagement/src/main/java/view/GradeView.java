@@ -18,7 +18,7 @@ public class GradeView {
 
     public static void main(String[] args) {
         GradeService gradeService = new GradeServiceImpl();
-        List<Grade> grades = gradeService.getGrades();
+        List<Grade> grades = gradeService.getAll();
         System.out.println("List grades: ");
         grades.forEach(item -> System.out.println(item));
     }

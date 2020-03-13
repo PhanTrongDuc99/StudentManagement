@@ -17,33 +17,28 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import utils.ConvertToInvalidateData;
+import utils.DateUtils;
 
 /**
  *
  * @author PC
  */
 public class StudentDaoImpl implements StudentDao {
-    
+
     private ConnectionManager connectionManager;
     private Connection connection;
     private PreparedStatement preparedStatement;
     private ResultSet result;
-    private ConvertToInvalidateData convert;
-    
+
     public StudentDaoImpl() {
         connectionManager = new ConnectionManagerImpl();
     }
-    
+
     @Override
-    public List<Student> getStudents() {
+    public List<Student> getAll() {
         connection = connectionManager.getConnection();
         List<Student> students = new ArrayList<>();
-        convert = new ConvertToInvalidateData();
-        Student student = null;
-        Profile profileStudent = null;
-        Register register = null;
-        Result resultStudent = null;
+
         boolean gender;
         String query = "SELECT st.Id, pr.Name, pr.Gender, pr.DayOfBirth, pr.PhoneNumber, pr.Hometown, pr.CurrentAddress, pr.IdNumber, pr.Email,rg.State, rg.TypeOfRegister,st.DiscountStatus, st.Cost, rs.StudyMark, rs.RewardMark, rs.DisciplineMark, rs.MoneyPaid, rs.NumberOfAbsences\n"
                 + "FROM STUDENT st\n"
@@ -59,11 +54,11 @@ public class StudentDaoImpl implements StudentDao {
                 } else {
                     gender = true;
                 }
-                profileStudent = new Profile(result.getString("Id"), result.getString("Name"), gender, result.getDate("DayOfBirth"), result.getString("IdNumber"),
+                Profile profile = new Profile(result.getString("Id"), result.getString("Name"), gender, result.getDate("DayOfBirth"), result.getString("IdNumber"),
                         result.getString("PhoneNumber"), result.getString("Email"), result.getString("Hometown"), result.getString("CurrentAddress"));
-                resultStudent = new Result(result.getDouble("StudyMark"), result.getDouble("RewardMark"), result.getDouble("DisciplineMark"), result.getDouble("MoneyPaid"), result.getInt("NumberOfAbsences"));
-                register = convert.converToRegister(result.getString("State"), result.getString("TypeOfRegister"));
-                student = new Student(result.getString("Id"), profileStudent, result.getDouble("DiscountStatus"), result.getDouble("Cost"), register, resultStudent);
+                Result resultStudent = new Result(result.getDouble("StudyMark"), result.getDouble("RewardMark"), result.getDouble("DisciplineMark"), result.getDouble("MoneyPaid"), result.getInt("NumberOfAbsences"));
+                Register register = DateUtils.converToRegister(result.getString("State"), result.getString("TypeOfRegister"));
+                Student student = new Student(result.getString("Id"), profile, result.getDouble("DiscountStatus"), result.getDouble("Cost"), register, resultStudent);
                 students.add(student);
             }
         } catch (Exception ex) {
@@ -79,16 +74,16 @@ public class StudentDaoImpl implements StudentDao {
         }
         return students;
     }
-    
+
     @Override
     public void insertStudent(List<Student> students) {
         try {
             connection = connectionManager.getConnection();
             connection.setAutoCommit(false);
             String queryStudent = "INSERT INTO student(Id, DiscountStatus, IdProfile , Cost) VALUES(?,?,(SELECT Id from profile WHERE profile.Id=?),?)";
-            
+
             preparedStatement = connection.prepareStatement(queryStudent);
-            
+
             for (Student student : students) {
                 preparedStatement.setString(1, student.getIdStudent());
                 preparedStatement.setDouble(2, student.getDiscountStatus());
@@ -100,7 +95,7 @@ public class StudentDaoImpl implements StudentDao {
             connection.commit();
         } catch (SQLException ex) {
             ex.printStackTrace();
-            
+
         } finally {
             try {
                 preparedStatement.close();
@@ -110,5 +105,5 @@ public class StudentDaoImpl implements StudentDao {
             }
         }
     }
-    
+
 }

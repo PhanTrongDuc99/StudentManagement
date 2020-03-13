@@ -20,6 +20,10 @@ SELECT GRADE.Id, GRADE.Name, GRADE.StudentQuantity, TEACHER.IdTeacher, SCHEDULE.
 SELECT cl.Id, cl.Name, cl.StudentQuantity, cl.IdTeacher, cl.IdCourse, cl.IdSchedule, sch.DaysOfWeek, sch.StartTime, sch.EndTime FROM CLASS cl
 INNER JOIN SCHEDULE sch ON cl.IdSchedule=sch.Id; 
 
+SELECT tc.Id,tc.IdProfile, pr.Name, pr.Gender,  pr.DayOfBirth, pr.PhoneNumber, pr.Hometown, pr.CurrentAddress, pr.IdNumber,tc.Workplace, tc.Salary, pr.Email, tk.TeachingHours, tk.RewardLevel, tk.DisciplineLevel  
+FROM TEACHER tc
+INNER JOIN PROFILE pr ON pr.Id=tc.IdProfile
+INNER JOIN TIMEKEEPING tk ON tk.IdTeacher=tc.Id;
 
 SELECT c.Id, c.Name, 
 c.ClassQuantity, c.StartDay, c.EndDay, co.Price FROM COURSE c
@@ -31,9 +35,6 @@ INSERT INTO `studentmanagement`.`timekeeping` (`TeachingHours`, `RewardLevel`, `
 INSERT INTO `studentmanagement`.`timekeeping` (`TeachingHours`, `RewardLevel`, `DisciplineLevel`, `IdTeacher`) VALUES ('0', '0', '0', 'GV04');
 INSERT INTO `studentmanagement`.`timekeeping` (`TeachingHours`, `RewardLevel`, `DisciplineLevel`, `IdTeacher`) VALUES ('0', '0', '0', 'GV05');
 
-
-
-
 INSERT INTO `studentmanagement`.`course` (`Id`, `Name`, `ClassQuantity`, `StartDay`, `EndDay`, `IdCost`) VALUES ('K01', 'JAVA', '2', '2020-3-25', '2020-9-25', 'C1');
 INSERT INTO `studentmanagement`.`course` (`Id`, `Name`, `ClassQuantity`, `StartDay`, `EndDay`, `IdCost`) VALUES ('K02', 'PHP', '2', '2020-3-26', '2020-9-26', 'C2');
 INSERT INTO `studentmanagement`.`course` (`Id`, `Name`, `ClassQuantity`, `StartDay`, `EndDay`, `IdCost`) VALUES ('K03', 'WEB', '1', '2020-3-27', '2020-9-27', 'C3');
@@ -41,10 +42,10 @@ INSERT INTO `studentmanagement`.`course` (`Id`, `Name`, `ClassQuantity`, `StartD
 INSERT INTO `studentmanagement`.`course` (`Id`, `Name`, `ClassQuantity`, `StartDay`, `EndDay`, `IdCost`) VALUES ('K05', 'HTML', '0', '2020-4-3', '2020-10-3', 'C5');
 
 INSERT INTO `studentmanagement`.`class` (`Id`, `Name`, `StudentQuantity`, `IdTeacher`, `IdSchedule`, `IdCourse`) VALUES ('Class01', 'Java01', '15', 'GV01', '12', 'K01');
-INSERT INTO `studentmanagement`.`class` (`Id`, `Name`, `IdTeacher`, `IdSchedule`, `IdCourse`) VALUES ('Class02', 'Php01', 'GV02', '14', 'K02');
-INSERT INTO `studentmanagement`.`class` (`Id`, `Name`, `IdTeacher`, `IdSchedule`, `IdCourse`) VALUES ('Class03', 'Java03', 'GV03', '10', 'K05');
-INSERT INTO `studentmanagement`.`class` (`Id`, `Name`, `IdTeacher`, `IdSchedule`, `IdCourse`) VALUES ('Class04', 'Web01', 'GV04', '11', 'K03');
-INSERT INTO `studentmanagement`.`class` (`Id`, `Name`, `IdTeacher`, `IdSchedule`, `IdCourse`) VALUES ('Class05', 'Php02', 'GV05', '13', 'K04');
+INSERT INTO `studentmanagement`.`class` (`Id`, `Name`, `StudentQuantity`,`IdTeacher`, `IdSchedule`, `IdCourse`) VALUES ('Class06', 'Php01', '10','GV02', '14', 'K02');
+INSERT INTO `studentmanagement`.`class` (`Id`, `Name`, `StudentQuantity`,`IdTeacher`, `IdSchedule`, `IdCourse`) VALUES ('Class03', 'Java03','20', 'GV03', '10', 'K05');
+INSERT INTO `studentmanagement`.`class` (`Id`, `Name`, `StudentQuantity`,`IdTeacher`, `IdSchedule`, `IdCourse`) VALUES ('Class04', 'Web01', '25','GV04', '11', 'K03');
+INSERT INTO `studentmanagement`.`class` (`Id`, `Name`, `StudentQuantity`,`IdTeacher`, `IdSchedule`, `IdCourse`) VALUES ('Class05', 'Php02','18', 'GV05', '13', 'K04');
 
 INSERT INTO `studentmanagement`.`result` (`IdStudent`, `IdClass`, `StudyMark`, `RewardMark`, `DisciplineMark`, `MoneyPaid`) VALUES ('1', 'Class01', '0', '0', '0', '0');
 INSERT INTO `studentmanagement`.`result` (`IdStudent`, `IdClass`, `StudyMark`, `RewardMark`, `DisciplineMark`, `MoneyPaid`) VALUES ('2', 'Class02', '0', '0', '0', '0');
@@ -97,3 +98,22 @@ UPDATE `studentmanagement`.`result` SET `NumberOfAbsences` = '0' WHERE (`IdStude
 UPDATE `studentmanagement`.`result` SET `NumberOfAbsences` = '0' WHERE (`IdStudent` = '3') and (`IdClass` = 'Class03');
 UPDATE `studentmanagement`.`result` SET `NumberOfAbsences` = '0' WHERE (`IdStudent` = '4') and (`IdClass` = 'Class04');
 UPDATE `studentmanagement`.`result` SET `NumberOfAbsences` = '0' WHERE (`IdStudent` = '5') and (`IdClass` = 'Class05');
+
+
+INSERT INTO `studentmanagement`.`timekeeping` (`TeachingHours`, `RewardLevel`, `DisciplineLevel`,`IdTeacher`) VALUES ('20', 'Good', 'No problem','GV01');
+INSERT INTO `studentmanagement`.`timekeeping` (`TeachingHours`, `RewardLevel`, `DisciplineLevel`,`IdTeacher`) VALUES ('12', 'Good', 'No problem','GV02');
+INSERT INTO `studentmanagement`.`timekeeping` (`TeachingHours`, `RewardLevel`, `DisciplineLevel`,`IdTeacher`) VALUES ('12', 'Pretty Good', 'No problem','GV03');
+INSERT INTO `studentmanagement`.`timekeeping` (`TeachingHours`, `RewardLevel`, `DisciplineLevel`,`IdTeacher`) VALUES ('18', 'Very Good', 'No problem','GV04');
+INSERT INTO `studentmanagement`.`timekeeping` (`TeachingHours`, `RewardLevel`, `DisciplineLevel`,`IdTeacher`) VALUES ('10', 'Medium', 'No problem','GV05');
+
+UPDATE `studentmanagement`.`teacher` SET `IdProfile` = 'PT01' WHERE (`Id` = 'GV01');
+UPDATE `studentmanagement`.`teacher` SET `IdProfile` = 'PT02' WHERE (`Id` = 'GV02');
+UPDATE `studentmanagement`.`teacher` SET `IdProfile` = 'PT03' WHERE (`Id` = 'GV03');
+UPDATE `studentmanagement`.`teacher` SET `IdProfile` = 'PT04' WHERE (`Id` = 'GV04');
+UPDATE `studentmanagement`.`teacher` SET `IdProfile` = 'PT05' WHERE (`Id` = 'GV05');
+
+INSERT INTO `studentmanagement`.`profile` (`Name`, `Gender`, `DayOfBirth`, `PhoneNumber`, `Hometown`, `CurrentAddress`, `IdNumber`, `Email`, `Id`) VALUES ('Nguyen Thi Minh', '0', '1980-08-12', '0987565243', 'Quang Nam', 'Da Nang', '221201212', 'nguyenthiminh@gmail.com', 'PT01');
+INSERT INTO `studentmanagement`.`profile` (`Name`, `Gender`, `DayOfBirth`, `PhoneNumber`, `Hometown`, `CurrentAddress`, `IdNumber`, `Email`, `Id`) VALUES ('Phan Nhat Yen', '1', '1995-01-12', '0389221234', 'Binh Dinh', 'Da Nang', '209101234', 'nhatyen@gmail.com', 'PT02');
+INSERT INTO `studentmanagement`.`profile` (`Name`, `Gender`, `DayOfBirth`, `PhoneNumber`, `Hometown`, `CurrentAddress`, `IdNumber`, `Email`, `Id`) VALUES ('Le Van Hai', '1', '1993-12-09', '0331239823', 'Hai Phong', 'Da Nang', '221209823', 'lehai@gmail.com', 'PT03');
+INSERT INTO `studentmanagement`.`profile` (`Name`, `Gender`, `DayOfBirth`, `PhoneNumber`, `Hometown`, `CurrentAddress`, `IdNumber`, `Email`, `Id`) VALUES ('Nguyen Tran Nam', '0', '1991-05-25', '0391238732', 'Hai Duong', 'Da Nang', '209812123', 'nguyennam@gmail.com', 'PT04');
+INSERT INTO `studentmanagement`.`profile` (`Name`, `Gender`, `DayOfBirth`, `PhoneNumber`, `Hometown`, `CurrentAddress`, `IdNumber`, `Email`, `Id`) VALUES ('Pham Nhu Ngan', '1', '1992-02-08', '0987152673', 'Phu Yen', 'Da Nang', '320122398', 'nhungan@gmail.com', 'PT05');

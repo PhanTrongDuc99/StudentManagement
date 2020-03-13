@@ -30,7 +30,7 @@ public class CourseDaoImpl implements CourseDao {
     }
 
     @Override
-    public List<Course> getCourses() {
+    public List<Course> getAll() {
         connection = connectionManager.getConnection();
         List<Course> courses = new ArrayList<>();
         String query = "SELECT c.Id, c.Name, \n"

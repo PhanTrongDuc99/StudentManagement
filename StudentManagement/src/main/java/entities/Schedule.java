@@ -7,6 +7,7 @@ package entities;
 
 import common.Time;
 import java.time.DayOfWeek;
+import java.time.LocalTime;
 
 /**
  *
@@ -15,15 +16,14 @@ import java.time.DayOfWeek;
 public class Schedule {
 
     private String id;
-    //kiểu Time sql bị lệch lên 7h khi lấy ra tại source bên java
-    private java.sql.Time startTime;
-    private java.sql.Time endTime;
+    private LocalTime startTime;
+    private LocalTime endTime;
     private DayOfWeek dayOfWeek;
 
     public Schedule() {
     }
 
-    public Schedule(String id, java.sql.Time startTime, java.sql.Time endTime, DayOfWeek dayOfWeek) {
+    public Schedule(String id, LocalTime startTime, LocalTime endTime, DayOfWeek dayOfWeek) {
         this.id = id;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -38,19 +38,19 @@ public class Schedule {
         this.id = id;
     }
 
-    public java.sql.Time getStartTime() {
+    public LocalTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(java.sql.Time startTime) {
+    public void setStartTime(LocalTime startTime) {
         this.startTime = startTime;
     }
 
-    public java.sql.Time getEndTime() {
+    public LocalTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(java.sql.Time endTime) {
+    public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
     }
 

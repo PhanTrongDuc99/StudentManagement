@@ -45,7 +45,6 @@ CREATE TABLE IF NOT EXISTS `studentmanagement`.`course` (
   `EndDay` DATE NOT NULL,
   `IdCost` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`Id`),
-  INDEX `fk_course_cost1_idx` (`IdCost` ASC) VISIBLE,
   CONSTRAINT `fk_course_cost1`
     FOREIGN KEY (`IdCost`)
     REFERENCES `studentmanagement`.`cost` (`Id`))
@@ -61,8 +60,8 @@ DROP TABLE IF EXISTS `studentmanagement`.`schedule` ;
 CREATE TABLE IF NOT EXISTS `studentmanagement`.`schedule` (
   `Id` VARCHAR(20) NOT NULL,
   `DaysOfWeek` INT(11) NOT NULL,
-  `StartTime` TIME NOT NULL,
-  `EndTime` TIME NOT NULL,
+  `StartTime` VARCHAR(8)  NOT NULL,
+  `EndTime` VARCHAR(8) NOT NULL,
   PRIMARY KEY (`Id`, `DaysOfWeek`, `StartTime`, `EndTime`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
@@ -99,7 +98,6 @@ CREATE TABLE IF NOT EXISTS `studentmanagement`.`teacher` (
   `Salary` DOUBLE NOT NULL,
   `IdProfile` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`Id`),
-  INDEX `fk_teacher_profile1_idx` (`IdProfile` ASC) VISIBLE,
   CONSTRAINT `fk_teacher_profile1`
     FOREIGN KEY (`IdProfile`)
     REFERENCES `studentmanagement`.`profile` (`Id`))
@@ -120,9 +118,6 @@ CREATE TABLE IF NOT EXISTS `studentmanagement`.`class` (
   `IdSchedule` VARCHAR(20) NOT NULL,
   `IdCourse` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`Id`),
-  INDEX `fk_class_teacher_idx` (`IdTeacher` ASC) VISIBLE,
-  INDEX `fk_class_schedule1_idx` (`IdSchedule` ASC) VISIBLE,
-  INDEX `fk_class_course1_idx` (`IdCourse` ASC) VISIBLE,
   CONSTRAINT `fk_class_course1`
     FOREIGN KEY (`IdCourse`)
     REFERENCES `studentmanagement`.`course` (`Id`),
@@ -147,12 +142,12 @@ CREATE TABLE IF NOT EXISTS `studentmanagement`.`student` (
   `IdProfile` VARCHAR(20) NOT NULL,
   `Cost` DOUBLE NOT NULL,
   PRIMARY KEY (`Id`),
-  INDEX `fk_student_profile1_idx` (`IdProfile` ASC) VISIBLE,
   CONSTRAINT `fk_student_profile1`
     FOREIGN KEY (`IdProfile`)
     REFERENCES `studentmanagement`.`profile` (`Id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
+
 
 
 -- -----------------------------------------------------
@@ -164,7 +159,6 @@ CREATE TABLE IF NOT EXISTS `studentmanagement`.`register` (
   `State` VARCHAR(50) NOT NULL,
   `TypeOfRegister` VARCHAR(50) NOT NULL,
   `IdStudent` VARCHAR(20) NOT NULL,
-  INDEX `fk_register_student_idx` (`IdStudent` ASC) VISIBLE,
   CONSTRAINT `fk_register_student`
     FOREIGN KEY (`IdStudent`)
     REFERENCES `studentmanagement`.`student` (`Id`)
@@ -187,8 +181,6 @@ CREATE TABLE IF NOT EXISTS `studentmanagement`.`result` (
   `DisciplineMark` DOUBLE NOT NULL,
   `MoneyPaid` DOUBLE NOT NULL,
   PRIMARY KEY (`IdStudent`, `IdClass`),
-  INDEX `fk_student_has_class_class1_idx` (`IdClass` ASC) VISIBLE,
-  INDEX `fk_student_has_class_student1_idx` (`IdStudent` ASC) VISIBLE,
   CONSTRAINT `fk_student_has_class_class1`
     FOREIGN KEY (`IdClass`)
     REFERENCES `studentmanagement`.`class` (`Id`),
@@ -198,6 +190,8 @@ CREATE TABLE IF NOT EXISTS `studentmanagement`.`result` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
+ALTER TABLE `studentmanagement`.`result` 
+ADD COLUMN `NumberOfAbsences` INT NULL AFTER `MoneyPaid`;
 
 -- -----------------------------------------------------
 -- Table `studentmanagement`.`timekeeping`
@@ -205,11 +199,10 @@ DEFAULT CHARACTER SET = utf8;
 DROP TABLE IF EXISTS `studentmanagement`.`timekeeping` ;
 
 CREATE TABLE IF NOT EXISTS `studentmanagement`.`timekeeping` (
-  `TeachingHours` INT(11) NOT NULL,
-  `RewardLevel` INT(11) NOT NULL,
-  `DisciplineLevel` INT(11) NOT NULL,
+  `TeachingHours` DOUBLE NOT NULL,
+  `RewardLevel` VARCHAR(20) NOT NULL,
+  `DisciplineLevel` VARCHAR(20) NOT NULL,
   `IdTeacher` VARCHAR(20) NOT NULL,
-  INDEX `fk_timekeeping_teacher1_idx` (`IdTeacher` ASC) VISIBLE,
   CONSTRAINT `fk_timekeeping_teacher1`
     FOREIGN KEY (`IdTeacher`)
     REFERENCES `studentmanagement`.`teacher` (`Id`)

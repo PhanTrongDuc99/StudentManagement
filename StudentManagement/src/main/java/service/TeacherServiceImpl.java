@@ -5,10 +5,26 @@
  */
 package service;
 
+import dao.TeacherDao;
+import dao.TeacherDaoImpl;
+import entities.Teacher;
+import java.util.List;
+
 /**
  *
  * @author PC
  */
-public class TeacherServiceImpl {
-    
+public class TeacherServiceImpl implements TeacherService {
+
+    private TeacherDao teacherDao;
+
+    public TeacherServiceImpl() {
+        teacherDao = new TeacherDaoImpl();
+    }
+
+    @Override
+    public List<Teacher> getAll() {
+        return teacherDao.getAll();
+    }
+
 }

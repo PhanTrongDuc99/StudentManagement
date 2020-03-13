@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface StudentDao {
 
-    public List<Student> getStudents();
+    public List<Student> getAll();
 
     public void insertStudent(List<Student> students);
 

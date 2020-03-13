@@ -14,5 +14,5 @@ import java.util.List;
  */
 public interface GradeDao {
 
-    public List<Grade> getGrades();
+    public List<Grade> getAll();
 }

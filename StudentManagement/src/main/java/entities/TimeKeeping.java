@@ -48,4 +48,9 @@ public class TimeKeeping {
         this.disciplineLevel = disciplineLevel;
     }
 
+    @Override
+    public String toString() {
+        return "TimeKeeping{" + "teachingHours=" + teachingHours + ", rewardLevel=" + rewardLevel + ", disciplineLevel=" + disciplineLevel + '}';
+    }
+
 }

@@ -5,7 +5,6 @@
  */
 package dao;
 
-import common.ConvertToSqlDate;
 import connection.ConnectionManager;
 import connection.ConnectionManagerImpl;
 import entities.Profile;
@@ -14,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
+import utils.DateUtils;
 
 /**
  *
@@ -41,10 +41,10 @@ public class ProfileDaoImpl implements ProfileDao {
 
             for (Student student : students) {
                 Profile profile = student.getProfileStudent();
-               // System.out.println(profile);
+                // System.out.println(profile);
                 preparedStatement.setString(1, profile.getFullName());
                 preparedStatement.setBoolean(2, profile.isGender());
-                preparedStatement.setDate(3, ConvertToSqlDate.convertToSqlDate(profile.getDayOfBirth()));
+                preparedStatement.setDate(3, DateUtils.convertToSqlDate(profile.getDayOfBirth()));
                 preparedStatement.setString(4, profile.getPhoneNumber());
                 preparedStatement.setString(5, profile.getHomeTown());
                 preparedStatement.setString(6, profile.getCurrentAddress());

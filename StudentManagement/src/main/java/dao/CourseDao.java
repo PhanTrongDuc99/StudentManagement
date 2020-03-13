@@ -14,6 +14,6 @@ import java.util.List;
  */
 public interface CourseDao {
 
-    public List<Course> getCourses();
+    public List<Course> getAll();
 
 }

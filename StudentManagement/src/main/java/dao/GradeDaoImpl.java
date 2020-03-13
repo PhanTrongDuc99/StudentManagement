@@ -17,7 +17,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import utils.ConvertToInvalidateData;
+import utils.DateUtils;
 
 /**
  *
@@ -29,19 +29,14 @@ public class GradeDaoImpl implements GradeDao {
     private Connection connection;
     private PreparedStatement preparedStatement;
     private ResultSet result;
-    private ConvertToInvalidateData convert;
 
     public GradeDaoImpl() {
         connectionManager = new ConnectionManagerImpl();
     }
 
     @Override
-    public List<Grade> getGrades() {
+    public List<Grade> getAll() {
         List<Grade> grades = new ArrayList<>();
-        Schedule schedule = new Schedule();
-        Teacher teacher = new Teacher();
-        Course course = new Course();
-        convert = new ConvertToInvalidateData();
         connection = connectionManager.getConnection();
         String query = "SELECT cl.Id, cl.Name, cl.StudentQuantity, cl.IdTeacher, cl.IdCourse, cl.IdSchedule, sch.DaysOfWeek, sch.StartTime, sch.EndTime FROM CLASS cl\n"
                 + "INNER JOIN SCHEDULE sch ON cl.IdSchedule=sch.Id";
@@ -49,7 +44,9 @@ public class GradeDaoImpl implements GradeDao {
             preparedStatement = connection.prepareStatement(query);
             result = preparedStatement.executeQuery();
             while (result.next()) {
-                schedule = new Schedule(result.getString("IdSchedule"), result.getTime("StartTime"), result.getTime("EndTime"), convert.convertToDayOfWeek(result.getInt("DaysOfWeek")));
+                Schedule schedule = new Schedule(result.getString("IdSchedule"), DateUtils.convertToLocalTime(result.getString("StartTime")), DateUtils.convertToLocalTime(result.getString("EndTime")), DateUtils.convertToDayOfWeek(result.getInt("DaysOfWeek")));
+                Teacher teacher = new Teacher();
+                Course course = new Course();
                 teacher.setIdTeacher(result.getString("IdTeacher"));
                 course.setIdCourse(result.getString("IdCourse"));
                 grades.add(new Grade(result.getString("Id"), result.getString("Name"), schedule, teacher, course, result.getInt("StudentQuantity")));

@@ -5,10 +5,14 @@
  */
 package service;
 
+import entities.Teacher;
+import java.util.List;
+
 /**
  *
  * @author PC
  */
-public class TeacherService {
-    
+public interface TeacherService {
+
+    public List<Teacher> getAll();
 }

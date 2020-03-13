@@ -23,8 +23,8 @@ public class GradeServiceImpl implements GradeService {
     }
 
     @Override
-    public List<Grade> getGrades() {
-        return gradeDao.getGrades();
+    public List<Grade> getAll() {
+        return gradeDao.getAll();
     }
 
 }

@@ -9,18 +9,25 @@ import common.RegisterStatus;
 import common.RegisterType;
 import common.Time;
 import entities.Register;
+import java.sql.Date;
 import java.time.DayOfWeek;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 /**
  *
  * @author PC
  */
-public class ConvertToInvalidateData {
+public class DateUtils {
 
-    public ConvertToInvalidateData() {
+    public DateUtils() {
     }
 
-    public Register converToRegister(String status, String type) {
+    public static Register
+            converToRegister(String status, String type) {
         RegisterStatus registerStatus = null;
         RegisterType registerType = null;
         try {
@@ -47,7 +54,7 @@ public class ConvertToInvalidateData {
         return new Register(registerStatus, registerType);
     }
 
-    public DayOfWeek convertToDayOfWeek(int dayOfWeekInDatabase) {
+    public static DayOfWeek convertToDayOfWeek(int dayOfWeekInDatabase) {
         DayOfWeek dayOfWeek = null;
         switch (dayOfWeekInDatabase) {
             case 1: {
@@ -80,6 +87,18 @@ public class ConvertToInvalidateData {
             }
         }
         return dayOfWeek;
+    }
+
+    public static Date convertToSqlDate(java.util.Date date) {
+        Instant instant = date.toInstant();
+        ZoneId zoneId = ZoneId.of("America/Montreal");
+        ZonedDateTime zdt = ZonedDateTime.ofInstant(instant, zoneId);
+        LocalDate localDate = zdt.toLocalDate();
+        return Date.valueOf(localDate);
+    }
+
+    public static LocalTime convertToLocalTime(String time) {
+        return LocalTime.parse(time);
     }
 
 }

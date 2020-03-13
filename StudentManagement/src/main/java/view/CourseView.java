@@ -18,7 +18,7 @@ public class CourseView {
     
     public static void main(String[] args) {
         CourseService courseService = new CourseServiceImpl();
-        List<Course> courses = courseService.getCourses();
+        List<Course> courses = courseService.getAll();
         System.out.println("List courses: ");
         courses.forEach(item -> System.out.println(item));
     }

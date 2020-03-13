@@ -14,5 +14,5 @@ import java.util.List;
  */
 public interface GradeService {
 
-    public List<Grade> getGrades();
+    public List<Grade> getAll();
 }
