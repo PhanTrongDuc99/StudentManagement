@@ -150,6 +150,13 @@ DEFAULT CHARACTER SET = utf8;
 
 ALTER TABLE `studentmanagement`.`student` 
 RENAME TO  `studentmanagement`.`studentunofficial` ;
+
+CREATE TABLE `studentmanagement`.`studentofficial` (
+  `IdStudent` VARCHAR(20) NOT NULL,
+  `IdClass` VARCHAR(20) NOT NULL,
+  PRIMARY KEY (`IdStudent`, `IdClass`));
+
+
 ALTER TABLE `studentmanagement`.`studentofficial` 
 ADD COLUMN `IdProfile` VARCHAR(20) NULL AFTER `IdClass`;
 
@@ -196,12 +203,6 @@ DEFAULT CHARACTER SET = utf8;
 
 ALTER TABLE `studentmanagement`.`result` 
 ADD COLUMN `NumberOfAbsences` INT NULL AFTER `MoneyPaid`;
-
-CREATE TABLE `studentmanagement`.`studentofficial` (
-  `IdStudent` VARCHAR(20) NOT NULL,
-  `IdClass` VARCHAR(20) NOT NULL,
-  PRIMARY KEY (`IdStudent`, `IdClass`));
-
 -- -----------------------------------------------------
 -- Table `studentmanagement`.`timekeeping`
 -- -----------------------------------------------------
@@ -212,6 +213,7 @@ CREATE TABLE IF NOT EXISTS `studentmanagement`.`timekeeping` (
   `RewardLevel` VARCHAR(20) NOT NULL,
   `DisciplineLevel` VARCHAR(20) NOT NULL,
   `IdTeacher` VARCHAR(20) NOT NULL,
+  PRIMARY KEY( `IdTeacher`),
   CONSTRAINT `fk_timekeeping_teacher1`
     FOREIGN KEY (`IdTeacher`)
     REFERENCES `studentmanagement`.`teacher` (`Id`)
