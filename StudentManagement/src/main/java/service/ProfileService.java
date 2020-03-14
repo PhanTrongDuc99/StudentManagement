@@ -5,7 +5,7 @@
  */
 package service;
 
-import entities.Student;
+import entities.StudentUnofficial;
 import java.util.List;
 
 /**
@@ -13,5 +13,5 @@ import java.util.List;
  * @author USER
  */
 public interface ProfileService {
-    public void insertProfileStudent(List<Student> students);
+    public void insertProfileStudent(List<StudentUnofficial> students);
 }

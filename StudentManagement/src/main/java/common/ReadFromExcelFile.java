@@ -6,7 +6,8 @@
 package common;
 
 import entities.Profile;
-import entities.Student;
+import entities.StudentOfficial;
+import entities.StudentUnofficial;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
@@ -26,8 +27,8 @@ import org.apache.poi.ss.usermodel.Workbook;
  */
 public class ReadFromExcelFile {
 
-    public static List<Student> readStudentFromExcelFile(String excelFilePath) {
-        List<Student> students = new ArrayList<>();
+    public static List<StudentUnofficial> readStudentFromExcelFile(String excelFilePath) {
+        List<StudentUnofficial> studentUnofficials = new ArrayList<>();
         File file = new File(excelFilePath);
         FileInputStream fileInputStream = null;
         try {
@@ -38,74 +39,74 @@ public class ReadFromExcelFile {
             while (rows.hasNext()) {
                 Row row = rows.next();
                 Iterator<Cell> cells = row.iterator();
-                Student student = new Student();
+                StudentUnofficial studentUnofficial = new StudentOfficial();
                 Profile profile = new Profile();
-                student.setProfileStudent(profile);
+                studentUnofficial.setProfile(profile);
                 while (cells.hasNext()) {
                     Cell cell = cells.next();
                     int columnIndex = cell.getColumnIndex();
                     switch (columnIndex) {
                         case 0:
                             cell.setCellType(CellType.STRING);
-                            String idStudent = String.valueOf(CellValue.getCellValue(cell));
-                            student.setIdStudent(idStudent);
-                            student.getProfileStudent().setId(idStudent);
-                            System.out.println(idStudent);
+                            String id = String.valueOf(CellValue.getCellValue(cell));
+                            studentUnofficial.setId(id);
+                            studentUnofficial.getProfile().setId(id);
+                            System.out.println(id);
                             break;
                         case 1:
                             String name = String.valueOf(CellValue.getCellValue(cell));
-                            student.getProfileStudent().setFullName(name);
+                            studentUnofficial.getProfile().setFullName(name);
                             break;
                         case 2:
                             String phone = String.valueOf(CellValue.getCellValue(cell));
-                            student.getProfileStudent().setPhoneNumber(phone);
+                            studentUnofficial.getProfile().setPhoneNumber(phone);
                             break;
                         case 3:
                             String email = String.valueOf(CellValue.getCellValue(cell));
-                            student.getProfileStudent().setEmail(email);
+                            studentUnofficial.getProfile().setEmail(email);
                             break;
                         case 4:
                             Double doubleDayOfBirth = Double.valueOf(String.valueOf(CellValue.getCellValue(cell)));
                             Date dayOfBirth = DateUtil.getJavaDate(doubleDayOfBirth);
-                            student.getProfileStudent().setDayOfBirth(dayOfBirth);
+                            studentUnofficial.getProfile().setDayOfBirth(dayOfBirth);
                             break;
                         case 5:
                             String homeTown = String.valueOf(CellValue.getCellValue(cell));
-                            student.getProfileStudent().setHomeTown(homeTown);
+                            studentUnofficial.getProfile().setHomeTown(homeTown);
                             break;
                         case 6:
                             int numberGender = (int) CellValue.getCellNumber(cell);
-                            student.getProfileStudent().setGender(numberGender == 1);
+                            studentUnofficial.getProfile().setGender(numberGender == 1);
                             break;
                         case 7:
                             cell.setCellType(CellType.STRING);
                             String idNumber = String.valueOf(CellValue.getCellValue(cell));
-                            student.getProfileStudent().setIdNumber(idNumber);
+                            studentUnofficial.getProfile().setIdNumber(idNumber);
                             break;
                         case 8:
                             String currentAddress = String.valueOf(CellValue.getCellValue(cell));
-                            student.getProfileStudent().setCurrentAddress(currentAddress);
+                            studentUnofficial.getProfile().setCurrentAddress(currentAddress);
                             break;
                         case 9:
                             Double discountStatus = Double.valueOf(String.valueOf(CellValue.getCellValue(cell)));
-                            student.setDiscountStatus(discountStatus);
+                            studentUnofficial.setDiscountStatus(discountStatus);
                             break;
                         case 10:
                             Double cost = Double.valueOf(String.valueOf(CellValue.getCellValue(cell)));
-                            student.setCost(cost);
+                            studentUnofficial.setCost(cost);
                             break;
                     }
                 }
-                System.out.println(student);
-                students.add(student);
+                System.out.println(studentUnofficial);
+                studentUnofficials.add(studentUnofficial);
             }
             workbook.close();
             fileInputStream.close();
-            return students;
+            return studentUnofficials;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return students;
+        return studentUnofficials;
     }
 
 }

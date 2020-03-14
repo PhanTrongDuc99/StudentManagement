@@ -7,22 +7,22 @@ package view;
 
 import common.ReadFromExcelFile;
 import java.util.List;
-import entities.Student;
+import entities.StudentUnofficial;
 import service.ProfileService;
 import service.ProfileServiceImpl;
-import service.StudentService;
-import service.StudentServiceImpl;
+import service.StudentUnofficialServiceImpl;
+import service.StudentUnofficialService;
 
 /**
  *
  * @author PC
  */
-public class StudentView {
+public class StudentUnofficialView {
 
     public static void main(String[] args) {
-        StudentService studentService = new StudentServiceImpl();
+        StudentUnofficialService studentUnofficialService = new StudentUnofficialServiceImpl();
         ProfileService prService = new ProfileServiceImpl();
-        List<Student> students = studentService.getAll();
+        List<StudentUnofficial> students = studentUnofficialService.getAll();
         System.out.println("List students: ");
         students.forEach(item -> System.out.println(item));
         // List<Student> students = ReadFromExcelFile.readStudentFromExcelFile("F:\\JavaProject\\StudentManagement\\student.xlsx");

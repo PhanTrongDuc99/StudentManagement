@@ -7,7 +7,7 @@ package service;
 
 import dao.ProfileDao;
 import dao.ProfileDaoImpl;
-import entities.Student;
+import entities.StudentUnofficial;
 import java.util.List;
 
 /**
@@ -23,7 +23,7 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public void insertProfileStudent(List<Student> students) {
+    public void insertProfileStudent(List<StudentUnofficial> students) {
         profileDao.insertProfileStudent(students);
     }
 

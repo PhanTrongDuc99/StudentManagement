@@ -8,7 +8,7 @@ package dao;
 import connection.ConnectionManager;
 import connection.ConnectionManagerImpl;
 import entities.Profile;
-import entities.Student;
+import entities.StudentUnofficial;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -30,7 +30,7 @@ public class ProfileDaoImpl implements ProfileDao {
     }
 
     @Override
-    public void insertProfileStudent(List<Student> students) {
+    public void insertProfileStudent(List<StudentUnofficial> students) {
         System.out.println("Đã vào insert  profileStudent");
         try {
             connection = connectionManager.getConnection();
@@ -39,8 +39,8 @@ public class ProfileDaoImpl implements ProfileDao {
                     + " VALUES(?,?,?,?,?,?,?,?,?) ";
             preparedStatement = connection.prepareStatement(query);
 
-            for (Student student : students) {
-                Profile profile = student.getProfileStudent();
+            for (StudentUnofficial student : students) {
+                Profile profile = student.getProfile();
                 // System.out.println(profile);
                 preparedStatement.setString(1, profile.getFullName());
                 preparedStatement.setBoolean(2, profile.isGender());

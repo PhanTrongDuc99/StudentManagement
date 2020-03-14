@@ -5,13 +5,14 @@
  */
 package dao;
 
-import entities.StudentUnofficial;
+import entities.StudentOfficial;
 import java.util.List;
 
 /**
  *
- * @author USER
+ * @author PC
  */
-public interface ProfileDao {
-        public void insertProfileStudent(List<StudentUnofficial> students);
+public interface StudentOfficialDao {
+
+    public List<StudentOfficial> getAll();
 }

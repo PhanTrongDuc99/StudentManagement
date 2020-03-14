@@ -5,16 +5,14 @@
  */
 package service;
 
-import entities.Student;
+import entities.StudentOfficial;
 import java.util.List;
 
 /**
  *
  * @author PC
  */
-public interface StudentService {
+public interface StudentOfficialService {
 
-    public List<Student> getAll();
-    public void insertStudentsFromExcelFile(List<Student> students);
+    public List<StudentOfficial> getAll();
 }
-

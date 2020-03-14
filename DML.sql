@@ -9,6 +9,16 @@ SELECT *FROM CLASS;
 SELECT *FROM TEACHER;
 SELECT *FROM TIMEKEEPING;
 
+SELECT stoff.IdStudent,pr.Id, pr.Name, pr.Gender, pr.DayOfBirth, pr.PhoneNumber, pr.Hometown, pr.CurrentAddress, pr.IdNumber, pr.Email,stunoff.Cost,stunoff.DiscountStatus,
+res.StudyMark, res.RewardMark, res.DisciplineMark, res.MoneyPaid, res.NumberOfAbsences, reg.State, reg.TypeOfRegister
+FROM STUDENTOFFICIAL stoff
+INNER JOIN RESULT res ON stoff.IdStudent=res.IdStudent AND stoff.IdClass=res.IdClass
+INNER JOIN PROFILE pr ON stoff.IdProfile=pr.Id
+INNER JOIN STUDENTUNOFFICIAL stunoff ON stunoff.Id=stoff.IdStudent
+INNER JOIN REGISTER reg ON reg.IdStudent=stoff.IdStudent;
+
+
+
 SELECT st.Id, pr.Name, pr.Gender, pr.DayOfBirth, pr.PhoneNumber, pr.Hometown, pr.CurrentAddress, pr.IdNumber, pr.Email,rg.State, rg.TypeOfRegister,st.DiscountStatus, st.Cost, rs.StudyMark, rs.RewardMark, rs.DisciplineMark, rs.MoneyPaid, rs.NumberOfAbsences
 FROM STUDENT st
 INNER JOIN REGISTER rg ON st.Id= rg.IdStudent
@@ -20,6 +30,7 @@ SELECT GRADE.Id, GRADE.Name, GRADE.StudentQuantity, TEACHER.IdTeacher, SCHEDULE.
 SELECT cl.Id, cl.Name, cl.StudentQuantity, cl.IdTeacher, cl.IdCourse, cl.IdSchedule, sch.DaysOfWeek, sch.StartTime, sch.EndTime FROM CLASS cl
 INNER JOIN SCHEDULE sch ON cl.IdSchedule=sch.Id; 
 
+
 SELECT tc.Id,tc.IdProfile, pr.Name, pr.Gender,  pr.DayOfBirth, pr.PhoneNumber, pr.Hometown, pr.CurrentAddress, pr.IdNumber,tc.Workplace, tc.Salary, pr.Email, tk.TeachingHours, tk.RewardLevel, tk.DisciplineLevel  
 FROM TEACHER tc
 INNER JOIN PROFILE pr ON pr.Id=tc.IdProfile
@@ -28,6 +39,12 @@ INNER JOIN TIMEKEEPING tk ON tk.IdTeacher=tc.Id;
 SELECT c.Id, c.Name, 
 c.ClassQuantity, c.StartDay, c.EndDay, co.Price FROM COURSE c
 INNER JOIN COST co ON c.IdCost=co.Id;
+
+INSERT INTO `studentmanagement`.`studentofficial` (`IdStudent`, `IdClass`) VALUES ('1', 'Class01');
+INSERT INTO `studentmanagement`.`studentofficial` (`IdStudent`, `IdClass`) VALUES ('2', 'Class02');
+INSERT INTO `studentmanagement`.`studentofficial` (`IdStudent`, `IdClass`) VALUES ('3', 'Class03');
+UPDATE `studentmanagement`.`studentofficial` SET `IdClass` = 'Class04' WHERE (`IdStudent` = '2') and (`IdClass` = 'Class02');
+
 
 INSERT INTO `studentmanagement`.`timekeeping` (`TeachingHours`, `RewardLevel`, `DisciplineLevel`, `IdTeacher`) VALUES ('0', '0', '0', 'GV01');
 INSERT INTO `studentmanagement`.`timekeeping` (`TeachingHours`, `RewardLevel`, `DisciplineLevel`, `IdTeacher`) VALUES ('0', '0', '0', 'GV02');
@@ -117,3 +134,25 @@ INSERT INTO `studentmanagement`.`profile` (`Name`, `Gender`, `DayOfBirth`, `Phon
 INSERT INTO `studentmanagement`.`profile` (`Name`, `Gender`, `DayOfBirth`, `PhoneNumber`, `Hometown`, `CurrentAddress`, `IdNumber`, `Email`, `Id`) VALUES ('Le Van Hai', '1', '1993-12-09', '0331239823', 'Hai Phong', 'Da Nang', '221209823', 'lehai@gmail.com', 'PT03');
 INSERT INTO `studentmanagement`.`profile` (`Name`, `Gender`, `DayOfBirth`, `PhoneNumber`, `Hometown`, `CurrentAddress`, `IdNumber`, `Email`, `Id`) VALUES ('Nguyen Tran Nam', '0', '1991-05-25', '0391238732', 'Hai Duong', 'Da Nang', '209812123', 'nguyennam@gmail.com', 'PT04');
 INSERT INTO `studentmanagement`.`profile` (`Name`, `Gender`, `DayOfBirth`, `PhoneNumber`, `Hometown`, `CurrentAddress`, `IdNumber`, `Email`, `Id`) VALUES ('Pham Nhu Ngan', '1', '1992-02-08', '0987152673', 'Phu Yen', 'Da Nang', '320122398', 'nhungan@gmail.com', 'PT05');
+
+UPDATE `studentmanagement`.`result` SET `StudyMark` = '8', `RewardMark` = '8', `MoneyPaid` = '1000000', `NumberOfAbsences` = '1' WHERE (`IdStudent` = '1') and (`IdClass` = 'Class01');
+UPDATE `studentmanagement`.`result` SET `StudyMark` = '9', `RewardMark` = '7', `MoneyPaid` = '2000000' WHERE (`IdStudent` = '2') and (`IdClass` = 'Class04');
+UPDATE `studentmanagement`.`result` SET `StudyMark` = '8', `RewardMark` = '9', `MoneyPaid` = '1500000', `NumberOfAbsences` = '2' WHERE (`IdStudent` = '3') and (`IdClass` = 'Class03');
+
+
+DELETE FROM `studentmanagement`.`result` WHERE (`IdStudent` = '5') and (`IdClass` = 'Class05');
+DELETE FROM `studentmanagement`.`result` WHERE (`IdStudent` = '4') and (`IdClass` = 'Class04');
+UPDATE `studentmanagement`.`result` SET `IdClass` = 'Class04' WHERE (`IdStudent` = '2') and (`IdClass` = 'Class06');
+
+UPDATE `studentmanagement`.`studentofficial` SET `IdProfile` = '1' WHERE (`IdStudent` = '1') and (`IdClass` = 'Class01');
+UPDATE `studentmanagement`.`studentofficial` SET `IdProfile` = '2' WHERE (`IdStudent` = '2') and (`IdClass` = 'Class04');
+UPDATE `studentmanagement`.`studentofficial` SET `IdProfile` = '3' WHERE (`IdStudent` = '3') and (`IdClass` = 'Class03');
+
+UPDATE `studentmanagement`.`register` SET `State` = 'Registered' WHERE (`IdStudent` = '1');
+UPDATE `studentmanagement`.`register` SET `State` = 'Registered' WHERE (`IdStudent` = '2');
+UPDATE `studentmanagement`.`register` SET `State` = 'Registered' WHERE (`IdStudent` = '3');
+UPDATE `studentmanagement`.`register` SET `State` = 'Cancel' WHERE (`IdStudent` = '4');
+UPDATE `studentmanagement`.`register` SET `State` = 'Waitting' WHERE (`IdStudent` = '5');
+
+
+

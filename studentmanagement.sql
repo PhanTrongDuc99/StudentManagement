@@ -148,6 +148,10 @@ CREATE TABLE IF NOT EXISTS `studentmanagement`.`student` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
+ALTER TABLE `studentmanagement`.`student` 
+RENAME TO  `studentmanagement`.`studentunofficial` ;
+ALTER TABLE `studentmanagement`.`studentofficial` 
+ADD COLUMN `IdProfile` VARCHAR(20) NULL AFTER `IdClass`;
 
 
 -- -----------------------------------------------------
@@ -192,6 +196,11 @@ DEFAULT CHARACTER SET = utf8;
 
 ALTER TABLE `studentmanagement`.`result` 
 ADD COLUMN `NumberOfAbsences` INT NULL AFTER `MoneyPaid`;
+
+CREATE TABLE `studentmanagement`.`studentofficial` (
+  `IdStudent` VARCHAR(20) NOT NULL,
+  `IdClass` VARCHAR(20) NOT NULL,
+  PRIMARY KEY (`IdStudent`, `IdClass`));
 
 -- -----------------------------------------------------
 -- Table `studentmanagement`.`timekeeping`

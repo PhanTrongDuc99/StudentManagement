@@ -10,8 +10,13 @@ import java.util.List;
 
 /**
  *
- * @author USER
+ * @author PC
  */
-public interface ProfileDao {
-        public void insertProfileStudent(List<StudentUnofficial> students);
+public interface StudentUnofficialDao {
+
+    public List<StudentUnofficial> getAll();
+
+    public void insertStudent(List<StudentUnofficial> students);
+
+    //public List<Student> readStudentFromExcelFile(String excelFilePath);
 }

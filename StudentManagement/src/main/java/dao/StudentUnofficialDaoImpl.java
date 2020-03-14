@@ -9,8 +9,7 @@ import connection.ConnectionManager;
 import connection.ConnectionManagerImpl;
 import entities.Profile;
 import entities.Register;
-import entities.Result;
-import entities.Student;
+import entities.StudentUnofficial;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,28 +22,27 @@ import utils.DateUtils;
  *
  * @author PC
  */
-public class StudentDaoImpl implements StudentDao {
+public class StudentUnofficialDaoImpl implements StudentUnofficialDao {
 
     private ConnectionManager connectionManager;
     private Connection connection;
     private PreparedStatement preparedStatement;
     private ResultSet result;
 
-    public StudentDaoImpl() {
+    public StudentUnofficialDaoImpl() {
         connectionManager = new ConnectionManagerImpl();
     }
 
     @Override
-    public List<Student> getAll() {
+    public List<StudentUnofficial> getAll() {
         connection = connectionManager.getConnection();
-        List<Student> students = new ArrayList<>();
+        List<StudentUnofficial> studentUnofficials = new ArrayList<>();
 
         boolean gender;
-        String query = "SELECT st.Id, pr.Name, pr.Gender, pr.DayOfBirth, pr.PhoneNumber, pr.Hometown, pr.CurrentAddress, pr.IdNumber, pr.Email,rg.State, rg.TypeOfRegister,st.DiscountStatus, st.Cost, rs.StudyMark, rs.RewardMark, rs.DisciplineMark, rs.MoneyPaid, rs.NumberOfAbsences\n"
-                + "FROM STUDENT st\n"
+        String query = "SELECT st.Id, pr.Name, pr.Gender, pr.DayOfBirth, pr.PhoneNumber, pr.Hometown, pr.CurrentAddress, pr.IdNumber, pr.Email,rg.State, rg.TypeOfRegister,st.DiscountStatus, st.Cost\n"
+                + "FROM STUDENTUNOFFICIAL st\n"
                 + "INNER JOIN REGISTER rg ON st.Id= rg.IdStudent\n"
-                + "INNER JOIN PROFILE pr ON st.Id= pr.Id\n"
-                + "INNER JOIN RESULT rs ON st.Id=rs.IdStudent;";
+                + "INNER JOIN PROFILE pr ON st.Id= pr.Id\n";
         try {
             preparedStatement = connection.prepareStatement(query);
             result = preparedStatement.executeQuery();
@@ -56,10 +54,9 @@ public class StudentDaoImpl implements StudentDao {
                 }
                 Profile profile = new Profile(result.getString("Id"), result.getString("Name"), gender, result.getDate("DayOfBirth"), result.getString("IdNumber"),
                         result.getString("PhoneNumber"), result.getString("Email"), result.getString("Hometown"), result.getString("CurrentAddress"));
-                Result resultStudent = new Result(result.getDouble("StudyMark"), result.getDouble("RewardMark"), result.getDouble("DisciplineMark"), result.getDouble("MoneyPaid"), result.getInt("NumberOfAbsences"));
                 Register register = DateUtils.converToRegister(result.getString("State"), result.getString("TypeOfRegister"));
-                Student student = new Student(result.getString("Id"), profile, result.getDouble("DiscountStatus"), result.getDouble("Cost"), register, resultStudent);
-                students.add(student);
+                StudentUnofficial studentUnofficial = new StudentUnofficial(result.getString("Id"), profile, result.getDouble("DiscountStatus"), result.getDouble("Cost"), register);
+                studentUnofficials.add(studentUnofficial);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -72,11 +69,11 @@ public class StudentDaoImpl implements StudentDao {
                 e.printStackTrace();
             }
         }
-        return students;
+        return studentUnofficials;
     }
 
     @Override
-    public void insertStudent(List<Student> students) {
+    public void insertStudent(List<StudentUnofficial> students) {
         try {
             connection = connectionManager.getConnection();
             connection.setAutoCommit(false);
@@ -84,10 +81,10 @@ public class StudentDaoImpl implements StudentDao {
 
             preparedStatement = connection.prepareStatement(queryStudent);
 
-            for (Student student : students) {
-                preparedStatement.setString(1, student.getIdStudent());
+            for (StudentUnofficial student : students) {
+                preparedStatement.setString(1, student.getId());
                 preparedStatement.setDouble(2, student.getDiscountStatus());
-                preparedStatement.setString(3, student.getProfileStudent().getId());
+                preparedStatement.setString(3, student.getProfile().getId());
                 preparedStatement.setDouble(4, student.getCost());
                 preparedStatement.addBatch();
             }
