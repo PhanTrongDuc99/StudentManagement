@@ -61,5 +61,4 @@ public class StudentOfficial extends StudentUnofficial {
     public String toString() {
         return "StudentOfficial{" + super.toString() + "resultStudy=" + resultStudy + '}';
     }
-
 }

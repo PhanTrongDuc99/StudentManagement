@@ -19,6 +19,9 @@ public class StudentUnofficial {
     private Double cost;
     private Register register;
 
+    public StudentUnofficial() {
+    }
+
     public StudentUnofficial(String id, Profile profile, Double discountStatus, Double cost, Register register) {
         this.id = id;
         this.profile = profile;

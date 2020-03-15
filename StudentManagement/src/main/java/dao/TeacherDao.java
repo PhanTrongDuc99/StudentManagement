@@ -15,4 +15,9 @@ import java.util.List;
 public interface TeacherDao {
 
     public List<Teacher> getAll();
+
+    public void insertTeacher(Teacher teacher);
+
+    public void insertTeachers(List<Teacher> teachers);
+
 }

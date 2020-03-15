@@ -15,6 +15,7 @@ import java.util.List;
 public interface StudentUnofficialService {
 
     public List<StudentUnofficial> getAll();
-    public void insertStudentsFromExcelFile(List<StudentUnofficial> students);
+    public void insertStudent(StudentUnofficial student);
+    public void insertStudents(List<StudentUnofficial> students);
 }
 

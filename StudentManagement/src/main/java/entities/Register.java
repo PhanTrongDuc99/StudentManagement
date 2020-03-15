@@ -14,10 +14,17 @@ import common.RegisterType;
  */
 public class Register {
 
+    private String id;
     private RegisterStatus status;
     private RegisterType type;
 
     public Register() {
+    }
+
+    public Register(String id, RegisterStatus status, RegisterType type) {
+        this.id = id;
+        this.status = status;
+        this.type = type;
     }
 
     public Register(RegisterStatus status, RegisterType type) {
@@ -41,10 +48,17 @@ public class Register {
         this.type = type;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
-        return "Status: "+status+" - Type: "+ type; //To change body of generated methods, choose Tools | Templates.
+        return "Status: " + status + " - Type: " + type; //To change body of generated methods, choose Tools | Templates.
     }
-    
 
 }

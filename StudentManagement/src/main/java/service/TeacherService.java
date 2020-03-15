@@ -15,4 +15,7 @@ import java.util.List;
 public interface TeacherService {
 
     public List<Teacher> getAll();
+
+    public void insertTeacher(Teacher teacher);
+
 }

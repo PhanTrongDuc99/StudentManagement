@@ -24,7 +24,6 @@ public class ConfigurationProviderImpl implements ConfigurationProvider {
         try {
             inputStream = new FileInputStream(file);
             properties.load(inputStream);
-            System.out.println("pro succsess");
         } catch (Exception e) {
             System.out.println("Properties Exception");
         }

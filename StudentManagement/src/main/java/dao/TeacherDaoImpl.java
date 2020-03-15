@@ -71,4 +71,60 @@ public class TeacherDaoImpl implements TeacherDao {
         return teachers;
     }
 
+    @Override
+    public void insertTeacher(Teacher teacher) {
+        try {
+            connection = connectionManager.getConnection();
+            String query = "INSERT INTO teacher(Id, Workplace, Salary, IdProfile) "
+                    + "VALUES(?,?,?,(SELECT Id from profile WHERE profile.Id=?))";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, teacher.getIdTeacher());
+            preparedStatement.setString(2, teacher.getWorkPlace());
+            preparedStatement.setDouble(3, teacher.getSalary());
+            preparedStatement.setString(4, teacher.getIdTeacher());
+            preparedStatement.execute(query);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                preparedStatement.close();
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(TeacherDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+    }
+     @Override
+    public void insertTeachers(List<Teacher> teachers) {
+        try {
+            connection = connectionManager.getConnection();
+            connection.setAutoCommit(false);
+            String query = "INSERT INTO teacher(Id, Workplace, Salary, IdProfile) "
+                    + "VALUES(?,?,?,(SELECT Id from profile WHERE profile.Id=?))";
+            preparedStatement = connection.prepareStatement(query);
+            for (Teacher teacher : teachers) {
+                preparedStatement.setString(1, teacher.getIdTeacher());
+                preparedStatement.setString(2, teacher.getWorkPlace());
+                preparedStatement.setDouble(3, teacher.getSalary());
+                preparedStatement.setString(4, teacher.getProfileTeacher().getId());
+                preparedStatement.addBatch();
+            }
+            preparedStatement.executeBatch();
+            connection.commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                preparedStatement.close();
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(TeacherDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+    }
+
 }

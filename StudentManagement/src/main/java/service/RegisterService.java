@@ -5,20 +5,17 @@
  */
 package service;
 
-import entities.Profile;
+import entities.Register;
 import entities.StudentUnofficial;
-import entities.Teacher;
 import java.util.List;
 
 /**
  *
  * @author USER
  */
-public interface ProfileService {
+public interface RegisterService {
 
-    public void insertProfile(Profile profile);
+    public void insertRegister(Register register);
 
-    public void insertProfileStudent(List<StudentUnofficial> students);
-
-    public void insertProfileTeacher(List<Teacher> teachers);
+    public void insertRegisters(List<StudentUnofficial> students);
 }

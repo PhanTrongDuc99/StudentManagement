@@ -5,11 +5,15 @@
  */
 package view;
 
-import common.ReadFromExcelFile;
+import entities.Profile;
+import entities.Register;
 import java.util.List;
 import entities.StudentUnofficial;
+import readFromExcelFile.ReadStudentUnofficicalFromExcelFile;
 import service.ProfileService;
 import service.ProfileServiceImpl;
+import service.RegisterService;
+import service.RegisterServiceImpl;
 import service.StudentUnofficialServiceImpl;
 import service.StudentUnofficialService;
 
@@ -20,11 +24,15 @@ import service.StudentUnofficialService;
 public class StudentUnofficialView {
 
     public static void main(String[] args) {
-        StudentUnofficialService studentUnofficialService = new StudentUnofficialServiceImpl();
         ProfileService prService = new ProfileServiceImpl();
-        List<StudentUnofficial> students = studentUnofficialService.getAll();
-        System.out.println("List students: ");
-        students.forEach(item -> System.out.println(item));
+        RegisterService reService = new RegisterServiceImpl();
+        StudentUnofficialService st = new StudentUnofficialServiceImpl();
+        List<StudentUnofficial> students = ReadStudentUnofficicalFromExcelFile.readStudentFromExcelFile("F:\\JavaProject\\StudentManagement\\student.xlsx");
+        prService.insertProfileStudent(students);
+        reService.insertRegisters(students);
+        st.insertStudents(students);
+        // prService.insertProfileStudent(students);
+
         // List<Student> students = ReadFromExcelFile.readStudentFromExcelFile("F:\\JavaProject\\StudentManagement\\student.xlsx");
         //students.forEach(System.out::println);
         //prService.insertProfileStudent(students);

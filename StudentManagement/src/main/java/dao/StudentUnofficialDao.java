@@ -16,7 +16,8 @@ public interface StudentUnofficialDao {
 
     public List<StudentUnofficial> getAll();
 
-    public void insertStudent(List<StudentUnofficial> students);
+    public void insertStudent(StudentUnofficial student);
+    public void insertStudents(List<StudentUnofficial> students);
 
     //public List<Student> readStudentFromExcelFile(String excelFilePath);
 }

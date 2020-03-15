@@ -5,7 +5,6 @@
  */
 package service;
 
-import common.ReadFromExcelFile;
 import dao.StudentUnofficialDaoImpl;
 import entities.StudentUnofficial;
 import java.util.List;
@@ -29,7 +28,12 @@ public class StudentUnofficialServiceImpl implements StudentUnofficialService {
     }
 
     @Override
-    public void insertStudentsFromExcelFile(List<StudentUnofficial> students) {
-        studentUnofficialDao.insertStudent(students);
+    public void insertStudent(StudentUnofficial student) {
+        studentUnofficialDao.insertStudent(student);
+    }
+
+    @Override
+    public void insertStudents(List<StudentUnofficial> students) {
+        studentUnofficialDao.insertStudents(students);
     }
 }

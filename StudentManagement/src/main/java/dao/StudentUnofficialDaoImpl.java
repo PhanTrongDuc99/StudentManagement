@@ -16,6 +16,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import utils.DateUtils;
 
 /**
@@ -28,6 +30,7 @@ public class StudentUnofficialDaoImpl implements StudentUnofficialDao {
     private Connection connection;
     private PreparedStatement preparedStatement;
     private ResultSet result;
+    private final String queryStudent = "INSERT INTO studentunofficial(Id, DiscountStatus, IdProfile , Cost, IdRegister) VALUES(?,?,(SELECT Id from profile WHERE profile.Id=?),?,(SELECT Id from register WHERE register.Id=?))";
 
     public StudentUnofficialDaoImpl() {
         connectionManager = new ConnectionManagerImpl();
@@ -73,23 +76,16 @@ public class StudentUnofficialDaoImpl implements StudentUnofficialDao {
     }
 
     @Override
-    public void insertStudent(List<StudentUnofficial> students) {
+    public void insertStudent(StudentUnofficial student) {
         try {
             connection = connectionManager.getConnection();
-            connection.setAutoCommit(false);
-            String queryStudent = "INSERT INTO student(Id, DiscountStatus, IdProfile , Cost) VALUES(?,?,(SELECT Id from profile WHERE profile.Id=?),?)";
-
             preparedStatement = connection.prepareStatement(queryStudent);
-
-            for (StudentUnofficial student : students) {
-                preparedStatement.setString(1, student.getId());
-                preparedStatement.setDouble(2, student.getDiscountStatus());
-                preparedStatement.setString(3, student.getProfile().getId());
-                preparedStatement.setDouble(4, student.getCost());
-                preparedStatement.addBatch();
-            }
-            preparedStatement.executeBatch();
-            connection.commit();
+            preparedStatement.setString(1, student.getId());
+            preparedStatement.setDouble(2, student.getDiscountStatus());
+            preparedStatement.setString(3, student.getId());
+            preparedStatement.setDouble(4, student.getCost());
+            preparedStatement.setString(5, student.getId());
+            preparedStatement.execute(queryStudent);
         } catch (SQLException ex) {
             ex.printStackTrace();
 
@@ -101,6 +97,37 @@ public class StudentUnofficialDaoImpl implements StudentUnofficialDao {
                 ex.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public void insertStudents(List<StudentUnofficial> students) {
+        try {
+            connection = connectionManager.getConnection();
+            connection.setAutoCommit(false);
+
+            preparedStatement = connection.prepareStatement(queryStudent);
+            for (StudentUnofficial student : students) {
+                preparedStatement.setString(1, student.getId());
+                preparedStatement.setDouble(2, student.getDiscountStatus());
+                preparedStatement.setString(3, student.getId());
+                preparedStatement.setDouble(4, student.getCost());
+                preparedStatement.setString(5, student.getId());
+                preparedStatement.addBatch();
+            }
+            preparedStatement.executeBatch();
+            connection.commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                preparedStatement.close();
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(TeacherDaoImpl.class.getName()).log(Level.ALL.SEVERE, null, ex);
+            }
+        }
+
     }
 
 }

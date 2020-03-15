@@ -10,7 +10,7 @@ package common;
  * @author USER
  */
 public enum RegisterType {
-    INTERNET("Registered in the Internet"), MARKETING("Registered through the marketing campaign"), DIRECT("Registered at Center");
+    INTERNET("internet"), MARKETING("marketing"), DIRECT("direct");
     String note;
 
     private RegisterType() {

@@ -5,21 +5,18 @@
  */
 package dao;
 
-import entities.Profile;
+import entities.Register;
 import entities.StudentUnofficial;
-import entities.Teacher;
 import java.util.List;
 
 /**
  *
  * @author USER
  */
-public interface ProfileDao {
+public interface RegisterDao {
 
-    public void insertProfile(Profile profile);
+    public void insertRegister(Register register);
 
-    public void insertProfileStudents(List<StudentUnofficial> students);
-
-    public void insertProfileTeachers(List<Teacher> teachers);
+    public void insertRegisters(List<StudentUnofficial> students);
 
 }
