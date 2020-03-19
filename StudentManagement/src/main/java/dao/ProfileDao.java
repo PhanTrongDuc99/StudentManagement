@@ -15,6 +15,8 @@ import java.util.List;
  * @author USER
  */
 public interface ProfileDao {
+    
+    public List<Profile> getProfileStudent();
 
     public void insertProfile(Profile profile);
 

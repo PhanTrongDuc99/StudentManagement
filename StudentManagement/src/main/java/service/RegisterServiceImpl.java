@@ -32,5 +32,6 @@ public class RegisterServiceImpl implements RegisterService {
     public void insertRegisters(List<StudentUnofficial> students) {
         registerDao.insertRegisters(students);
     }
+    
 
 }

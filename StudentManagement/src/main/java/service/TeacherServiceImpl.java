@@ -32,4 +32,9 @@ public class TeacherServiceImpl implements TeacherService {
         teacherDao.insertTeacher(teacher);
     }
 
+    @Override
+    public void insertTeachers(List<Teacher> teachers) {
+        teacherDao.insertTeachers(teachers);
+    }
+
 }

@@ -15,6 +15,7 @@ import javax.swing.ImageIcon;
 public class ImageUtils {
 
     private static final String TITLE_DEFAULT_IMAGE = "E:\\Photo\\Love.jpg";
+    //private static final String TITLE_DEFAULT_IMAGE = "F:\\JavaProject\\StudentManagement\\StudentManagement\\src\\main\\java\\image\\titleImage.jpg";
 
     private ImageUtils() {
     }

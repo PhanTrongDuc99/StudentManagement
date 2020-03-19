@@ -6,12 +6,12 @@
 package readFromExcelFile;
 
 import common.CellValue;
+import common.NameColumn;
 import common.RegisterStatus;
 import common.RegisterType;
 import common.WorkBookValue;
 import entities.Profile;
 import entities.Register;
-import entities.StudentOfficial;
 import entities.StudentUnofficial;
 import java.io.File;
 import java.io.FileInputStream;

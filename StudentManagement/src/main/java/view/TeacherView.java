@@ -24,11 +24,8 @@ public class TeacherView {
         TeacherService teacherService = new TeacherServiceImpl();
         ProfileDao prDao = new ProfileDaoImpl();
         List<Teacher> teachers = ReadTeacherFromExcelFile.readTeacherFromFile("F:\\JavaProject\\StudentManagement\\teacher.xlsx");
-        for (Teacher teacher : teachers) {
-            Profile profile = teacher.getProfileTeacher();
-            prDao.insertProfile(profile);
-            teacherService.insertTeacher(teacher);
-        }
+        prDao.insertProfileTeachers(teachers);
+        teacherService.insertTeachers(teachers);
     }
 
 }

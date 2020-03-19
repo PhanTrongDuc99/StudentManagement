@@ -5,6 +5,7 @@
  */
 package service;
 
+import entities.Profile;
 import entities.Register;
 import entities.StudentUnofficial;
 import java.util.List;
