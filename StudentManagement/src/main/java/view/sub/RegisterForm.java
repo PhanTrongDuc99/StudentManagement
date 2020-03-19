@@ -7,7 +7,6 @@ package view.sub;
 
 import entities.Profile;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -208,8 +207,7 @@ public class RegisterForm extends javax.swing.JFrame {
         getContentPane().add(register, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, 350, 440));
 
         background.setBackground(new java.awt.Color(204, 204, 255));
-        background.setIcon(new javax.swing.ImageIcon("F:\\JavaProject\\StudentManagement\\StudentManagement\\src\\main\\java\\image\\background.jpg")); // NOI18N
-        background.setText("jLabel1");
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/background.jpg"))); // NOI18N
         getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 480));
 
         pack();

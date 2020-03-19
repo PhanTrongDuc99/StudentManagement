@@ -66,7 +66,7 @@ public class TrainingCenterFrame extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(1080, 700);
         setLocationRelativeTo(null);
-        setIconImage(ImageUtils.load("E:\\StudentManagement\\StudentManagement\\src\\main\\java\\images\\logo.png"));
+        setIconImage(ImageUtils.load(getClass().getResource("/images/logo.png").getPath()));
         container.setLayout(borderLayout);
         initComponents();
         initEvents();
