@@ -44,7 +44,7 @@ public class StudentUnofficialDaoImpl implements StudentUnofficialDao {
         boolean gender;
         String query = "SELECT st.Id, pr.Name, pr.Gender, pr.DayOfBirth, pr.PhoneNumber, pr.Hometown, pr.CurrentAddress, pr.IdNumber, pr.Email,rg.State, rg.TypeOfRegister,st.DiscountStatus, st.Cost\n"
                 + "FROM STUDENTUNOFFICIAL st\n"
-                + "INNER JOIN REGISTER rg ON st.Id= rg.IdStudent\n"
+                + "INNER JOIN REGISTER rg ON st.Id = rg.Id\n"
                 + "INNER JOIN PROFILE pr ON st.Id= pr.Id\n";
         try {
             preparedStatement = connection.prepareStatement(query);

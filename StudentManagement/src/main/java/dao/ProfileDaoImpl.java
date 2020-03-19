@@ -14,6 +14,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.stream.Collectors;
 import utils.DateUtils;
 
 /**
@@ -36,7 +37,6 @@ public class ProfileDaoImpl implements ProfileDao {
     public void insertProfile(Profile profile) {
         connection = connectionManager.getConnection();
         try {
-
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, profile.getFullName());
             preparedStatement.setBoolean(2, profile.isGender());
@@ -131,5 +131,11 @@ public class ProfileDaoImpl implements ProfileDao {
             }
 
         }
+    }
+
+    @Override
+    public List<Profile> getProfileStudent() {
+        StudentUnofficialDao studentDao = new StudentUnofficialDaoImpl();
+        return studentDao.getAll().stream().map(StudentUnofficial::getProfile).collect(Collectors.toList());
     }
 }

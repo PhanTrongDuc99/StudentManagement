@@ -18,4 +18,6 @@ public interface TeacherService {
 
     public void insertTeacher(Teacher teacher);
 
+    public void insertTeachers(List<Teacher> teachers);
+
 }

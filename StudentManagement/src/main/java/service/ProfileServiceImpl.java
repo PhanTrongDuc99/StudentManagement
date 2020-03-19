@@ -8,7 +8,6 @@ package service;
 import dao.ProfileDao;
 import dao.ProfileDaoImpl;
 import entities.Profile;
-import entities.StudentOfficial;
 import entities.StudentUnofficial;
 import entities.Teacher;
 import java.util.List;
@@ -38,6 +37,11 @@ public class ProfileServiceImpl implements ProfileService {
     @Override
     public void insertProfileTeacher(List<Teacher> teachers) {
         profileDao.insertProfileTeachers(teachers);
+    }
+
+    @Override
+    public List<Profile> getProfileStudents() {
+        return profileDao.getProfileStudent();
     }
 
 }

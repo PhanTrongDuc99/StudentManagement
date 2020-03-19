@@ -3,13 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Form;
+package view.sub;
 
 import entities.Profile;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Date;
-import utils.EmailUtil;
+import java.util.List;
+import java.util.stream.Collectors;
+import javax.swing.BorderFactory;
+import javax.swing.JTextField;
+import javax.swing.border.Border;
+import service.ProfileService;
+import service.ProfileServiceImpl;
+import utils.CheckUtil;
+import utils.RandomId;
 
 /**
  *
@@ -27,10 +39,11 @@ public class RegisterForm extends javax.swing.JFrame {
     public void initEvens() {
         nameTextFieldEvens();
         phoneTextFieldEvens();
+        emailTextFieldEvens();
         hometownTextFieldEvens();
         addressTextFieldEvens();
-        EmailTextFieldEvens();
-        registerButtonEvens();
+        idNumberTextFieldEvens();
+        registerButtonEvents();
     }
 
     @SuppressWarnings("unchecked")
@@ -46,7 +59,7 @@ public class RegisterForm extends javax.swing.JFrame {
         dayOfBirthLabel = new javax.swing.JLabel();
         emailTextField = new javax.swing.JTextField();
         emailLabel = new javax.swing.JLabel();
-        hometownTextFied = new javax.swing.JTextField();
+        hometownTextField = new javax.swing.JTextField();
         hometowmLabel = new javax.swing.JLabel();
         registerButton = new javax.swing.JButton();
         noteLabel = new javax.swing.JLabel();
@@ -55,16 +68,17 @@ public class RegisterForm extends javax.swing.JFrame {
         addressTextFied = new javax.swing.JTextField();
         addressLabel = new javax.swing.JLabel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        idNumberTextField = new javax.swing.JTextField();
+        idNumberLabel = new javax.swing.JLabel();
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(670, 500));
         setMinimumSize(new java.awt.Dimension(670, 500));
-        setPreferredSize(new java.awt.Dimension(670, 500));
         setSize(new java.awt.Dimension(0, 0));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         register.setBackground(new java.awt.Color(204, 255, 204));
+        register.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         register.setLayout(null);
 
         title.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
@@ -74,9 +88,9 @@ public class RegisterForm extends javax.swing.JFrame {
         title.setBounds(100, 10, 140, 30);
 
         nameLabel.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        nameLabel.setText("Name");
+        nameLabel.setText("Full Name");
         register.add(nameLabel);
-        nameLabel.setBounds(20, 50, 50, 30);
+        nameLabel.setBounds(20, 50, 60, 30);
 
         nameTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,12 +98,12 @@ public class RegisterForm extends javax.swing.JFrame {
             }
         });
         register.add(nameTextField);
-        nameTextField.setBounds(80, 50, 130, 30);
+        nameTextField.setBounds(90, 50, 240, 30);
 
         phoneLabel.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         phoneLabel.setText("Phone");
         register.add(phoneLabel);
-        phoneLabel.setBounds(20, 100, 50, 30);
+        phoneLabel.setBounds(20, 100, 40, 30);
 
         phoneTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,7 +111,7 @@ public class RegisterForm extends javax.swing.JFrame {
             }
         });
         register.add(phoneTextField);
-        phoneTextField.setBounds(80, 100, 220, 30);
+        phoneTextField.setBounds(70, 100, 90, 30);
 
         dayOfBirthLabel.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         dayOfBirthLabel.setText("Birthday");
@@ -110,20 +124,20 @@ public class RegisterForm extends javax.swing.JFrame {
             }
         });
         register.add(emailTextField);
-        emailTextField.setBounds(80, 200, 220, 30);
+        emailTextField.setBounds(80, 200, 250, 30);
 
         emailLabel.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         emailLabel.setText("Email");
         register.add(emailLabel);
         emailLabel.setBounds(20, 200, 50, 30);
 
-        hometownTextFied.addActionListener(new java.awt.event.ActionListener() {
+        hometownTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hometownTextFiedActionPerformed(evt);
+                hometownTextFieldActionPerformed(evt);
             }
         });
-        register.add(hometownTextFied);
-        hometownTextFied.setBounds(120, 250, 180, 30);
+        register.add(hometownTextField);
+        hometownTextField.setBounds(120, 250, 210, 30);
 
         hometowmLabel.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         hometowmLabel.setText("Hometown");
@@ -169,7 +183,7 @@ public class RegisterForm extends javax.swing.JFrame {
             }
         });
         register.add(addressTextFied);
-        addressTextFied.setBounds(120, 300, 180, 30);
+        addressTextFied.setBounds(120, 300, 210, 30);
 
         addressLabel.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         addressLabel.setText("Current Address");
@@ -178,7 +192,20 @@ public class RegisterForm extends javax.swing.JFrame {
         register.add(jDateChooser1);
         jDateChooser1.setBounds(80, 150, 91, 30);
 
-        getContentPane().add(register, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 320, 440));
+        idNumberTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                idNumberTextFieldActionPerformed(evt);
+            }
+        });
+        register.add(idNumberTextField);
+        idNumberTextField.setBounds(240, 100, 90, 30);
+
+        idNumberLabel.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        idNumberLabel.setText("Id Number");
+        register.add(idNumberLabel);
+        idNumberLabel.setBounds(170, 100, 70, 30);
+
+        getContentPane().add(register, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, 350, 440));
 
         background.setBackground(new java.awt.Color(204, 204, 255));
         background.setIcon(new javax.swing.ImageIcon("F:\\JavaProject\\StudentManagement\\StudentManagement\\src\\main\\java\\image\\background.jpg")); // NOI18N
@@ -199,9 +226,9 @@ public class RegisterForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_emailTextFieldActionPerformed
 
-    private void hometownTextFiedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hometownTextFiedActionPerformed
+    private void hometownTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hometownTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_hometownTextFiedActionPerformed
+    }//GEN-LAST:event_hometownTextFieldActionPerformed
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
         // TODO add your handling code here:
@@ -215,13 +242,11 @@ public class RegisterForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_addressTextFiedActionPerformed
 
+    private void idNumberTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idNumberTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_idNumberTextFieldActionPerformed
+
     public static void main(String args[]) {
-//
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new RegisterForm().setVisible(true);
-//            }
-//        });
         RegisterForm reg = new RegisterForm();
         reg.setVisible(true);
     }
@@ -236,7 +261,9 @@ public class RegisterForm extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> genderComboBox;
     private javax.swing.JLabel genderLabel;
     private javax.swing.JLabel hometowmLabel;
-    private javax.swing.JTextField hometownTextFied;
+    private javax.swing.JTextField hometownTextField;
+    private javax.swing.JLabel idNumberLabel;
+    private javax.swing.JTextField idNumberTextField;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JTextField nameTextField;
@@ -248,7 +275,10 @@ public class RegisterForm extends javax.swing.JFrame {
     private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
 
-    public void registerButtonEvens() {
+    public void registerButtonEvents() {
+        RandomId rand = new RandomId();
+        List<String> strings = new ProfileServiceImpl().getProfileStudents().stream().map(Profile::getId).collect(Collectors.toList());
+
         registerButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -256,79 +286,133 @@ public class RegisterForm extends javax.swing.JFrame {
                 String phone = phoneTextField.getText();
                 String email = emailTextField.getText();
                 String address = addressTextFied.getText();
-                String hometown = hometownTextFied.getText();
+                String hometown = hometownTextField.getText();
                 Date dayOfBirth = jDateChooser1.getDate();
-                
-                Profile profile = new Profile();
-                
-
+                String id = rand.randomId(strings);
+                Boolean gender = genderComboBox.getSelectedIndex() == 1;
+                Profile profile = new Profile(id, name, gender, dayOfBirth, name, phone, email, hometown, address);
+                ProfileService pro = new ProfileServiceImpl();
+                pro.insertProfile(profile);
+                noteLabel.setText("Registered Successfully!!!");
             }
         });
     }
 
-    public void nameTextFieldEvens() {
-        nameTextField.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseExited(MouseEvent e) {
-                if (nameTextField.getText().isEmpty()) {
-                    noteLabel.setText("Your name is empty!!!");
-                }
-            }
-        });
+    private final Border highLightBorder = BorderFactory.createLineBorder(Color.RED, 1);
+    private final Border defaultBorder = new JTextField().getBorder();
+
+    private void nameTextFieldEvens() {
+        stringTextFieldEvens(nameTextField);
     }
 
-    public void phoneTextFieldEvens() {
-        phoneTextField.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseExited(MouseEvent e) {
-                String phone = phoneTextField.getText();
-                if (phone.isEmpty()) {
-                    noteLabel.setText("Your phone is empty!!!");
-                }
-                try {
-                    Double phoneString = Double.parseDouble(phone);
-                } catch (NumberFormatException ex) {
-                    noteLabel.setText("Your phone number is invalid!!!");
-                }
-            }
-
-        });
+    private void phoneTextFieldEvens() {
+        numberTextFieldEvens(phoneTextField);
     }
 
-    public void EmailTextFieldEvens() {
+    private void idNumberTextFieldEvens() {
+        numberTextFieldEvens(idNumberTextField);
+    }
+
+    private void emailTextFieldEvens() {
         emailTextField.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (emailTextField.getText().isEmpty()) {
+                    emailTextField.setBorder(highLightBorder);
+                }
+            }
+
             @Override
             public void mouseExited(MouseEvent e) {
                 String email = emailTextField.getText();
-
-                if (email.isEmpty()) {
-                    noteLabel.setText("Your email is empty!!!");
-                } else if (EmailUtil.validateEmail(email)) {
-                    noteLabel.setText("Your email is invalid!!!");
+                if (!email.isEmpty()) {
+                    emailTextField.setBorder(defaultBorder);
+                }
+                if (!CheckUtil.validateEmail(email)) {
+                    emailTextField.setBorder(highLightBorder);
                 }
             }
         });
+
+        emailTextField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                emailTextField.setBorder(defaultBorder);
+            }
+        });
+
     }
 
-    public void hometownTextFieldEvens() {
-        hometownTextFied.addMouseListener(new MouseAdapter() {
+    private void hometownTextFieldEvens() {
+        stringTextFieldEvens(hometownTextField);
+    }
+
+    private void addressTextFieldEvens() {
+        stringTextFieldEvens(addressTextFied);
+    }
+
+    private void stringTextFieldEvens(JTextField textField) {
+        textField.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (textField.getText().isEmpty()) {
+                    textField.setBorder(highLightBorder);
+                } else {
+                    textField.setBorder(defaultBorder);
+                }
+            }
+
             @Override
             public void mouseExited(MouseEvent e) {
-                if (hometownTextFied.getText().isEmpty()) {
-                    noteLabel.setText("Your Hometown is empty!!!");
+                if (!textField.getText().isEmpty()) {
+                    textField.setBorder(defaultBorder);
                 }
             }
         });
+
+        textField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                textField.setBorder(defaultBorder);
+            }
+        });
+
     }
 
-    public void addressTextFieldEvens() {
-        addressTextFied.addMouseListener(new MouseAdapter() {
+    private void numberTextFieldEvens(JTextField textField) {
+        textField.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (textField.getText().isEmpty()) {
+                    textField.setBorder(highLightBorder);
+                }else {
+                    textField.setBorder(defaultBorder);
+                }
+            }
+
             @Override
             public void mouseExited(MouseEvent e) {
-                if (addressTextFied.getText().isEmpty()) {
-                    noteLabel.setText("Your Current address is empty!!!");
+                String phone = textField.getText();
+                if (phone.isEmpty()) {
+                    textField.setBorder(highLightBorder);
+                } else if (!CheckUtil.validatePhone(phone)) {
+                    textField.setBorder(highLightBorder);
+                } else {
+                    textField.setBorder(defaultBorder);
                 }
             }
         });
+
+        textField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                textField.setBorder(defaultBorder);
+            }
+        });
+
     }
+
 }

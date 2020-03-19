@@ -9,6 +9,8 @@ import entities.Profile;
 import entities.Register;
 import java.util.List;
 import entities.StudentUnofficial;
+import java.sql.Date;
+import java.time.LocalDate;
 import readFromExcelFile.ReadStudentUnofficicalFromExcelFile;
 import service.ProfileService;
 import service.ProfileServiceImpl;
@@ -31,11 +33,8 @@ public class StudentUnofficialView {
         prService.insertProfileStudent(students);
         reService.insertRegisters(students);
         st.insertStudents(students);
-        // prService.insertProfileStudent(students);
 
-        // List<Student> students = ReadFromExcelFile.readStudentFromExcelFile("F:\\JavaProject\\StudentManagement\\student.xlsx");
-        //students.forEach(System.out::println);
-        //prService.insertProfileStudent(students);
-        //studentService.insertStudentsFromExcelFile(students);
+//        Profile profile = new Profile("0000", "Hong", true, Date.valueOf(LocalDate.of(1999, 9, 8)), "1321232", "000000000", "nguyenhong1999@gmail.com", "QB", "QB");
+//        prService.insertProfile(profile);
     }
 }

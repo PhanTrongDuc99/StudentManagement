@@ -6,6 +6,7 @@
 package readFromExcelFile;
 
 import common.CellValue;
+import common.NameColumn;
 import common.RegisterStatus;
 import common.RegisterType;
 import common.WorkBookValue;

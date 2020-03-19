@@ -90,12 +90,18 @@ public class DateUtils {
     }
 
     public static Date convertToSqlDate(java.util.Date date) {
-        Instant instant = date.toInstant();
-        ZoneId zoneId = ZoneId.of("America/Montreal");
-        ZonedDateTime zdt = ZonedDateTime.ofInstant(instant, zoneId);
-        LocalDate localDate = zdt.toLocalDate();
-        return Date.valueOf(localDate);
+//        Instant instant = date.toInstant();
+//        ZoneId zoneId = ZoneId.of("America/Montreal");
+//        ZonedDateTime zdt = ZonedDateTime.ofInstant(instant, zoneId);
+//        LocalDate localDate = zdt.toLocalDate();
+//        return Date.valueOf(localDate);
+        java.sql.Date sqlDate = null;
+        if (date != null) {
+            sqlDate = new Date(date.getTime());
+        }
+        return sqlDate;
     }
+    
 
     public static LocalTime convertToLocalTime(String time) {
         return LocalTime.parse(time);
