@@ -13,5 +13,6 @@ public enum CardKey {
     HOMEPAGE,
     COURSE,
     GRADE,
-    STUDENT
+    STUDENT,
+    TEACHER
 }
