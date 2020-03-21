@@ -20,7 +20,15 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 CREATE SCHEMA IF NOT EXISTS `studentmanagement` DEFAULT CHARACTER SET utf8 ;
 USE `studentmanagement` ;
 
+CREATE TABLE `studentmanagement`.`admin` (
+  
+`Id` VARCHAR(20) NOT NULL,
+  `Username` TEXT NOT NULL,
+  `Password` TEXT NOT NULL,
+  PRIMARY KEY (`Id`));
+
 -- -----------------------------------------------------
+
 -- Table `studentmanagement`.`cost`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `studentmanagement`.`cost` (
