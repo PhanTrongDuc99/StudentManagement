@@ -15,7 +15,10 @@ import java.util.List;
  * @author USER
  */
 public interface ProfileService {
+
     public List<Profile> getProfileStudents();
+
+    public List<Profile> getProfileTeacher();
 
     public void insertProfile(Profile profile);
 

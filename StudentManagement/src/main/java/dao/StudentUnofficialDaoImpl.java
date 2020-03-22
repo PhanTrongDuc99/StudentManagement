@@ -30,7 +30,8 @@ public class StudentUnofficialDaoImpl implements StudentUnofficialDao {
     private Connection connection;
     private PreparedStatement preparedStatement;
     private ResultSet result;
-    private final String queryStudent = "INSERT INTO studentunofficial(Id, DiscountStatus, IdProfile , Cost, IdRegister) VALUES(?,?,(SELECT Id from profile WHERE profile.Id=?),?,(SELECT Id from register WHERE register.Id=?))";
+    private final String queryStudent = "INSERT INTO studentunofficial(Id, DiscountStatus, IdProfile , Cost, IdRegister) "
+            + "VALUES(?,?,(SELECT Id from profile WHERE profile.Id=?),?,(SELECT Id from register WHERE register.Id=?))";
 
     public StudentUnofficialDaoImpl() {
         connectionManager = new ConnectionManagerImpl();

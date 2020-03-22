@@ -29,6 +29,8 @@ public class TeacherDaoImpl implements TeacherDao {
     private Connection connection;
     private PreparedStatement preparedStatement;
     private ResultSet result;
+    private final String query = "INSERT INTO teacher(Id, Workplace, Salary, IdProfile, IdTimeKeeping) "
+            + "VALUES(?,?,?,(SELECT Id from profile WHERE profile.Id=?),(SELECT Id from timekeeping WHERE timekeeping.Id=?))";
 
     public TeacherDaoImpl() {
         connectionManager = new ConnectionManagerImpl();
@@ -42,7 +44,7 @@ public class TeacherDaoImpl implements TeacherDao {
         String query = "SELECT tc.Id,tc.IdProfile, pr.Name, pr.Gender,  pr.DayOfBirth, pr.PhoneNumber, pr.Hometown, pr.CurrentAddress, pr.IdNumber,tc.Workplace, tc.Salary, pr.Email, tk.TeachingHours, tk.RewardLevel, tk.DisciplineLevel  \n"
                 + "FROM TEACHER tc\n"
                 + "INNER JOIN PROFILE pr ON pr.Id=tc.IdProfile\n"
-                + "INNER JOIN TIMEKEEPING tk ON tk.IdTeacher=tc.Id;";
+                + "INNER JOIN TIMEKEEPING tk ON tk.Id=tc.Id;";
         try {
             preparedStatement = connection.prepareStatement(query);
             result = preparedStatement.executeQuery();
@@ -54,7 +56,7 @@ public class TeacherDaoImpl implements TeacherDao {
                 }
                 Profile profile = new Profile(result.getString("Id"), result.getString("Name"), gender, result.getDate("DayOfBirth"), result.getString("IdNumber"),
                         result.getString("PhoneNumber"), result.getString("Email"), result.getString("Hometown"), result.getString("CurrentAddress"));
-                TimeKeeping timeKeeping = new TimeKeeping(result.getDouble("TeachingHours"), result.getString("RewardLevel"), result.getString("DisciplineLevel"));
+                TimeKeeping timeKeeping = new TimeKeeping(result.getString("Id"), result.getDouble("TeachingHours"), result.getString("RewardLevel"), result.getString("DisciplineLevel"));
                 teachers.add(new Teacher(result.getString("Id"), profile, result.getDouble("Salary"), timeKeeping, result.getString("Workplace")));
             }
         } catch (Exception ex) {
@@ -75,13 +77,13 @@ public class TeacherDaoImpl implements TeacherDao {
     public void insertTeacher(Teacher teacher) {
         try {
             connection = connectionManager.getConnection();
-            String query = "INSERT INTO teacher(Id, Workplace, Salary, IdProfile) "
-                    + "VALUES(?,?,?,(SELECT Id from profile WHERE profile.Id=?))";
+
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, teacher.getIdTeacher());
             preparedStatement.setString(2, teacher.getWorkPlace());
             preparedStatement.setDouble(3, teacher.getSalary());
             preparedStatement.setString(4, teacher.getIdTeacher());
+            preparedStatement.setString(5, teacher.getIdTeacher());
             preparedStatement.execute(query);
 
         } catch (Exception e) {
@@ -96,19 +98,19 @@ public class TeacherDaoImpl implements TeacherDao {
         }
 
     }
-     @Override
+
+    @Override
     public void insertTeachers(List<Teacher> teachers) {
         try {
             connection = connectionManager.getConnection();
             connection.setAutoCommit(false);
-            String query = "INSERT INTO teacher(Id, Workplace, Salary, IdProfile) "
-                    + "VALUES(?,?,?,(SELECT Id from profile WHERE profile.Id=?))";
             preparedStatement = connection.prepareStatement(query);
             for (Teacher teacher : teachers) {
                 preparedStatement.setString(1, teacher.getIdTeacher());
                 preparedStatement.setString(2, teacher.getWorkPlace());
                 preparedStatement.setDouble(3, teacher.getSalary());
                 preparedStatement.setString(4, teacher.getProfileTeacher().getId());
+                preparedStatement.setString(5, teacher.getTimeKeeping().getId());
                 preparedStatement.addBatch();
             }
             preparedStatement.executeBatch();

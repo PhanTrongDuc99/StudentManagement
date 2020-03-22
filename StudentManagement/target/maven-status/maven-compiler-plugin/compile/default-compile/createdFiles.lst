@@ -11,6 +11,10 @@ entities\Result.class
 view\sub\RegisterForm$3.class
 view\sub\StudentPanel.class
 service\StudentOfficialService.class
+dao\ProfileDao.class
+entities\Result.class
+service\StudentOfficialService.class
+view\sub\StudentInformationForm$2.class
 view\CourseView.class
 utils\DateUtils.class
 entities\Profile.class
@@ -18,6 +22,9 @@ dao\StudentOfficialDao.class
 view\TeacherView.class
 readFromExcelFile\ReadStudentUnofficicalFromExcelFile.class
 view\sub\RegisterForm$9.class
+view\sub\StudentInformationForm.class
+view\TeacherView.class
+readFromExcelFile\ReadStudentUnofficicalFromExcelFile.class
 service\StudentOfficialServiceImpl.class
 service\CourseServiceImpl.class
 dao\GradeDaoImpl.class
@@ -31,6 +38,9 @@ view\TestMenuGUI.class
 view\sub\RegisterForm$1.class
 connection\ConfigurationProvider.class
 view\sub\RegisterForm$8.class
+service\GradeServiceImpl.class
+dao\TeacherDao.class
+connection\ConfigurationProvider.class
 common\CellValue.class
 connection\ConnectionManagerImpl.class
 view\sub\HomepagePanel.class
@@ -47,6 +57,8 @@ view\TrainingCenterFrame$2.class
 utils\CheckUtil.class
 connection\ConnectionManager.class
 view\sub\GradePanel.class
+view\sub\StudentInformationForm$1.class
+connection\ConnectionManager.class
 entities\Course.class
 dao\RegisterDao.class
 service\TeacherService.class
@@ -55,6 +67,7 @@ service\ProfileService.class
 view\TestMenuGUI$2.class
 entities\TimeKeeping.class
 common\NameColumn.class
+entities\TimeKeeping.class
 dao\TeacherDaoImpl.class
 entities\Register.class
 service\ProfileServiceImpl.class
@@ -86,3 +99,15 @@ view\StudentOfficialView.class
 common\Time.class
 entities\Schedule.class
 view\sub\RegisterForm.class
+dao\CourseDaoImpl.class
+view\GradeView.class
+entities\Grade.class
+view\sub\StudentInformationForm$3.class
+dao\GradeDao.class
+entities\Teacher.class
+service\RegisterServiceImpl.class
+connection\ConfigurationProviderImpl.class
+entities\StudentUnofficial.class
+view\StudentOfficialView.class
+common\Time.class
+entities\Schedule.class

@@ -11,6 +11,7 @@ package entities;
  */
 public class TimeKeeping {
 
+    private String id;
     private Double teachingHours;
     private String rewardLevel;
     private String disciplineLevel;
@@ -18,10 +19,19 @@ public class TimeKeeping {
     public TimeKeeping() {
     }
 
-    public TimeKeeping(Double teachingHours, String rewardLevel, String disciplineLevel) {
+    public TimeKeeping(String id, Double teachingHours, String rewardLevel, String disciplineLevel) {
+        this.id = id;
         this.teachingHours = teachingHours;
         this.rewardLevel = rewardLevel;
         this.disciplineLevel = disciplineLevel;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public Double getTeachingHours() {
@@ -50,7 +60,9 @@ public class TimeKeeping {
 
     @Override
     public String toString() {
-        return "TimeKeeping{" + "teachingHours=" + teachingHours + ", rewardLevel=" + rewardLevel + ", disciplineLevel=" + disciplineLevel + '}';
+        return "TimeKeeping{" + "id=" + id + ", teachingHours=" + teachingHours + ", rewardLevel=" + rewardLevel + ", disciplineLevel=" + disciplineLevel + '}';
     }
+
+   
 
 }

@@ -5,14 +5,15 @@
  */
 package view;
 
-import dao.ProfileDao;
-import dao.ProfileDaoImpl;
-import entities.Profile;
 import entities.Teacher;
 import java.util.List;
 import readFromExcelFile.ReadTeacherFromExcelFile;
+import service.ProfileService;
+import service.ProfileServiceImpl;
 import service.TeacherService;
 import service.TeacherServiceImpl;
+import service.TimeKeepingService;
+import service.TimeKeepingServiceImpl;
 
 /**
  *
@@ -22,10 +23,18 @@ public class TeacherView {
 
     public static void main(String[] args) {
         TeacherService teacherService = new TeacherServiceImpl();
-        ProfileDao prDao = new ProfileDaoImpl();
+        TimeKeepingService tkS = new TimeKeepingServiceImpl();
+        ProfileService pro = new ProfileServiceImpl();
+        // ProfileDao prDao = new ProfileDaoImpl();
+
         List<Teacher> teachers = ReadTeacherFromExcelFile.readTeacherFromFile("F:\\JavaProject\\StudentManagement\\teacher.xlsx");
-        prDao.insertProfileTeachers(teachers);
+        pro.insertProfileTeacher(teachers);
+        tkS.insertTimeKeeping(teachers);
         teacherService.insertTeachers(teachers);
+
+        //listProfileTeachers.forEach(t -> System.out.println(t.getId()));
+//        prDao.insertProfileTeachers(teachers);
+//        teacherService.insertTeachers(teachers);
     }
 
 }
