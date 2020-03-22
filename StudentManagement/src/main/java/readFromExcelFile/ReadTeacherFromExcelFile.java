@@ -9,6 +9,7 @@ import common.CellValue;
 import common.WorkBookValue;
 import entities.Profile;
 import entities.Teacher;
+import entities.TimeKeeping;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
@@ -42,7 +43,9 @@ public class ReadTeacherFromExcelFile {
                 Iterator<Cell> cells = row.iterator();
                 Teacher teacher = new Teacher();
                 Profile profile = new Profile();
+                TimeKeeping timeKeeping = new TimeKeeping();
                 teacher.setProfileTeacher(profile);
+                teacher.setTimeKeeping(timeKeeping);
                 while (cells.hasNext()) {
                     Cell cell = cells.next();
                     int columnIndex = cell.getColumnIndex();
@@ -52,6 +55,7 @@ public class ReadTeacherFromExcelFile {
                             String idTeacher = String.valueOf(CellValue.getCellValue(cell));
                             teacher.setIdTeacher(idTeacher);
                             teacher.getProfileTeacher().setId(idTeacher);
+                            teacher.getTimeKeeping().setId(idTeacher);
                             System.out.println(idTeacher);
                             break;
                         case 1:
@@ -96,9 +100,21 @@ public class ReadTeacherFromExcelFile {
                             Double salary = Double.valueOf(String.valueOf(CellValue.getCellValue(cell)));
                             teacher.setSalary(salary);
                             break;
+                        case 11:
+                            Double teachingHours = Double.valueOf(String.valueOf(CellValue.getCellValue(cell)));
+                            teacher.getTimeKeeping().setTeachingHours(teachingHours);
+                            break;
+                        case 12:
+                            String rewardLevel = String.valueOf(CellValue.getCellValue(cell));
+                            teacher.getTimeKeeping().setRewardLevel(rewardLevel);
+                            break;
+                        case 13:
+                            String disciplineLevel = String.valueOf(CellValue.getCellValue(cell));
+                            teacher.getTimeKeeping().setDisciplineLevel(disciplineLevel);
+                            break;
+
                     }
                 }
-                System.out.println(teacher);
                 teachers.add(teacher);
             }
             workbook.close();

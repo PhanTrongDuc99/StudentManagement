@@ -17,6 +17,7 @@ import java.util.List;
 public interface ProfileDao {
     
     public List<Profile> getProfileStudent();
+    public List<Profile> getProfileTeacher();
 
     public void insertProfile(Profile profile);
 

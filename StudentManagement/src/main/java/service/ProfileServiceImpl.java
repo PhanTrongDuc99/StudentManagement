@@ -44,4 +44,9 @@ public class ProfileServiceImpl implements ProfileService {
         return profileDao.getProfileStudent();
     }
 
+    @Override
+    public List<Profile> getProfileTeacher() {
+        return profileDao.getProfileTeacher();
+    }
+
 }

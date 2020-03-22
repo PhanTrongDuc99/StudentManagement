@@ -40,7 +40,6 @@ public class RegisterDaoImpl implements RegisterDao {
             preparedStatement.setString(2, register.getType().getNote());
             preparedStatement.setString(3, register.getId());
             preparedStatement.executeUpdate(query);
-            System.out.println("Đã insert profileStudent");
         } catch (SQLException ex) {
             ex.printStackTrace();
 
@@ -67,14 +66,12 @@ public class RegisterDaoImpl implements RegisterDao {
                 preparedStatement.setString(2, register.getType().getNote());
                 preparedStatement.setString(3, register.getId());
                 preparedStatement.addBatch();
+                preparedStatement.executeBatch();
             }
             preparedStatement.executeBatch();
             connection.commit();
-            System.out.println("Đã insert profileStudent");
-
         } catch (SQLException ex) {
             ex.printStackTrace();
-
         } finally {
             try {
                 preparedStatement.close();

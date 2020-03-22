@@ -26,8 +26,9 @@ public class ProfileDaoImpl implements ProfileDao {
     private ConnectionManager connectionManager;
     private Connection connection;
     private PreparedStatement preparedStatement;
-    private final String query = "INSERT INTO profile( Name, Gender, DayOfBirth, PhoneNumber, Hometown, CurrentAddress, IdNumber, Email, Id )"
-            + " VALUES(?,?,?,?,?,?,?,?,?) ";
+    private final String query = 
+            "INSERT INTO profile(Name, Gender, DayOfBirth, PhoneNumber, Hometown, CurrentAddress, IdNumber, Email, Id)\n"
+          + "VALUES(?,?,?,?,?,?,?,?,?)";
 
     public ProfileDaoImpl() {
         connectionManager = new ConnectionManagerImpl();
@@ -118,7 +119,6 @@ public class ProfileDaoImpl implements ProfileDao {
             }
             preparedStatement.executeBatch();
             connection.commit();
-            System.out.println("Đã insert profileStudent");
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -137,5 +137,11 @@ public class ProfileDaoImpl implements ProfileDao {
     public List<Profile> getProfileStudent() {
         StudentUnofficialDao studentDao = new StudentUnofficialDaoImpl();
         return studentDao.getAll().stream().map(StudentUnofficial::getProfile).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Profile> getProfileTeacher() {
+        TeacherDao teacherDao = new TeacherDaoImpl();
+        return teacherDao.getAll().stream().map(Teacher::getProfileTeacher).collect(Collectors.toList());
     }
 }
