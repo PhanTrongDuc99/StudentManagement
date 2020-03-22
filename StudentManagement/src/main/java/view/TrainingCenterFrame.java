@@ -41,8 +41,8 @@ public class TrainingCenterFrame extends JFrame {
 
     private final Container container = getContentPane();
     private final BorderLayout borderLayout = new BorderLayout();
-    private final GridLayout gridLayout = new GridLayout(6, 0, 60, 4);
-    private final GridLayout gridLayoutHomepage = new GridLayout(3, 0, 60, 4);
+    private final GridLayout gridLayout = new GridLayout(9, 0, 5, 5);
+    private final GridLayout gridLayoutPanelItem = new GridLayout(3, 0, 5, 5);
     private final CardLayout cardLayout = new CardLayout();
     private final JSplitPane splitPane = new JSplitPane();
     private final JSplitPane splitPanePnLeft = new JSplitPane();
@@ -64,16 +64,27 @@ public class TrainingCenterFrame extends JFrame {
     private JButton btStudent;
     private JButton btTeacher;
 
-    private JButton itemHomepage01;
-    private JButton itemHomepage02;
-    private JButton itemHomepage03;
+    private JPanel pnItemCourse;
+    private JPanel pnItemGrade;
+    private JPanel pnItemStudent;
+    private JPanel pnItemTeacher;
 
-    private JPanel panelHomepage;
-    private boolean status = false;
+    private JButton[] itemCourses = {new JButton("ItemCourse01"), new JButton("ItemCourse02"), new JButton("ItemCourse03")};
+    private JButton[] itemGrades = {new JButton("ItemGrade01"), new JButton("ItemGrade02"), new JButton("ItemGrade03")};
+    private JButton[] itemStudents = {new JButton("ItemStudent01"), new JButton("ItemStudent02"), new JButton("ItemStudent03")};
+    private JButton[] itemTeachers = {new JButton("ItemTeacher01"), new JButton("ItemTeacher02"), new JButton("ItemTeacher03")};
+
+    private boolean statusBtCourse = false;
+    private boolean statusBtGrade = false;
+    private boolean statusBtStudent = false;
+    private boolean statusBtTeacher = false;
 
     private final Border defaultBorder = new JButton().getBorder();
-    private final Border pnLeftButtonHighLightBorder = BorderFactory.createLineBorder(Color.WHITE, 1);
-    private final Border pnLeftEmptyBorder = BorderFactory.createEmptyBorder(5, 5, 5, 5);
+    private final Border pnLeftButtonHighLightBorder = BorderFactory.createLineBorder(new Color(0, 0, 50), 1);
+
+    private final Color selectedItemBackround = new Color(0, 0, 90);
+    private final Color defaultBackground = new Color(0, 0, 50);
+
     private final Font pnLeftButtonsFont = new Font("Tahoma", Font.BOLD, 18);
 
     public TrainingCenterFrame(String title) {
@@ -91,9 +102,8 @@ public class TrainingCenterFrame extends JFrame {
         splitPane.setOneTouchExpandable(true);
         splitPanePnLeft.setOrientation(JSplitPane.VERTICAL_SPLIT);
         initPnTopComponents();
-        initPnLeftComponents();
+        initPnLeftComponentsDefault();
         initPnCenterComponents();
-
     }
 
     private void initPnTopComponents() {
@@ -103,65 +113,192 @@ public class TrainingCenterFrame extends JFrame {
         container.add(pnTop, BorderLayout.NORTH);
     }
 
-    private void initPnLeftComponents() {
+    private void initPnLeftComponentsSelectedBtCourse() {
         pnLeftTop = new JPanel();
         pnLeftTop.setLayout(gridLayout);
-        pnLeftTop.setBackground(new Color(0, 0, 51));
+        pnLeftTop.setBackground(defaultBackground);
         pnLeftTop.setPreferredSize(new Dimension(220, 300));
-        pnLeftTop.setBorder(pnLeftEmptyBorder);
         splitPanePnLeft.add(pnLeftTop, JSplitPane.TOP);
 
-        btHomePage = new JButton();
-        btHomePage.setFocusPainted(false);
-        btHomePage.setFont(pnLeftButtonsFont);
-        btHomePage.setText(CardKey.HOMEPAGE.name());
-        btHomePage.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btHomePage.setBorder(pnLeftButtonHighLightBorder);
-        btHomePage.setBackground(new Color(0, 0, 51));
-        btHomePage.setForeground(Color.WHITE);
+        btHomePage = new JButton(CardKey.HOMEPAGE.name());
+        createButton(btHomePage);
         pnLeftTop.add(btHomePage);
 
-        initPanelHomepageComponent();
-
-        btCourse = new JButton();
-        btCourse.setFocusPainted(false);
-        btCourse.setFont(pnLeftButtonsFont);
-        btCourse.setText(CardKey.COURSE.name());
-        btCourse.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btCourse.setBackground(new Color(0, 0, 51));
-        btCourse.setForeground(Color.WHITE);
+        btCourse = new JButton(CardKey.COURSE.name());
+        createButton(btCourse);
         pnLeftTop.add(btCourse);
+        pnItemCourse = new JPanel();
+        createItemPanel(pnItemCourse, itemCourses);
+        pnLeftTop.add(pnItemCourse);
 
-        btGrade = new JButton();
-        btGrade.setFocusPainted(false);
-        btGrade.setFont(pnLeftButtonsFont);
-        btGrade.setText(CardKey.GRADE.name());
-        btGrade.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btGrade.setBackground(new Color(0, 0, 51));
-        btGrade.setForeground(Color.WHITE);
+        btGrade = new JButton(CardKey.GRADE.name());
+        createButton(btGrade);
         pnLeftTop.add(btGrade);
 
-        btStudent = new JButton();
-        btStudent.setFocusPainted(false);
-        btStudent.setFont(pnLeftButtonsFont);
-        btStudent.setText(CardKey.STUDENT.name());
-        btStudent.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btStudent.setBackground(new Color(0, 0, 51));
-        btStudent.setForeground(Color.WHITE);
+        btStudent = new JButton(CardKey.STUDENT.name());
+        createButton(btStudent);
         pnLeftTop.add(btStudent);
 
-        btTeacher = new JButton();
-        btTeacher.setFocusPainted(false);
-        btTeacher.setFont(pnLeftButtonsFont);
-        btTeacher.setText(CardKey.TEACHER.name());
-        btTeacher.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btTeacher.setBackground(new Color(0, 0, 51));
-        btTeacher.setForeground(Color.WHITE);
+        btTeacher = new JButton(CardKey.TEACHER.name());
+        createButton(btTeacher);
         pnLeftTop.add(btTeacher);
 
         pnLeftBottom = new JPanel();
         pnLeftBottom.setBackground(new Color(0, 102, 153));
         splitPanePnLeft.add(pnLeftBottom, JSplitPane.BOTTOM);
+    }
+
+    private void initPnLeftComponentsSelectedBtGrade() {
+        pnLeftTop = new JPanel();
+        pnLeftTop.setLayout(gridLayout);
+        pnLeftTop.setBackground(defaultBackground);
+        pnLeftTop.setPreferredSize(new Dimension(220, 300));
+        splitPanePnLeft.add(pnLeftTop, JSplitPane.TOP);
+
+        btHomePage = new JButton(CardKey.HOMEPAGE.name());
+        createButton(btHomePage);
+        pnLeftTop.add(btHomePage);
+
+        btCourse = new JButton(CardKey.COURSE.name());
+        createButton(btCourse);
+        pnLeftTop.add(btCourse);
+
+        btGrade = new JButton(CardKey.GRADE.name());
+        createButton(btGrade);
+        pnLeftTop.add(btGrade);
+        pnItemGrade = new JPanel();
+        createItemPanel(pnItemGrade, itemGrades);
+        pnLeftTop.add(pnItemCourse);
+
+        btStudent = new JButton(CardKey.STUDENT.name());
+        createButton(btStudent);
+        pnLeftTop.add(btStudent);
+
+        btTeacher = new JButton(CardKey.TEACHER.name());
+        createButton(btTeacher);
+        pnLeftTop.add(btTeacher);
+
+        pnLeftBottom = new JPanel();
+        pnLeftBottom.setBackground(new Color(0, 102, 153));
+        splitPanePnLeft.add(pnLeftBottom, JSplitPane.BOTTOM);
+    }
+
+    private void initPnLeftComponentsSelectedBtStudent() {
+        pnLeftTop = new JPanel();
+        pnLeftTop.setLayout(gridLayout);
+        pnLeftTop.setBackground(defaultBackground);
+        pnLeftTop.setPreferredSize(new Dimension(220, 300));
+        splitPanePnLeft.add(pnLeftTop, JSplitPane.TOP);
+
+        btHomePage = new JButton(CardKey.HOMEPAGE.name());
+        createButton(btHomePage);
+        pnLeftTop.add(btHomePage);
+
+        btCourse = new JButton(CardKey.COURSE.name());
+        createButton(btCourse);
+        pnLeftTop.add(btCourse);
+
+        btGrade = new JButton(CardKey.GRADE.name());
+        createButton(btGrade);
+        pnLeftTop.add(btGrade);
+
+        btStudent = new JButton(CardKey.STUDENT.name());
+        createButton(btStudent);
+        pnLeftTop.add(btStudent);
+        pnItemStudent = new JPanel();
+        createItemPanel(pnItemStudent, itemStudents);
+        pnLeftTop.add(pnItemStudent);
+
+        btTeacher = new JButton(CardKey.TEACHER.name());
+        createButton(btTeacher);
+        pnLeftTop.add(btTeacher);
+
+        pnLeftBottom = new JPanel();
+        pnLeftBottom.setBackground(new Color(0, 102, 153));
+        splitPanePnLeft.add(pnLeftBottom, JSplitPane.BOTTOM);
+    }
+
+    private void initPnLeftComponentsSelectedBtTeacher() {
+        pnLeftTop = new JPanel();
+        pnLeftTop.setLayout(gridLayout);
+        pnLeftTop.setBackground(defaultBackground);
+        pnLeftTop.setPreferredSize(new Dimension(220, 300));
+        splitPanePnLeft.add(pnLeftTop, JSplitPane.TOP);
+
+        btHomePage = new JButton(CardKey.HOMEPAGE.name());
+        createButton(btHomePage);
+        pnLeftTop.add(btHomePage);
+
+        btCourse = new JButton(CardKey.COURSE.name());
+        createButton(btCourse);
+        pnLeftTop.add(btCourse);
+
+        btGrade = new JButton(CardKey.GRADE.name());
+        createButton(btGrade);
+        pnLeftTop.add(btGrade);
+
+        btStudent = new JButton(CardKey.STUDENT.name());
+        createButton(btStudent);
+        pnLeftTop.add(btStudent);
+
+        btTeacher = new JButton(CardKey.TEACHER.name());
+        createButton(btTeacher);
+        pnLeftTop.add(btTeacher);
+        pnItemTeacher = new JPanel();
+        createItemPanel(pnItemTeacher, itemTeachers);
+        pnLeftTop.add(pnItemTeacher);
+
+        pnLeftBottom = new JPanel();
+        pnLeftBottom.setBackground(new Color(0, 102, 153));
+        splitPanePnLeft.add(pnLeftBottom, JSplitPane.BOTTOM);
+    }
+
+    private void initPnLeftComponentsDefault() {
+        pnLeftTop = new JPanel();
+        pnLeftTop.setLayout(gridLayout);
+        pnLeftTop.setBackground(defaultBackground);
+        pnLeftTop.setPreferredSize(new Dimension(220, 300));
+        splitPanePnLeft.add(pnLeftTop, JSplitPane.TOP);
+
+        btHomePage = new JButton(CardKey.HOMEPAGE.name());
+        createButton(btHomePage);
+        pnLeftTop.add(btHomePage);
+
+        btCourse = new JButton(CardKey.COURSE.name());
+        createButton(btCourse);
+        pnLeftTop.add(btCourse);
+
+        btGrade = new JButton(CardKey.GRADE.name());
+        createButton(btGrade);
+        pnLeftTop.add(btGrade);
+
+        btStudent = new JButton(CardKey.STUDENT.name());
+        createButton(btStudent);
+        pnLeftTop.add(btStudent);
+
+        btTeacher = new JButton(CardKey.TEACHER.name());
+        createButton(btTeacher);
+        pnLeftTop.add(btTeacher);
+
+        pnLeftBottom = new JPanel();
+        pnLeftBottom.setBackground(new Color(0, 102, 153));
+        splitPanePnLeft.add(pnLeftBottom, JSplitPane.BOTTOM);
+    }
+
+    private void createItemPanel(JPanel panel, JButton... buttons) {
+        panel.setLayout(gridLayoutPanelItem);
+        panel.setBackground(defaultBackground);
+        panel.setBorder(defaultBorder);
+        createItemsButton(buttons);
+        addItemsOnPanel(panel, buttons);
+    }
+
+    private void createButton(JButton button) {
+        button.setFocusPainted(false);
+        button.setFont(pnLeftButtonsFont);
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        button.setBackground(defaultBackground);
+        button.setForeground(Color.WHITE);
     }
 
     private void initPnCenterComponents() {
@@ -190,38 +327,22 @@ public class TrainingCenterFrame extends JFrame {
         pnLeftTopButtonsEvents();
     }
 
-    private void initPanelHomepageComponent() {
-        panelHomepage = new JPanel();
-        panelHomepage.setLayout(gridLayoutHomepage);
-        panelHomepage.setBackground(new Color(0, 0, 51));
-        itemHomepage01 = new JButton("ItemHomepage01");
-        itemHomepage01.setFocusPainted(false);
-        itemHomepage01.setFont(pnLeftButtonsFont);
-        itemHomepage01.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        itemHomepage01.setBorder(pnLeftButtonHighLightBorder);
-        itemHomepage01.setBackground(new Color(0, 0, 51));
-        itemHomepage01.setForeground(Color.WHITE);
+    private void addItemsOnPanel(JPanel panel, JButton... buttons) {
+        for (JButton button : buttons) {
+            panel.add(button);
+        }
+    }
 
-        itemHomepage02 = new JButton("ItemHomepage02");
-        itemHomepage02.setFocusPainted(false);
-        itemHomepage02.setFont(pnLeftButtonsFont);
-        itemHomepage02.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        itemHomepage02.setBorder(pnLeftButtonHighLightBorder);
-        itemHomepage02.setBackground(new Color(0, 0, 51));
-        itemHomepage02.setForeground(Color.WHITE);
-
-        itemHomepage03 = new JButton("ItemHomepage03");
-        itemHomepage03.setFocusPainted(false);
-        itemHomepage03.setFont(pnLeftButtonsFont);
-        itemHomepage03.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        itemHomepage03.setBorder(pnLeftButtonHighLightBorder);
-        itemHomepage03.setBackground(new Color(0, 0, 51));
-        itemHomepage03.setForeground(Color.WHITE);
-
-        panelHomepage.add(itemHomepage01);
-        panelHomepage.add(itemHomepage02);
-        panelHomepage.add(itemHomepage03);
-        pnLeftTop.add(panelHomepage);
+    private void createItemsButton(JButton... buttons) {
+        for (JButton button : buttons) {
+            button.setFocusPainted(false);
+            button.setFont(pnLeftButtonsFont);
+            button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            button.setBorder(pnLeftButtonHighLightBorder);
+            button.setBackground(defaultBackground);
+            button.setForeground(Color.WHITE);
+            System.out.println("Button: " + button.getText());
+        }
     }
 
     private void pnLeftTopButtonsEvents() {
@@ -235,18 +356,63 @@ public class TrainingCenterFrame extends JFrame {
                         String key = button.getText();
                         cardLayout.show(pnCenter, key);
                         disableHighLightButtons(components);
+                        disableBackgroundButtons(components);
                         button.setBorder(pnLeftButtonHighLightBorder);
-                        if ("HOMEPAGE".equalsIgnoreCase(button.getText())) {
-                            if (!status) {
-                                pnLeftTop.remove(panelHomepage);
-                                status = !status;
-                                System.out.println("Delete item");
-                            } else {
-                                pnLeftTop.revalidate();
-                                initPnLeftComponents();
+                        button.setBackground(selectedItemBackround);
+
+                        //display and hint item of panelHomepage
+                        if (btHomePage.getText().equalsIgnoreCase(button.getText())) {
+                            // return homepage
+                        }
+                        //display and hint item of panelCourse
+                        if (btCourse.getText().equalsIgnoreCase(button.getText())) {
+                            if (!statusBtCourse) {
+                                System.out.println("Show");
+                                initPnLeftComponentsSelectedBtCourse();
                                 initEvents();
-                                System.out.println("Show item");
-                                status = !status;
+                                statusBtCourse = !statusBtCourse;
+                            } else {
+
+                                initPnLeftComponentsDefault();
+                                initEvents();
+                                System.out.println("Hint");
+                                statusBtCourse = !statusBtCourse;
+                            }
+                        }
+                        //display and hint item of panelGrade
+                        if (btGrade.getText().equalsIgnoreCase(button.getText())) {
+                            if (!statusBtGrade) {
+                                initPnLeftComponentsSelectedBtGrade();
+                                initEvents();
+                                statusBtGrade = !statusBtGrade;
+                            } else {
+                                initPnLeftComponentsDefault();
+                                initEvents();
+                                statusBtGrade = !statusBtGrade;
+                            }
+                        }
+                        //display and hint item of panelStudent
+                        if (btStudent.getText().equalsIgnoreCase(button.getText())) {
+                            if (!statusBtStudent) {
+                                initPnLeftComponentsSelectedBtStudent();
+                                initEvents();
+                                statusBtStudent = !statusBtStudent;
+                            } else {
+                                initPnLeftComponentsDefault();
+                                initEvents();
+                                statusBtStudent = !statusBtStudent;
+                            }
+                        }
+                        //display and hint item of panelTeacher
+                        if (btTeacher.getText().equalsIgnoreCase(button.getText())) {
+                            if (!statusBtTeacher) {
+                                initPnLeftComponentsSelectedBtTeacher();
+                                initEvents();
+                                statusBtTeacher = !statusBtTeacher;
+                            } else {
+                                initPnLeftComponentsDefault();
+                                initEvents();
+                                statusBtTeacher = !statusBtTeacher;
                             }
                         }
                     }
@@ -260,6 +426,15 @@ public class TrainingCenterFrame extends JFrame {
             if (component instanceof JButton) {
                 final JButton button = (JButton) component;
                 button.setBorder(defaultBorder);
+            }
+        }
+    }
+
+    private void disableBackgroundButtons(Component... components) {
+        for (Component component : components) {
+            if (component instanceof JButton) {
+                final JButton button = (JButton) component;
+                button.setBackground(defaultBackground);
             }
         }
     }

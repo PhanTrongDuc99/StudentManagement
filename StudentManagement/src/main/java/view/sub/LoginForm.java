@@ -33,7 +33,7 @@ public class LoginForm extends JFrame {
     private static final String APP_TITLE = "LOGIN FORM";
     private static final int APP_WIDTH = 850;
     private static final int APP_HEIGHT = 540;
-    private static final String PATH_IMAGE_BG = "D:\\JavaProject\\StudentManagement\\StudentManagement\\src\\main\\java\\images\\LoginBg.PNG";
+    private static final String PATH_IMAGE_BG = "/images/LoginBg.PNG";
 
     private final Container container = getContentPane();
     private JLabel lbBg;
@@ -73,7 +73,7 @@ public class LoginForm extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
 
-        lbBg = new JLabel(ImageUtils.loadImageIcon(PATH_IMAGE_BG, 850, 540));
+        lbBg = new JLabel(ImageUtils.loadImageIcon(getClass().getResource(PATH_IMAGE_BG).getPath(), 850, 540));
         container.add(lbBg);
 
         lbLogin = new JLabel("PROGRAMMING TRAINING CENTER");
@@ -82,7 +82,7 @@ public class LoginForm extends JFrame {
         lbLogin.setBounds(20, 50, (int) lbLogin.getPreferredSize().getWidth(), (int) lbLogin.getPreferredSize().getHeight());
         lbBg.add(lbLogin);
 
-        lbAccount = new JLabel(ImageUtils.loadImageIcon("D:\\JavaProject\\StudentManagement\\StudentManagement\\src\\main\\java\\images\\account.png", 100, 100));
+        lbAccount = new JLabel(ImageUtils.loadImageIcon(getClass().getResource("/images/account.png").getPath(), 100, 100));
         lbAccount.setForeground(Color.WHITE);
         lbAccount.setBounds(180, 120, 100, 100);
         lbBg.add(lbAccount);
