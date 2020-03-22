@@ -41,7 +41,7 @@ public class TrainingCenterFrame extends JFrame {
 
     private final Container container = getContentPane();
     private final BorderLayout borderLayout = new BorderLayout();
-    private final GridLayout gridLayout = new GridLayout(9, 0, 5, 5);
+    private final GridLayout gridLayout = new GridLayout(6, 0, 25, 5);
     private final GridLayout gridLayoutPanelItem = new GridLayout(3, 0, 5, 5);
     private final CardLayout cardLayout = new CardLayout();
     private final JSplitPane splitPane = new JSplitPane();

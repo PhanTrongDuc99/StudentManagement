@@ -109,54 +109,44 @@ public class DetailStudentForm extends javax.swing.JFrame {
         infPanel.setPreferredSize(new java.awt.Dimension(366, 250));
 
         nameLabel.setBackground(new java.awt.Color(0, 51, 204));
-        nameLabel.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         nameLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         nameLabel.setText("Họ tên");
 
         emailLabel.setBackground(new java.awt.Color(0, 51, 204));
-        emailLabel.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         emailLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         emailLabel.setText("Email");
 
         genderLabel.setBackground(new java.awt.Color(0, 51, 204));
-        genderLabel.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         genderLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         genderLabel.setText("Giới tính");
 
         nameTextFeild1.setRequestFocusEnabled(false);
 
         phoneLabel.setBackground(new java.awt.Color(0, 51, 204));
-        phoneLabel.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         phoneLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         phoneLabel.setText("Phone");
 
         idNumberLabel.setBackground(new java.awt.Color(0, 51, 204));
-        idNumberLabel.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         idNumberLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         idNumberLabel.setText("CMND");
 
         hometownAdressLabel.setBackground(new java.awt.Color(0, 51, 204));
-        hometownAdressLabel.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         hometownAdressLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         hometownAdressLabel.setText("Quê quán");
 
         curentAdressLabel.setBackground(new java.awt.Color(0, 51, 204));
-        curentAdressLabel.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         curentAdressLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         curentAdressLabel.setText("Chỗ ở hiện tại");
 
         courseLabel.setBackground(new java.awt.Color(0, 51, 204));
-        courseLabel.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         courseLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         courseLabel.setText("Lớp");
 
         gradeLabel.setBackground(new java.awt.Color(0, 51, 204));
-        gradeLabel.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         gradeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         gradeLabel.setText("Khóa");
 
         birthdayLabel.setBackground(new java.awt.Color(0, 51, 204));
-        birthdayLabel.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         birthdayLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         birthdayLabel.setText("Ngày sinh");
 
@@ -267,15 +257,12 @@ public class DetailStudentForm extends javax.swing.JFrame {
         resPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Kết quả học tập"));
         resPanel.setPreferredSize(new java.awt.Dimension(365, 250));
 
-        learningPointLabel.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         learningPointLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         learningPointLabel.setText("Điểm học tập");
 
-        trainingPointLabel.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         trainingPointLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         trainingPointLabel.setText("Điểm rèn luyện");
 
-        rewardLabel.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         rewardLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         rewardLabel.setText("Khen thưởng");
 
@@ -287,7 +274,6 @@ public class DetailStudentForm extends javax.swing.JFrame {
         disciplineTextfield.setRows(5);
         jScrollPane2.setViewportView(disciplineTextfield);
 
-        disciplineLabel.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         disciplineLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         disciplineLabel.setText("Kỉ luật");
 
@@ -321,7 +307,7 @@ public class DetailStudentForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(resPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(learningPointLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(learningPointTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE))
+                    .addComponent(learningPointTextField))
                 .addGap(18, 18, 18)
                 .addGroup(resPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(resPanelLayout.createSequentialGroup()
