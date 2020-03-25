@@ -52,6 +52,10 @@ public class LoginForm extends JFrame {
 
     private JButton btLogin;
 
+    private JButton btExit;
+
+    private JButton btHidden;
+
     private final TrainingCenterFrame trainingCenterFrame = new TrainingCenterFrame("Programming Training Center UI/UX");
 
     public LoginForm(String title) {
@@ -72,6 +76,7 @@ public class LoginForm extends JFrame {
         setIconImage(ImageUtils.load(getClass().getResource("/images/logo.png").getPath()));
         setLocationRelativeTo(null);
         setResizable(false);
+        setUndecorated(true);
 
         lbBg = new JLabel(ImageUtils.loadImageIcon(getClass().getResource(PATH_IMAGE_BG).getPath(), 850, 540));
         container.add(lbBg);
@@ -114,10 +119,31 @@ public class LoginForm extends JFrame {
         btLogin.setBackground(Color.LIGHT_GRAY);
         btLogin.setBounds(100, 400, 250, 35);
         lbBg.add(btLogin);
+
+        btHidden = new JButton("_");
+        btHidden.setFont(new Font(Font.DIALOG, Font.BOLD, 12));
+        btHidden.setFocusPainted(false);
+        btHidden.setForeground(Color.WHITE);
+        btHidden.setBackground(Color.LIGHT_GRAY);
+        btHidden.setBounds(767, 2, (int) btHidden.getPreferredSize().getWidth(), (int) btHidden.getPreferredSize().getWidth());
+
+        lbBg.add(btHidden);
+
+        btExit = new JButton("X");
+        btExit.setFont(new Font(Font.DIALOG, Font.BOLD, 10));
+        btExit.setFocusPainted(false);
+        btExit.setForeground(Color.WHITE);
+        btExit.setBackground(Color.LIGHT_GRAY);
+        btExit.setBounds(807, 2, (int) btExit.getPreferredSize().getWidth(), (int) btExit.getPreferredSize().getWidth());
+
+        lbBg.add(btExit);
+
     }
 
     private void initEvents() {
         btLoginEvents();
+        btExitEvents();
+        btHiddenEvents();
 
     }
 
@@ -157,6 +183,24 @@ public class LoginForm extends JFrame {
             @Override
             public void windowOpened(WindowEvent e) {
                 tfUsername.requestFocus();
+            }
+        });
+    }
+
+    private void btExitEvents() {
+        btExit.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                System.exit(0);
+            }
+        });
+    }
+
+    private void btHiddenEvents() {
+        btHidden.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                setState(ICONIFIED);
             }
         });
     }
