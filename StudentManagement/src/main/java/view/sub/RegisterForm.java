@@ -30,7 +30,6 @@ public class RegisterForm extends javax.swing.JFrame {
 
     public RegisterForm() {
         initComponents();
-        setResizable(false);
         setLocationRelativeTo(null);
         initEvens();
     }
@@ -43,6 +42,7 @@ public class RegisterForm extends javax.swing.JFrame {
         addressTextFieldEvens();
         idNumberTextFieldEvens();
         registerButtonEvents();
+        showGradeButtonEvens();
     }
 
     @SuppressWarnings("unchecked")
@@ -65,14 +65,18 @@ public class RegisterForm extends javax.swing.JFrame {
         genderLabel = new javax.swing.JLabel();
         genderComboBox = new javax.swing.JComboBox<>();
         addressTextFied = new javax.swing.JTextField();
-        addressLabel = new javax.swing.JLabel();
+        gradeRegisterLabel = new javax.swing.JLabel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         idNumberTextField = new javax.swing.JTextField();
         idNumberLabel = new javax.swing.JLabel();
+        addressLabel1 = new javax.swing.JLabel();
+        gradeRegisterTextField = new javax.swing.JTextField();
+        showGradesButton = new javax.swing.JButton();
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(670, 500));
+        setResizable(false);
         setSize(new java.awt.Dimension(0, 0));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -84,7 +88,7 @@ public class RegisterForm extends javax.swing.JFrame {
         title.setForeground(new java.awt.Color(204, 0, 0));
         title.setText("INFORMATION");
         register.add(title);
-        title.setBounds(100, 10, 140, 30);
+        title.setBounds(130, 10, 160, 30);
 
         nameLabel.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         nameLabel.setText("Full Name");
@@ -97,7 +101,7 @@ public class RegisterForm extends javax.swing.JFrame {
             }
         });
         register.add(nameTextField);
-        nameTextField.setBounds(90, 50, 240, 30);
+        nameTextField.setBounds(90, 50, 260, 30);
 
         phoneLabel.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         phoneLabel.setText("Phone");
@@ -123,7 +127,7 @@ public class RegisterForm extends javax.swing.JFrame {
             }
         });
         register.add(emailTextField);
-        emailTextField.setBounds(80, 200, 250, 30);
+        emailTextField.setBounds(80, 200, 270, 30);
 
         emailLabel.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         emailLabel.setText("Email");
@@ -136,7 +140,7 @@ public class RegisterForm extends javax.swing.JFrame {
             }
         });
         register.add(hometownTextField);
-        hometownTextField.setBounds(120, 250, 210, 30);
+        hometownTextField.setBounds(120, 250, 230, 30);
 
         hometowmLabel.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         hometowmLabel.setText("Hometown");
@@ -154,13 +158,13 @@ public class RegisterForm extends javax.swing.JFrame {
             }
         });
         register.add(registerButton);
-        registerButton.setBounds(60, 370, 220, 50);
+        registerButton.setBounds(70, 430, 220, 50);
 
         noteLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         noteLabel.setForeground(new java.awt.Color(255, 0, 0));
         noteLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         register.add(noteLabel);
-        noteLabel.setBounds(30, 340, 280, 20);
+        noteLabel.setBounds(40, 400, 280, 20);
 
         genderLabel.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         genderLabel.setText("Gender");
@@ -182,12 +186,12 @@ public class RegisterForm extends javax.swing.JFrame {
             }
         });
         register.add(addressTextFied);
-        addressTextFied.setBounds(120, 300, 210, 30);
+        addressTextFied.setBounds(120, 300, 230, 30);
 
-        addressLabel.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        addressLabel.setText("Current Address");
-        register.add(addressLabel);
-        addressLabel.setBounds(20, 300, 100, 30);
+        gradeRegisterLabel.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        gradeRegisterLabel.setText("Grade want to register");
+        register.add(gradeRegisterLabel);
+        gradeRegisterLabel.setBounds(20, 350, 130, 30);
         register.add(jDateChooser1);
         jDateChooser1.setBounds(80, 150, 91, 30);
 
@@ -197,18 +201,40 @@ public class RegisterForm extends javax.swing.JFrame {
             }
         });
         register.add(idNumberTextField);
-        idNumberTextField.setBounds(240, 100, 90, 30);
+        idNumberTextField.setBounds(260, 100, 90, 30);
 
         idNumberLabel.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         idNumberLabel.setText("Id Number");
         register.add(idNumberLabel);
-        idNumberLabel.setBounds(170, 100, 70, 30);
+        idNumberLabel.setBounds(180, 100, 70, 30);
 
-        getContentPane().add(register, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, 350, 440));
+        addressLabel1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        addressLabel1.setText("Current Address");
+        register.add(addressLabel1);
+        addressLabel1.setBounds(20, 300, 93, 30);
+
+        gradeRegisterTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gradeRegisterTextFieldActionPerformed(evt);
+            }
+        });
+        register.add(gradeRegisterTextField);
+        gradeRegisterTextField.setBounds(160, 350, 90, 30);
+
+        showGradesButton.setBackground(new java.awt.Color(255, 255, 153));
+        showGradesButton.setText("Show Grades");
+        showGradesButton.setFocusPainted(false);
+        showGradesButton.setMaximumSize(new java.awt.Dimension(100, 22));
+        showGradesButton.setMinimumSize(new java.awt.Dimension(100, 22));
+        showGradesButton.setPreferredSize(new java.awt.Dimension(100, 22));
+        register.add(showGradesButton);
+        showGradesButton.setBounds(260, 350, 110, 30);
+
+        getContentPane().add(register, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 380, 500));
 
         background.setBackground(new java.awt.Color(204, 204, 255));
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/background.jpg"))); // NOI18N
-        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 480));
+        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 540));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -244,13 +270,17 @@ public class RegisterForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_idNumberTextFieldActionPerformed
 
+    private void gradeRegisterTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gradeRegisterTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_gradeRegisterTextFieldActionPerformed
+
     public static void main(String args[]) {
         RegisterForm reg = new RegisterForm();
         reg.setVisible(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel addressLabel;
+    private javax.swing.JLabel addressLabel1;
     private javax.swing.JTextField addressTextFied;
     private javax.swing.JLabel background;
     private javax.swing.JLabel dayOfBirthLabel;
@@ -258,6 +288,8 @@ public class RegisterForm extends javax.swing.JFrame {
     private javax.swing.JTextField emailTextField;
     private javax.swing.JComboBox<String> genderComboBox;
     private javax.swing.JLabel genderLabel;
+    private javax.swing.JLabel gradeRegisterLabel;
+    private javax.swing.JTextField gradeRegisterTextField;
     private javax.swing.JLabel hometowmLabel;
     private javax.swing.JTextField hometownTextField;
     private javax.swing.JLabel idNumberLabel;
@@ -270,8 +302,11 @@ public class RegisterForm extends javax.swing.JFrame {
     private javax.swing.JTextField phoneTextField;
     private javax.swing.JPanel register;
     private javax.swing.JButton registerButton;
+    private javax.swing.JButton showGradesButton;
     private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
+    private final Border highLightBorder = BorderFactory.createLineBorder(Color.RED, 1);
+    private final Border defaultBorder = new JTextField().getBorder();
 
     public void registerButtonEvents() {
         RandomId rand = new RandomId();
@@ -296,8 +331,15 @@ public class RegisterForm extends javax.swing.JFrame {
         });
     }
 
-    private final Border highLightBorder = BorderFactory.createLineBorder(Color.RED, 1);
-    private final Border defaultBorder = new JTextField().getBorder();
+    public void showGradeButtonEvens() {
+        showGradesButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                GradeForm grade = new GradeForm(gradeRegisterTextField);
+                grade.setVisible(true);
+            }
+        });
+    }
 
     private void nameTextFieldEvens() {
         stringTextFieldEvens(nameTextField);
@@ -386,7 +428,7 @@ public class RegisterForm extends javax.swing.JFrame {
             public void mouseClicked(MouseEvent e) {
                 if (textField.getText().isEmpty()) {
                     textField.setBorder(highLightBorder);
-                }else {
+                } else {
                     textField.setBorder(defaultBorder);
                 }
             }

@@ -40,6 +40,9 @@ public class ReadTeacherFromExcelFile {
             Iterator<Row> rows = firstSheet.iterator();
             while (rows.hasNext()) {
                 Row row = rows.next();
+                if (row.getRowNum() == 0) {
+                    continue;
+                }
                 Iterator<Cell> cells = row.iterator();
                 Teacher teacher = new Teacher();
                 Profile profile = new Profile();

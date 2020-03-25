@@ -5,7 +5,6 @@
  */
 package entities;
 
-import common.Time;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 

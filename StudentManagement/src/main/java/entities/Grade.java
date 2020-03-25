@@ -32,6 +32,16 @@ public class Grade {
         this.studentQuantity = studentQuantity;
     }
 
+    public Grade(String idGrade, String nameGrade, Schedule scheduleGrade, Integer studentQuantity) {
+        this.idGrade = idGrade;
+        this.nameGrade = nameGrade;
+        this.scheduleGrade = scheduleGrade;
+        this.studentQuantity = studentQuantity;
+        this.idCourse=null;
+        this.idTeacher=null;
+    }
+    
+
     public String getIdGrade() {
         return idGrade;
     }

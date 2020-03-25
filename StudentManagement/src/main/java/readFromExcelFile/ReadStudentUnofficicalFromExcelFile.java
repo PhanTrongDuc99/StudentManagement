@@ -6,7 +6,6 @@
 package readFromExcelFile;
 
 import common.CellValue;
-import common.NameColumn;
 import common.RegisterStatus;
 import common.RegisterType;
 import common.WorkBookValue;
@@ -43,6 +42,9 @@ public class ReadStudentUnofficicalFromExcelFile {
             Iterator<Row> rows = firstSheet.iterator();
             while (rows.hasNext()) {
                 Row row = rows.next();
+                if (row.getRowNum() == 0) {
+                    continue;
+                }
                 Iterator<Cell> cells = row.iterator();
                 StudentUnofficial studentUnofficial = new StudentUnofficial();
                 Profile profile = new Profile();

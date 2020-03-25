@@ -287,7 +287,7 @@ public class StudentInformationForm extends javax.swing.JFrame {
                 int col = tblStudent.columnAtPoint(evt.getPoint());
                 if ((row >= 0 && col == 8) && objectComboBox.getSelectedIndex() == 0) {
                     Object[] rowData = new Object[tblStudent.getColumnCount()];
-                    for (int i = 0; i < tblStudent.getColumnCount(); i++) {
+                    for (int i = row; i < tblStudent.getColumnCount(); i++) {
                         rowData[i] = tblStudent.getValueAt(0, i);
                     }
                     DetailStudentForm de = new DetailStudentForm();
