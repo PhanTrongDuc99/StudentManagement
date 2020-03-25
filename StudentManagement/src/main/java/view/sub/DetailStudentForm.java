@@ -66,7 +66,7 @@ public class DetailStudentForm extends javax.swing.JFrame {
         disciplineTextfield = new javax.swing.JTextArea();
         disciplineLabel = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Details Student");
         setLocation(new java.awt.Point(0, 0));
         setPreferredSize(new java.awt.Dimension(820, 570));
