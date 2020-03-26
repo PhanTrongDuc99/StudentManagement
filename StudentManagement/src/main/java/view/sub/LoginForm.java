@@ -65,8 +65,8 @@ public class LoginForm extends JFrame {
     }
 
     public static void main(String[] args) {
-        LoginForm ex02 = new LoginForm(APP_TITLE);
-        ex02.setVisible(true);
+        LoginForm loginForm = new LoginForm(APP_TITLE);
+        loginForm.setVisible(true);
 
     }
 
