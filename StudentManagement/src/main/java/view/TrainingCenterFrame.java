@@ -14,13 +14,20 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.WindowConstants;
@@ -31,6 +38,7 @@ import view.sub.EnrollmentGradePlacementPanel;
 import view.sub.FinancialPanel;
 import view.sub.GradePanel;
 import view.sub.HomepagePanel;
+import view.sub.SettingFrame;
 import view.sub.StudentPanel;
 import view.sub.TeacherPanel;
 import view.sub.TrainingPanel;
@@ -113,6 +121,13 @@ public class TrainingCenterFrame extends JFrame {
     private final Color defaultBackground = new Color(0, 0, 50);
     private final Color defaultItemBackground = new Color(0, 0, 80);
 
+    private JLabel lbAccount;
+    private JLabel lbWelcome;
+    private JLabel lbAdmin;
+
+    private JButton btSetting;
+    private JButton btAlarm;
+
     private final Font pnLeftButtonsFont = new Font("Tahoma", Font.BOLD, 18);
 
     public TrainingCenterFrame(String title) {
@@ -138,6 +153,38 @@ public class TrainingCenterFrame extends JFrame {
         pnTop = new JPanel();
         pnTop.setBackground(new Color(0, 102, 204));
         pnTop.setPreferredSize(new Dimension(0, 100));
+        pnTop.setLayout(null);
+
+        lbAccount = new JLabel(ImageUtils.loadImageIcon(getClass().getResource("/images/account.png").getPath(), 50, 50));
+        lbAccount.setBounds(100, 20, 50, 50);
+        pnTop.add(lbAccount);
+
+        lbWelcome = new JLabel("Welcome");
+        lbWelcome.setFont(new Font(Font.SERIF, Font.BOLD, 20));
+        lbWelcome.setForeground(Color.WHITE);
+        lbWelcome.setBounds(10, 20, (int) lbWelcome.getPreferredSize().getWidth(), (int) lbWelcome.getPreferredSize().getHeight());
+        pnTop.add(lbWelcome);
+
+        lbAdmin = new JLabel("Admin");
+        lbAdmin.setFont(new Font(Font.SERIF, Font.BOLD, 20));
+        lbAdmin.setForeground(Color.WHITE);
+        lbAdmin.setBounds(20, 45, (int) lbAdmin.getPreferredSize().getWidth(), (int) lbAdmin.getPreferredSize().getHeight());
+        pnTop.add(lbAdmin);
+
+        btAlarm = new JButton();
+        btAlarm.setBackground(Color.WHITE);
+        btAlarm.setFocusPainted(false);
+        btAlarm.setBounds(180, 15, 35, 35);
+        btAlarm.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/alarm.png").getPath(), 30, 30));
+        pnTop.add(btAlarm);
+
+        btSetting = new JButton();
+        btSetting.setBackground(Color.WHITE);
+        btSetting.setFocusPainted(false);
+        btSetting.setBounds(180, 60, 35, 35);
+        btSetting.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/setting.png").getPath(), 30, 30));
+        pnTop.add(btSetting);
+
         container.add(pnTop, BorderLayout.NORTH);
     }
 
@@ -512,6 +559,8 @@ public class TrainingCenterFrame extends JFrame {
 
     private void initEvents() {
         pnLeftTopButtonsEvents();
+        btSettingEvents();
+
     }
 
     private void addItemsOnPanel(JPanel panel, JButton... buttons) {
@@ -670,6 +719,18 @@ public class TrainingCenterFrame extends JFrame {
                 button.setBackground(defaultBackground);
             }
         }
+    }
+
+    private void btSettingEvents() {
+        btSetting.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                JFrame settingFrame = new SettingFrame();
+                settingFrame.setLocation(btSetting.getLocationOnScreen().getLocation());
+                settingFrame.setVisible(true);
+            }
+
+        });
     }
 
     public static void main(String[] args) {
