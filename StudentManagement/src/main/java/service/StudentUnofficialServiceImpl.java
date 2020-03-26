@@ -36,4 +36,10 @@ public class StudentUnofficialServiceImpl implements StudentUnofficialService {
     public void insertStudents(List<StudentUnofficial> students) {
         studentUnofficialDao.insertStudents(students);
     }
+
+    @Override
+    public StudentUnofficial getStudent(String string) {
+        return studentUnofficialDao.getStudent(string);
+    }
+
 }

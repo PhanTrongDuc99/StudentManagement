@@ -16,4 +16,6 @@ public interface CourseDao {
 
     public List<Course> getAll();
 
+    public void insertCourses(List<Course> courses);
+
 }

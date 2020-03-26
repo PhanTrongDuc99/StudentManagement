@@ -15,6 +15,7 @@ import java.util.List;
 public interface StudentUnofficialDao {
 
     public List<StudentUnofficial> getAll();
+    public StudentUnofficial getStudent(String id);
 
     public void insertStudent(StudentUnofficial student);
     public void insertStudents(List<StudentUnofficial> students);

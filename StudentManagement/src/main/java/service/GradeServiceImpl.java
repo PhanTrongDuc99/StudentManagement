@@ -27,4 +27,9 @@ public class GradeServiceImpl implements GradeService {
         return gradeDao.getAll();
     }
 
+    @Override
+    public void insertGrades(List<Grade> grades) {
+        gradeDao.insertGrade(grades);
+    }
+
 }

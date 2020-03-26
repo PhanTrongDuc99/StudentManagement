@@ -7,15 +7,10 @@ package utils;
 
 import common.RegisterStatus;
 import common.RegisterType;
-import common.Time;
 import entities.Register;
 import java.sql.Date;
 import java.time.DayOfWeek;
-import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 
 /**
  *

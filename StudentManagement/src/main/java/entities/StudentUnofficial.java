@@ -18,6 +18,7 @@ public class StudentUnofficial {
     private Double discountStatus;
     private Double cost;
     private Register register;
+    private String idRegisterGrade;
 
     public StudentUnofficial() {
     }
@@ -28,6 +29,15 @@ public class StudentUnofficial {
         this.discountStatus = discountStatus;
         this.cost = cost;
         this.register = register;
+    }
+
+    public StudentUnofficial(String id, Profile profile, Double discountStatus, Double cost, Register register, String idRegisterGrade) {
+        this.id = id;
+        this.profile = profile;
+        this.discountStatus = discountStatus;
+        this.cost = cost;
+        this.register = register;
+        this.idRegisterGrade = idRegisterGrade;
     }
 
     public String getId() {
@@ -68,6 +78,14 @@ public class StudentUnofficial {
 
     public void setRegister(Register register) {
         this.register = register;
+    }
+
+    public String getIdRegisterGrade() {
+        return idRegisterGrade;
+    }
+
+    public void setIdRegisterGrade(String idRegisterGrade) {
+        this.idRegisterGrade = idRegisterGrade;
     }
 
     @Override

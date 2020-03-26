@@ -30,7 +30,7 @@ import org.apache.poi.ss.usermodel.Workbook;
  * @author USER
  */
 public class ReadStudentUnofficicalFromExcelFile {
-
+    
     public static List<StudentUnofficial> readStudentFromExcelFile(String excelFilePath) {
         List<StudentUnofficial> studentUnofficials = new ArrayList<>();
         File file = new File(excelFilePath);
@@ -127,6 +127,11 @@ public class ReadStudentUnofficicalFromExcelFile {
                                 register.setType(RegisterType.DIRECT);
                             }
                             break;
+                        case 13:
+                            String idGrade = String.valueOf(CellValue.getCellValue(cell));
+                            studentUnofficial.setIdRegisterGrade(idGrade);
+                            break;
+                        
                     }
                 }
                 System.out.println(studentUnofficial);

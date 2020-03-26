@@ -5,7 +5,10 @@
  */
 package entities;
 
-import java.util.Objects;
+import java.time.DayOfWeek;
+import java.time.LocalTime;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -15,32 +18,26 @@ public class Grade {
 
     private String idGrade;
     private String nameGrade;
-    private Schedule scheduleGrade;
-    private Teacher idTeacher;
-    private Course idCourse;
+    private Teacher teacher;
+    private Course course;
+    private LocalTime startTime;
+    private LocalTime endTime;
     private Integer studentQuantity;
+    private DayOfWeek[] daysOfWeek;
 
     public Grade() {
     }
 
-    public Grade(String idGrade, String nameGrade, Schedule scheduleGrade, Teacher idTeacher, Course idCourse, Integer studentQuantity) {
+    public Grade(String idGrade, String nameGrade, Teacher teacher, Course course, LocalTime startTime, LocalTime endTime, Integer studentQuantity, DayOfWeek[] daysOfWeek) {
         this.idGrade = idGrade;
         this.nameGrade = nameGrade;
-        this.scheduleGrade = scheduleGrade;
-        this.idTeacher = idTeacher;
-        this.idCourse = idCourse;
+        this.teacher = teacher;
+        this.course = course;
+        this.startTime = startTime;
+        this.endTime = endTime;
         this.studentQuantity = studentQuantity;
+        this.daysOfWeek = daysOfWeek;
     }
-
-    public Grade(String idGrade, String nameGrade, Schedule scheduleGrade, Integer studentQuantity) {
-        this.idGrade = idGrade;
-        this.nameGrade = nameGrade;
-        this.scheduleGrade = scheduleGrade;
-        this.studentQuantity = studentQuantity;
-        this.idCourse=null;
-        this.idTeacher=null;
-    }
-    
 
     public String getIdGrade() {
         return idGrade;
@@ -58,28 +55,36 @@ public class Grade {
         this.nameGrade = nameGrade;
     }
 
-    public Schedule getScheduleGrade() {
-        return scheduleGrade;
+    public Teacher getTeacher() {
+        return teacher;
     }
 
-    public void setScheduleGrade(Schedule scheduleGrade) {
-        this.scheduleGrade = scheduleGrade;
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
     }
 
-    public Teacher getIdTeacher() {
-        return idTeacher;
+    public Course getCourse() {
+        return course;
     }
 
-    public void setIdTeacher(Teacher idTeacher) {
-        this.idTeacher = idTeacher;
+    public void setCourse(Course course) {
+        this.course = course;
     }
 
-    public Course getIdCourse() {
-        return idCourse;
+    public LocalTime getStartTime() {
+        return startTime;
     }
 
-    public void setIdCourse(Course idCourse) {
-        this.idCourse = idCourse;
+    public void setStartTime(LocalTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public LocalTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalTime endTime) {
+        this.endTime = endTime;
     }
 
     public Integer getStudentQuantity() {
@@ -90,54 +95,17 @@ public class Grade {
         this.studentQuantity = studentQuantity;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 53 * hash + Objects.hashCode(this.idGrade);
-        hash = 53 * hash + Objects.hashCode(this.nameGrade);
-        hash = 53 * hash + Objects.hashCode(this.scheduleGrade);
-        hash = 53 * hash + Objects.hashCode(this.idTeacher);
-        hash = 53 * hash + Objects.hashCode(this.idCourse);
-        hash = 53 * hash + Objects.hashCode(this.studentQuantity);
-        return hash;
+    public DayOfWeek[] getDaysOfWeek() {
+        return daysOfWeek;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Grade other = (Grade) obj;
-        if (!Objects.equals(this.idGrade, other.idGrade)) {
-            return false;
-        }
-        if (!Objects.equals(this.nameGrade, other.nameGrade)) {
-            return false;
-        }
-        if (!Objects.equals(this.scheduleGrade, other.scheduleGrade)) {
-            return false;
-        }
-        if (!Objects.equals(this.idTeacher, other.idTeacher)) {
-            return false;
-        }
-        if (!Objects.equals(this.idCourse, other.idCourse)) {
-            return false;
-        }
-        if (!Objects.equals(this.studentQuantity, other.studentQuantity)) {
-            return false;
-        }
-        return true;
+    public void setDaysOfWeek(DayOfWeek[] daysOfWeek) {
+        this.daysOfWeek = daysOfWeek;
     }
 
     @Override
     public String toString() {
-        return "Grade{" + "idGrade=" + idGrade + ", nameGrade=" + nameGrade + ", scheduleGrade=" + scheduleGrade + ", idTeacher=" + idTeacher + ", idCourse=" + idCourse + ", studentQuantity=" + studentQuantity + '}';
+        return "Grade{" + "idGrade=" + idGrade + ", nameGrade=" + nameGrade + ", startTime=" + startTime + ", endTime=" + endTime + ", studentQuantity=" + studentQuantity + ", daysOfWeek=" + String.join(",", Arrays.asList(daysOfWeek).stream().map(t -> t.toString()).collect(Collectors.toList())) + '}';
     }
 
 }

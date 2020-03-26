@@ -18,9 +18,10 @@ public class GradeView {
 
     public static void main(String[] args) {
         GradeService gradeService = new GradeServiceImpl();
-        List<Grade> grades = gradeService.getAll();
-        System.out.println("List grades: ");
-        grades.forEach(item -> System.out.println(item));
+        List<Grade> grades = readFromExcelFile.ReadGradeFromExcelFile.readGradeFromExcelFile("F:\\JavaProject\\StudentManagement\\grade.xlsx");
+        System.out.println("List grades: ----------");
+        grades.forEach(item -> System.out.println(item.getTeacher().getIdTeacher()));
+        gradeService.insertGrades(grades);
     }
 
 }

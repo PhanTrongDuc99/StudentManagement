@@ -5,7 +5,9 @@
  */
 package view.sub;
 
+import dao.StudentUnofficialDaoImpl;
 import entities.Profile;
+import entities.StudentUnofficial;
 import java.awt.Frame;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -207,9 +209,8 @@ public class StudentInformationForm extends javax.swing.JFrame {
     private final List<Profile> listProfileStudents = new ProfileServiceImpl().getProfileStudents();
     private final List<Profile> listProfileTeachers = new ProfileServiceImpl().getProfileTeacher();
 
-    private void loadDataStudentIntoJTable(List<Profile> list) {
+    private void loadDataIntoJTable(List<Profile> list) {
         list.forEach(t -> System.out.println(t.getId()));
-        //tblStudent.setPreferredSize(new Dimension(500,500));
         model = new DefaultTableModel() {
 
             @Override
@@ -220,6 +221,7 @@ public class StudentInformationForm extends javax.swing.JFrame {
         };
         //Set Column Title
         Vector column = new Vector();
+        column.add("Id");
         column.add("Name");
         column.add("Phone number");
         column.add("Email");
@@ -234,6 +236,7 @@ public class StudentInformationForm extends javax.swing.JFrame {
         for (int i = 0; i < list.size(); i++) {
             Profile pro = (Profile) list.get(i);
             Vector row = new Vector();
+            row.add(pro.getId());
             row.add(pro.getFullName());
             row.add(pro.getPhoneNumber());
             row.add(pro.getEmail());
@@ -260,20 +263,26 @@ public class StudentInformationForm extends javax.swing.JFrame {
     private void showButtonEvents() {
         showButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mousePressed(MouseEvent e) {
                 int indexSelected = objectComboBox.getSelectedIndex();
                 if (indexSelected == 0) {
                     objectLabel.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/default_avatar.png").getPath(),
                             SizeUtils.getPreWidth(objectLabel),
                             SizeUtils.getPreHeight(objectLabel)
                     ));
-                    loadDataStudentIntoJTable(listProfileStudents);
+                    loadDataIntoJTable(listProfileStudents);
+//                } else if (indexSelected == 1) {
+//                    objectLabel.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/default_avatar.png").getPath(),
+//                            SizeUtils.getPreWidth(objectLabel),
+//                            SizeUtils.getPreHeight(objectLabel)
+//                    ));
+//                    loadDataIntoJTable(listProfileStudents);
                 } else {
                     objectLabel.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/student.png").getPath(),
                             SizeUtils.getPreWidth(objectLabel),
                             SizeUtils.getPreHeight(objectLabel)
                     ));
-                    loadDataStudentIntoJTable(listProfileTeachers);
+                    loadDataIntoJTable(listProfileTeachers);
                 }
             }
         });
@@ -285,12 +294,34 @@ public class StudentInformationForm extends javax.swing.JFrame {
             public void mouseClicked(MouseEvent evt) {
                 int row = tblStudent.rowAtPoint(evt.getPoint());
                 int col = tblStudent.columnAtPoint(evt.getPoint());
-                if ((row >= 0 && col == 8) && objectComboBox.getSelectedIndex() == 0) {
-                    Object[] rowData = new Object[tblStudent.getColumnCount()];
-                    for (int i = row; i < tblStudent.getColumnCount(); i++) {
-                        rowData[i] = tblStudent.getValueAt(0, i);
+                if ((row >= 0 && col == 9)) {
+                    int index = objectComboBox.getSelectedIndex();
+                    if (index == 0) {
+                        Object[] rowData = new Object[tblStudent.getColumnCount()];
+                        for (int i = row; i < tblStudent.getColumnCount(); i++) {
+                            rowData[i] = tblStudent.getValueAt(0, i);
+                        }
+                        StudentUnofficial student = new StudentUnofficialDaoImpl().getStudent((String) rowData[0]);
+                        DetailStudentUnOfficialForm detailStudentUnOfficial = new DetailStudentUnOfficialForm(student);
+                        detailStudentUnOfficial.setVisible(true);
                     }
-                    DetailStudentForm de = new DetailStudentForm();
+
+                    if (index == 1) {
+                        Object[] rowData = new Object[tblStudent.getColumnCount()];
+                        for (int i = row; i < tblStudent.getColumnCount(); i++) {
+                            rowData[i] = tblStudent.getValueAt(0, i);
+                        }
+                        DetailStudentOfficialForm detailStudentOfficial = new DetailStudentOfficialForm();
+                        detailStudentOfficial.setVisible(true);
+                    }
+                    if (index == 2) {
+                        Object[] rowData = new Object[tblStudent.getColumnCount()];
+                        for (int i = row; i < tblStudent.getColumnCount(); i++) {
+                            rowData[i] = tblStudent.getValueAt(0, i);
+                        }
+                        DetailStudentOfficialForm detailStudentOfficial = new DetailStudentOfficialForm();
+                        detailStudentOfficial.setVisible(true);
+                    }
                 }
             }
         });

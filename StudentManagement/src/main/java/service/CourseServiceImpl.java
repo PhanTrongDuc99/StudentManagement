@@ -27,4 +27,10 @@ public class CourseServiceImpl implements CourseService {
         return courseDao.getAll();
     }
 
+    @Override
+    public void insertCourses(List<Course> courses) {
+        courseDao.insertCourses(courses);
+    }
+
+   
 }
