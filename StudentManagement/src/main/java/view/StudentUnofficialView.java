@@ -14,6 +14,7 @@ import service.RegisterService;
 import service.RegisterServiceImpl;
 import service.StudentUnofficialServiceImpl;
 import service.StudentUnofficialService;
+import utils.FileUtils;
 
 /**
  *
@@ -25,7 +26,7 @@ public class StudentUnofficialView {
         ProfileService prService = new ProfileServiceImpl();
         RegisterService reService = new RegisterServiceImpl();
         StudentUnofficialService st = new StudentUnofficialServiceImpl();
-        List<StudentUnofficial> students = ReadStudentUnofficicalFromExcelFile.readStudentFromExcelFile("F:\\JavaProject\\StudentManagement\\student.xlsx");
+        List<StudentUnofficial> students = ReadStudentUnofficicalFromExcelFile.readStudentFromExcelFile(FileUtils.getPath("excels", "student.xlsx"));
         students.forEach(x -> {
             System.out.println("ID: " + x.getProfile().getId());
         });

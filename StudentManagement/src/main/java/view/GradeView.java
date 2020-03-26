@@ -6,9 +6,13 @@
 package view;
 
 import entities.Grade;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import service.GradeService;
 import service.GradeServiceImpl;
+import utils.FileUtils;
 
 /**
  *
@@ -18,7 +22,7 @@ public class GradeView {
 
     public static void main(String[] args) {
         GradeService gradeService = new GradeServiceImpl();
-        List<Grade> grades = readFromExcelFile.ReadGradeFromExcelFile.readGradeFromExcelFile("F:\\JavaProject\\StudentManagement\\grade.xlsx");
+        List<Grade> grades = readFromExcelFile.ReadGradeFromExcelFile.readGradeFromExcelFile(FileUtils.getPath("excels", "grade.xlsx"));
         System.out.println("List grades: ----------");
         grades.forEach(item -> System.out.println(item.getTeacher().getIdTeacher()));
         gradeService.insertGrades(grades);

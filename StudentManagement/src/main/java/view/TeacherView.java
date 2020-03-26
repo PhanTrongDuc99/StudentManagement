@@ -14,6 +14,7 @@ import service.TeacherService;
 import service.TeacherServiceImpl;
 import service.TimeKeepingService;
 import service.TimeKeepingServiceImpl;
+import utils.FileUtils;
 
 /**
  *
@@ -25,16 +26,11 @@ public class TeacherView {
         TeacherService teacherService = new TeacherServiceImpl();
         TimeKeepingService tkS = new TimeKeepingServiceImpl();
         ProfileService pro = new ProfileServiceImpl();
-        // ProfileDao prDao = new ProfileDaoImpl();
 
-        List<Teacher> teachers = ReadTeacherFromExcelFile.readTeacherFromFile("F:\\JavaProject\\StudentManagement\\teacher.xlsx");
+        List<Teacher> teachers = ReadTeacherFromExcelFile.readTeacherFromFile(FileUtils.getPath("excels", "teacher.xlsx"));
         pro.insertProfileTeacher(teachers);
         tkS.insertTimeKeeping(teachers);
         teacherService.insertTeachers(teachers);
-
-        //listProfileTeachers.forEach(t -> System.out.println(t.getId()));
-//        prDao.insertProfileTeachers(teachers);
-//        teacherService.insertTeachers(teachers);
     }
 
 }

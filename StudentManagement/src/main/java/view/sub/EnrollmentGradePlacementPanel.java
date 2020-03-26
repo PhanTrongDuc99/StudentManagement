@@ -35,13 +35,15 @@ public class EnrollmentGradePlacementPanel extends javax.swing.JPanel {
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btUpdateData.setBackground(new java.awt.Color(51, 204, 0));
+        btUpdateData.setBackground(new java.awt.Color(0, 153, 0));
+        btUpdateData.setForeground(new java.awt.Color(255, 255, 255));
         btUpdateData.setText("Update data from excel online");
         btUpdateData.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btUpdateData.setFocusPainted(false);
-        add(btUpdateData, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 37));
+        add(btUpdateData, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 0, 180, 37));
 
-        btAdmission.setBackground(new java.awt.Color(0, 204, 204));
+        btAdmission.setBackground(new java.awt.Color(0, 0, 153));
+        btAdmission.setForeground(new java.awt.Color(255, 255, 255));
         btAdmission.setText("Admissions source statistics");
         btAdmission.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btAdmission.setFocusPainted(false);
@@ -50,19 +52,21 @@ public class EnrollmentGradePlacementPanel extends javax.swing.JPanel {
                 btAdmissionActionPerformed(evt);
             }
         });
-        add(btAdmission, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 0, 170, 37));
+        add(btAdmission, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 0, 170, 37));
 
-        btRegister.setBackground(new java.awt.Color(255, 102, 51));
+        btRegister.setBackground(new java.awt.Color(153, 51, 0));
+        btRegister.setForeground(new java.awt.Color(255, 255, 255));
         btRegister.setText("Register form");
         btRegister.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btRegister.setFocusPainted(false);
-        add(btRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 149, 37));
+        add(btRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 0, 149, 37));
 
-        btDivision.setBackground(new java.awt.Color(51, 255, 255));
+        btDivision.setBackground(new java.awt.Color(255, 153, 0));
+        btDivision.setForeground(new java.awt.Color(255, 255, 255));
         btDivision.setText("Grade division/arrange");
         btDivision.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btDivision.setFocusPainted(false);
-        add(btDivision, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 0, 223, 37));
+        add(btDivision, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 0, 223, 37));
 
         lbBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/backgroundEnrollment.jpg"))); // NOI18N
         add(lbBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 980, 630));
