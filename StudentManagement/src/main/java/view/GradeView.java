@@ -16,15 +16,16 @@ import utils.FileUtils;
  * @author PC
  */
 public class GradeView {
-
+    
     public static void main(String[] args) {
         GradeService gradeService = new GradeServiceImpl();
-        List<Grade> grades = readFromExcelFile.ReadGradeFromExcelFile.readGradeFromExcelFile(FileUtils.getPath("excels", "grade.xlsx"));
-        System.out.println("List grades: ----------");
-        grades.forEach(item -> System.out.println(item.getTeacher().getIdTeacher()));
-        gradeService.insertGrades(grades);
-        
-        System.out.println(gradeService.getGrade("Class01"));
+        //List<Grade> grades = readFromExcelFile.ReadGradeFromExcelFile.readGradeFromExcelFile(FileUtils.getPath("excels", "grade.xlsx"));
+        //System.out.println("List grades: ----------");
+        //grades.forEach(item -> System.out.println(item.getTeacher().getIdTeacher()));
+        //gradeService.insertGrades(grades);
+        //System.out.println(gradeService.getGrade("Class01"));
+        List<Grade> grades = gradeService.getAll();
+        grades.forEach(item -> System.out.println("Item: " + item));
     }
-
+    
 }

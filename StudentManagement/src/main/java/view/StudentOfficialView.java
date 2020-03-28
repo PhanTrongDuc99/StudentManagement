@@ -19,6 +19,7 @@ public class StudentOfficialView {
     public static void main(String[] args) {
         StudentOfficialService studentOfficialService = new StudentOfficialServiceImpl();
         List<StudentOfficial> studentOfficials = studentOfficialService.getAll();
+        
         System.out.println("List studentOfficials: ");
         studentOfficials.forEach(item -> System.out.println(item));
     }

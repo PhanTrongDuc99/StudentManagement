@@ -47,7 +47,7 @@ public class StudentOfficialDaoImpl implements StudentOfficialDao {
                 + "INNER JOIN RESULT res ON stoff.IdStudent=res.IdStudent AND stoff.IdClass=res.IdClass\n"
                 + "INNER JOIN PROFILE pr ON stoff.IdProfile=pr.Id\n"
                 + "INNER JOIN STUDENTUNOFFICIAL stunoff ON stunoff.Id=stoff.IdStudent\n"
-                + "INNER JOIN REGISTER reg ON reg.IdStudent=stoff.IdStudent;";
+                + "INNER JOIN REGISTER reg ON reg.Id=stoff.IdStudent;";
         try {
             preparedStatement = connection.prepareStatement(query);
             result = preparedStatement.executeQuery();

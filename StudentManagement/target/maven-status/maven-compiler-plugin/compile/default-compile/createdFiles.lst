@@ -39,17 +39,14 @@ service\TeacherServiceImpl.class
 view\sub\SettingFrame.class
 service\GradeService.class
 service\AdminServiceImpl.class
-view\sub\GradeForm.class
 readFromExcelFile\ReadTeacherFromExcelFile.class
 view\sub\LoginForm$1.class
 service\GradeServiceImpl.class
 dao\TeacherDao.class
-view\sub\GradeForm$2.class
 view\sub\RegisterForm$1.class
 view\sub\RegisterForm$16.class
 connection\ConfigurationProvider.class
 view\sub\RegisterForm$8.class
-view\sub\GradeForm$1.class
 service\TimeKeepingService.class
 common\CellValue.class
 dao\AdminDao.class

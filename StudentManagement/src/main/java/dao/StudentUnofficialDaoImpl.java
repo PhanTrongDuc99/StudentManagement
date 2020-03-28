@@ -36,8 +36,8 @@ public class StudentUnofficialDaoImpl implements StudentUnofficialDao {
 
     private final String query = "SELECT st.Id, st.IdCourse, pr.Name, pr.Gender, pr.DayOfBirth, pr.PhoneNumber, pr.Hometown, pr.CurrentAddress, pr.IdNumber, pr.Email,rg.State, rg.TypeOfRegister,st.DiscountStatus, st.Cost\n"
             + "FROM STUDENTUNOFFICIAL st\n"
-            + "INNER JOIN REGISTER rg ON st.Id = rg.Id\n"
-            + "INNER JOIN PROFILE pr ON st.Id= pr.Id\n";
+            + "INNER JOIN REGISTER rg ON st.IdRegister = rg.Id\n"
+            + "INNER JOIN PROFILE pr ON st.IdProfile= pr.Id\n";
 
     public StudentUnofficialDaoImpl() {
         connectionManager = new ConnectionManagerImpl();
