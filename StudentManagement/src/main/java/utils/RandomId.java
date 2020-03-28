@@ -17,7 +17,7 @@ public class RandomId {
     public RandomId() {
     }
 
-    public String randomId(List<String> strings) {
+    public static String randomId(List<String> strings) {
         Random random = new Random();
         while (true) {
             int rand = 100000000 + random.nextInt(100000000);

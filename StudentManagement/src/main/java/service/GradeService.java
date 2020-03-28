@@ -16,5 +16,7 @@ public interface GradeService {
 
     public List<Grade> getAll();
 
+    public Grade getGrade(String id);
+
     public void insertGrades(List<Grade> grades);
 }

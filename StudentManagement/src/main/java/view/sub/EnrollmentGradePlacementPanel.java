@@ -5,6 +5,15 @@
  */
 package view.sub;
 
+import entities.StudentUnofficial;
+import java.util.List;
+import javax.swing.JOptionPane;
+import readFromExcelFile.ReadStudentUnofficicalFromExcelFile;
+import service.StudentUnofficialService;
+import service.StudentUnofficialServiceImpl;
+import utils.FileUtils;
+import utils.ImageUtils;
+
 /**
  *
  * @author PC
@@ -75,7 +84,10 @@ public class EnrollmentGradePlacementPanel extends javax.swing.JPanel {
     private void btAdmissionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdmissionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btAdmissionActionPerformed
-
+    private void initEvens() {
+        updateDataFromExcelOnlineButtonEvens();
+        RegisterFormButtonEvens();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAdmission;
@@ -84,4 +96,15 @@ public class EnrollmentGradePlacementPanel extends javax.swing.JPanel {
     private javax.swing.JButton btUpdateData;
     private javax.swing.JLabel lbBackground;
     // End of variables declaration//GEN-END:variables
+
+    private void updateDataFromExcelOnlineButtonEvens() {
+        StudentUnofficialService stdUnOfficialService = new StudentUnofficialServiceImpl();
+        List<StudentUnofficial> students = ReadStudentUnofficicalFromExcelFile.readStudentFromExcelFile(FileUtils.getPath("excels", "student.xlsx"));
+        stdUnOfficialService.insertStudents(students);
+        JOptionPane.showMessageDialog(this, "Update excel online successfully!", "Notification", JOptionPane.OK_OPTION, ImageUtils.loadImageIcon(getClass().getResource("/images/alarm.png").getPath()));
+    }
+
+    private void RegisterFormButtonEvens() {
+
+    }
 }

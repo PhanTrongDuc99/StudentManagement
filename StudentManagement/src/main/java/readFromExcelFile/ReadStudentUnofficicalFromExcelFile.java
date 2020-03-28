@@ -30,7 +30,7 @@ import org.apache.poi.ss.usermodel.Workbook;
  * @author USER
  */
 public class ReadStudentUnofficicalFromExcelFile {
-    
+
     public static List<StudentUnofficial> readStudentFromExcelFile(String excelFilePath) {
         List<StudentUnofficial> studentUnofficials = new ArrayList<>();
         File file = new File(excelFilePath);
@@ -51,6 +51,7 @@ public class ReadStudentUnofficicalFromExcelFile {
                 Register register = new Register();
                 studentUnofficial.setRegister(register);
                 studentUnofficial.setProfile(profile);
+                studentUnofficial.setDiscountStatus(0d);
                 while (cells.hasNext()) {
                     Cell cell = cells.next();
                     int columnIndex = cell.getColumnIndex();
@@ -68,6 +69,7 @@ public class ReadStudentUnofficicalFromExcelFile {
                             studentUnofficial.getProfile().setFullName(name);
                             break;
                         case 2:
+                            cell.setCellType(CellType.STRING);
                             String phone = String.valueOf(CellValue.getCellValue(cell));
                             studentUnofficial.getProfile().setPhoneNumber(phone);
                             break;
@@ -94,44 +96,20 @@ public class ReadStudentUnofficicalFromExcelFile {
                             studentUnofficial.getProfile().setIdNumber(idNumber);
                             break;
                         case 8:
-                            String currentAddress = String.valueOf(CellValue.getCellValue(cell));
-                            studentUnofficial.getProfile().setCurrentAddress(currentAddress);
+                            String curentAddress = String.valueOf(CellValue.getCellValue(cell));
+                            studentUnofficial.getProfile().setCurrentAddress(curentAddress);
                             break;
                         case 9:
-                            Double discountStatus = Double.valueOf(String.valueOf(CellValue.getCellValue(cell)));
-                            studentUnofficial.setDiscountStatus(discountStatus);
-                            break;
-                        case 10:
-                            Double cost = Double.valueOf(String.valueOf(CellValue.getCellValue(cell)));
-                            studentUnofficial.setCost(cost);
-                            break;
-                        case 11:
-                            cell.setCellType(Cell.CELL_TYPE_STRING);
-                            String registerStatus = String.valueOf(CellValue.getCellValue(cell));
-                            if (registerStatus.equalsIgnoreCase(RegisterStatus.REGISTERED.getNote())) {
-                                register.setStatus(RegisterStatus.REGISTERED);
-                            } else if (registerStatus.equalsIgnoreCase(RegisterStatus.WAITTING.getNote())) {
-                                register.setStatus(RegisterStatus.WAITTING);
-                            } else {
-                                register.setStatus(RegisterStatus.CANCEL);
-                            }
-                            break;
-                        case 12:
                             cell.setCellType(Cell.CELL_TYPE_STRING);
                             String registerType = String.valueOf(CellValue.getCellValue(cell));
-                            if (registerType.equalsIgnoreCase(RegisterType.MARKETING.getNote())) {
-                                register.setType(RegisterType.MARKETING);
-                            } else if (registerType.equalsIgnoreCase(RegisterType.DIRECT.getNote())) {
-                                register.setType(RegisterType.DIRECT);
-                            } else {
-                                register.setType(RegisterType.DIRECT);
-                            }
+                            studentUnofficial.getRegister().setStatus(RegisterStatus.WAITTING);
+                            studentUnofficial.getRegister().setType(RegisterType.valueOf(registerType.toUpperCase()));
                             break;
-                        case 13:
-                            String idGrade = String.valueOf(CellValue.getCellValue(cell));
-                            studentUnofficial.setIdRegisterGrade(idGrade);
+                        case 10:
+                            String idCourse = String.valueOf(CellValue.getCellValue(cell));
+                            studentUnofficial.setIdRegisterCourse(idCourse);
                             break;
-                        
+
                     }
                 }
                 System.out.println(studentUnofficial);

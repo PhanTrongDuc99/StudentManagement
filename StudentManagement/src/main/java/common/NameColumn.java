@@ -10,26 +10,29 @@ package common;
  * @author USER
  */
 public enum NameColumn {
-    IdStudent(0),
-    Name(1),
-    PhoneNumber(2),
-    Email(3),
-    DayOfBirth(4),
-    Hometown(5),
-    Gender(6),
-    CurrentAddress(7),
-    DiscountStatus(8),
-    Cost(9),
-    RegisterStatus(10),
-    RegisterType(11);
+    IdStudent,
+    Name,
+    PhoneNumber,
+    Email,
+    DayOfBirth,
+    Hometown,
+    Gender,
+    CurrentAddress,
+    DiscountStatus,
+    Cost,
+    RegisterStatus,
+    RegisterType
+    ;
+  private static final NameColumn[] ENUMS = NameColumn.values();
 
-    private final int index;
-
-    private NameColumn(int index) {
-        this.index = index;
+    public static NameColumn of(int number) {
+        if (number < 1 || number > 3) {
+            throw new NumberFormatException("Invalid value for name: " + number);
+        }
+        return ENUMS[number - 1];
     }
 
-    public int getIndex() {
-        return index;
+    public int getValue() {
+        return ordinal() + 1;
     }
 }

@@ -5,6 +5,8 @@
  */
 package dao;
 
+import common.RegisterStatus;
+import common.RegisterType;
 import connection.ConnectionManager;
 import connection.ConnectionManagerImpl;
 import entities.Profile;
@@ -18,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import utils.DateUtils;
 
 /**
  *
@@ -30,9 +31,10 @@ public class StudentUnofficialDaoImpl implements StudentUnofficialDao {
     private Connection connection;
     private PreparedStatement preparedStatement;
     private ResultSet result;
-    private final String queryStudent = "INSERT INTO studentunofficial(Id, DiscountStatus, IdProfile , Cost, IdRegister, IdGrade) "
-            + "VALUES(?,?,(SELECT Id from profile WHERE profile.Id=?),?,(SELECT Id from register WHERE register.Id=?),(SELECT Id from grade WHERE grade.Id=?))";
-    private final String query = "SELECT st.Id, st.IdGrade, pr.Name, pr.Gender, pr.DayOfBirth, pr.PhoneNumber, pr.Hometown, pr.CurrentAddress, pr.IdNumber, pr.Email,rg.State, rg.TypeOfRegister,st.DiscountStatus, st.Cost\n"
+    private final String queryStudent = "INSERT INTO studentunofficial(Id, DiscountStatus, IdProfile , Cost, IdRegister, IdCourse) "
+            + "VALUES(?,?,(SELECT Id from profile WHERE profile.Id=?),(SELECT Cost FROM course WHERE Id= ?),(SELECT Id from register WHERE register.Id=?),(SELECT Id from course WHERE course.Id=?))";
+
+    private final String query = "SELECT st.Id, st.IdCourse, pr.Name, pr.Gender, pr.DayOfBirth, pr.PhoneNumber, pr.Hometown, pr.CurrentAddress, pr.IdNumber, pr.Email,rg.State, rg.TypeOfRegister,st.DiscountStatus, st.Cost\n"
             + "FROM STUDENTUNOFFICIAL st\n"
             + "INNER JOIN REGISTER rg ON st.Id = rg.Id\n"
             + "INNER JOIN PROFILE pr ON st.Id= pr.Id\n";
@@ -58,8 +60,8 @@ public class StudentUnofficialDaoImpl implements StudentUnofficialDao {
                 }
                 Profile profile = new Profile(result.getString("Id"), result.getString("Name"), gender, result.getDate("DayOfBirth"), result.getString("IdNumber"),
                         result.getString("PhoneNumber"), result.getString("Email"), result.getString("Hometown"), result.getString("CurrentAddress"));
-                Register register = DateUtils.converToRegister(result.getString("State"), result.getString("TypeOfRegister"));
-                StudentUnofficial studentUnofficial = new StudentUnofficial(result.getString("Id"), profile, result.getDouble("DiscountStatus"), result.getDouble("Cost"), register, result.getString("IdGrade"));
+                Register register = new Register(RegisterStatus.valueOf(result.getString("State")), RegisterType.valueOf(result.getString("TypeOfRegister")));
+                StudentUnofficial studentUnofficial = new StudentUnofficial(result.getString("Id"), profile, result.getDouble("DiscountStatus"), result.getDouble("Cost"), register, result.getString("IdCourse"));
                 studentUnofficials.add(studentUnofficial);
             }
         } catch (Exception ex) {
@@ -86,8 +88,8 @@ public class StudentUnofficialDaoImpl implements StudentUnofficialDao {
             preparedStatement.setString(3, student.getId());
             preparedStatement.setDouble(4, student.getCost());
             preparedStatement.setString(5, student.getId());
-            preparedStatement.setString(6, student.getIdRegisterGrade());
-            preparedStatement.execute(queryStudent);
+            preparedStatement.setString(6, student.getIdRegisterCourse());
+            preparedStatement.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
 
@@ -112,9 +114,9 @@ public class StudentUnofficialDaoImpl implements StudentUnofficialDao {
                 preparedStatement.setString(1, student.getId());
                 preparedStatement.setDouble(2, student.getDiscountStatus());
                 preparedStatement.setString(3, student.getId());
-                preparedStatement.setDouble(4, student.getCost());
+                preparedStatement.setString(4, student.getIdRegisterCourse());
                 preparedStatement.setString(5, student.getId());
-                preparedStatement.setString(6, student.getIdRegisterGrade());
+                preparedStatement.setString(6, student.getIdRegisterCourse());
                 preparedStatement.addBatch();
             }
             preparedStatement.executeBatch();
@@ -143,15 +145,21 @@ public class StudentUnofficialDaoImpl implements StudentUnofficialDao {
         try {
             connection = connectionManager.getConnection();
             preparedStatement = connection.prepareStatement(query);
+            StudentUnofficial studentUnofficial = new StudentUnofficial();
             result = preparedStatement.executeQuery();
             while (result.next()) {
                 Profile profile = new Profile(result.getString("Id"), result.getString("Name"), result.getBoolean("Gender"), result.getDate("DayOfBirth"), result.getString("IdNumber"),
                         result.getString("PhoneNumber"), result.getString("Email"), result.getString("Hometown"), result.getString("CurrentAddress"));
-                Register register = DateUtils.converToRegister(result.getString("State"), result.getString("TypeOfRegister"));
-                StudentUnofficial studentUnofficial = new StudentUnofficial(result.getString("Id"), profile, result.getDouble("DiscountStatus"), result.getDouble("Cost"), register, result.getString("IdGrade"));
-                return studentUnofficial;
-            }
+                Register register = new Register(RegisterStatus.valueOf(result.getString("State")), RegisterType.valueOf(result.getString("TypeOfRegister")));
+                studentUnofficial.setId(result.getString("Id"));
+                studentUnofficial.setProfile(profile);
+                studentUnofficial.setDiscountStatus(result.getDouble("DiscountStatus"));
 
+                studentUnofficial.setCost(result.getDouble("Cost"));
+                studentUnofficial.setRegister(register);
+                studentUnofficial.setIdRegisterCourse(result.getString("IdCourse"));
+            }
+            return studentUnofficial;
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {

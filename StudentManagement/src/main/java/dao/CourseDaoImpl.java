@@ -27,6 +27,9 @@ public class CourseDaoImpl implements CourseDao {
     private PreparedStatement preparedStatement;
     private ResultSet result;
 
+    private final String query = "SELECT Id, Name, \n"
+            + "ClassQuantity, StartDay, EndDay, Cost FROM COURSE c\n";
+
     public CourseDaoImpl() {
         connectionManager = new ConnectionManagerImpl();
     }
@@ -35,8 +38,6 @@ public class CourseDaoImpl implements CourseDao {
     public List<Course> getAll() {
         connection = connectionManager.getConnection();
         List<Course> courses = new ArrayList<>();
-        String query = "SELECT Id, Name, \n"
-                + "ClassQuantity, StartDay, EndDay, Cost FROM COURSE c\n";
 
         try {
             preparedStatement = connection.prepareStatement(query);
@@ -89,6 +90,35 @@ public class CourseDaoImpl implements CourseDao {
                 ex.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public Course getCourse(String id) {
+        Course course = new Course();
+        try {
+            connection = connectionManager.getConnection();
+            preparedStatement = connection.prepareStatement(query);
+            result = preparedStatement.executeQuery();
+            while (result.next()) {
+                course.setIdCourse(result.getString("Id"));
+                course.setNameCourse(result.getString("Name"));
+                course.setStartTime(result.getDate("StartDay"));
+                course.setEndTime(result.getDate("EndDay"));
+                course.setGradeQuantity(result.getInt("ClassQuantity"));
+                course.setCost(result.getDouble("Cost"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                result.close();
+                preparedStatement.close();
+                connection.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        return course;
     }
 
 }

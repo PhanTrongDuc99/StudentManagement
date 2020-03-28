@@ -5,7 +5,12 @@
  */
 package view.sub;
 
+import common.RegisterStatus;
+import common.RegisterType;
+import entities.Course;
 import entities.Profile;
+import entities.Register;
+import entities.StudentUnofficial;
 import java.awt.Color;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -17,8 +22,14 @@ import java.util.stream.Collectors;
 import javax.swing.BorderFactory;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
+import service.CourseService;
+import service.CourseServiceImpl;
 import service.ProfileService;
 import service.ProfileServiceImpl;
+import service.RegisterService;
+import service.RegisterServiceImpl;
+import service.StudentUnofficialService;
+import service.StudentUnofficialServiceImpl;
 import utils.CheckUtil;
 import utils.RandomId;
 
@@ -70,8 +81,8 @@ public class RegisterForm extends javax.swing.JFrame {
         idNumberTextField = new javax.swing.JTextField();
         idNumberLabel = new javax.swing.JLabel();
         addressLabel1 = new javax.swing.JLabel();
-        gradeRegisterTextField = new javax.swing.JTextField();
-        showGradesButton = new javax.swing.JButton();
+        courseRegisterTextField = new javax.swing.JTextField();
+        showCoursesButton = new javax.swing.JButton();
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -213,22 +224,19 @@ public class RegisterForm extends javax.swing.JFrame {
         register.add(addressLabel1);
         addressLabel1.setBounds(20, 300, 93, 30);
 
-        gradeRegisterTextField.addActionListener(new java.awt.event.ActionListener() {
+        courseRegisterTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                gradeRegisterTextFieldActionPerformed(evt);
+                courseRegisterTextFieldActionPerformed(evt);
             }
         });
-        register.add(gradeRegisterTextField);
-        gradeRegisterTextField.setBounds(160, 350, 90, 30);
+        register.add(courseRegisterTextField);
+        courseRegisterTextField.setBounds(160, 350, 80, 30);
 
-        showGradesButton.setBackground(new java.awt.Color(255, 255, 153));
-        showGradesButton.setText("Show Grades");
-        showGradesButton.setFocusPainted(false);
-        showGradesButton.setMaximumSize(new java.awt.Dimension(100, 22));
-        showGradesButton.setMinimumSize(new java.awt.Dimension(100, 22));
-        showGradesButton.setPreferredSize(new java.awt.Dimension(100, 22));
-        register.add(showGradesButton);
-        showGradesButton.setBounds(260, 350, 110, 30);
+        showCoursesButton.setBackground(new java.awt.Color(255, 255, 153));
+        showCoursesButton.setText("Show Courses");
+        showCoursesButton.setFocusPainted(false);
+        register.add(showCoursesButton);
+        showCoursesButton.setBounds(250, 350, 120, 30);
 
         getContentPane().add(register, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 380, 500));
 
@@ -270,9 +278,9 @@ public class RegisterForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_idNumberTextFieldActionPerformed
 
-    private void gradeRegisterTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gradeRegisterTextFieldActionPerformed
+    private void courseRegisterTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_courseRegisterTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_gradeRegisterTextFieldActionPerformed
+    }//GEN-LAST:event_courseRegisterTextFieldActionPerformed
 
     public static void main(String args[]) {
         RegisterForm reg = new RegisterForm();
@@ -283,13 +291,13 @@ public class RegisterForm extends javax.swing.JFrame {
     private javax.swing.JLabel addressLabel1;
     private javax.swing.JTextField addressTextFied;
     private javax.swing.JLabel background;
+    private javax.swing.JTextField courseRegisterTextField;
     private javax.swing.JLabel dayOfBirthLabel;
     private javax.swing.JLabel emailLabel;
     private javax.swing.JTextField emailTextField;
     private javax.swing.JComboBox<String> genderComboBox;
     private javax.swing.JLabel genderLabel;
     private javax.swing.JLabel gradeRegisterLabel;
-    private javax.swing.JTextField gradeRegisterTextField;
     private javax.swing.JLabel hometowmLabel;
     private javax.swing.JTextField hometownTextField;
     private javax.swing.JLabel idNumberLabel;
@@ -302,7 +310,7 @@ public class RegisterForm extends javax.swing.JFrame {
     private javax.swing.JTextField phoneTextField;
     private javax.swing.JPanel register;
     private javax.swing.JButton registerButton;
-    private javax.swing.JButton showGradesButton;
+    private javax.swing.JButton showCoursesButton;
     private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
     private final Border highLightBorder = BorderFactory.createLineBorder(Color.RED, 1);
@@ -311,7 +319,7 @@ public class RegisterForm extends javax.swing.JFrame {
     public void registerButtonEvents() {
         RandomId rand = new RandomId();
         List<String> strings = new ProfileServiceImpl().getProfileStudents().stream().map(Profile::getId).collect(Collectors.toList());
-
+        String id = rand.randomId(strings);
         registerButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -321,22 +329,33 @@ public class RegisterForm extends javax.swing.JFrame {
                 String address = addressTextFied.getText();
                 String hometown = hometownTextField.getText();
                 Date dayOfBirth = jDateChooser1.getDate();
-                String id = rand.randomId(strings);
                 Boolean gender = genderComboBox.getSelectedIndex() == 1;
+
+                ProfileService profileServices = new ProfileServiceImpl();
+                RegisterService registerService = new RegisterServiceImpl();
+                StudentUnofficialService studentService = new StudentUnofficialServiceImpl();
+                CourseService courseService = new CourseServiceImpl();
+
+                Course course = courseService.getCourse(courseRegisterTextField.getText());
                 Profile profile = new Profile(id, name, gender, dayOfBirth, name, phone, email, hometown, address);
-                ProfileService pro = new ProfileServiceImpl();
-                pro.insertProfile(profile);
+                Register register = new Register(id, RegisterStatus.WAITTING, RegisterType.DIRECT);
+                StudentUnofficial student = new StudentUnofficial(id, profile, 0d,
+                        course.getCost(), register);
+               
+                profileServices.insertProfile(profile);
+                registerService.insertRegister(register);
+                studentService.insertStudent(student);
                 noteLabel.setText("Registered Successfully!!!");
             }
         });
     }
 
     public void showGradeButtonEvens() {
-        showGradesButton.addMouseListener(new MouseAdapter() {
+        showCoursesButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                GradeForm grade = new GradeForm(gradeRegisterTextField);
-                grade.setVisible(true);
+                CourseForm courseForm = new CourseForm(courseRegisterTextField);
+                courseForm.setVisible(true);
             }
         });
     }

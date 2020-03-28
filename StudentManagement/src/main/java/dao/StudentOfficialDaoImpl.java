@@ -5,6 +5,8 @@
  */
 package dao;
 
+import common.RegisterStatus;
+import common.RegisterType;
 import connection.ConnectionManager;
 import connection.ConnectionManagerImpl;
 import entities.Profile;
@@ -57,7 +59,7 @@ public class StudentOfficialDaoImpl implements StudentOfficialDao {
                 }
                 Profile profile = new Profile(result.getString("Id"), result.getString("Name"), gender, result.getDate("DayOfBirth"), result.getString("IdNumber"),
                         result.getString("PhoneNumber"), result.getString("Email"), result.getString("Hometown"), result.getString("CurrentAddress"));
-                Register register = DateUtils.converToRegister(result.getString("State"), result.getString("TypeOfRegister"));
+                Register register = new Register(RegisterStatus.valueOf(result.getString("State")), RegisterType.valueOf(result.getString("TypeOfRegister")));
                 Result resultStudy = new Result(result.getDouble("StudyMark"), result.getDouble("RewardMark"), result.getDouble("DisciplineMark"), result.getDouble("StudyMark"), result.getInt("NumberOfAbsences"));
                 StudentOfficial studentOfficial = new StudentOfficial(resultStudy, result.getString("IdStudent"), profile, result.getDouble("DiscountStatus"), result.getDouble("Cost"), register);
                 studentOfficials.add(studentOfficial);

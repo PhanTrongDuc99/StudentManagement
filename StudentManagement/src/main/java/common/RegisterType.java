@@ -10,21 +10,18 @@ package common;
  * @author USER
  */
 public enum RegisterType {
-    INTERNET("internet"), MARKETING("marketing"), DIRECT("direct");
-    String note;
+    INTERNET, MARKETING, DIRECT;
 
-    private RegisterType() {
+    private static final RegisterType[] ENUMS = RegisterType.values();
+
+    public static RegisterType of(int status) {
+        if (status < 1 || status > 3) {
+            throw new NumberFormatException("Invalid value for Status: " + status);
+        }
+        return ENUMS[status - 1];
     }
 
-    private RegisterType(String note) {
-        this.note = note;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
+    public int getValue() {
+        return ordinal() + 1;
     }
 }

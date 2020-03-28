@@ -5,6 +5,8 @@
  */
 package dao;
 
+import common.RegisterStatus;
+import common.RegisterType;
 import connection.ConnectionManager;
 import connection.ConnectionManagerImpl;
 import entities.Register;
@@ -23,26 +25,30 @@ public class RegisterDaoImpl implements RegisterDao {
     private ConnectionManager connectionManager;
     private Connection connection;
     private PreparedStatement preparedStatement;
-    private final String query = "INSERT INTO register( State, TypeOfRegister, Id ) VALUES (?,?,?)";
+    private final String query = "INSERT INTO register( State, TypeOfRegister, Id ) VALUES(?, ?, ?)";
 
     public RegisterDaoImpl() {
         connectionManager = new ConnectionManagerImpl();
     }
 
+    public static void main(String[] args) {
+        Register re = new Register("1111111", RegisterStatus.CANCEL, RegisterType.DIRECT);
+        System.out.println(re.getStatus().toString());
+        new RegisterDaoImpl().insertRegister(re);
+    }
+
     @Override
     public void insertRegister(Register register) {
-        int affectedRows = 0;
-        connection = connectionManager.getConnection();
-
         try {
-            preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, register.getStatus().getNote());
-            preparedStatement.setString(2, register.getType().getNote());
+            String queryRegister = "INSERT INTO register(State, TypeOfRegister, Id ) VALUES(?,?,?)";
+            connection = connectionManager.getConnection();
+            preparedStatement = connection.prepareStatement(queryRegister);
+            preparedStatement.setString(1, register.getStatus().toString());
+            preparedStatement.setString(2, register.getType().toString());
             preparedStatement.setString(3, register.getId());
-            preparedStatement.executeUpdate(query);
+            preparedStatement.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
-
         } finally {
             try {
                 preparedStatement.close();
@@ -62,8 +68,8 @@ public class RegisterDaoImpl implements RegisterDao {
             for (StudentUnofficial student : students) {
                 Register register = student.getRegister();
                 preparedStatement = connection.prepareStatement(query);
-                preparedStatement.setString(1, register.getStatus().getNote());
-                preparedStatement.setString(2, register.getType().getNote());
+                preparedStatement.setString(1, register.getStatus().toString());
+                preparedStatement.setString(2, register.getType().toString());
                 preparedStatement.setString(3, register.getId());
                 preparedStatement.addBatch();
                 preparedStatement.executeBatch();

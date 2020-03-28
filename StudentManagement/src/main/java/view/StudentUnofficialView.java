@@ -31,11 +31,11 @@ public class StudentUnofficialView {
             System.out.println("ID: " + x.getProfile().getId());
         });
 
-//        prService.insertProfileStudent(students);
-//        reService.insertRegisters(students);
-//        st.insertStudents(students);
-        String id = "102180015";
-        System.out.println(st.getStudent(id));
+        prService.insertProfileStudent(students);
+        reService.insertRegisters(students);
+        st.insertStudents(students);
+//        String id = "102180015";
+//        System.out.println(st.getStudent(id));
 
 //        Profile profile = new Profile("0000", "Hong", true, Date.valueOf(LocalDate.of(1999, 9, 8)), "1321232", "000000000", "nguyenhong1999@gmail.com", "QB", "QB");
 //        prService.insertProfile(profile);

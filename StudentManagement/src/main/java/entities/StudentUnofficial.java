@@ -18,7 +18,7 @@ public class StudentUnofficial {
     private Double discountStatus;
     private Double cost;
     private Register register;
-    private String idRegisterGrade;
+    private String idRegisterCourse;
 
     public StudentUnofficial() {
     }
@@ -31,13 +31,13 @@ public class StudentUnofficial {
         this.register = register;
     }
 
-    public StudentUnofficial(String id, Profile profile, Double discountStatus, Double cost, Register register, String idRegisterGrade) {
+    public StudentUnofficial(String id, Profile profile, Double discountStatus, Double cost, Register register, String idRegisterCourse) {
         this.id = id;
         this.profile = profile;
         this.discountStatus = discountStatus;
         this.cost = cost;
         this.register = register;
-        this.idRegisterGrade = idRegisterGrade;
+        this.idRegisterCourse = idRegisterCourse;
     }
 
     public String getId() {
@@ -80,12 +80,12 @@ public class StudentUnofficial {
         this.register = register;
     }
 
-    public String getIdRegisterGrade() {
-        return idRegisterGrade;
+    public String getIdRegisterCourse() {
+        return idRegisterCourse;
     }
 
-    public void setIdRegisterGrade(String idRegisterGrade) {
-        this.idRegisterGrade = idRegisterGrade;
+    public void setIdRegisterCourse(String idRegisterCourse) {
+        this.idRegisterCourse = idRegisterCourse;
     }
 
     @Override
@@ -131,7 +131,7 @@ public class StudentUnofficial {
 
     @Override
     public String toString() {
-        return "StudentUnofficial{" + "id=" + id + ", profile=" + profile + ", discountStatus=" + discountStatus + ", cost=" + cost + ", register=" + register + '}';
+        return "StudentUnofficial{" + "id=" + id + ", profile=" + profile + ", discountStatus=" + discountStatus + ", cost=" + cost + ", register=" + register + ", idRegisterCourse=" + idRegisterCourse + '}';
     }
 
 }

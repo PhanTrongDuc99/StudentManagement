@@ -15,6 +15,9 @@ import java.util.List;
 public interface CourseService {
 
     public List<Course> getAll();
+
+    public Course getCourse(String id);
+
     public void insertCourses(List<Course> courses);
 
 }

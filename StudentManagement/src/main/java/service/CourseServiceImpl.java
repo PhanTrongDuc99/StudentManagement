@@ -32,5 +32,10 @@ public class CourseServiceImpl implements CourseService {
         courseDao.insertCourses(courses);
     }
 
+    @Override
+    public Course getCourse(String id) {
+        return courseDao.getCourse(id);
+    }
+
    
 }

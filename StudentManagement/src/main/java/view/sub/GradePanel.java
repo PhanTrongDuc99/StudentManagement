@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author SMILE ^^
+ * @author USER
  */
 public class GradePanel extends JPanel {
 

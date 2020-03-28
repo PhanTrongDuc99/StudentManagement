@@ -37,10 +37,10 @@ public class DetailStudentUnOfficialForm extends javax.swing.JFrame {
         idNumbertextField.setText(profile.getIdNumber());
         hometownTextField.setText(profile.getHomeTown());
         curentAddressTextField.setText(profile.getCurrentAddress());
-        Grade grade = new GradeDaoImpl().getGrade(student.getIdRegisterGrade());
+        Grade grade = new GradeDaoImpl().getGrade(student.getIdRegisterCourse());
         registerGradeTextField.setText(grade.getNameGrade());
-        registerTypeTextField.setText(student.getRegister().getType().getNote());
-        registerStatusTextField.setText(student.getRegister().getStatus().getNote());
+        registerTypeTextField.setText(student.getRegister().getType().toString());
+        registerStatusTextField.setText(student.getRegister().getStatus().toString());
     }
 
     /**

@@ -6,9 +6,6 @@
 package view;
 
 import entities.Grade;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import service.GradeService;
 import service.GradeServiceImpl;
@@ -26,6 +23,8 @@ public class GradeView {
         System.out.println("List grades: ----------");
         grades.forEach(item -> System.out.println(item.getTeacher().getIdTeacher()));
         gradeService.insertGrades(grades);
+        
+        System.out.println(gradeService.getGrade("Class01"));
     }
 
 }

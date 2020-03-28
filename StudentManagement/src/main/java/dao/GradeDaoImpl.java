@@ -110,25 +110,30 @@ public class GradeDaoImpl implements GradeDao {
 
     @Override
     public Grade getGrade(String id) {
-        connection = connectionManager.getConnection();
         String query = "SELECT Id, Name, StudentQuantity, IdTeacher,"
-                + " IdCourse, DaysOfWeek, StartTime,EndTime FROM grade"
-                + "WHERE Id=" + id;
+                + " IdCourse, StartTime,EndTime,DaysOfWeek FROM grade "
+                + " WHERE Id =  '" + id + "'";
 
         try {
+            connection = connectionManager.getConnection();
             preparedStatement = connection.prepareStatement(query);
+            Grade grade = new Grade();
             result = preparedStatement.executeQuery();
             while (result.next()) {
                 Teacher teacher = new Teacher();
                 Course course = new Course();
                 teacher.setIdTeacher(result.getString("IdTeacher"));
                 course.setIdCourse(result.getString("IdCourse"));
-                Grade grade = new Grade(result.getString("Id"), result.getString("Name"), teacher, course,
-                        TimeUtils.convertStringToLocalTime(result.getString("StartTime")),
-                        TimeUtils.convertStringToLocalTime(result.getString("EndTime")),
-                        result.getInt("StudentQuantity"), DayOfWeekUtils.convertStringToDayOfWeek(result.getString("DaysOfWeek")));
-                return grade;
+                grade.setIdGrade(result.getString("Id"));
+                grade.setNameGrade(result.getString("Name"));
+                grade.setTeacher(teacher);
+                grade.setCourse(course);
+                grade.setStartTime(TimeUtils.convertStringToLocalTime(result.getString("StartTime")));
+                grade.setEndTime(TimeUtils.convertStringToLocalTime(result.getString("EndTime")));
+                grade.setStudentQuantity(result.getInt("StudentQuantity"));
+                grade.setDaysOfWeek(DayOfWeekUtils.convertStringToDayOfWeek(result.getString("DaysOfWeek")));
             }
+            return grade;
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {

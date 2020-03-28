@@ -32,4 +32,9 @@ public class GradeServiceImpl implements GradeService {
         gradeDao.insertGrade(grades);
     }
 
+    @Override
+    public Grade getGrade(String id) {
+        return gradeDao.getGrade(id);
+    }
+
 }
