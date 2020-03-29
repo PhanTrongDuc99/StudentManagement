@@ -31,12 +31,10 @@ public class CourseForm extends JFrame {
     private JScrollPane js;
     private JTextField courseRegisterTextField;
 
-    private final Container container = getContentPane();
-
     public CourseForm(JTextField courseRegisterTextField) {
         this.courseRegisterTextField = courseRegisterTextField;
         initComponent();
-        evens();
+        events();
     }
 
     private void initComponent() {
@@ -85,7 +83,7 @@ public class CourseForm extends JFrame {
         tblGrade.setFocusable(false);
     }
 
-    private void evens() {
+    private void events() {
         tblGrade.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent evt) {

@@ -46,12 +46,12 @@ public class RegisterForm extends javax.swing.JFrame {
     }
 
     public void initEvens() {
-        nameTextFieldEvens();
-        phoneTextFieldEvens();
-        emailTextFieldEvens();
-        hometownTextFieldEvens();
-        addressTextFieldEvens();
-        idNumberTextFieldEvens();
+        nameTextFieldEvents();
+        phoneTextFieldEvents();
+        emailTextFieldEvents();
+        hometownTextFieldEvents();
+        addressTextFieldEvents();
+        idNumberTextFieldEvents();
         registerButtonEvents();
         showGradeButtonEvens();
     }
@@ -85,7 +85,7 @@ public class RegisterForm extends javax.swing.JFrame {
         showCoursesButton = new javax.swing.JButton();
         background = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(670, 500));
         setResizable(false);
         setSize(new java.awt.Dimension(0, 0));
@@ -339,9 +339,8 @@ public class RegisterForm extends javax.swing.JFrame {
                 Course course = courseService.getCourse(courseRegisterTextField.getText());
                 Profile profile = new Profile(id, name, gender, dayOfBirth, name, phone, email, hometown, address);
                 Register register = new Register(id, RegisterStatus.WAITTING, RegisterType.DIRECT);
-                StudentUnofficial student = new StudentUnofficial(id, profile, 0d,
-                        course.getCost(), register);
-               
+                StudentUnofficial student = new StudentUnofficial(id, profile, 0d, course.getCost(), register, course.getIdCourse());
+
                 profileServices.insertProfile(profile);
                 registerService.insertRegister(register);
                 studentService.insertStudent(student);
@@ -360,19 +359,19 @@ public class RegisterForm extends javax.swing.JFrame {
         });
     }
 
-    private void nameTextFieldEvens() {
-        stringTextFieldEvens(nameTextField);
+    private void nameTextFieldEvents() {
+        stringTextFieldEvents(nameTextField);
     }
 
-    private void phoneTextFieldEvens() {
-        numberTextFieldEvens(phoneTextField);
+    private void phoneTextFieldEvents() {
+        numberTextFieldEvents(phoneTextField);
     }
 
-    private void idNumberTextFieldEvens() {
-        numberTextFieldEvens(idNumberTextField);
+    private void idNumberTextFieldEvents() {
+        numberTextFieldEvents(idNumberTextField);
     }
 
-    private void emailTextFieldEvens() {
+    private void emailTextFieldEvents() {
         emailTextField.addMouseListener(new MouseAdapter() {
 
             @Override
@@ -403,15 +402,15 @@ public class RegisterForm extends javax.swing.JFrame {
 
     }
 
-    private void hometownTextFieldEvens() {
-        stringTextFieldEvens(hometownTextField);
+    private void hometownTextFieldEvents() {
+        stringTextFieldEvents(hometownTextField);
     }
 
-    private void addressTextFieldEvens() {
-        stringTextFieldEvens(addressTextFied);
+    private void addressTextFieldEvents() {
+        stringTextFieldEvents(addressTextFied);
     }
 
-    private void stringTextFieldEvens(JTextField textField) {
+    private void stringTextFieldEvents(JTextField textField) {
         textField.addMouseListener(new MouseAdapter() {
 
             @Override
@@ -440,7 +439,7 @@ public class RegisterForm extends javax.swing.JFrame {
 
     }
 
-    private void numberTextFieldEvens(JTextField textField) {
+    private void numberTextFieldEvents(JTextField textField) {
         textField.addMouseListener(new MouseAdapter() {
 
             @Override

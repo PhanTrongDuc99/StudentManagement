@@ -6,6 +6,8 @@
 package view.sub;
 
 import entities.StudentUnofficial;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.JOptionPane;
 import readFromExcelFile.ReadStudentUnofficicalFromExcelFile;
@@ -25,6 +27,8 @@ public class EnrollmentGradePlacementPanel extends javax.swing.JPanel {
      */
     public EnrollmentGradePlacementPanel() {
         initComponents();
+        initEvens();
+        setVisible(true);
     }
 
     /**
@@ -86,7 +90,7 @@ public class EnrollmentGradePlacementPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btAdmissionActionPerformed
     private void initEvens() {
         updateDataFromExcelOnlineButtonEvens();
-        RegisterFormButtonEvens();
+        RegisterFormButtonEvents();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -98,13 +102,28 @@ public class EnrollmentGradePlacementPanel extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private void updateDataFromExcelOnlineButtonEvens() {
-        StudentUnofficialService stdUnOfficialService = new StudentUnofficialServiceImpl();
-        List<StudentUnofficial> students = ReadStudentUnofficicalFromExcelFile.readStudentFromExcelFile(FileUtils.getPath("excels", "student.xlsx"));
-        stdUnOfficialService.insertStudents(students);
-        JOptionPane.showMessageDialog(this, "Update excel online successfully!", "Notification", JOptionPane.OK_OPTION, ImageUtils.loadImageIcon(getClass().getResource("/images/alarm.png").getPath()));
+        btUpdateData.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                StudentUnofficialService stdUnOfficialService = new StudentUnofficialServiceImpl();
+                List<StudentUnofficial> students = ReadStudentUnofficicalFromExcelFile.readStudentFromExcelFile(FileUtils.getPath("excels", "student.xlsx"));
+                stdUnOfficialService.insertStudents(students);
+                JOptionPane.showMessageDialog(EnrollmentGradePlacementPanel.this, "Update excel online successfully!", "Notification", JOptionPane.OK_OPTION, ImageUtils.loadImageIcon(getClass().getResource("/images/alarm.png").getPath()));
+            }
+
+        });
+
     }
 
-    private void RegisterFormButtonEvens() {
+    private void RegisterFormButtonEvents() {
+        btRegister.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                RegisterForm registerForm = new RegisterForm();
+                registerForm.setVisible(true);
+            }
+
+        });
 
     }
 }

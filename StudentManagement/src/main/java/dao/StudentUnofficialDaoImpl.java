@@ -36,8 +36,8 @@ public class StudentUnofficialDaoImpl implements StudentUnofficialDao {
 
     private final String query = "SELECT st.Id, st.IdCourse, pr.Name, pr.Gender, pr.DayOfBirth, pr.PhoneNumber, pr.Hometown, pr.CurrentAddress, pr.IdNumber, pr.Email,rg.State, rg.TypeOfRegister,st.DiscountStatus, st.Cost\n"
             + "FROM STUDENTUNOFFICIAL st\n"
-            + "INNER JOIN REGISTER rg ON st.Id = rg.Id\n"
-            + "INNER JOIN PROFILE pr ON st.Id= pr.Id\n";
+            + "INNER JOIN REGISTER rg ON st.IdRegister = rg.Id\n"
+            + "INNER JOIN PROFILE pr ON st.IdProfile= pr.Id\n";
 
     public StudentUnofficialDaoImpl() {
         connectionManager = new ConnectionManagerImpl();
@@ -85,8 +85,8 @@ public class StudentUnofficialDaoImpl implements StudentUnofficialDao {
             preparedStatement = connection.prepareStatement(queryStudent);
             preparedStatement.setString(1, student.getId());
             preparedStatement.setDouble(2, student.getDiscountStatus());
-            preparedStatement.setString(3, student.getId());
-            preparedStatement.setDouble(4, student.getCost());
+            preparedStatement.setString(3, student.getProfile().getId());
+            preparedStatement.setString(4, student.getIdRegisterCourse());
             preparedStatement.setString(5, student.getId());
             preparedStatement.setString(6, student.getIdRegisterCourse());
             preparedStatement.executeUpdate();
@@ -108,12 +108,11 @@ public class StudentUnofficialDaoImpl implements StudentUnofficialDao {
         try {
             connection = connectionManager.getConnection();
             connection.setAutoCommit(false);
-
             preparedStatement = connection.prepareStatement(queryStudent);
             for (StudentUnofficial student : students) {
                 preparedStatement.setString(1, student.getId());
                 preparedStatement.setDouble(2, student.getDiscountStatus());
-                preparedStatement.setString(3, student.getId());
+                preparedStatement.setString(3, student.getProfile().getId());
                 preparedStatement.setString(4, student.getIdRegisterCourse());
                 preparedStatement.setString(5, student.getId());
                 preparedStatement.setString(6, student.getIdRegisterCourse());

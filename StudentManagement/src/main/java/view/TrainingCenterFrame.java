@@ -86,12 +86,12 @@ public class TrainingCenterFrame extends JFrame {
     private JPanel pnItemFinancial;
     private JPanel pnItemTraining;
 
-    private JButton[] itemCourses = {new JButton("Admissions and Class arrangement"), new JButton("List of courses")};
-    private JButton[] itemGrades = {new JButton("List of grades"), new JButton("Grade division"), new JButton("Storage of reserved students")};
-    private JButton[] itemStudents = {new JButton("List of students"), new JButton("Study results"), new JButton("List of students warned, reminded")};
-    private JButton[] itemTeachers = {new JButton("List of teachers"), new JButton("Recruitment lecturers"), new JButton("Assess, reward and discipline lecturers"), new JButton("Salary")};
-    private JButton[] itemFinancials = {new JButton("Student tuition management"), new JButton("Central management of revenue and expenditure")};
-    private JButton[] itemTrainings = {new JButton("Plan for the new courses"), new JButton("Arrange lecturers, classrooms, class schedule"), new JButton("Detailed plan for each course")};
+    private final JButton[] itemCourses = {new JButton("Admissions and Class arrangement"), new JButton("List of courses")};
+    private final JButton[] itemGrades = {new JButton("List of grades"), new JButton("Grade division"), new JButton("Storage of reserved students")};
+    private final JButton[] itemStudents = {new JButton("List of students"), new JButton("Study results"), new JButton("List of students warned, reminded")};
+    private final JButton[] itemTeachers = {new JButton("List of teachers"), new JButton("Recruitment lecturers"), new JButton("Assess, reward and discipline lecturers"), new JButton("Salary")};
+    private final JButton[] itemFinancials = {new JButton("Student tuition management"), new JButton("Central management of revenue and expenditure")};
+    private final JButton[] itemTrainings = {new JButton("Plan for the new courses"), new JButton("Arrange lecturers, classrooms, class schedule"), new JButton("Detailed plan for each course")};
 
     private boolean statusBtCourse = false;
     private boolean statusBtGrade = false;
@@ -100,13 +100,13 @@ public class TrainingCenterFrame extends JFrame {
     private boolean statusBtFinancial = false;
     private boolean statusBtTraining = false;
 
-    private Map< JPanel, JButton> homepageMap = new HashMap<>();
-    private Map< JPanel, JButton> courseMap = new HashMap<>();
-    private Map< JPanel, JButton> gradeMap = new HashMap<>();
-    private Map< JPanel, JButton> studentMap = new HashMap<>();
-    private Map< JPanel, JButton> teacherMap = new HashMap<>();
-    private Map< JPanel, JButton> finalcialMap = new HashMap<>();
-    private Map< JPanel, JButton> trainingMap = new HashMap<>();
+    private final Map< JPanel, JButton> homepageMap = new HashMap<>();
+    private final Map< JPanel, JButton> courseMap = new HashMap<>();
+    private final Map< JPanel, JButton> gradeMap = new HashMap<>();
+    private final Map< JPanel, JButton> studentMap = new HashMap<>();
+    private final Map< JPanel, JButton> teacherMap = new HashMap<>();
+    private final Map< JPanel, JButton> finalcialMap = new HashMap<>();
+    private final Map< JPanel, JButton> trainingMap = new HashMap<>();
 
     private final Border defaultBorder = new JButton().getBorder();
     private final Border pnLeftButtonHighLightBorder = BorderFactory.createLineBorder(new Color(0, 0, 50), 1);
@@ -126,6 +126,7 @@ public class TrainingCenterFrame extends JFrame {
 
     public TrainingCenterFrame(String title) {
         super(title);
+        setVisible(true);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(1080, 700);
         setLocationRelativeTo(null);
