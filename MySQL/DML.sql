@@ -33,22 +33,22 @@ INSERT INTO `studentmanagement`.`profile` (`Name`, `Gender`, `DayOfBirth`, `Phon
 INSERT INTO `studentmanagement`.`profile` (`Name`, `Gender`, `DayOfBirth`, `PhoneNumber`, `Hometown`, `CurrentAddress`, `IdNumber`, `Email`, `Id`) VALUES ('Phan Ngoc Quyen', '0', '1995-12-02', '0123876832', 'Hue', 'Da Nang', '476361959', 'phanquyen@gmail.com', 'ProG4');
 INSERT INTO `studentmanagement`.`profile` (`Name`, `Gender`, `DayOfBirth`, `PhoneNumber`, `Hometown`, `CurrentAddress`, `IdNumber`, `Email`, `Id`) VALUES ('Pham Minh Tuan', '0', '1989-10-16', '0904987212', 'Hai Phong', 'Da Nang', '409362009', 'phamtuan@gmail.com', 'ProG5');
 
-INSERT INTO `studentmanagement`.`register` (`State`, `TypeOfRegister`, `Id`) VALUES ('Waitting', 'Maketing', 'Reg01');
-INSERT INTO `studentmanagement`.`register` (`State`, `TypeOfRegister`, `Id`) VALUES ('Registered', 'Internet', 'Reg02');
-INSERT INTO `studentmanagement`.`register` (`State`, `TypeOfRegister`, `Id`) VALUES ('Waitting', 'Maketing', 'Reg03');
-INSERT INTO `studentmanagement`.`register` (`State`, `TypeOfRegister`, `Id`) VALUES ('Cancel', 'Internet', 'Reg04');
-INSERT INTO `studentmanagement`.`register` (`State`, `TypeOfRegister`, `Id`) VALUES ('Registered', 'Direct', 'Reg05');
-UPDATE `studentmanagement`.`register` SET `State` = 'Waitting' WHERE (`Id` = 'Reg02');
-UPDATE `studentmanagement`.`register` SET `State` = 'Registered' WHERE (`Id` = 'Reg04');
-UPDATE `studentmanagement`.`register` SET `State` = 'Registered' WHERE (`Id` = 'Reg03');
-UPDATE `studentmanagement`.`register` SET `State` = 'Waitting' WHERE (`Id` = 'Reg03');
-UPDATE `studentmanagement`.`register` SET `State` = 'Waitting' WHERE (`Id` = 'Reg04');
-UPDATE `studentmanagement`.`register` SET `State` = 'Waitting' WHERE (`Id` = 'Reg05');
-UPDATE `studentmanagement`.`register` SET `State` = 'WAITTING', `TypeOfRegister` = 'MARKETING' WHERE (`Id` = 'Reg01');
-UPDATE `studentmanagement`.`register` SET `State` = 'WAITTING', `TypeOfRegister` = 'INTERNET' WHERE (`Id` = 'Reg02');
-UPDATE `studentmanagement`.`register` SET `State` = 'WAITTING', `TypeOfRegister` = 'MARKETING' WHERE (`Id` = 'Reg03');
-UPDATE `studentmanagement`.`register` SET `State` = 'WAITTING', `TypeOfRegister` = 'INTERNET' WHERE (`Id` = 'Reg04');
-UPDATE `studentmanagement`.`register` SET `State` = 'WAITTING', `TypeOfRegister` = 'DIRECT' WHERE (`Id` = 'Reg05');
+-- INSERT INTO `studentmanagement`.`register` (`State`, `TypeOfRegister`, `Id`) VALUES ('Waitting', 'Maketing', 'Reg01');
+-- INSERT INTO `studentmanagement`.`register` (`State`, `TypeOfRegister`, `Id`) VALUES ('Registered', 'Internet', 'Reg02');
+-- INSERT INTO `studentmanagement`.`register` (`State`, `TypeOfRegister`, `Id`) VALUES ('Waitting', 'Maketing', 'Reg03');
+-- INSERT INTO `studentmanagement`.`register` (`State`, `TypeOfRegister`, `Id`) VALUES ('Cancel', 'Internet', 'Reg04');
+-- INSERT INTO `studentmanagement`.`register` (`State`, `TypeOfRegister`, `Id`) VALUES ('Registered', 'Direct', 'Reg05');
+-- UPDATE `studentmanagement`.`register` SET `State` = 'Waitting' WHERE (`Id` = 'Reg02');
+-- UPDATE `studentmanagement`.`register` SET `State` = 'Registered' WHERE (`Id` = 'Reg04');
+-- UPDATE `studentmanagement`.`register` SET `State` = 'Registered' WHERE (`Id` = 'Reg03');
+-- UPDATE `studentmanagement`.`register` SET `State` = 'Waitting' WHERE (`Id` = 'Reg03');
+-- UPDATE `studentmanagement`.`register` SET `State` = 'Waitting' WHERE (`Id` = 'Reg04');
+-- UPDATE `studentmanagement`.`register` SET `State` = 'Waitting' WHERE (`Id` = 'Reg05');
+-- UPDATE `studentmanagement`.`register` SET `State` = 'WAITTING', `TypeOfRegister` = 'MARKETING' WHERE (`Id` = 'Reg01');
+-- UPDATE `studentmanagement`.`register` SET `State` = 'WAITTING', `TypeOfRegister` = 'INTERNET' WHERE (`Id` = 'Reg02');
+-- UPDATE `studentmanagement`.`register` SET `State` = 'WAITTING', `TypeOfRegister` = 'MARKETING' WHERE (`Id` = 'Reg03');
+-- UPDATE `studentmanagement`.`register` SET `State` = 'WAITTING', `TypeOfRegister` = 'INTERNET' WHERE (`Id` = 'Reg04');
+-- UPDATE `studentmanagement`.`register` SET `State` = 'WAITTING', `TypeOfRegister` = 'DIRECT' WHERE (`Id` = 'Reg05');
 
 
 

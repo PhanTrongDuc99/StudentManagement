@@ -329,6 +329,7 @@ public class RegisterForm extends javax.swing.JFrame {
                 String address = addressTextFied.getText();
                 String hometown = hometownTextField.getText();
                 Date dayOfBirth = jDateChooser1.getDate();
+                String idNumber = idNumberTextField.getText();
                 Boolean gender = genderComboBox.getSelectedIndex() == 1;
 
                 ProfileService profileServices = new ProfileServiceImpl();
@@ -337,7 +338,7 @@ public class RegisterForm extends javax.swing.JFrame {
                 CourseService courseService = new CourseServiceImpl();
 
                 Course course = courseService.getCourse(courseRegisterTextField.getText());
-                Profile profile = new Profile(id, name, gender, dayOfBirth, name, phone, email, hometown, address);
+                Profile profile = new Profile(id, name, gender, dayOfBirth, idNumber, phone, email, hometown, address);
                 Register register = new Register(id, RegisterStatus.WAITTING, RegisterType.DIRECT);
                 StudentUnofficial student = new StudentUnofficial(id, profile, 0d, course.getCost(), register, course.getIdCourse());
 

@@ -21,6 +21,10 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import readFromExcelFile.ReadStudentUnofficicalFromExcelFile;
+import service.ProfileService;
+import service.ProfileServiceImpl;
+import service.RegisterService;
+import service.RegisterServiceImpl;
 import service.StudentOfficialService;
 import service.StudentOfficialServiceImpl;
 import service.StudentUnofficialService;
@@ -145,7 +149,11 @@ public class EnrollmentGradePlacementPanel extends javax.swing.JPanel {
             @Override
             public void mousePressed(MouseEvent e) {
                 StudentUnofficialService stdUnOfficialService = new StudentUnofficialServiceImpl();
+                ProfileService profileService = new ProfileServiceImpl();
+                RegisterService registerService = new RegisterServiceImpl();
                 List<StudentUnofficial> students = ReadStudentUnofficicalFromExcelFile.readStudentFromExcelFile(FileUtils.getPath("excels", "student.xlsx"));
+                profileService.insertProfileStudent(students);
+                registerService.insertRegisters(students);
                 stdUnOfficialService.insertStudents(students);
                 JOptionPane.showMessageDialog(EnrollmentGradePlacementPanel.this, "Update excel online successfully!", "Notification", JOptionPane.OK_OPTION, ImageUtils.loadImageIcon(getClass().getResource("/images/alarm.png").getPath()));
             }
@@ -244,9 +252,9 @@ public class EnrollmentGradePlacementPanel extends javax.swing.JPanel {
 
     private CategoryDataset createDataset() {
         final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.addValue(21, yCloumnName, RegisterType.INTERNET.toString());
-        dataset.addValue(35, yCloumnName, RegisterType.MARKETING.toString());
-        dataset.addValue(55, yCloumnName, RegisterType.DIRECT.toString());
+        dataset.addValue(soursesCount(RegisterType.INTERNET.toString(), studentUnofficials), yCloumnName, RegisterType.INTERNET.toString());
+        dataset.addValue(soursesCount(RegisterType.MARKETING.toString(), studentUnofficials), yCloumnName, RegisterType.MARKETING.toString());
+        dataset.addValue(soursesCount(RegisterType.DIRECT.toString(), studentUnofficials), yCloumnName, RegisterType.DIRECT.toString());
         return dataset;
     }
 }
