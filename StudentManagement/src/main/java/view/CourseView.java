@@ -21,11 +21,14 @@ public class CourseView {
     
     public static void main(String[] args) {
         CourseService courseService = new CourseServiceImpl();
+        List<Course> courses = courseService.getAll();
+        courses.forEach(item -> System.out.println("Item: " + item));
 //        List<Course> courses = ReadCourseFromExcelFile.readCourseFromExcelFile(FileUtils.getPath("excels", "course.xlsx"));
 //        courseService.insertCourses(courses);
 //        courses.forEach(item -> System.out.println(item));
 //        String string = RegisterStatus.CANCEL.toString();
-        System.out.println(courseService.getCourse("K01"));
+//        System.out.println(courseService.getCourse("K01"));
+
     }
     
 }

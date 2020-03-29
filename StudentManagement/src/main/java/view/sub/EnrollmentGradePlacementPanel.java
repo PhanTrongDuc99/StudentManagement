@@ -5,12 +5,24 @@
  */
 package view.sub;
 
+import common.RegisterType;
+import entities.StudentOfficial;
 import entities.StudentUnofficial;
+import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
 import readFromExcelFile.ReadStudentUnofficicalFromExcelFile;
+import service.StudentOfficialService;
+import service.StudentOfficialServiceImpl;
 import service.StudentUnofficialService;
 import service.StudentUnofficialServiceImpl;
 import utils.FileUtils;
@@ -22,13 +34,33 @@ import utils.ImageUtils;
  */
 public class EnrollmentGradePlacementPanel extends javax.swing.JPanel {
 
+    private StudentUnofficialService studentUnofficialService;
+    private StudentOfficialService studentOfficialService;
+    private String titleBarChart = "Statistical bar chart of registered student sources";
+    private String titlePieChart = "Statistical pie chart of registered student sources";
+    private String xColumnName = "The sourses of registeration";
+    private String yCloumnName = "Amount registered student";
+    private List<StudentUnofficial> studentUnofficials;
+    private List<StudentOfficial> studentOfficials;
+    private final Color selectedBtStatisticalColor = new Color(0, 0, 200);
+    private final Color defaultBtStatisticalColor = new Color(0, 0, 153);
+    private final Color selectedBtUpdateDataFromExcelOnlineColor = new Color(0, 200, 0);
+    private final Color defaultBtUpdateDataFromExcelOnlineColor = new Color(0, 153, 0);
+    private final Color selectedBtRegisterFormColor = new Color(200, 100, 0);
+    private final Color defaultBtRegisterFormColor = new Color(153, 51, 0);
+    private final Color selectedBtDivisionGradeColor = new Color(255, 200, 0);
+    private final Color defaultBtDivisionGradeColor = new Color(255, 153, 0);
+
     /**
      * Creates new form EnrollmentGradePlacementPanel
      */
     public EnrollmentGradePlacementPanel() {
+        studentOfficialService = new StudentOfficialServiceImpl();
+        studentUnofficialService = new StudentUnofficialServiceImpl();
+        studentUnofficials = studentUnofficialService.getAll();
+        studentOfficials = studentOfficialService.getAll();
         initComponents();
-        initEvens();
-        setVisible(true);
+        initEvents();
     }
 
     /**
@@ -41,11 +73,14 @@ public class EnrollmentGradePlacementPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         btUpdateData = new javax.swing.JButton();
-        btAdmission = new javax.swing.JButton();
+        btStatistical = new javax.swing.JButton();
         btRegister = new javax.swing.JButton();
         btDivision = new javax.swing.JButton();
         lbBackground = new javax.swing.JLabel();
 
+        setMaximumSize(new java.awt.Dimension(1587, 903));
+        setMinimumSize(new java.awt.Dimension(1587, 903));
+        setPreferredSize(new java.awt.Dimension(1587, 903));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btUpdateData.setBackground(new java.awt.Color(0, 153, 0));
@@ -53,55 +88,59 @@ public class EnrollmentGradePlacementPanel extends javax.swing.JPanel {
         btUpdateData.setText("Update data from excel online");
         btUpdateData.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btUpdateData.setFocusPainted(false);
-        add(btUpdateData, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 0, 180, 37));
+        add(btUpdateData, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, 180, 37));
 
-        btAdmission.setBackground(new java.awt.Color(0, 0, 153));
-        btAdmission.setForeground(new java.awt.Color(255, 255, 255));
-        btAdmission.setText("Admissions source statistics");
-        btAdmission.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        btAdmission.setFocusPainted(false);
-        btAdmission.addActionListener(new java.awt.event.ActionListener() {
+        btStatistical.setBackground(new java.awt.Color(0, 0, 153));
+        btStatistical.setForeground(new java.awt.Color(255, 255, 255));
+        btStatistical.setText("Admissions source statistics");
+        btStatistical.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btStatistical.setFocusPainted(false);
+        btStatistical.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btAdmissionActionPerformed(evt);
+                btStatisticalActionPerformed(evt);
             }
         });
-        add(btAdmission, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 0, 170, 37));
+        add(btStatistical, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 0, 170, 37));
 
         btRegister.setBackground(new java.awt.Color(153, 51, 0));
         btRegister.setForeground(new java.awt.Color(255, 255, 255));
         btRegister.setText("Register form");
         btRegister.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btRegister.setFocusPainted(false);
-        add(btRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 0, 149, 37));
+        add(btRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 0, 149, 37));
 
         btDivision.setBackground(new java.awt.Color(255, 153, 0));
         btDivision.setForeground(new java.awt.Color(255, 255, 255));
         btDivision.setText("Grade division/arrange");
         btDivision.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btDivision.setFocusPainted(false);
-        add(btDivision, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 0, 223, 37));
+        add(btDivision, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 0, 223, 37));
 
         lbBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/backgroundEnrollment.jpg"))); // NOI18N
-        add(lbBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 980, 630));
+        lbBackground.setPreferredSize(new java.awt.Dimension(1587, 903));
+        add(lbBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btAdmissionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdmissionActionPerformed
+    private void btStatisticalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btStatisticalActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btAdmissionActionPerformed
-    private void initEvens() {
-        updateDataFromExcelOnlineButtonEvens();
-        RegisterFormButtonEvents();
+    }//GEN-LAST:event_btStatisticalActionPerformed
+    private void initEvents() {
+
+        btUpdateDataFromExcelOnlineEvents();
+        btRegisterFormEvents();
+        btStatisticalEvents();
+        btDivisionGradeEvents();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btAdmission;
     private javax.swing.JButton btDivision;
     private javax.swing.JButton btRegister;
+    private javax.swing.JButton btStatistical;
     private javax.swing.JButton btUpdateData;
     private javax.swing.JLabel lbBackground;
     // End of variables declaration//GEN-END:variables
 
-    private void updateDataFromExcelOnlineButtonEvens() {
+    private void btUpdateDataFromExcelOnlineEvents() {
         btUpdateData.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -111,11 +150,21 @@ public class EnrollmentGradePlacementPanel extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(EnrollmentGradePlacementPanel.this, "Update excel online successfully!", "Notification", JOptionPane.OK_OPTION, ImageUtils.loadImageIcon(getClass().getResource("/images/alarm.png").getPath()));
             }
 
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                btUpdateData.setBackground(selectedBtUpdateDataFromExcelOnlineColor);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                btUpdateData.setBackground(defaultBtUpdateDataFromExcelOnlineColor);
+            }
+
         });
 
     }
 
-    private void RegisterFormButtonEvents() {
+    private void btRegisterFormEvents() {
         btRegister.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -123,7 +172,81 @@ public class EnrollmentGradePlacementPanel extends javax.swing.JPanel {
                 registerForm.setVisible(true);
             }
 
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                btRegister.setBackground(selectedBtRegisterFormColor);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                btRegister.setBackground(defaultBtRegisterFormColor);
+            }
+
+        });
+    }
+
+    private void btDivisionGradeEvents() {
+        btDivision.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                //Thu lam trong nay nha
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                btDivision.setBackground(selectedBtDivisionGradeColor);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                btDivision.setBackground(defaultBtDivisionGradeColor);
+            }
         });
 
+    }
+
+    private void btStatisticalEvents() {
+        btStatistical.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                btStatistical.setBackground(selectedBtStatisticalColor);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                btStatistical.setBackground(defaultBtStatisticalColor);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                ChartPanel chartPanel = new ChartPanel(createChart());
+                chartPanel.setPreferredSize(new java.awt.Dimension(500, 400));
+                JFrame frame = new JFrame();
+                frame.add(chartPanel);
+                frame.setSize(1000, 900);
+                frame.setLocationRelativeTo(null);
+                frame.setResizable(false);
+                frame.setVisible(true);
+            }
+        }
+        );
+    }
+
+    private long soursesCount(String source, List<StudentUnofficial> studentUnofficials) {
+        return studentUnofficials.stream().filter(item -> source.equalsIgnoreCase(item.getRegister().getType().toString())).count();
+    }
+
+    private JFreeChart createChart() {
+        JFreeChart barChart = ChartFactory.createBarChart(titleBarChart, xColumnName, yCloumnName, createDataset(), PlotOrientation.VERTICAL,
+                false, false, false);
+        return barChart;
+    }
+
+    private CategoryDataset createDataset() {
+        final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        dataset.addValue(21, yCloumnName, RegisterType.INTERNET.toString());
+        dataset.addValue(35, yCloumnName, RegisterType.MARKETING.toString());
+        dataset.addValue(55, yCloumnName, RegisterType.DIRECT.toString());
+        return dataset;
     }
 }

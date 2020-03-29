@@ -63,7 +63,6 @@ view\StudentUnofficialView.class
 dao\CourseDao.class
 dao\StudentOfficialDaoImpl.class
 service\TimeKeepingServiceImpl.class
-view\TrainingCenterFrame$1$1.class
 view\sub\RegisterForm$15.class
 view\TrainingCenterFrame$2.class
 view\sub\StudentInformationForm$1.class

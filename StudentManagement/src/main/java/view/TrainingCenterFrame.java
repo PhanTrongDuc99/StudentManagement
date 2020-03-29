@@ -27,6 +27,7 @@ import javax.swing.JSplitPane;
 import javax.swing.WindowConstants;
 import javax.swing.border.Border;
 import utils.ImageUtils;
+import view.sub.CourseInformationPanel;
 import view.sub.CoursePanel;
 import view.sub.EnrollmentGradePlacementPanel;
 import view.sub.FinancialPanel;
@@ -57,6 +58,8 @@ public class TrainingCenterFrame extends JFrame {
     private final CardLayout cardLayout = new CardLayout();
     private final JSplitPane splitPane = new JSplitPane();
     private final JSplitPane splitPanePnLeft = new JSplitPane();
+    private final int pnCenterHeight = 903;
+    private final int pnCenterWidth = 1587;
 
     private JPanel pnTop;
     private JPanel pnLeftTop;
@@ -100,20 +103,14 @@ public class TrainingCenterFrame extends JFrame {
     private boolean statusBtFinancial = false;
     private boolean statusBtTraining = false;
 
-    private final Map< JPanel, JButton> homepageMap = new HashMap<>();
-    private final Map< JPanel, JButton> courseMap = new HashMap<>();
-    private final Map< JPanel, JButton> gradeMap = new HashMap<>();
-    private final Map< JPanel, JButton> studentMap = new HashMap<>();
-    private final Map< JPanel, JButton> teacherMap = new HashMap<>();
-    private final Map< JPanel, JButton> finalcialMap = new HashMap<>();
-    private final Map< JPanel, JButton> trainingMap = new HashMap<>();
-
     private final Border defaultBorder = new JButton().getBorder();
     private final Border pnLeftButtonHighLightBorder = BorderFactory.createLineBorder(new Color(0, 0, 50), 1);
 
     //private final Color selectedItemBackground = new Color(0, 0, 90);
     private final Color defaultBackground = new Color(0, 0, 50);
-    private final Color defaultItemBackground = new Color(0, 0, 80);
+    private final Color defaultItemBackground = new Color(0, 0, 150);
+    private final Color selectedItemBackground = new Color(0, 0, 250);
+    private final Color defaultPnItemBackground = new Color(0, 102, 153);
 
     private JLabel lbAccount;
     private JLabel lbWelcome;
@@ -512,7 +509,7 @@ public class TrainingCenterFrame extends JFrame {
 
     private void createItemPanel(JPanel panel, JButton... buttons) {
 
-        panel.setBackground(defaultBackground);
+        panel.setBackground(defaultPnItemBackground);
         panel.setBorder(defaultBorder);
         createItemsButton(buttons);
         addItemsOnPanel(panel, buttons);
@@ -588,37 +585,21 @@ public class TrainingCenterFrame extends JFrame {
                         disableBackgroundButtons(components);
                         button.setBackground(defaultItemBackground);
 
-                        //display and hint item of panelHomepage
                         if (btHomePage.getText().equalsIgnoreCase(button.getText())) {
                             initPnLeftComponentsDefault();
+                            pnCenter.removeAll();
+                            pnCenter.add(pnHomepage);
                             initEvents();
                         }
                         //display and hint item of panelCourse
                         if (btCourse.getText().equalsIgnoreCase(button.getText())) {
                             if (!statusBtCourse) {
-                                System.out.println("Show");
-                                gridLayoutPanelItemCourse.setRows(3);
                                 disableBackgroundButtons(btCourse);
                                 initPnLeftComponentsSelectedBtCourse();
-                                Component[] components = pnItemCourse.getComponents();
-                                for (Component component : components) {
-                                    final JButton btItemPnCourse = (JButton) component;
-                                    btItemPnCourse.addMouseListener(new MouseAdapter() {
-                                        @Override
-                                        public void mousePressed(MouseEvent e) {
-                                            if (btItemPnCourse.getText().equalsIgnoreCase(itemCourses[0].getText())) {
-                                                System.out.println("Tuyen sinh va xep lop");
-                                                EnrollmentGradePlacementPanel enrollmentGradePlacementPanel = new EnrollmentGradePlacementPanel();
-                                                pnCenter.add(enrollmentGradePlacementPanel);
-                                                enrollmentGradePlacementPanel.setVisible(true);
-                                            }
-                                        }
-                                    });
-                                }
                                 initEvents();
+                                pnItemCourseEvents();
                                 statusBtCourse = !statusBtCourse;
                             } else {
-
                                 initPnLeftComponentsDefault();
                                 initEvents();
                                 System.out.println("Hint");
@@ -630,6 +611,7 @@ public class TrainingCenterFrame extends JFrame {
                             if (!statusBtGrade) {
                                 initPnLeftComponentsSelectedBtGrade();
                                 initEvents();
+                                pnItemGradeEvents();
                                 statusBtGrade = !statusBtGrade;
                             } else {
                                 initPnLeftComponentsDefault();
@@ -642,6 +624,7 @@ public class TrainingCenterFrame extends JFrame {
                             if (!statusBtStudent) {
                                 initPnLeftComponentsSelectedBtStudent();
                                 initEvents();
+                                pnItemStudentEvents();
                                 statusBtStudent = !statusBtStudent;
                             } else {
                                 initPnLeftComponentsDefault();
@@ -654,6 +637,7 @@ public class TrainingCenterFrame extends JFrame {
                             if (!statusBtTeacher) {
                                 initPnLeftComponentsSelectedBtTeacher();
                                 initEvents();
+                                pnItemTeacherEvents();
                                 statusBtTeacher = !statusBtTeacher;
                             } else {
                                 initPnLeftComponentsDefault();
@@ -669,6 +653,7 @@ public class TrainingCenterFrame extends JFrame {
                                 gridLayoutPanelItemFinancial.setRows(3);
                                 initPnLeftComponentsSelectedBtFinancial();
                                 initEvents();
+                                pnItemFinicialEvents();
                                 statusBtFinancial = !statusBtFinancial;
                             } else {
                                 initPnLeftComponentsDefault();
@@ -683,6 +668,7 @@ public class TrainingCenterFrame extends JFrame {
                                 System.out.println("Show" + button.getText());
                                 initPnLeftComponentsSelectedBtTraining();
                                 initEvents();
+                                pnItemTrainingEvents();
                                 statusBtTraining = !statusBtTraining;
                             } else {
 
@@ -726,6 +712,218 @@ public class TrainingCenterFrame extends JFrame {
             }
 
         });
+    }
+
+    private void pnItemCourseEvents() {
+        Component[] components = pnItemCourse.getComponents();
+        for (Component component : components) {
+            final JButton btItemPnCourse = (JButton) component;
+            btItemPnCourse.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    //Admissions and Class arrangement
+                    if (btItemPnCourse.getText().equalsIgnoreCase(itemCourses[0].getText())) {
+                        EnrollmentGradePlacementPanel enrollmentGradePlacementPanel = new EnrollmentGradePlacementPanel();
+                        pnCenter.add(enrollmentGradePlacementPanel);
+                        enrollmentGradePlacementPanel.setVisible(true);
+                    }
+                    //show list courses
+                    if (btItemPnCourse.getText().equalsIgnoreCase(itemCourses[1].getText())) {
+                        CourseInformationPanel courseInformationPanel = new CourseInformationPanel();
+                        pnCenter.removeAll();
+                        pnCenter.add(courseInformationPanel);
+                        courseInformationPanel.setVisible(true);
+                        System.out.println("Show list course");
+                    }
+                }
+
+                // thay doi background khi re chuot ra vao
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    btItemPnCourse.setBackground(selectedItemBackground);
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    btItemPnCourse.setBackground(defaultItemBackground);
+                }
+            });
+        }
+    }
+
+    private void pnItemGradeEvents() {
+        Component[] components = pnItemGrade.getComponents();
+        for (Component component : components) {
+            final JButton btItemPnGrade = (JButton) component;
+            btItemPnGrade.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    //List of grades
+                    if (btItemPnGrade.getText().equalsIgnoreCase(itemGrades[0].getText())) {
+
+                    }
+                    //Grade division
+                    if (btItemPnGrade.getText().equalsIgnoreCase(itemGrades[1].getText())) {
+
+                    }
+                    //Storage of reserved students
+                    if (btItemPnGrade.getText().equalsIgnoreCase(itemGrades[2].getText())) {
+
+                    }
+                }
+
+                // thay doi background khi re chuot ra vao
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    btItemPnGrade.setBackground(selectedItemBackground);
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    btItemPnGrade.setBackground(defaultItemBackground);
+                }
+            });
+        }
+    }
+
+    private void pnItemStudentEvents() {
+        Component[] components = pnItemStudent.getComponents();
+        for (Component component : components) {
+            final JButton btItemPnStudent = (JButton) component;
+            btItemPnStudent.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    //List students
+                    if (btItemPnStudent.getText().equalsIgnoreCase(itemStudents[0].getText())) {
+
+                    }
+                    //Student results
+                    if (btItemPnStudent.getText().equalsIgnoreCase(itemStudents[1].getText())) {
+
+                    }
+                    //List of students warned, reminded
+                    if (btItemPnStudent.getText().equalsIgnoreCase(itemStudents[2].getText())) {
+
+                    }
+                }
+
+                // thay doi background khi re chuot ra vao
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    btItemPnStudent.setBackground(selectedItemBackground);
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    btItemPnStudent.setBackground(defaultItemBackground);
+                }
+            });
+        }
+    }
+
+    private void pnItemTeacherEvents() {
+        Component[] components = pnItemTeacher.getComponents();
+        for (Component component : components) {
+            final JButton btItemPnTeacher = (JButton) component;
+            btItemPnTeacher.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    //List of teachers 
+                    if (btItemPnTeacher.getText().equalsIgnoreCase(itemTeachers[0].getText())) {
+
+                    }
+                    //Recruitment lecturers
+                    if (btItemPnTeacher.getText().equalsIgnoreCase(itemTeachers[1].getText())) {
+
+                    }
+                    /// Assess, reward and discipline lecturers
+                    if (btItemPnTeacher.getText().equalsIgnoreCase(itemTeachers[2].getText())) {
+
+                    }
+                    ///Salary
+                    if (btItemPnTeacher.getText().equalsIgnoreCase(itemTeachers[3].getText())) {
+
+                    }
+                }
+
+                // thay doi background khi re chuot ra vao
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    btItemPnTeacher.setBackground(selectedItemBackground);
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    btItemPnTeacher.setBackground(defaultItemBackground);
+                }
+            });
+        }
+    }
+
+    private void pnItemFinicialEvents() {
+        Component[] components = pnItemFinancial.getComponents();
+        for (Component component : components) {
+            final JButton btItemPnFinicial = (JButton) component;
+            btItemPnFinicial.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    ///Student tuition management
+                    if (btItemPnFinicial.getText().equalsIgnoreCase(itemFinancials[0].getText())) {
+
+                    }
+                    ///Central management of revenue and expenditure
+                    if (btItemPnFinicial.getText().equalsIgnoreCase(itemFinancials[1].getText())) {
+
+                    }
+                }
+
+                // thay doi background khi re chuot ra vao
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    btItemPnFinicial.setBackground(selectedItemBackground);
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    btItemPnFinicial.setBackground(defaultItemBackground);
+                }
+            });
+        }
+    }
+
+    private void pnItemTrainingEvents() {
+        Component[] components = pnItemTraining.getComponents();
+        for (Component component : components) {
+            final JButton btItemPnTraining = (JButton) component;
+            btItemPnTraining.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    //Plan for course
+                    if (btItemPnTraining.getText().equalsIgnoreCase(itemTrainings[0].getText())) {
+
+                    }
+                    //Arrange lecturers, classrooms, class schedule
+                    if (btItemPnTraining.getText().equalsIgnoreCase(itemTrainings[1].getText())) {
+
+                    }
+                    //Detailed plan for each course
+                    if (btItemPnTraining.getText().equalsIgnoreCase(itemTrainings[2].getText())) {
+
+                    }
+                }
+
+                // thay doi background khi re chuot ra vao
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    btItemPnTraining.setBackground(selectedItemBackground);
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    btItemPnTraining.setBackground(defaultItemBackground);
+                }
+            });
+        }
     }
 
     public static void main(String[] args) {
