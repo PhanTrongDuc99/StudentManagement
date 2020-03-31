@@ -41,7 +41,7 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Override
     public List<Profile> getProfileStudents() {
-        return profileDao.getProfileStudent();
+        return profileDao.getProfileStudentUnofficial();
     }
 
     @Override

@@ -19,4 +19,5 @@ public interface RegisterDao {
 
     public void insertRegisters(List<StudentUnofficial> students);
 
+    public Register getRegister(String id);
 }

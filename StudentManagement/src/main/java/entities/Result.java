@@ -18,16 +18,36 @@ public class Result {
     private Double disciplineMark;
     private Double moneyPaid;
     private Integer numberOfAbsences;
+    private String idGrade;
+    private String id;
 
     public Result() {
     }
 
-    public Result(Double studyMark, Double rewardMark, Double disciplineMark, Double moneyPaid, Integer numberOfAbsences) {
+    public Result(Double studyMark, Double rewardMark, Double disciplineMark, Double moneyPaid, Integer numberOfAbsences, String idGrade, String id) {
         this.studyMark = studyMark;
         this.rewardMark = rewardMark;
         this.disciplineMark = disciplineMark;
-        this.numberOfAbsences = numberOfAbsences;
         this.moneyPaid = moneyPaid;
+        this.numberOfAbsences = numberOfAbsences;
+        this.idGrade = idGrade;
+        this.id = id;
+    }
+
+    public String getIdGrade() {
+        return idGrade;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setIdGrade(String idGrade) {
+        this.idGrade = idGrade;
     }
 
     public Double getStudyMark() {

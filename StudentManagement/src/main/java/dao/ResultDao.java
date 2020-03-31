@@ -5,16 +5,13 @@
  */
 package dao;
 
-import entities.StudentOfficial;
-import java.util.List;
+import entities.Result;
 
 /**
  *
- * @author PC
+ * @author USER
  */
-public interface StudentOfficialDao {
+public interface ResultDao {
 
-    public List<StudentOfficial> getAll();
-
-    public StudentOfficial getStudent(String id);
+    public Result getResult(String id);
 }

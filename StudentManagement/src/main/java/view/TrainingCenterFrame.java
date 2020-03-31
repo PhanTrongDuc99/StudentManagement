@@ -16,8 +16,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.HashMap;
-import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -34,6 +32,7 @@ import view.sub.FinancialPanel;
 import view.sub.GradePanel;
 import view.sub.HomepagePanel;
 import view.sub.SettingFrame;
+import view.sub.StudentInformationPanel;
 import view.sub.StudentPanel;
 import view.sub.TeacherPanel;
 import view.sub.TrainingPanel;
@@ -760,7 +759,9 @@ public class TrainingCenterFrame extends JFrame {
                 public void mousePressed(MouseEvent e) {
                     //List of grades
                     if (btItemPnGrade.getText().equalsIgnoreCase(itemGrades[0].getText())) {
-
+                        StudentInformationPanel studentPanel = new StudentInformationPanel();
+                        pnCenter.add(studentPanel);
+                        studentPanel.setVisible(true);
                     }
                     //Grade division
                     if (btItemPnGrade.getText().equalsIgnoreCase(itemGrades[1].getText())) {

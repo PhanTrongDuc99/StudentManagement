@@ -20,13 +20,17 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
-import readFromExcelFile.ReadStudentUnofficicalFromExcelFile;
+import service.ProfileService;
+import service.ProfileServiceImpl;
+import service.RegisterService;
+import service.RegisterServiceImpl;
 import service.StudentOfficialService;
 import service.StudentOfficialServiceImpl;
 import service.StudentUnofficialService;
 import service.StudentUnofficialServiceImpl;
 import utils.FileUtils;
 import utils.ImageUtils;
+import utils.ExcelUtils;
 
 /**
  *
@@ -34,14 +38,14 @@ import utils.ImageUtils;
  */
 public class EnrollmentGradePlacementPanel extends javax.swing.JPanel {
 
-    private StudentUnofficialService studentUnofficialService;
-    private StudentOfficialService studentOfficialService;
-    private String titleBarChart = "Statistical bar chart of registered student sources";
-    private String titlePieChart = "Statistical pie chart of registered student sources";
-    private String xColumnName = "The sourses of registeration";
-    private String yCloumnName = "Amount registered student";
-    private List<StudentUnofficial> studentUnofficials;
-    private List<StudentOfficial> studentOfficials;
+    private final StudentUnofficialService studentUnofficialService;
+    private final StudentOfficialService studentOfficialService;
+    private final String titleBarChart = "Statistical bar chart of registered student sources";
+    private final String titlePieChart = "Statistical pie chart of registered student sources";
+    private final String xColumnName = "The sourses of registeration";
+    private final String yCloumnName = "Amount registered student";
+    private final List<StudentUnofficial> studentUnofficials;
+    private final List<StudentOfficial> studentOfficials;
     private final Color selectedBtStatisticalColor = new Color(0, 0, 200);
     private final Color defaultBtStatisticalColor = new Color(0, 0, 153);
     private final Color selectedBtUpdateDataFromExcelOnlineColor = new Color(0, 200, 0);
@@ -145,7 +149,12 @@ public class EnrollmentGradePlacementPanel extends javax.swing.JPanel {
             @Override
             public void mousePressed(MouseEvent e) {
                 StudentUnofficialService stdUnOfficialService = new StudentUnofficialServiceImpl();
-                List<StudentUnofficial> students = ReadStudentUnofficicalFromExcelFile.readStudentFromExcelFile(FileUtils.getPath("excels", "student.xlsx"));
+                ProfileService proService = new ProfileServiceImpl();
+                RegisterService registerService = new RegisterServiceImpl();
+                List<StudentUnofficial> students = ExcelUtils.readStudentFromExcelFile(FileUtils.getPath("excels", "student.xlsx"));
+
+                proService.insertProfileStudent(students);
+                registerService.insertRegisters(students);
                 stdUnOfficialService.insertStudents(students);
                 JOptionPane.showMessageDialog(EnrollmentGradePlacementPanel.this, "Update excel online successfully!", "Notification", JOptionPane.OK_OPTION, ImageUtils.loadImageIcon(getClass().getResource("/images/alarm.png").getPath()));
             }

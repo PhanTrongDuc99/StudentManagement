@@ -26,4 +26,10 @@ public class StudentOfficialServiceImpl implements StudentOfficialService {
     public List<StudentOfficial> getAll() {
         return studentUnofficialDao.getAll();
     }
+
+    @Override
+    public StudentOfficial getStudent(String id) {
+        return studentUnofficialDao.getStudent(id);
+    }
+
 }

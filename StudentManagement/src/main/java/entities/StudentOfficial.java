@@ -19,8 +19,8 @@ public class StudentOfficial extends StudentUnofficial {
         super(null, null, null, null, null);
     }
 
-    public StudentOfficial(Result resultStudy, String id, Profile profile, Double discountStatus, Double cost, Register register) {
-        super(id, profile, discountStatus, cost, register);
+    public StudentOfficial(Result resultStudy, String id, Profile profile, Double discountStatus, Double cost, Register register, String idRegisterCourse) {
+        super(id, profile, discountStatus, cost, register, idRegisterCourse);
         this.resultStudy = resultStudy;
     }
 

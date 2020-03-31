@@ -15,4 +15,6 @@ import java.util.List;
 public interface StudentOfficialService {
 
     public List<StudentOfficial> getAll();
+
+    public StudentOfficial getStudent(String id);
 }

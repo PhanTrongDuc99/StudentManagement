@@ -8,10 +8,12 @@ package dao;
 import connection.ConnectionManager;
 import connection.ConnectionManagerImpl;
 import entities.Profile;
+import entities.StudentOfficial;
 import entities.StudentUnofficial;
 import entities.Teacher;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,9 +28,10 @@ public class ProfileDaoImpl implements ProfileDao {
     private ConnectionManager connectionManager;
     private Connection connection;
     private PreparedStatement preparedStatement;
-    private final String query = 
-            "INSERT INTO profile(Name, Gender, DayOfBirth, PhoneNumber, Hometown, CurrentAddress, IdNumber, Email, Id)\n"
-          + "VALUES(?,?,?,?,?,?,?,?,?)";
+    private ResultSet result;
+    private final String query
+            = "INSERT INTO profile(Name, Gender, DayOfBirth, PhoneNumber, Hometown, CurrentAddress, IdNumber, Email, Id)\n"
+            + "VALUES(?,?,?,?,?,?,?,?,?)";
 
     public ProfileDaoImpl() {
         connectionManager = new ConnectionManagerImpl();
@@ -134,7 +137,7 @@ public class ProfileDaoImpl implements ProfileDao {
     }
 
     @Override
-    public List<Profile> getProfileStudent() {
+    public List<Profile> getProfileStudentUnofficial() {
         StudentUnofficialDao studentDao = new StudentUnofficialDaoImpl();
         return studentDao.getAll().stream().map(StudentUnofficial::getProfile).collect(Collectors.toList());
     }
@@ -144,4 +147,45 @@ public class ProfileDaoImpl implements ProfileDao {
         TeacherDao teacherDao = new TeacherDaoImpl();
         return teacherDao.getAll().stream().map(Teacher::getProfileTeacher).collect(Collectors.toList());
     }
+
+    @Override
+    public Profile getProfile(String id) {
+        String query = "SELECT Id, Name, Gender, PhoneNumber, IdNumber, Email, DayOfBirth, Hometown, CurrentAddress  FROM PROFILE WHERE Id='" + id + "'";
+        try {
+            connection = connectionManager.getConnection();
+            preparedStatement = connection.prepareStatement(query);
+            Profile profile = new Profile();
+            result = preparedStatement.executeQuery();
+            while (result.next()) {
+                profile.setId(result.getString("Id"));
+                profile.setFullName(result.getString("Name"));
+                profile.setGender(result.getInt("Gender") == 0);
+                profile.setDayOfBirth(result.getDate("DayOfBirth"));
+                profile.setIdNumber(result.getString("IdNumber"));
+                profile.setPhoneNumber(result.getString("PhoneNumber"));
+                profile.setEmail(result.getString("Email"));
+                profile.setHomeTown(result.getString("Hometown"));
+                profile.setCurrentAddress(result.getString("CurrentAddress"));
+            }
+            return profile;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                result.close();
+                preparedStatement.close();
+                connection.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public List<Profile> getProfileStudentOfficial() {
+        StudentOfficialDao studentDao = new StudentOfficialDaoImpl();
+        return studentDao.getAll().stream().map(StudentOfficial::getProfile).collect(Collectors.toList());
+    }
+
 }

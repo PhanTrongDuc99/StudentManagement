@@ -13,6 +13,7 @@ import entities.Register;
 import entities.StudentUnofficial;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -25,16 +26,39 @@ public class RegisterDaoImpl implements RegisterDao {
     private ConnectionManager connectionManager;
     private Connection connection;
     private PreparedStatement preparedStatement;
+    private ResultSet result;
     private final String query = "INSERT INTO register( State, TypeOfRegister, Id ) VALUES(?, ?, ?)";
 
     public RegisterDaoImpl() {
         connectionManager = new ConnectionManagerImpl();
     }
 
-    public static void main(String[] args) {
-        Register re = new Register("1111111", RegisterStatus.CANCEL, RegisterType.DIRECT);
-        System.out.println(re.getStatus().toString());
-        new RegisterDaoImpl().insertRegister(re);
+    @Override
+    public Register getRegister(String id) {
+        String query = "SELECT Id,State,TypeOfRegister FROM REGISTER WHERE Id='" + id + "'";
+        try {
+            connection = connectionManager.getConnection();
+            preparedStatement = connection.prepareStatement(query);
+            Register register = new Register();
+            result = preparedStatement.executeQuery();
+            while (result.next()) {
+                register.setId(result.getString("Id"));
+                register.setStatus(RegisterStatus.valueOf(result.getString("State").toUpperCase()));
+                register.setType(RegisterType.valueOf(result.getString("TypeOfRegister").toUpperCase()));
+            }
+            return register;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                result.close();
+                preparedStatement.close();
+                connection.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 
     @Override

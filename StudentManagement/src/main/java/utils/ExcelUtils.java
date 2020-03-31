@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package readFromExcelFile;
+package utils;
 
 import common.CellValue;
 import common.RegisterStatus;
@@ -29,7 +29,7 @@ import org.apache.poi.ss.usermodel.Workbook;
  *
  * @author USER
  */
-public class ReadStudentUnofficicalFromExcelFile {
+public class ExcelUtils {
 
     public static List<StudentUnofficial> readStudentFromExcelFile(String excelFilePath) {
         List<StudentUnofficial> studentUnofficials = new ArrayList<>();
