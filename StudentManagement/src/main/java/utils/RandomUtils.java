@@ -12,17 +12,17 @@ import java.util.Random;
  *
  * @author USER
  */
-public class RandomId {
+public class RandomUtils {
 
-    public RandomId() {
+    public RandomUtils() {
     }
 
-    public static String randomId(List<String> strings) {
+    public static String randomId(List<String> strings, String nameFirst) {
         Random random = new Random();
         while (true) {
             int rand = 100000000 + random.nextInt(100000000);
             if (!strings.contains(String.valueOf(rand))) {
-                return String.valueOf(rand);
+                return String.valueOf(nameFirst+rand);
             }
         }
     }

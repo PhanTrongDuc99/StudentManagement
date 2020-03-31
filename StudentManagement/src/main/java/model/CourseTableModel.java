@@ -15,11 +15,8 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import service.CourseService;
 import service.CourseServiceImpl;
+import utils.DateUtils;
 
-/**
- *
- * @author Mr.Chien
- */
 public class CourseTableModel extends AbstractTableModel {
 
     private final CourseTableColumns COLUMNS_NAME[] = CourseTableColumns.values();
@@ -28,11 +25,9 @@ public class CourseTableModel extends AbstractTableModel {
     private final JTable tbCourse;
 
     public CourseTableModel(JTable tbTable) {
-
         courseService = new CourseServiceImpl();
         courses = courseService.getAll();
         tbCourse = tbTable;
-
     }
 
     @Override
@@ -61,10 +56,10 @@ public class CourseTableModel extends AbstractTableModel {
                 object = course.getGradeQuantity();
                 break;
             case STARTDAY:
-                object = course.getStartTime();
+                object = DateUtils.convertToDateFromString(course.getStartTime());
                 break;
             case ENDDAY:
-                object = course.getEndTime();
+                object = DateUtils.convertToDateFromString(course.getEndTime());
                 break;
             case COST:
                 object = course.getCost();

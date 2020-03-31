@@ -19,4 +19,6 @@ public interface GradeService {
     public Grade getGrade(String id);
 
     public void insertGrades(List<Grade> grades);
+    
+    public void deleteGradeByIdCourse(String idCourse);
 }

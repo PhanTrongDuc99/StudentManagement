@@ -27,6 +27,7 @@ import javax.swing.border.Border;
 import utils.ImageUtils;
 import view.sub.CourseInformationPanel;
 import view.sub.CoursePanel;
+import view.sub.DivisionGradePanel;
 import view.sub.EnrollmentGradePlacementPanel;
 import view.sub.FinancialPanel;
 import view.sub.GradePanel;
@@ -44,7 +45,7 @@ import view.sub.TrainingPanel;
  * @author SMILE ^^
  */
 public class TrainingCenterFrame extends JFrame {
-
+    
     private final Container container = getContentPane();
     private final BorderLayout borderLayout = new BorderLayout();
     private final GridLayout gridLayout = new GridLayout(8, 0, 25, 5);
@@ -59,12 +60,12 @@ public class TrainingCenterFrame extends JFrame {
     private final JSplitPane splitPanePnLeft = new JSplitPane();
     private final int pnCenterHeight = 903;
     private final int pnCenterWidth = 1587;
-
+    
     private JPanel pnTop;
     private JPanel pnLeftTop;
     private JPanel pnLeftBottom;
     private JPanel pnCenter;
-
+    
     private HomepagePanel pnHomepage;
     private GradePanel pnGrade;
     private CoursePanel pnCourse;
@@ -72,7 +73,7 @@ public class TrainingCenterFrame extends JFrame {
     private TeacherPanel pnTeacher;
     private FinancialPanel pnFinancial;
     private TrainingPanel pnTraining;
-
+    
     private JButton btHomePage;
     private JButton btGrade;
     private JButton btCourse;
@@ -80,28 +81,28 @@ public class TrainingCenterFrame extends JFrame {
     private JButton btTeacher;
     private JButton btFinancial;
     private JButton btTraining;
-
+    
     private JPanel pnItemCourse;
     private JPanel pnItemGrade;
     private JPanel pnItemStudent;
     private JPanel pnItemTeacher;
     private JPanel pnItemFinancial;
     private JPanel pnItemTraining;
-
+    
     private final JButton[] itemCourses = {new JButton("Admissions and Class arrangement"), new JButton("List of courses")};
     private final JButton[] itemGrades = {new JButton("List of grades"), new JButton("Grade division"), new JButton("Storage of reserved students")};
     private final JButton[] itemStudents = {new JButton("List of students"), new JButton("Study results"), new JButton("List of students warned, reminded")};
     private final JButton[] itemTeachers = {new JButton("List of teachers"), new JButton("Recruitment lecturers"), new JButton("Assess, reward and discipline lecturers"), new JButton("Salary")};
     private final JButton[] itemFinancials = {new JButton("Student tuition management"), new JButton("Central management of revenue and expenditure")};
     private final JButton[] itemTrainings = {new JButton("Plan for the new courses"), new JButton("Arrange lecturers, classrooms, class schedule"), new JButton("Detailed plan for each course")};
-
+    
     private boolean statusBtCourse = false;
     private boolean statusBtGrade = false;
     private boolean statusBtStudent = false;
     private boolean statusBtTeacher = false;
     private boolean statusBtFinancial = false;
     private boolean statusBtTraining = false;
-
+    
     private final Border defaultBorder = new JButton().getBorder();
     private final Border pnLeftButtonHighLightBorder = BorderFactory.createLineBorder(new Color(0, 0, 50), 1);
 
@@ -110,16 +111,16 @@ public class TrainingCenterFrame extends JFrame {
     private final Color defaultItemBackground = new Color(0, 0, 150);
     private final Color selectedItemBackground = new Color(0, 0, 250);
     private final Color defaultPnItemBackground = new Color(0, 102, 153);
-
+    
     private JLabel lbAccount;
     private JLabel lbWelcome;
     private JLabel lbAdmin;
-
+    
     private JButton btSetting;
     private JButton btAlarm;
-
+    
     private final Font pnLeftButtonsFont = new Font("Tahoma", Font.BOLD, 18);
-
+    
     public TrainingCenterFrame(String title) {
         super(title);
         setVisible(true);
@@ -131,7 +132,7 @@ public class TrainingCenterFrame extends JFrame {
         initComponents();
         initEvents();
     }
-
+    
     private void initComponents() {
         splitPane.setOneTouchExpandable(true);
         splitPanePnLeft.setOrientation(JSplitPane.VERTICAL_SPLIT);
@@ -139,46 +140,46 @@ public class TrainingCenterFrame extends JFrame {
         initPnLeftComponentsDefault();
         initPnCenterComponents();
     }
-
+    
     private void initPnTopComponents() {
         pnTop = new JPanel();
         pnTop.setBackground(new Color(0, 102, 204));
         pnTop.setPreferredSize(new Dimension(0, 100));
         pnTop.setLayout(null);
-
+        
         lbAccount = new JLabel(ImageUtils.loadImageIcon(getClass().getResource("/images/account.png").getPath(), 50, 50));
         lbAccount.setBounds(100, 20, 50, 50);
         pnTop.add(lbAccount);
-
+        
         lbWelcome = new JLabel("Welcome");
         lbWelcome.setFont(new Font(Font.SERIF, Font.BOLD, 20));
         lbWelcome.setForeground(Color.WHITE);
         lbWelcome.setBounds(10, 20, (int) lbWelcome.getPreferredSize().getWidth(), (int) lbWelcome.getPreferredSize().getHeight());
         pnTop.add(lbWelcome);
-
+        
         lbAdmin = new JLabel("Admin");
         lbAdmin.setFont(new Font(Font.SERIF, Font.BOLD, 20));
         lbAdmin.setForeground(Color.WHITE);
         lbAdmin.setBounds(20, 45, (int) lbAdmin.getPreferredSize().getWidth(), (int) lbAdmin.getPreferredSize().getHeight());
         pnTop.add(lbAdmin);
-
+        
         btAlarm = new JButton();
         btAlarm.setBackground(Color.WHITE);
         btAlarm.setFocusPainted(false);
         btAlarm.setBounds(180, 15, 35, 35);
         btAlarm.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/alarm.png").getPath(), 30, 30));
         pnTop.add(btAlarm);
-
+        
         btSetting = new JButton();
         btSetting.setBackground(Color.WHITE);
         btSetting.setFocusPainted(false);
         btSetting.setBounds(180, 60, 35, 35);
         btSetting.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/setting.png").getPath(), 30, 30));
         pnTop.add(btSetting);
-
+        
         container.add(pnTop, BorderLayout.NORTH);
     }
-
+    
     private void initPnLeftComponentsSelectedBtCourse() {
         pnLeftTop = new JPanel();
         pnLeftTop.setLayout(gridLayout);
@@ -204,7 +205,7 @@ public class TrainingCenterFrame extends JFrame {
         btGrade = new JButton("Grade management");
         createButton(btGrade);
         pnLeftTop.add(btGrade);
-
+        
         btStudent = new JButton("Student management");
         createButton(btStudent);
         pnLeftTop.add(btStudent);
@@ -227,19 +228,19 @@ public class TrainingCenterFrame extends JFrame {
         //Training
         createButton(btTraining);
         pnLeftTop.add(btTraining);
-
+        
         pnLeftBottom = new JPanel();
         pnLeftBottom.setBackground(new Color(0, 102, 153));
         splitPanePnLeft.add(pnLeftBottom, JSplitPane.BOTTOM);
     }
-
+    
     private void initPnLeftComponentsSelectedBtGrade() {
         pnLeftTop = new JPanel();
         pnLeftTop.setLayout(gridLayout);
         pnLeftTop.setBackground(defaultBackground);
         pnLeftTop.setPreferredSize(new Dimension(220, 300));
         splitPanePnLeft.add(pnLeftTop, JSplitPane.TOP);
-
+        
         btHomePage = new JButton("Home Page");
         btGrade = new JButton("Grade management");
         btCourse = new JButton("Course management");
@@ -249,20 +250,20 @@ public class TrainingCenterFrame extends JFrame {
         btTraining = new JButton("Training management");
         createButton(btHomePage);
         pnLeftTop.add(btHomePage);
-
+        
         createButton(btCourse);
         pnLeftTop.add(btCourse);
-
+        
         createButton(btGrade);
         pnLeftTop.add(btGrade);
         pnItemGrade = new JPanel();
         pnItemGrade.setLayout(gridLayoutPanelItemGrade);
         createItemPanel(pnItemGrade, itemGrades);
         pnLeftTop.add(pnItemGrade);
-
+        
         createButton(btStudent);
         pnLeftTop.add(btStudent);
-
+        
         createButton(btTeacher);
         pnLeftTop.add(btTeacher);
 
@@ -273,19 +274,19 @@ public class TrainingCenterFrame extends JFrame {
         //Training
         createButton(btTraining);
         pnLeftTop.add(btTraining);
-
+        
         pnLeftBottom = new JPanel();
         pnLeftBottom.setBackground(new Color(0, 102, 153));
         splitPanePnLeft.add(pnLeftBottom, JSplitPane.BOTTOM);
     }
-
+    
     private void initPnLeftComponentsSelectedBtStudent() {
         pnLeftTop = new JPanel();
         pnLeftTop.setLayout(gridLayout);
         pnLeftTop.setBackground(defaultBackground);
         pnLeftTop.setPreferredSize(new Dimension(220, 300));
         splitPanePnLeft.add(pnLeftTop, JSplitPane.TOP);
-
+        
         btHomePage = new JButton("Home Page");
         btGrade = new JButton("Grade management");
         btCourse = new JButton("Course management");
@@ -295,20 +296,20 @@ public class TrainingCenterFrame extends JFrame {
         btTraining = new JButton("Training management");
         createButton(btHomePage);
         pnLeftTop.add(btHomePage);
-
+        
         createButton(btCourse);
         pnLeftTop.add(btCourse);
-
+        
         createButton(btGrade);
         pnLeftTop.add(btGrade);
-
+        
         createButton(btStudent);
         pnLeftTop.add(btStudent);
         pnItemStudent = new JPanel();
         pnItemStudent.setLayout(gridLayoutPanelItemStudent);
         createItemPanel(pnItemStudent, itemStudents);
         pnLeftTop.add(pnItemStudent);
-
+        
         createButton(btTeacher);
         pnLeftTop.add(btTeacher);
 
@@ -319,19 +320,19 @@ public class TrainingCenterFrame extends JFrame {
         //Training
         createButton(btTraining);
         pnLeftTop.add(btTraining);
-
+        
         pnLeftBottom = new JPanel();
         pnLeftBottom.setBackground(new Color(0, 102, 153));
         splitPanePnLeft.add(pnLeftBottom, JSplitPane.BOTTOM);
     }
-
+    
     private void initPnLeftComponentsSelectedBtTeacher() {
         pnLeftTop = new JPanel();
         pnLeftTop.setLayout(gridLayout);
         pnLeftTop.setBackground(defaultBackground);
         pnLeftTop.setPreferredSize(new Dimension(220, 300));
         splitPanePnLeft.add(pnLeftTop, JSplitPane.TOP);
-
+        
         btHomePage = new JButton("Home Page");
         btGrade = new JButton("Grade management");
         btCourse = new JButton("Course management");
@@ -341,16 +342,16 @@ public class TrainingCenterFrame extends JFrame {
         btTraining = new JButton("Training management");
         createButton(btHomePage);
         pnLeftTop.add(btHomePage);
-
+        
         createButton(btCourse);
         pnLeftTop.add(btCourse);
-
+        
         createButton(btGrade);
         pnLeftTop.add(btGrade);
-
+        
         createButton(btStudent);
         pnLeftTop.add(btStudent);
-
+        
         createButton(btTeacher);
         pnLeftTop.add(btTeacher);
         pnItemTeacher = new JPanel();
@@ -365,19 +366,19 @@ public class TrainingCenterFrame extends JFrame {
         //Training
         createButton(btTraining);
         pnLeftTop.add(btTraining);
-
+        
         pnLeftBottom = new JPanel();
         pnLeftBottom.setBackground(new Color(0, 102, 153));
         splitPanePnLeft.add(pnLeftBottom, JSplitPane.BOTTOM);
     }
-
+    
     private void initPnLeftComponentsSelectedBtFinancial() {
         pnLeftTop = new JPanel();
         pnLeftTop.setLayout(gridLayout);
         pnLeftTop.setBackground(defaultBackground);
         pnLeftTop.setPreferredSize(new Dimension(220, 300));
         splitPanePnLeft.add(pnLeftTop, JSplitPane.TOP);
-
+        
         btHomePage = new JButton("Home Page");
         btGrade = new JButton("Grade management");
         btCourse = new JButton("Course management");
@@ -387,23 +388,23 @@ public class TrainingCenterFrame extends JFrame {
         btTraining = new JButton("Training management");
         createButton(btHomePage);
         pnLeftTop.add(btHomePage);
-
+        
         createButton(btCourse);
         pnLeftTop.add(btCourse);
-
+        
         createButton(btGrade);
         pnLeftTop.add(btGrade);
-
+        
         createButton(btStudent);
         pnLeftTop.add(btStudent);
-
+        
         createButton(btTeacher);
         pnLeftTop.add(btTeacher);
 
         //Financial
         createButton(btFinancial);
         pnLeftTop.add(btFinancial);
-
+        
         pnItemFinancial = new JPanel();
         pnItemFinancial.setLayout(gridLayoutPanelItemFinancial);
         createItemPanel(pnItemFinancial, itemFinancials);
@@ -412,19 +413,19 @@ public class TrainingCenterFrame extends JFrame {
         //Training
         createButton(btTraining);
         pnLeftTop.add(btTraining);
-
+        
         pnLeftBottom = new JPanel();
         pnLeftBottom.setBackground(new Color(0, 102, 153));
         splitPanePnLeft.add(pnLeftBottom, JSplitPane.BOTTOM);
     }
-
+    
     private void initPnLeftComponentsSelectedBtTraining() {
         pnLeftTop = new JPanel();
         pnLeftTop.setLayout(gridLayout);
         pnLeftTop.setBackground(defaultBackground);
         pnLeftTop.setPreferredSize(new Dimension(220, 300));
         splitPanePnLeft.add(pnLeftTop, JSplitPane.TOP);
-
+        
         btHomePage = new JButton("Home Page");
         btGrade = new JButton("Grade management");
         btCourse = new JButton("Course management");
@@ -434,16 +435,16 @@ public class TrainingCenterFrame extends JFrame {
         btTraining = new JButton("Training management");
         createButton(btHomePage);
         pnLeftTop.add(btHomePage);
-
+        
         createButton(btCourse);
         pnLeftTop.add(btCourse);
-
+        
         createButton(btGrade);
         pnLeftTop.add(btGrade);
-
+        
         createButton(btStudent);
         pnLeftTop.add(btStudent);
-
+        
         createButton(btTeacher);
         pnLeftTop.add(btTeacher);
 
@@ -458,19 +459,19 @@ public class TrainingCenterFrame extends JFrame {
         pnItemTraining.setLayout(gridLayoutPanelItemTraining);
         createItemPanel(pnItemTraining, itemTrainings);
         pnLeftTop.add(pnItemTraining);
-
+        
         pnLeftBottom = new JPanel();
         pnLeftBottom.setBackground(new Color(0, 102, 153));
         splitPanePnLeft.add(pnLeftBottom, JSplitPane.BOTTOM);
     }
-
+    
     private void initPnLeftComponentsDefault() {
         pnLeftTop = new JPanel();
         pnLeftTop.setLayout(gridLayout);
         pnLeftTop.setBackground(defaultBackground);
         pnLeftTop.setPreferredSize(new Dimension(220, 300));
         splitPanePnLeft.add(pnLeftTop, JSplitPane.TOP);
-
+        
         btHomePage = new JButton("Home Page");
         btGrade = new JButton("Grade management");
         btCourse = new JButton("Course management");
@@ -480,16 +481,16 @@ public class TrainingCenterFrame extends JFrame {
         btTraining = new JButton("Training management");
         createButton(btHomePage);
         pnLeftTop.add(btHomePage);
-
+        
         createButton(btCourse);
         pnLeftTop.add(btCourse);
-
+        
         createButton(btGrade);
         pnLeftTop.add(btGrade);
-
+        
         createButton(btStudent);
         pnLeftTop.add(btStudent);
-
+        
         createButton(btTeacher);
         pnLeftTop.add(btTeacher);
 
@@ -500,20 +501,20 @@ public class TrainingCenterFrame extends JFrame {
         //Training
         createButton(btTraining);
         pnLeftTop.add(btTraining);
-
+        
         pnLeftBottom = new JPanel();
         pnLeftBottom.setBackground(new Color(0, 102, 153));
         splitPanePnLeft.add(pnLeftBottom, JSplitPane.BOTTOM);
     }
-
+    
     private void createItemPanel(JPanel panel, JButton... buttons) {
-
+        
         panel.setBackground(defaultPnItemBackground);
         panel.setBorder(defaultBorder);
         createItemsButton(buttons);
         addItemsOnPanel(panel, buttons);
     }
-
+    
     private void createButton(JButton button) {
         button.setFocusPainted(false);
         button.setFont(pnLeftButtonsFont);
@@ -521,11 +522,11 @@ public class TrainingCenterFrame extends JFrame {
         button.setBackground(defaultBackground);
         button.setForeground(Color.WHITE);
     }
-
+    
     private void initPnCenterComponents() {
         pnCenter = new JPanel();
         pnCenter.setLayout(cardLayout);
-
+        
         pnHomepage = new HomepagePanel();
         pnGrade = new GradePanel();
         pnCourse = new CoursePanel();
@@ -533,7 +534,7 @@ public class TrainingCenterFrame extends JFrame {
         pnTeacher = new TeacherPanel();
         pnFinancial = new FinancialPanel();
         pnTraining = new TrainingPanel();
-
+        
         pnCenter.add(pnHomepage, btHomePage.getText());
         pnCenter.add(pnCourse, btCourse.getText());
         pnCenter.add(pnGrade, btGrade.getText());
@@ -541,25 +542,25 @@ public class TrainingCenterFrame extends JFrame {
         pnCenter.add(pnTeacher, btTeacher.getText());
         pnCenter.add(pnFinancial, btFinancial.getText());
         pnCenter.add(pnTraining, btTraining.getText());
-
+        
         splitPane.add(splitPanePnLeft, JSplitPane.LEFT);
         splitPane.add(pnCenter, JSplitPane.RIGHT);
         container.add(splitPane, BorderLayout.CENTER);
-
+        
     }
-
+    
     private void initEvents() {
         pnLeftTopButtonsEvents();
         btSettingEvents();
-
+        
     }
-
+    
     private void addItemsOnPanel(JPanel panel, JButton... buttons) {
         for (JButton button : buttons) {
             panel.add(button);
         }
     }
-
+    
     private void createItemsButton(JButton... buttons) {
         for (JButton button : buttons) {
             button.setFocusPainted(false);
@@ -570,7 +571,7 @@ public class TrainingCenterFrame extends JFrame {
             button.setForeground(Color.WHITE);
         }
     }
-
+    
     private void pnLeftTopButtonsEvents() {
         final Component[] components = pnLeftTop.getComponents();
         for (Component component : components) {
@@ -583,7 +584,7 @@ public class TrainingCenterFrame extends JFrame {
                         cardLayout.show(pnCenter, key);
                         disableBackgroundButtons(components);
                         button.setBackground(defaultItemBackground);
-
+                        
                         if (btHomePage.getText().equalsIgnoreCase(button.getText())) {
                             initPnLeftComponentsDefault();
                             pnCenter.removeAll();
@@ -670,7 +671,7 @@ public class TrainingCenterFrame extends JFrame {
                                 pnItemTrainingEvents();
                                 statusBtTraining = !statusBtTraining;
                             } else {
-
+                                
                                 initPnLeftComponentsDefault();
                                 initEvents();
                                 System.out.println("Hint");
@@ -682,7 +683,7 @@ public class TrainingCenterFrame extends JFrame {
             }
         }
     }
-
+    
     private void disableHighLightButtons(Component... components) {
         for (Component component : components) {
             if (component instanceof JButton) {
@@ -691,7 +692,7 @@ public class TrainingCenterFrame extends JFrame {
             }
         }
     }
-
+    
     private void disableBackgroundButtons(Component... components) {
         for (Component component : components) {
             if (component instanceof JButton) {
@@ -700,7 +701,7 @@ public class TrainingCenterFrame extends JFrame {
             }
         }
     }
-
+    
     private void btSettingEvents() {
         btSetting.addMouseListener(new MouseAdapter() {
             @Override
@@ -709,10 +710,10 @@ public class TrainingCenterFrame extends JFrame {
                 settingFrame.setLocation(btSetting.getLocationOnScreen().getLocation());
                 settingFrame.setVisible(true);
             }
-
+            
         });
     }
-
+    
     private void pnItemCourseEvents() {
         Component[] components = pnItemCourse.getComponents();
         for (Component component : components) {
@@ -722,17 +723,19 @@ public class TrainingCenterFrame extends JFrame {
                 public void mousePressed(MouseEvent e) {
                     //Admissions and Class arrangement
                     if (btItemPnCourse.getText().equalsIgnoreCase(itemCourses[0].getText())) {
+                        pnCenter.removeAll();
+                        pnCenter.revalidate();
                         EnrollmentGradePlacementPanel enrollmentGradePlacementPanel = new EnrollmentGradePlacementPanel();
                         pnCenter.add(enrollmentGradePlacementPanel);
                         enrollmentGradePlacementPanel.setVisible(true);
                     }
                     //show list courses
                     if (btItemPnCourse.getText().equalsIgnoreCase(itemCourses[1].getText())) {
-                        CourseInformationPanel courseInformationPanel = new CourseInformationPanel();
                         pnCenter.removeAll();
+                        pnCenter.revalidate();
+                        CourseInformationPanel courseInformationPanel = new CourseInformationPanel();
                         pnCenter.add(courseInformationPanel);
                         courseInformationPanel.setVisible(true);
-                        System.out.println("Show list course");
                     }
                 }
 
@@ -741,7 +744,7 @@ public class TrainingCenterFrame extends JFrame {
                 public void mouseEntered(MouseEvent e) {
                     btItemPnCourse.setBackground(selectedItemBackground);
                 }
-
+                
                 @Override
                 public void mouseExited(MouseEvent e) {
                     btItemPnCourse.setBackground(defaultItemBackground);
@@ -749,7 +752,7 @@ public class TrainingCenterFrame extends JFrame {
             });
         }
     }
-
+    
     private void pnItemGradeEvents() {
         Component[] components = pnItemGrade.getComponents();
         for (Component component : components) {
@@ -759,17 +762,23 @@ public class TrainingCenterFrame extends JFrame {
                 public void mousePressed(MouseEvent e) {
                     //List of grades
                     if (btItemPnGrade.getText().equalsIgnoreCase(itemGrades[0].getText())) {
+                        pnCenter.removeAll();
+                        pnCenter.revalidate();
                         StudentInformationPanel studentPanel = new StudentInformationPanel();
                         pnCenter.add(studentPanel);
                         studentPanel.setVisible(true);
                     }
                     //Grade division
                     if (btItemPnGrade.getText().equalsIgnoreCase(itemGrades[1].getText())) {
-
+                        pnCenter.removeAll();
+                        pnCenter.revalidate();
+                        DivisionGradePanel divisionGradePanel = new DivisionGradePanel();
+                        pnCenter.add(divisionGradePanel);
+                        divisionGradePanel.setVisible(true);
                     }
                     //Storage of reserved students
                     if (btItemPnGrade.getText().equalsIgnoreCase(itemGrades[2].getText())) {
-
+                        
                     }
                 }
 
@@ -778,7 +787,7 @@ public class TrainingCenterFrame extends JFrame {
                 public void mouseEntered(MouseEvent e) {
                     btItemPnGrade.setBackground(selectedItemBackground);
                 }
-
+                
                 @Override
                 public void mouseExited(MouseEvent e) {
                     btItemPnGrade.setBackground(defaultItemBackground);
@@ -786,7 +795,7 @@ public class TrainingCenterFrame extends JFrame {
             });
         }
     }
-
+    
     private void pnItemStudentEvents() {
         Component[] components = pnItemStudent.getComponents();
         for (Component component : components) {
@@ -796,15 +805,15 @@ public class TrainingCenterFrame extends JFrame {
                 public void mousePressed(MouseEvent e) {
                     //List students
                     if (btItemPnStudent.getText().equalsIgnoreCase(itemStudents[0].getText())) {
-
+                        
                     }
                     //Student results
                     if (btItemPnStudent.getText().equalsIgnoreCase(itemStudents[1].getText())) {
-
+// Đức
                     }
                     //List of students warned, reminded
                     if (btItemPnStudent.getText().equalsIgnoreCase(itemStudents[2].getText())) {
-
+                        
                     }
                 }
 
@@ -813,7 +822,7 @@ public class TrainingCenterFrame extends JFrame {
                 public void mouseEntered(MouseEvent e) {
                     btItemPnStudent.setBackground(selectedItemBackground);
                 }
-
+                
                 @Override
                 public void mouseExited(MouseEvent e) {
                     btItemPnStudent.setBackground(defaultItemBackground);
@@ -821,7 +830,7 @@ public class TrainingCenterFrame extends JFrame {
             });
         }
     }
-
+    
     private void pnItemTeacherEvents() {
         Component[] components = pnItemTeacher.getComponents();
         for (Component component : components) {
@@ -831,19 +840,19 @@ public class TrainingCenterFrame extends JFrame {
                 public void mousePressed(MouseEvent e) {
                     //List of teachers 
                     if (btItemPnTeacher.getText().equalsIgnoreCase(itemTeachers[0].getText())) {
-
+//Đức
                     }
                     //Recruitment lecturers
                     if (btItemPnTeacher.getText().equalsIgnoreCase(itemTeachers[1].getText())) {
-
+                        
                     }
                     /// Assess, reward and discipline lecturers
                     if (btItemPnTeacher.getText().equalsIgnoreCase(itemTeachers[2].getText())) {
-
+                        
                     }
                     ///Salary
                     if (btItemPnTeacher.getText().equalsIgnoreCase(itemTeachers[3].getText())) {
-
+                        
                     }
                 }
 
@@ -852,7 +861,7 @@ public class TrainingCenterFrame extends JFrame {
                 public void mouseEntered(MouseEvent e) {
                     btItemPnTeacher.setBackground(selectedItemBackground);
                 }
-
+                
                 @Override
                 public void mouseExited(MouseEvent e) {
                     btItemPnTeacher.setBackground(defaultItemBackground);
@@ -860,7 +869,7 @@ public class TrainingCenterFrame extends JFrame {
             });
         }
     }
-
+    
     private void pnItemFinicialEvents() {
         Component[] components = pnItemFinancial.getComponents();
         for (Component component : components) {
@@ -870,11 +879,11 @@ public class TrainingCenterFrame extends JFrame {
                 public void mousePressed(MouseEvent e) {
                     ///Student tuition management
                     if (btItemPnFinicial.getText().equalsIgnoreCase(itemFinancials[0].getText())) {
-
+                        
                     }
                     ///Central management of revenue and expenditure
                     if (btItemPnFinicial.getText().equalsIgnoreCase(itemFinancials[1].getText())) {
-
+                        
                     }
                 }
 
@@ -883,7 +892,7 @@ public class TrainingCenterFrame extends JFrame {
                 public void mouseEntered(MouseEvent e) {
                     btItemPnFinicial.setBackground(selectedItemBackground);
                 }
-
+                
                 @Override
                 public void mouseExited(MouseEvent e) {
                     btItemPnFinicial.setBackground(defaultItemBackground);
@@ -891,7 +900,7 @@ public class TrainingCenterFrame extends JFrame {
             });
         }
     }
-
+    
     private void pnItemTrainingEvents() {
         Component[] components = pnItemTraining.getComponents();
         for (Component component : components) {
@@ -901,15 +910,15 @@ public class TrainingCenterFrame extends JFrame {
                 public void mousePressed(MouseEvent e) {
                     //Plan for course
                     if (btItemPnTraining.getText().equalsIgnoreCase(itemTrainings[0].getText())) {
-
+                        
                     }
                     //Arrange lecturers, classrooms, class schedule
                     if (btItemPnTraining.getText().equalsIgnoreCase(itemTrainings[1].getText())) {
-
+                        
                     }
                     //Detailed plan for each course
                     if (btItemPnTraining.getText().equalsIgnoreCase(itemTrainings[2].getText())) {
-
+                        
                     }
                 }
 
@@ -918,7 +927,7 @@ public class TrainingCenterFrame extends JFrame {
                 public void mouseEntered(MouseEvent e) {
                     btItemPnTraining.setBackground(selectedItemBackground);
                 }
-
+                
                 @Override
                 public void mouseExited(MouseEvent e) {
                     btItemPnTraining.setBackground(defaultItemBackground);
@@ -926,7 +935,7 @@ public class TrainingCenterFrame extends JFrame {
             });
         }
     }
-
+    
     public static void main(String[] args) {
         TrainingCenterFrame eblm = new TrainingCenterFrame("Programming Training Center UI/UX");
         eblm.setVisible(true);

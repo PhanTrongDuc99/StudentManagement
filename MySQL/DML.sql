@@ -8,10 +8,51 @@ SELECT *FROM GRADE;
 SELECT *FROM TEACHER;
 SELECT *FROM TIMEKEEPING;
 
+             -- SQL FOR COURSE --
+-- getAllCourse
+SELECT *FROM COURSE;
+
+-- getCourseById
+SELECT *FROM COURSE WHERE Id='K01';
+
+-- UpdateCourseById
+UPDATE COURSE
+SET Id='K01', Name='JAVA', ClassQuantity='3', StartDay='2020-03-25', EndDay='2020-09-25', Cost='5000000'
+WHERE Id='K01';
+
+-- DeleteCourseById -> Phải xoá cả studentUnOfficial tương ứng, Grade tương ứng
+       -- DeleteStudentUnOfficialByIdCourse
+       DELETE FROM STUDENTUNOFFICIAL
+       WHERE IdCourse='K02';
+       -- DeleteGradeByIdCourse
+       DELETE FROM GRADE
+       WHERE IdCourse='K02';
+DELETE FROM COURSE 
+WHERE Id='K02';
+
+-- InsertCourse
+INSERT INTO COURSE (`Id`, `Name`, `ClassQuantity`, `StartDay`, `EndDay`, `Cost`) 
+VALUES('K02', 'PHP', '8', '2020-3-26', '2020-9-26', '6000000');
+             
+			   -- END --
+            
+            -- SQL FOR GRADE --
+-- getAllGrade
+SELECT *FROM GRADE;
+
+-- getGradeById
+SELECT *FROM GRADE WHERE Id='Gr01';
+
+-- getGradeByIdCourse
+SELECT *FROM GRADE WHERE IdCourse='K03';
+
+-- 
+
+
 SELECT st.Id, st.IdCourse, pr.Name, pr.Gender, pr.DayOfBirth, pr.PhoneNumber, pr.Hometown, pr.CurrentAddress, pr.IdNumber, pr.Email,rg.State, rg.TypeOfRegister,st.DiscountStatus, st.Cost
-            FROM STUDENTUNOFFICIAL st
-            INNER JOIN REGISTER rg ON st.IdRegister = rg.Id
-            INNER JOIN PROFILE pr ON st.IdProfile= pr.Id;
+FROM STUDENTUNOFFICIAL st
+INNER JOIN REGISTER rg ON st.IdRegister = rg.Id
+INNER JOIN PROFILE pr ON st.IdProfile= pr.Id;
 
 
 INSERT INTO `studentmanagement`.`course` (`Id`, `Name`, `ClassQuantity`, `StartDay`, `EndDay`, `Cost`) VALUES ('K01', 'JAVA', '7', '2020-3-25', '2020-9-25', '5000000');
@@ -33,24 +74,6 @@ INSERT INTO `studentmanagement`.`profile` (`Name`, `Gender`, `DayOfBirth`, `Phon
 INSERT INTO `studentmanagement`.`profile` (`Name`, `Gender`, `DayOfBirth`, `PhoneNumber`, `Hometown`, `CurrentAddress`, `IdNumber`, `Email`, `Id`) VALUES ('Phan Ngoc Quyen', '0', '1995-12-02', '0123876832', 'Hue', 'Da Nang', '476361959', 'phanquyen@gmail.com', 'ProG4');
 INSERT INTO `studentmanagement`.`profile` (`Name`, `Gender`, `DayOfBirth`, `PhoneNumber`, `Hometown`, `CurrentAddress`, `IdNumber`, `Email`, `Id`) VALUES ('Pham Minh Tuan', '0', '1989-10-16', '0904987212', 'Hai Phong', 'Da Nang', '409362009', 'phamtuan@gmail.com', 'ProG5');
 
--- INSERT INTO `studentmanagement`.`register` (`State`, `TypeOfRegister`, `Id`) VALUES ('Waitting', 'Maketing', 'Reg01');
--- INSERT INTO `studentmanagement`.`register` (`State`, `TypeOfRegister`, `Id`) VALUES ('Registered', 'Internet', 'Reg02');
--- INSERT INTO `studentmanagement`.`register` (`State`, `TypeOfRegister`, `Id`) VALUES ('Waitting', 'Maketing', 'Reg03');
--- INSERT INTO `studentmanagement`.`register` (`State`, `TypeOfRegister`, `Id`) VALUES ('Cancel', 'Internet', 'Reg04');
--- INSERT INTO `studentmanagement`.`register` (`State`, `TypeOfRegister`, `Id`) VALUES ('Registered', 'Direct', 'Reg05');
--- UPDATE `studentmanagement`.`register` SET `State` = 'Waitting' WHERE (`Id` = 'Reg02');
--- UPDATE `studentmanagement`.`register` SET `State` = 'Registered' WHERE (`Id` = 'Reg04');
--- UPDATE `studentmanagement`.`register` SET `State` = 'Registered' WHERE (`Id` = 'Reg03');
--- UPDATE `studentmanagement`.`register` SET `State` = 'Waitting' WHERE (`Id` = 'Reg03');
--- UPDATE `studentmanagement`.`register` SET `State` = 'Waitting' WHERE (`Id` = 'Reg04');
--- UPDATE `studentmanagement`.`register` SET `State` = 'Waitting' WHERE (`Id` = 'Reg05');
--- UPDATE `studentmanagement`.`register` SET `State` = 'WAITTING', `TypeOfRegister` = 'MARKETING' WHERE (`Id` = 'Reg01');
--- UPDATE `studentmanagement`.`register` SET `State` = 'WAITTING', `TypeOfRegister` = 'INTERNET' WHERE (`Id` = 'Reg02');
--- UPDATE `studentmanagement`.`register` SET `State` = 'WAITTING', `TypeOfRegister` = 'MARKETING' WHERE (`Id` = 'Reg03');
--- UPDATE `studentmanagement`.`register` SET `State` = 'WAITTING', `TypeOfRegister` = 'INTERNET' WHERE (`Id` = 'Reg04');
--- UPDATE `studentmanagement`.`register` SET `State` = 'WAITTING', `TypeOfRegister` = 'DIRECT' WHERE (`Id` = 'Reg05');
-
-
 
 INSERT INTO `studentmanagement`.`timekeeping` (`TeachingHours`, `RewardLevel`, `DisciplineLevel`,`Id`) VALUES ('0', 'Good', 'No problem','TK01');
 INSERT INTO `studentmanagement`.`timekeeping` (`TeachingHours`, `RewardLevel`, `DisciplineLevel`,`Id`) VALUES ('0', 'Good', 'No problem','TK02');
@@ -70,12 +93,6 @@ INSERT INTO `studentmanagement`.`grade` (`Id`, `Name`, `StudentQuantity`,`IdTeac
 INSERT INTO `studentmanagement`.`grade` (`Id`, `Name`, `StudentQuantity`,`IdTeacher`, `IdCourse`,`StartTime`,`EndTime`,`DaysOfWeek`) VALUES ('Gr04', 'WEB01', '35','GV04', 'K03','08:00:00','11:00:00','TUESDAY,FRIDAY');
 INSERT INTO `studentmanagement`.`grade` (`Id`, `Name`, `StudentQuantity`,`IdTeacher`, `IdCourse`,`StartTime`,`EndTime`,`DaysOfWeek`) VALUES ('Gr05', 'APP MOBILE01','48', 'GV05','K04','07:30:00','10:30:00','WEDNESDAY,SATURDAY');
 
-
--- INSERT INTO `studentmanagement`.`studentunofficial` (`Id`, `DiscountStatus`,`IdProfile`,`Cost`, `IdRegister`,`IdCourse`) VALUES ('ST01', '0', 'ProS1','1000000', 'Reg01','K01');
--- INSERT INTO `studentmanagement`.`studentunofficial` (`Id`, `DiscountStatus`,`IdProfile`,`Cost`, `IdRegister`,`IdCourse`) VALUES ('ST02', '0', 'ProS2', '2000000','Reg02','K02');
--- INSERT INTO `studentmanagement`.`studentunofficial` (`Id`, `DiscountStatus`,`IdProfile`,`Cost`, `IdRegister`,`IdCourse`) VALUES ('ST03', '0', 'ProS3', '2000000','Reg03','K03');
--- INSERT INTO `studentmanagement`.`studentunofficial` (`Id`, `DiscountStatus`,`IdProfile`,`Cost`, `IdRegister`,`IdCourse`) VALUES ('ST04', '0', 'ProS4', '2000000','Reg04','K04');
--- INSERT INTO `studentmanagement`.`studentunofficial` (`Id`, `DiscountStatus`,`IdProfile`,`Cost`, `IdRegister`,`IdCourse`) VALUES ('ST05', '0', 'ProS5', '2000000','Reg05','K05');
 
 -- StudentOfficial khi nao update ben java se update vao DB sau nen khong can insert truoc
 -- Result khi nao update student roi update cho no luon khong can insert truoc

@@ -11,6 +11,8 @@ import entities.StudentUnofficial;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Array;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -39,13 +41,10 @@ import utils.ExcelUtils;
 public class EnrollmentGradePlacementPanel extends javax.swing.JPanel {
 
     private final StudentUnofficialService studentUnofficialService;
-    private final StudentOfficialService studentOfficialService;
     private final String titleBarChart = "Statistical bar chart of registered student sources";
     private final String titlePieChart = "Statistical pie chart of registered student sources";
     private final String xColumnName = "The sourses of registeration";
     private final String yCloumnName = "Amount registered student";
-    private final List<StudentUnofficial> studentUnofficials;
-    private final List<StudentOfficial> studentOfficials;
     private final Color selectedBtStatisticalColor = new Color(0, 0, 200);
     private final Color defaultBtStatisticalColor = new Color(0, 0, 153);
     private final Color selectedBtUpdateDataFromExcelOnlineColor = new Color(0, 200, 0);
@@ -59,10 +58,7 @@ public class EnrollmentGradePlacementPanel extends javax.swing.JPanel {
      * Creates new form EnrollmentGradePlacementPanel
      */
     public EnrollmentGradePlacementPanel() {
-        studentOfficialService = new StudentOfficialServiceImpl();
         studentUnofficialService = new StudentUnofficialServiceImpl();
-        studentUnofficials = studentUnofficialService.getAll();
-        studentOfficials = studentOfficialService.getAll();
         initComponents();
         initEvents();
     }
@@ -215,6 +211,7 @@ public class EnrollmentGradePlacementPanel extends javax.swing.JPanel {
 
     private void btStatisticalEvents() {
         btStatistical.addMouseListener(new MouseAdapter() {
+
             @Override
             public void mouseEntered(MouseEvent e) {
                 btStatistical.setBackground(selectedBtStatisticalColor);
@@ -227,7 +224,8 @@ public class EnrollmentGradePlacementPanel extends javax.swing.JPanel {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                ChartPanel chartPanel = new ChartPanel(createChart());
+                List<StudentUnofficial> studentUnofficials = studentUnofficialService.getAll();
+                ChartPanel chartPanel = new ChartPanel(createChart(studentUnofficials));
                 chartPanel.setPreferredSize(new java.awt.Dimension(500, 400));
                 JFrame frame = new JFrame();
                 frame.add(chartPanel);
@@ -244,13 +242,13 @@ public class EnrollmentGradePlacementPanel extends javax.swing.JPanel {
         return studentUnofficials.stream().filter(item -> source.equalsIgnoreCase(item.getRegister().getType().toString())).count();
     }
 
-    private JFreeChart createChart() {
-        JFreeChart barChart = ChartFactory.createBarChart(titleBarChart, xColumnName, yCloumnName, createDataset(), PlotOrientation.VERTICAL,
+    private JFreeChart createChart(List<StudentUnofficial> studentUnofficials) {
+        JFreeChart barChart = ChartFactory.createBarChart(titleBarChart, xColumnName, yCloumnName, createDataset(studentUnofficials), PlotOrientation.VERTICAL,
                 false, false, false);
         return barChart;
     }
 
-    private CategoryDataset createDataset() {
+    private CategoryDataset createDataset(List<StudentUnofficial> studentUnofficials) {
         final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         dataset.addValue(soursesCount(RegisterType.INTERNET.toString(), studentUnofficials), yCloumnName, RegisterType.INTERNET.toString());
         dataset.addValue(soursesCount(RegisterType.MARKETING.toString(), studentUnofficials), yCloumnName, RegisterType.MARKETING.toString());
