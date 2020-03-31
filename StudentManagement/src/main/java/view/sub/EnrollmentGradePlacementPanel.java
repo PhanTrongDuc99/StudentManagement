@@ -149,11 +149,10 @@ public class EnrollmentGradePlacementPanel extends javax.swing.JPanel {
             @Override
             public void mousePressed(MouseEvent e) {
                 StudentUnofficialService stdUnOfficialService = new StudentUnofficialServiceImpl();
-                ProfileService proService = new ProfileServiceImpl();
                 RegisterService registerService = new RegisterServiceImpl();
                 List<StudentUnofficial> students = ExcelUtils.readStudentFromExcelFile(FileUtils.getPath("excels", "student.xlsx"));
-
-                proService.insertProfileStudent(students);
+                ProfileService profileService = new ProfileServiceImpl();
+                profileService.insertProfileStudent(students);
                 registerService.insertRegisters(students);
                 stdUnOfficialService.insertStudents(students);
                 JOptionPane.showMessageDialog(EnrollmentGradePlacementPanel.this, "Update excel online successfully!", "Notification", JOptionPane.OK_OPTION, ImageUtils.loadImageIcon(getClass().getResource("/images/alarm.png").getPath()));
@@ -253,9 +252,9 @@ public class EnrollmentGradePlacementPanel extends javax.swing.JPanel {
 
     private CategoryDataset createDataset() {
         final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.addValue(21, yCloumnName, RegisterType.INTERNET.toString());
-        dataset.addValue(35, yCloumnName, RegisterType.MARKETING.toString());
-        dataset.addValue(55, yCloumnName, RegisterType.DIRECT.toString());
+        dataset.addValue(soursesCount(RegisterType.INTERNET.toString(), studentUnofficials), yCloumnName, RegisterType.INTERNET.toString());
+        dataset.addValue(soursesCount(RegisterType.MARKETING.toString(), studentUnofficials), yCloumnName, RegisterType.MARKETING.toString());
+        dataset.addValue(soursesCount(RegisterType.DIRECT.toString(), studentUnofficials), yCloumnName, RegisterType.DIRECT.toString());
         return dataset;
     }
 }
