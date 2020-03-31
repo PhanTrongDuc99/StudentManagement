@@ -93,10 +93,69 @@ public class CourseDaoImpl implements CourseDao {
     }
 
     @Override
+    public void insertCourse(Course course) {
+        String query = "INSERT INTO course(Id, Name, ClassQuantity, StartDay, EndDay, Cost) values(?,?,?,?,?,?)";
+        connection = connectionManager.getConnection();
+        try {
+            connection = connectionManager.getConnection();
+            preparedStatement = connection.prepareStatement(query);
+            //Random IdCourse( sao cho khác với các idCourse còn lại)
+            preparedStatement.setString(1, course.getIdCourse());//???thay course.getIdCourse = randomIdNewCourse
+            preparedStatement.setString(2, course.getNameCourse());
+            preparedStatement.setInt(3, course.getGradeQuantity());
+            preparedStatement.setDate(4, DateUtils.convertToSqlDate(course.getStartTime()));
+            preparedStatement.setDate(5, DateUtils.convertToSqlDate(course.getEndTime()));
+            preparedStatement.setDouble(6, course.getCost());
+            int amountRowInserted = preparedStatement.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                preparedStatement.close();
+                connection.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public Course getCourseById(String id) {
+        Course course = new Course();
+        try {
+            connection = connectionManager.getConnection();
+            String query = " SELECT Id,Name, ClassQuantity, StartDay, EndDay, Cost FROM COURSE WHERE Id= ?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, id);
+            result = preparedStatement.executeQuery();
+            while (result.next()) {
+                course.setIdCourse(result.getString("Id"));
+                course.setNameCourse(result.getString("Name"));
+                course.setStartTime(result.getDate("StartDay"));
+                course.setEndTime(result.getDate("EndDay"));
+                course.setGradeQuantity(result.getInt("ClassQuantity"));
+                course.setCost(result.getDouble("Cost"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                result.close();
+                preparedStatement.close();
+                connection.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        return course;
+    }
+
+    @Override
     public Course getCourse(String id) {
         Course course = new Course();
         try {
             connection = connectionManager.getConnection();
+            String query = " SELECT Id,Name, ClassQuantity, StartDay, EndDay, Cost FROM COURSE";
             preparedStatement = connection.prepareStatement(query);
             result = preparedStatement.executeQuery();
             while (result.next()) {
@@ -119,6 +178,52 @@ public class CourseDaoImpl implements CourseDao {
             }
         }
         return course;
+    }
+
+    @Override
+    public void deleteCourseById(String id) {
+
+        try {
+            connection = connectionManager.getConnection();
+            String query = " DELETE FROM COURSE WHERE Id=?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, id);
+            int amountRowDeleted = preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                preparedStatement.close();
+                connection.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void updateCourseById(String id, Course course) {
+        try {
+            connection = connectionManager.getConnection();
+            String query = "UPDATE COURSE SET Name =?, ClassQuantity=?, StartDay=?, EndDay=?, Cost=? WHERE Id=?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, course.getNameCourse());
+            preparedStatement.setInt(2, course.getGradeQuantity());
+            preparedStatement.setDate(3, DateUtils.convertToSqlDate(course.getStartTime()));
+            preparedStatement.setDate(4, DateUtils.convertToSqlDate(course.getEndTime()));
+            preparedStatement.setDouble(5, course.getCost());
+            preparedStatement.setString(6, id);
+            int amountRowUpdated = preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                preparedStatement.close();
+                connection.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 
 }

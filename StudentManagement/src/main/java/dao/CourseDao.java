@@ -15,8 +15,17 @@ import java.util.List;
 public interface CourseDao {
 
     public List<Course> getAll();
+
+    public Course getCourseById(String id);
+
     public Course getCourse(String id);
 
+    public void deleteCourseById(String id);
+
+    public void updateCourseById(String id, Course course);
+
     public void insertCourses(List<Course> courses);
+
+    public void insertCourse(Course course);
 
 }

@@ -16,8 +16,16 @@ public interface CourseService {
 
     public List<Course> getAll();
 
+    public Course getCourseById(String id);
+
+    public void deleteCourseById(String id);
+
+    public void updateCourseById(String id, Course course);
+
     public Course getCourse(String id);
 
     public void insertCourses(List<Course> courses);
+
+    public void insertCourse(Course course);
 
 }

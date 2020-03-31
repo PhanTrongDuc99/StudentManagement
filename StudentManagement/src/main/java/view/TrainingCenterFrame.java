@@ -16,8 +16,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.HashMap;
-import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -723,17 +721,19 @@ public class TrainingCenterFrame extends JFrame {
                 public void mousePressed(MouseEvent e) {
                     //Admissions and Class arrangement
                     if (btItemPnCourse.getText().equalsIgnoreCase(itemCourses[0].getText())) {
+                        pnCenter.removeAll();
+                        pnCenter.revalidate();
                         EnrollmentGradePlacementPanel enrollmentGradePlacementPanel = new EnrollmentGradePlacementPanel();
                         pnCenter.add(enrollmentGradePlacementPanel);
                         enrollmentGradePlacementPanel.setVisible(true);
                     }
                     //show list courses
                     if (btItemPnCourse.getText().equalsIgnoreCase(itemCourses[1].getText())) {
-                        CourseInformationPanel courseInformationPanel = new CourseInformationPanel();
                         pnCenter.removeAll();
+                        pnCenter.revalidate();
+                        CourseInformationPanel courseInformationPanel = new CourseInformationPanel();
                         pnCenter.add(courseInformationPanel);
                         courseInformationPanel.setVisible(true);
-                        System.out.println("Show list course");
                     }
                 }
 
@@ -764,7 +764,7 @@ public class TrainingCenterFrame extends JFrame {
                     }
                     //Grade division
                     if (btItemPnGrade.getText().equalsIgnoreCase(itemGrades[1].getText())) {
-
+//ĐỨC
                     }
                     //Storage of reserved students
                     if (btItemPnGrade.getText().equalsIgnoreCase(itemGrades[2].getText())) {
@@ -799,7 +799,7 @@ public class TrainingCenterFrame extends JFrame {
                     }
                     //Student results
                     if (btItemPnStudent.getText().equalsIgnoreCase(itemStudents[1].getText())) {
-
+// Đức
                     }
                     //List of students warned, reminded
                     if (btItemPnStudent.getText().equalsIgnoreCase(itemStudents[2].getText())) {
@@ -830,7 +830,7 @@ public class TrainingCenterFrame extends JFrame {
                 public void mousePressed(MouseEvent e) {
                     //List of teachers 
                     if (btItemPnTeacher.getText().equalsIgnoreCase(itemTeachers[0].getText())) {
-
+//Đức
                     }
                     //Recruitment lecturers
                     if (btItemPnTeacher.getText().equalsIgnoreCase(itemTeachers[1].getText())) {

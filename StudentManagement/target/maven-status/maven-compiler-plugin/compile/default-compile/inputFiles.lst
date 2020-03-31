@@ -50,6 +50,7 @@ C:\Users\PC\Desktop\StudentManagement\StudentManagement\src\main\java\service\Pr
 C:\Users\PC\Desktop\StudentManagement\StudentManagement\src\main\java\view\CourseView.java
 C:\Users\PC\Desktop\StudentManagement\StudentManagement\src\main\java\dao\GradeDaoImpl.java
 C:\Users\PC\Desktop\StudentManagement\StudentManagement\src\main\java\readFromExcelFile\ReadGradeFromExcelFile.java
+C:\Users\PC\Desktop\StudentManagement\StudentManagement\src\main\java\view\sub\CourseInformationForm.java
 C:\Users\PC\Desktop\StudentManagement\StudentManagement\src\main\java\common\CellValue.java
 C:\Users\PC\Desktop\StudentManagement\StudentManagement\src\main\java\readFromExcelFile\ReadTeacherFromExcelFile.java
 C:\Users\PC\Desktop\StudentManagement\StudentManagement\src\main\java\service\StudentUnofficialServiceImpl.java

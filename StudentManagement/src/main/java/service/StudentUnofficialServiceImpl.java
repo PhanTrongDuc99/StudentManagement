@@ -42,4 +42,9 @@ public class StudentUnofficialServiceImpl implements StudentUnofficialService {
         return studentUnofficialDao.getStudent(string);
     }
 
+    @Override
+    public void deleteStudentByIdCourse(String idCourse) {
+        studentUnofficialDao.deleteStudentByIdCourse(idCourse);
+    }
+
 }

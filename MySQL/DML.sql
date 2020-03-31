@@ -8,10 +8,51 @@ SELECT *FROM GRADE;
 SELECT *FROM TEACHER;
 SELECT *FROM TIMEKEEPING;
 
+             -- SQL FOR COURSE --
+-- getAllCourse
+SELECT *FROM COURSE;
+
+-- getCourseById
+SELECT *FROM COURSE WHERE Id='K01';
+
+-- UpdateCourseById
+UPDATE COURSE
+SET Id='K01', Name='JAVA', ClassQuantity='3', StartDay='2020-03-25', EndDay='2020-09-25', Cost='5000000'
+WHERE Id='K01';
+
+-- DeleteCourseById -> Phải xoá cả studentUnOfficial tương ứng, Grade tương ứng
+       -- DeleteStudentUnOfficialByIdCourse
+       DELETE FROM STUDENTUNOFFICIAL
+       WHERE IdCourse='K02';
+       -- DeleteGradeByIdCourse
+       DELETE FROM GRADE
+       WHERE IdCourse='K02';
+DELETE FROM COURSE 
+WHERE Id='K02';
+
+-- InsertCourse
+INSERT INTO COURSE (`Id`, `Name`, `ClassQuantity`, `StartDay`, `EndDay`, `Cost`) 
+VALUES('K02', 'PHP', '8', '2020-3-26', '2020-9-26', '6000000');
+             
+			   -- END --
+            
+            -- SQL FOR GRADE --
+-- getAllGrade
+SELECT *FROM GRADE;
+
+-- getGradeById
+SELECT *FROM GRADE WHERE Id='Gr01';
+
+-- getGradeByIdCourse
+SELECT *FROM GRADE WHERE IdCourse='K03';
+
+-- 
+
+
 SELECT st.Id, st.IdCourse, pr.Name, pr.Gender, pr.DayOfBirth, pr.PhoneNumber, pr.Hometown, pr.CurrentAddress, pr.IdNumber, pr.Email,rg.State, rg.TypeOfRegister,st.DiscountStatus, st.Cost
-            FROM STUDENTUNOFFICIAL st
-            INNER JOIN REGISTER rg ON st.IdRegister = rg.Id
-            INNER JOIN PROFILE pr ON st.IdProfile= pr.Id;
+FROM STUDENTUNOFFICIAL st
+INNER JOIN REGISTER rg ON st.IdRegister = rg.Id
+INNER JOIN PROFILE pr ON st.IdProfile= pr.Id;
 
 
 INSERT INTO `studentmanagement`.`course` (`Id`, `Name`, `ClassQuantity`, `StartDay`, `EndDay`, `Cost`) VALUES ('K01', 'JAVA', '7', '2020-3-25', '2020-9-25', '5000000');

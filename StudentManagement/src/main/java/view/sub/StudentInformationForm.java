@@ -64,9 +64,7 @@ public class StudentInformationForm extends javax.swing.JFrame {
         setExtendedState(Frame
             .MAXIMIZED_BOTH);
         setLocation(new java.awt.Point(0, 0));
-        setMaximumSize(new java.awt.Dimension(1000, 700));
         setMinimumSize(new java.awt.Dimension(1000, 700));
-        setPreferredSize(new java.awt.Dimension(1000, 700));
         setResizable(false);
         getContentPane().setLayout(null);
 

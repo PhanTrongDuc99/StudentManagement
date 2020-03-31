@@ -18,5 +18,6 @@ public interface StudentUnofficialService {
     public StudentUnofficial getStudent(String string);
     public void insertStudent(StudentUnofficial student);
     public void insertStudents(List<StudentUnofficial> students);
+    public void deleteStudentByIdCourse(String idCourse);
 }
 
