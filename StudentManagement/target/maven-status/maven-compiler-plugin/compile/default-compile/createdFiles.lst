@@ -2,7 +2,6 @@ utils\ExcelUtils.class
 view\sub\StudentsDivisionFrame$1.class
 dao\ResultDaoImpl.class
 dao\StudentUnofficialDaoImpl.class
-<<<<<<< HEAD
 utils\FileUtils.class
 utils\DayOfWeekUtils.class
 view\sub\EnrollmentGradePlacementPanel$4.class
@@ -10,16 +9,12 @@ service\CourseService.class
 view\sub\EnrollmentGradePlacementPanel$1.class
 entities\StudentOfficial.class
 view\sub\CourseForm.class
+view\sub\StudentInformationForm$8.class
 utils\SizeUtils.class
 service\RegisterService.class
 view\TrainingCenterFrame$6.class
 view\sub\RegisterForm$14.class
-=======
-service\CourseService.class
-view\sub\EnrollmentGradePlacementPanel$1.class
-view\sub\StudentInformationForm$8.class
-utils\SizeUtils.class
->>>>>>> f581b5150bdcb509fece8d44bb913482d6010bdb
+view\sub\StudentInformationForm$5.class
 service\AdminService.class
 view\sub\RegisterForm$6.class
 view\sub\CourseInformationPanel$8.class
@@ -27,36 +22,36 @@ view\sub\RegisterForm$11.class
 dao\ProfileDao.class
 view\sub\Demo.class
 entities\Result.class
-<<<<<<< HEAD
 view\sub\RegisterForm$3.class
 view\sub\StudentInformationPanel$2.class
 view\sub\StudentPanel.class
-=======
->>>>>>> f581b5150bdcb509fece8d44bb913482d6010bdb
 service\StudentOfficialService.class
+view\sub\StudentInformationForm$2.class
+view\sub\CourseInformationForm$3.class
 view\sub\StudentInformationPanel.class
 utils\DateUtils.class
-<<<<<<< HEAD
 entities\Profile.class
 dao\StudentOfficialDao.class
-=======
 view\sub\StudentInformationForm.class
-view\TeacherView.class
->>>>>>> f581b5150bdcb509fece8d44bb913482d6010bdb
 view\sub\SettingFrame$1.class
 entities\Admin.class
+view\sub\RegisterForm$9.class
+service\StudentOfficialServiceImpl.class
 view\sub\RegisterForm$17.class
 view\sub\StudentInformationPanel$5.class
 view\sub\StudentsDivisionFrame$4.class
 view\sub\StartFrame$2.class
-<<<<<<< HEAD
 view\sub\EnrollmentGradePlacementPanel.class
 service\CourseServiceImpl.class
+service\ResultServiceImpl.class
 model\CourseTableModel.class
-=======
->>>>>>> f581b5150bdcb509fece8d44bb913482d6010bdb
+view\sub\CourseInformationPanel$4$1.class
 dao\GradeDaoImpl.class
+service\TeacherServiceImpl.class
+view\sub\CourseInformationForm$4.class
+view\sub\CourseInformationForm.class
 view\sub\SettingFrame.class
+service\GradeService.class
 service\AdminServiceImpl.class
 model\CourseTableModel$1.class
 view\sub\LoginForm$1.class
@@ -66,19 +61,17 @@ view\sub\CourseInformationPanel$6.class
 view\sub\RegisterForm$1.class
 view\sub\RegisterForm$16.class
 connection\ConfigurationProvider.class
-<<<<<<< HEAD
 view\sub\RegisterForm$8.class
 view\sub\StudentsDivisionFrame$3.class
-=======
->>>>>>> f581b5150bdcb509fece8d44bb913482d6010bdb
 service\TimeKeepingService.class
 view\sub\ListOfStudentsFrame$1.class
+view\sub\DivisionGradePanel.class
 common\CellValue.class
 dao\AdminDao.class
-<<<<<<< HEAD
 view\sub\StudentInformationPanel$4.class
 connection\ConnectionManagerImpl.class
 view\sub\HomepagePanel.class
+view\sub\StudentInformationForm$7.class
 service\StudentUnofficialService.class
 view\TrainingCenterFrame$1.class
 view\sub\CourseInformationPanel$5.class
@@ -94,29 +87,28 @@ service\TimeKeepingServiceImpl.class
 view\sub\ListOfStudentsFrame.class
 view\sub\StudentsDivisionFrame$2.class
 view\sub\RegisterForm$15.class
+view\sub\DivisionGradePanel$2.class
 view\TrainingCenterFrame$2.class
+view\sub\StudentInformationForm$1.class
 utils\CheckUtil.class
 view\sub\CourseInformationPanel$4.class
 view\sub\StudentInformationPanel$3.class
-=======
-view\sub\StudentInformationForm$7.class
-view\sub\RegisterForm$7.class
-service\StudentUnofficialServiceImpl.class
-utils\ImageUtils.class
-view\StudentUnofficialView.class
-dao\StudentOfficialDaoImpl.class
-service\TimeKeepingServiceImpl.class
-view\TrainingCenterFrame$2.class
->>>>>>> f581b5150bdcb509fece8d44bb913482d6010bdb
+view\sub\CourseInformationForm$2.class
 connection\ConnectionManager.class
 view\sub\StudentInformationPanel$6.class
+utils\RandomUtils.class
 view\sub\GradePanel.class
+entities\Course.class
 view\sub\StartFrame$1.class
 dao\RegisterDao.class
 service\TeacherService.class
+dao\ProfileDaoImpl.class
+service\ResultService.class
 view\sub\SettingFrame$2.class
+view\sub\DetailStudentUnOfficialForm.class
+service\ProfileService.class
+dao\TimeKeepingDaoImpl.class
 entities\TimeKeeping.class
-<<<<<<< HEAD
 common\NameColumn.class
 view\sub\ListOfStudentsFrame$3.class
 dao\TeacherDaoImpl.class
@@ -135,50 +127,40 @@ view\TrainingCenterFrame$5.class
 common\RegisterStatus.class
 common\RegisterType.class
 view\sub\CourseInformationPanel$7.class
-=======
-dao\TeacherDaoImpl.class
-entities\Register.class
-view\sub\StartFrame.class
-common\WorkBookValue.class
-common\RegisterStatus.class
->>>>>>> f581b5150bdcb509fece8d44bb913482d6010bdb
 utils\TimeUtils.class
 view\TrainingCenterFrame.class
 view\sub\RegisterForm$2.class
+dao\CourseDaoImpl.class
+view\sub\RegisterForm$10.class
 view\sub\LoginForm.class
 view\sub\TrainingPanel.class
-<<<<<<< HEAD
 view\sub\DetailStudentOfficialForm.class
+view\sub\StudentInformationForm$6.class
 view\sub\StudentInformationPanel$8.class
+view\sub\CourseInformationPanel$9.class
 view\sub\CourseForm$2.class
 view\sub\StudentInformationPanel$1.class
 entities\Grade.class
 view\sub\CourseInformationPanel$2.class
 dao\TimeKeepingDao.class
+view\sub\StudentInformationForm$3.class
 dao\GradeDao.class
 view\TrainingCenterFrame$4.class
-=======
-view\sub\StudentInformationForm$6.class
-view\GradeView.class
-view\sub\StudentInformationForm$3.class
->>>>>>> f581b5150bdcb509fece8d44bb913482d6010bdb
 entities\Teacher.class
 view\sub\CoursePanel.class
+view\sub\RegisterForm$13.class
 view\sub\RegisterForm$5.class
 service\RegisterServiceImpl.class
-<<<<<<< HEAD
 view\sub\FinancialPanel.class
 connection\ConfigurationProviderImpl.class
 view\sub\EnrollmentGradePlacementPanel$2.class
-=======
->>>>>>> f581b5150bdcb509fece8d44bb913482d6010bdb
 view\sub\SettingFrame$4.class
 view\sub\StudentsDivisionFrame.class
-utils\RandomId.class
+view\sub\DivisionGradePanel$1.class
 view\sub\CourseInformationPanel.class
 entities\StudentUnofficial.class
+view\sub\LoginForm$4.class
 view\sub\RegisterForm$4.class
-<<<<<<< HEAD
 view\sub\CourseInformationPanel$3.class
 view\sub\RegisterForm$12.class
 view\sub\TeacherPanel.class
@@ -186,67 +168,13 @@ dao\ResultDao.class
 view\TrainingCenterFrame$3.class
 view\sub\StudentInformationPanel$7.class
 view\sub\CourseForm$1.class
-=======
-view\StudentOfficialView.class
->>>>>>> f581b5150bdcb509fece8d44bb913482d6010bdb
 common\Time.class
+view\sub\StudentInformationForm$4.class
 view\sub\EnrollmentGradePlacementPanel$3.class
 view\sub\RegisterForm.class
 view\sub\SettingFrame$3.class
+view\sub\CourseInformationForm$1.class
 view\sub\DetailStudentUnOfficialForm$1.class
-<<<<<<< HEAD
-=======
-readFromExcelFile\ReadGradeFromExcelFile.class
-utils\FileUtils.class
-utils\DayOfWeekUtils.class
-entities\StudentOfficial.class
-service\RegisterService.class
-view\sub\RegisterForm$14.class
-view\sub\StudentInformationForm$5.class
-view\sub\RegisterForm$3.class
-view\sub\StudentPanel.class
-entities\Profile.class
-dao\StudentOfficialDao.class
-readFromExcelFile\ReadStudentUnofficicalFromExcelFile.class
-view\sub\RegisterForm$9.class
-service\StudentOfficialServiceImpl.class
-view\sub\EnrollmentGradePlacementPanel.class
-service\CourseServiceImpl.class
-service\TeacherServiceImpl.class
-service\GradeService.class
-view\sub\RegisterForm$8.class
-connection\ConnectionManagerImpl.class
-view\sub\HomepagePanel.class
-service\StudentUnofficialService.class
-view\TrainingCenterFrame$1.class
-dao\AdminDaoImp.class
-dao\CourseDao.class
-view\sub\RegisterForm$15.class
-view\sub\StudentInformationForm$1.class
-utils\CheckUtil.class
-entities\Course.class
-dao\ProfileDaoImpl.class
-view\sub\DetailStudentUnOfficialForm.class
-service\ProfileService.class
-dao\TimeKeepingDaoImpl.class
-common\NameColumn.class
-service\ProfileServiceImpl.class
-dao\StudentUnofficialDao.class
-view\sub\LoginForm$2.class
-dao\RegisterDaoImpl.class
-readFromExcelFile\ReadCourseFromExcelFile.class
-common\RegisterType.class
-dao\CourseDaoImpl.class
-view\sub\RegisterForm$10.class
-view\sub\DetailStudentOfficialForm.class
-entities\Grade.class
-dao\TimeKeepingDao.class
-dao\GradeDao.class
-view\sub\RegisterForm$13.class
-view\sub\FinancialPanel.class
-connection\ConfigurationProviderImpl.class
-view\sub\LoginForm$4.class
-view\sub\RegisterForm$12.class
-view\sub\TeacherPanel.class
->>>>>>> f581b5150bdcb509fece8d44bb913482d6010bdb
 view\sub\LoginForm$3.class
+view\sub\CourseInformationPanel$10.class
+view\sub\CourseInformationPanel$3$1.class

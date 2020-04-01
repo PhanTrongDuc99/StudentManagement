@@ -152,6 +152,8 @@ public class EnrollmentGradePlacementPanel extends javax.swing.JPanel {
                 registerService.insertRegisters(students);
                 stdUnOfficialService.insertStudents(students);
                 JOptionPane.showMessageDialog(EnrollmentGradePlacementPanel.this, "Update excel online successfully!", "Notification", JOptionPane.OK_OPTION, ImageUtils.loadImageIcon(getClass().getResource("/images/alarm.png").getPath()));
+                ListStudentUnofficialslFrame studentUnofficialslFrame = new ListStudentUnofficialslFrame();
+                studentUnofficialslFrame.setVisible(true);
             }
 
             @Override
@@ -193,7 +195,7 @@ public class EnrollmentGradePlacementPanel extends javax.swing.JPanel {
         btDivision.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                StudentsDivisionFrame sdf=new StudentsDivisionFrame();
+                StudentsDivisionFrame sdf = new StudentsDivisionFrame();
                 sdf.setVisible(true);
             }
 
@@ -230,7 +232,7 @@ public class EnrollmentGradePlacementPanel extends javax.swing.JPanel {
                 chartPanel.setPreferredSize(new java.awt.Dimension(500, 400));
                 JFrame frame = new JFrame();
                 frame.add(chartPanel);
-                frame.setSize(1000, 900);
+                frame.setSize(1000, 700);
                 frame.setLocationRelativeTo(null);
                 frame.setResizable(false);
                 frame.setVisible(true);

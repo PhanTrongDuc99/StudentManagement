@@ -54,6 +54,12 @@ FROM STUDENTUNOFFICIAL st
 INNER JOIN REGISTER rg ON st.IdRegister = rg.Id
 INNER JOIN PROFILE pr ON st.IdProfile= pr.Id;
 
+INSERT INTO ADMIN(`Id`,`Username`,`Passwork`) VALUES('1','User01','123456');
+INSERT INTO ADMIN(`Id`,`Username`,`Passwork`) VALUES('2','User02','654321');
+INSERT INTO ADMIN(`Id`,`Username`,`Passwork`) VALUES('4','User04','111111');
+INSERT INTO ADMIN(`Username`,`Passwork`) VALUES('User05','124343456');
+
+
 
 INSERT INTO `studentmanagement`.`course` (`Id`, `Name`, `ClassQuantity`, `StartDay`, `EndDay`, `Cost`) VALUES ('K01', 'JAVA', '7', '2020-3-25', '2020-9-25', '5000000');
 INSERT INTO `studentmanagement`.`course` (`Id`, `Name`, `ClassQuantity`, `StartDay`, `EndDay`, `Cost`) VALUES ('K02', 'PHP', '8', '2020-3-26', '2020-9-26', '6000000');

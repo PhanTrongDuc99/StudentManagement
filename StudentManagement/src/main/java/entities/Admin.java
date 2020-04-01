@@ -13,20 +13,20 @@ import java.util.Objects;
  */
 public class Admin {
 
-    private String idAdmin;
+    private Integer idAdmin;
     private String username;
     private String password;
 
     public Admin() {
     }
 
-    public Admin(String idAdmin, String username, String password) {
+    public Admin(Integer idAdmin, String username, String password) {
         this.idAdmin = idAdmin;
         this.username = username;
         this.password = password;
     }
 
-    public String getIdAdmin() {
+    public Integer getIdAdmin() {
         return idAdmin;
     }
 
@@ -38,7 +38,7 @@ public class Admin {
         return password;
     }
 
-    public void setIdAdmin(String idAdmin) {
+    public void setIdAdmin(Integer idAdmin) {
         this.idAdmin = idAdmin;
     }
 

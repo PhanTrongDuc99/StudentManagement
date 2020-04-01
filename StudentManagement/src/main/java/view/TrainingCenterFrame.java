@@ -52,7 +52,7 @@ public class TrainingCenterFrame extends JFrame {
     private final GridLayout gridLayoutPanelItemCourse = new GridLayout(2, 0, 5, 5);
     private final GridLayout gridLayoutPanelItemGrade = new GridLayout(3, 0, 5, 5);
     private final GridLayout gridLayoutPanelItemStudent = new GridLayout(3, 0, 5, 5);
-    private final GridLayout gridLayoutPanelItemTeacher = new GridLayout(4, 0, 2, 5);
+    private final GridLayout gridLayoutPanelItemTeacher = new GridLayout(2, 0, 5, 6);
     private final GridLayout gridLayoutPanelItemFinancial = new GridLayout(2, 0, 5, 5);
     private final GridLayout gridLayoutPanelItemTraining = new GridLayout(3, 0, 5, 5);
     private final CardLayout cardLayout = new CardLayout();
@@ -465,7 +465,7 @@ public class TrainingCenterFrame extends JFrame {
         splitPanePnLeft.add(pnLeftBottom, JSplitPane.BOTTOM);
     }
     
-    private void initPnLeftComponentsDefault() {
+    private final void initPnLeftComponentsDefault() {
         pnLeftTop = new JPanel();
         pnLeftTop.setLayout(gridLayout);
         pnLeftTop.setBackground(defaultBackground);
@@ -635,7 +635,7 @@ public class TrainingCenterFrame extends JFrame {
                         //display and hint item of panelTeacher
                         if (btTeacher.getText().equalsIgnoreCase(button.getText())) {
                             if (!statusBtTeacher) {
-                                initPnLeftComponentsSelectedBtTeacher();
+                                initPnItemsTeacher();
                                 initEvents();
                                 pnItemTeacherEvents();
                                 statusBtTeacher = !statusBtTeacher;
@@ -934,6 +934,34 @@ public class TrainingCenterFrame extends JFrame {
                 }
             });
         }
+    }
+    
+    private void initBtTeacher() {
+        pnLeftTop = new JPanel();
+        pnLeftTop.setLayout(gridLayout);
+        pnLeftTop.setBackground(defaultBackground);
+        pnLeftTop.setPreferredSize(new Dimension(220, 300));
+        splitPanePnLeft.add(pnLeftTop, JSplitPane.TOP);
+        btTeacher = new JButton("Teacher management");
+        
+        createButton(btTeacher);
+        pnLeftTop.add(btTeacher);
+    }
+    
+    private void initPnItemsTeacher() {
+        pnLeftTop.removeAll();
+        pnLeftTop.revalidate();
+        pnItemTeacher = new JPanel();
+        pnItemTeacher.setLayout(gridLayoutPanelItemTeacher);
+        createItemPanel(pnItemTeacher, itemTeachers);
+        pnLeftTop.add(pnItemTeacher);
+        JButton btBack = new JButton("Back");
+        btBack.setBackground(Color.GRAY);
+        btBack.setForeground(Color.WHITE);
+        btBack.setFocusPainted(false);
+        btBack.addMouseListener(new MouseAdapter() {
+          //trở về trạng thái ban đầu  
+        });
     }
     
     public static void main(String[] args) {

@@ -33,7 +33,7 @@ public class LoginForm extends JFrame {
     private static final String APP_TITLE = "LOGIN FORM";
     private static final int APP_WIDTH = 850;
     private static final int APP_HEIGHT = 540;
-    private static final String PATH_IMAGE_BG = "/images/LoginBg.PNG";
+    private static final String PATH_IMAGE_BG = "/images/startBg.jpg";
 
     private final Container container = getContentPane();
     private JLabel lbBg;

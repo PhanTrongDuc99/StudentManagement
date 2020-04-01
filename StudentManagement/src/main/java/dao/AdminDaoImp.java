@@ -41,7 +41,7 @@ public class AdminDaoImp implements AdminDao {
             pst.setString(2, password);
             rs = pst.executeQuery();
             if (rs.next()) {
-                admin = new Admin(rs.getString("Id"), rs.getString("Username"), rs.getString("Password"));
+                admin = new Admin(rs.getInt("Id"), rs.getString("Username"), rs.getString("Password"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(AdminDaoImp.class.getName()).log(Level.SEVERE, null, ex);
