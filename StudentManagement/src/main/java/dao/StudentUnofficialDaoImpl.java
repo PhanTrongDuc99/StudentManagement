@@ -198,4 +198,23 @@ public class StudentUnofficialDaoImpl implements StudentUnofficialDao {
         return affectedRows != 0;
     }
 
+    public void deleteStudentByIdCourse(String idCourse) {
+        try {
+            connection = connectionManager.getConnection();
+            String query = " DELETE FROM STUDENTUNOFFICIAL WHERE IdCourse=?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, idCourse);
+            int amountRowDeleted = preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                preparedStatement.close();
+                connection.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
 }

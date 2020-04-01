@@ -22,5 +22,7 @@ public interface StudentUnofficialService {
 
     public void insertStudents(List<StudentUnofficial> students);
 
+    public void deleteStudentByIdCourse(String idCourse);
+
     public boolean deleteUnofficialStudentById(String id);
 }

@@ -31,7 +31,7 @@ import service.RegisterServiceImpl;
 import service.StudentUnofficialService;
 import service.StudentUnofficialServiceImpl;
 import utils.CheckUtil;
-import utils.RandomId;
+import utils.RandomUtils;
 
 /**
  *
@@ -317,9 +317,9 @@ public class RegisterForm extends javax.swing.JFrame {
     private final Border defaultBorder = new JTextField().getBorder();
 
     public void registerButtonEvents() {
-        RandomId rand = new RandomId();
+        RandomUtils rand = new RandomUtils();
         List<String> strings = new ProfileServiceImpl().getProfileStudents().stream().map(Profile::getId).collect(Collectors.toList());
-        String id = rand.randomId(strings);
+        String id = rand.randomId(strings, "");
         registerButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {

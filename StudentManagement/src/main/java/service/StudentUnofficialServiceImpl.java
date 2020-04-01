@@ -47,4 +47,8 @@ public class StudentUnofficialServiceImpl implements StudentUnofficialService {
         return studentUnofficialDao.deleteUnofficialStudentById(id);
     }
 
+    public void deleteStudentByIdCourse(String idCourse) {
+        studentUnofficialDao.deleteStudentByIdCourse(idCourse);
+    }
+
 }

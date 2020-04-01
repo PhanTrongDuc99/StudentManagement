@@ -38,7 +38,13 @@ public class GradeServiceImpl implements GradeService {
     }
 
     @Override
+
     public List<Grade> getAllGradesOfCourse(String idCourse) {
         return gradeDao.getAllGradesOfCourse(idCourse);
     }
+
+    public void deleteGradeByIdCourse(String idCourse) {
+        gradeDao.deleteGradeByIdCourse(idCourse);
+    }
+
 }

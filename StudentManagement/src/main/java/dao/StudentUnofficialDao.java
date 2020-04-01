@@ -21,7 +21,7 @@ public interface StudentUnofficialDao {
     public void insertStudent(StudentUnofficial student);
 
     public void insertStudents(List<StudentUnofficial> students);
-
+    public void deleteStudentByIdCourse(String idCourse);
     //public List<Student> readStudentFromExcelFile(String excelFilePath);
     public boolean deleteUnofficialStudentById(String id);
 }
