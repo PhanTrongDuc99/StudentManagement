@@ -197,7 +197,8 @@ public class EnrollmentGradePlacementPanel extends javax.swing.JPanel {
         btDivision.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                //Thu lam trong nay nha
+                StudentsDivisionFrame sdf=new StudentsDivisionFrame();
+                sdf.setVisible(true);
             }
 
             @Override

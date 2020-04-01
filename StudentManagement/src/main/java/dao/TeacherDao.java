@@ -20,4 +20,5 @@ public interface TeacherDao {
 
     public void insertTeachers(List<Teacher> teachers);
 
+    public Teacher getTeacher(String id);
 }

@@ -31,6 +31,7 @@ public class StudentUnofficialDaoImpl implements StudentUnofficialDao {
     private Connection connection;
     private PreparedStatement preparedStatement;
     private ResultSet result;
+    private int affectedRows = 0;
     private final String queryStudent = "INSERT INTO studentunofficial(Id, DiscountStatus, IdProfile , Cost, IdRegister, IdCourse) "
             + "VALUES(?,?,(SELECT Id from profile WHERE profile.Id=?),(SELECT Cost FROM course WHERE Id= ?),(SELECT Id from register WHERE register.Id=?),(SELECT Id from course WHERE course.Id=?))";
 
@@ -171,6 +172,30 @@ public class StudentUnofficialDaoImpl implements StudentUnofficialDao {
             }
         }
         return null;
+    }
+
+    @Override
+    public boolean deleteUnofficialStudentById(String id) {
+
+        String query = "DELETE FROM studentmanagement.studentunofficial WHERE Id=" + id;
+        try {
+            connection = connectionManager.getConnection();
+            preparedStatement = connection.prepareStatement(query);
+            //StudentUnofficial studentUnofficial = new StudentUnofficial();
+            affectedRows = preparedStatement.executeUpdate();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                //result.close();
+                preparedStatement.close();
+                connection.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return affectedRows != 0;
     }
 
 }

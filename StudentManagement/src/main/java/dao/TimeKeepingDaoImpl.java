@@ -11,8 +11,11 @@ import entities.Teacher;
 import entities.TimeKeeping;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -23,6 +26,7 @@ public class TimeKeepingDaoImpl implements TimeKeepingDao {
     private ConnectionManager connectionManager;
     private Connection connection;
     private PreparedStatement preparedStatement;
+    private ResultSet result;
     private final String query
             = "INSERT INTO timekeeping(TeachingHours, RewardLevel, DisciplineLevel, Id)\n"
             + "VALUES(?,?,?,?)";
@@ -62,6 +66,31 @@ public class TimeKeepingDaoImpl implements TimeKeepingDao {
             }
 
         }
+    }
+
+    @Override
+    public TimeKeeping getTimeKeeping(String id) {
+        connection = connectionManager.getConnection();
+        TimeKeeping timeKeeping = null;
+        String query = "SELECT * FROM studentmanagement.timekeeping WHERE id='" + id + "'";
+        try {
+            preparedStatement = connection.prepareStatement(query);
+
+            result = preparedStatement.executeQuery();
+            if (result.next()) {
+                timeKeeping = new TimeKeeping(result.getString("Id"), result.getDouble("TeachingHours"), result.getString("RewardLevel"), result.getString("DisciplineLevel"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminDaoImp.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                result.close();
+                preparedStatement.close();
+                connection.close();
+            } catch (SQLException e) {
+            }
+        }
+        return timeKeeping;
     }
 
 }

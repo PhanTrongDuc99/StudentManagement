@@ -15,6 +15,7 @@ import entities.StudentOfficial;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +34,9 @@ public class StudentOfficialDaoImpl implements StudentOfficialDao {
     private PreparedStatement preparedStatement;
     private ResultSet result;
     private final String query = "SELECT IdStudent, IdProfile, IdGrade, IdResult, IdRegister, DiscountStatus, Cost FROM STUDENTOFFICIAL";
+    private final String queryStudent
+            = "INSERT INTO `studentmanagement`.`studentofficial` (`IdStudent`, `IdGrade`, `IdProfile`, `IdResult`, `IdRegister`, `DiscountStatus`, `Cost`)"
+            + "VALUES(?,(SELECT Id FROM grade WHERE ID=?),(SELECT Id from profile WHERE profile.Id=?),?,(SELECT Id FROM RESULT WHERE ID=?),(SELECT Id from register WHERE register.Id=?),?,(SELECT Cost FROM course WHERE Id= ?))";
 
     public StudentOfficialDaoImpl() {
         connectionManager = new ConnectionManagerImpl();
@@ -41,7 +45,6 @@ public class StudentOfficialDaoImpl implements StudentOfficialDao {
         resultDao = new ResultDaoImpl();
         registerDao = new RegisterDaoImpl();
     }
-
 
     @Override
     public List<StudentOfficial> getAll() {
@@ -55,8 +58,7 @@ public class StudentOfficialDaoImpl implements StudentOfficialDao {
                 Register register = registerDao.getRegister(result.getString("IdRegister"));
                 Grade grade = gradeDao.getGrade(result.getString("IdGrade"));
                 Result resultStudent = resultDao.getResult(result.getString("IdResult"));
-                StudentOfficial student = new StudentOfficial(resultStudent,
-                        result.getString("IdStudent"), profile, result.getDouble("DiscountStatus"), grade.getCourse().getCost(), register, grade.getCourse().getIdCourse());
+                StudentOfficial student = new StudentOfficial(resultStudent, grade, result.getString("IdStudent"), profile, result.getDouble("DiscountStatus"), grade.getCourse().getCost(), register);
                 studentOfficials.add(student);
             }
         } catch (Exception ex) {
@@ -110,4 +112,29 @@ public class StudentOfficialDaoImpl implements StudentOfficialDao {
         return null;
     }
 
+    @Override
+    public void insertStudent(StudentOfficial student) {
+        try {
+            connection = connectionManager.getConnection();
+            preparedStatement = connection.prepareStatement(queryStudent);
+            preparedStatement.setString(1, student.getId());
+            preparedStatement.setString(2, student.getResultStudy().getIdGrade());
+            preparedStatement.setString(3, student.getProfile().getId());
+            preparedStatement.setString(4, student.getResultStudy().getId());
+            preparedStatement.setString(5, student.getRegister().getId());
+            preparedStatement.setDouble(6, student.getDiscountStatus());
+            preparedStatement.setDouble(7, student.getCost());
+            preparedStatement.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+
+        } finally {
+            try {
+                preparedStatement.close();
+                connection.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
 }

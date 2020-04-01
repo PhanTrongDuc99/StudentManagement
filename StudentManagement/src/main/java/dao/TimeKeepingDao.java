@@ -15,6 +15,7 @@ import java.util.List;
  */
 public interface TimeKeepingDao {
 
-
     public void insertTimeKeeping(List<Teacher> teachers);
+
+    public TimeKeeping getTimeKeeping(String id);
 }

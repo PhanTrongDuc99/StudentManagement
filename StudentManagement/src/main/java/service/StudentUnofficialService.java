@@ -15,8 +15,12 @@ import java.util.List;
 public interface StudentUnofficialService {
 
     public List<StudentUnofficial> getAll();
-    public StudentUnofficial getStudent(String string);
-    public void insertStudent(StudentUnofficial student);
-    public void insertStudents(List<StudentUnofficial> students);
-}
 
+    public StudentUnofficial getStudent(String string);
+
+    public void insertStudent(StudentUnofficial student);
+
+    public void insertStudents(List<StudentUnofficial> students);
+
+    public boolean deleteUnofficialStudentById(String id);
+}

@@ -23,6 +23,7 @@ public class ResultDaoImpl implements ResultDao {
     private Connection connection;
     private PreparedStatement preparedStatement;
     private ResultSet result;
+    int rowsAffected = 0;
 
     public ResultDaoImpl() {
         connectionManager = new ConnectionManagerImpl();
@@ -61,6 +62,36 @@ public class ResultDaoImpl implements ResultDao {
             }
         }
         return null;
+    }
+
+    @Override
+    public boolean insertResult(Result result) {
+        String query = "INSERT INTO `studentmanagement`.`result` (`IdGrade`, `Id`, `StudyMark`, `RewardMark`, `DisciplineMark`, `MoneyPaid`, `NumberOfAbsences`)" + "VALUES (?,?, ?, ?, ?, ?, ?)";
+
+        try {
+            connection = connectionManager.getConnection();
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, result.getIdGrade());
+            preparedStatement.setString(2, result.getId());
+            preparedStatement.setDouble(3, result.getStudyMark());
+            preparedStatement.setDouble(4, result.getRewardMark());
+            preparedStatement.setDouble(5, result.getDisciplineMark());
+            preparedStatement.setDouble(6, result.getMoneyPaid());
+            preparedStatement.setInt(7, result.getNumberOfAbsences());
+
+            rowsAffected = preparedStatement.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+
+        } finally {
+            try {
+                preparedStatement.close();
+                connection.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return rowsAffected != 0;
     }
 
 }

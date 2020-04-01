@@ -37,4 +37,9 @@ public class TeacherServiceImpl implements TeacherService {
         teacherDao.insertTeachers(teachers);
     }
 
+    @Override
+    public Teacher getTeacher(String id) {
+        return teacherDao.getTeacher(id);
+    }
+
 }

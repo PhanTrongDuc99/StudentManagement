@@ -5,7 +5,6 @@
  */
 package service;
 
-import entities.Profile;
 import entities.Register;
 import entities.StudentUnofficial;
 import java.util.List;
@@ -19,4 +18,6 @@ public interface RegisterService {
     public void insertRegister(Register register);
 
     public void insertRegisters(List<StudentUnofficial> students);
+
+    public boolean updateRegister(Register register);
 }

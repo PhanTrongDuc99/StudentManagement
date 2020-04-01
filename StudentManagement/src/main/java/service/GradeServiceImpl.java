@@ -37,4 +37,8 @@ public class GradeServiceImpl implements GradeService {
         return gradeDao.getGrade(id);
     }
 
+    @Override
+    public List<Grade> getAllGradesOfCourse(String idCourse) {
+        return gradeDao.getAllGradesOfCourse(idCourse);
+    }
 }

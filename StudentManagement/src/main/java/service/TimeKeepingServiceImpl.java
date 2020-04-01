@@ -8,6 +8,7 @@ package service;
 import dao.TimeKeepingDao;
 import dao.TimeKeepingDaoImpl;
 import entities.Teacher;
+import entities.TimeKeeping;
 import java.util.List;
 
 /**
@@ -25,6 +26,11 @@ public class TimeKeepingServiceImpl implements TimeKeepingService {
     @Override
     public void insertTimeKeeping(List<Teacher> teachers) {
         tkDao.insertTimeKeeping(teachers);
+    }
+
+    @Override
+    public TimeKeeping getTimeKeeping(String id) {
+        return tkDao.getTimeKeeping(id);
     }
 
 }

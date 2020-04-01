@@ -16,20 +16,25 @@ import java.util.List;
  */
 public class StudentOfficialServiceImpl implements StudentOfficialService {
 
-    private StudentOfficialDao studentUnofficialDao;
+    private StudentOfficialDao studentOfficialDao;
 
     public StudentOfficialServiceImpl() {
-        studentUnofficialDao = new StudentOfficialDaoImpl();
+        studentOfficialDao = new StudentOfficialDaoImpl();
     }
 
     @Override
     public List<StudentOfficial> getAll() {
-        return studentUnofficialDao.getAll();
+        return studentOfficialDao.getAll();
     }
 
     @Override
     public StudentOfficial getStudent(String id) {
-        return studentUnofficialDao.getStudent(id);
+        return studentOfficialDao.getStudent(id);
+    }
+
+    @Override
+    public void insertStudent(StudentOfficial student) {
+        studentOfficialDao.insertStudent(student);
     }
 
 }

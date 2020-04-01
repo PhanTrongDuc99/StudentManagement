@@ -32,6 +32,10 @@ public class RegisterServiceImpl implements RegisterService {
     public void insertRegisters(List<StudentUnofficial> students) {
         registerDao.insertRegisters(students);
     }
-    
+
+    @Override
+    public boolean updateRegister(Register register) {
+        return registerDao.updateRegister(register);
+    }
 
 }

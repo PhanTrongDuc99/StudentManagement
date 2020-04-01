@@ -14,14 +14,24 @@ import java.util.Objects;
 public class StudentOfficial extends StudentUnofficial {
 
     private Result resultStudy;
+    private Grade grade;
 
     public StudentOfficial() {
         super(null, null, null, null, null);
     }
 
-    public StudentOfficial(Result resultStudy, String id, Profile profile, Double discountStatus, Double cost, Register register, String idRegisterCourse) {
-        super(id, profile, discountStatus, cost, register, idRegisterCourse);
+    public StudentOfficial(Result resultStudy, Grade grade, String id, Profile profile, Double discountStatus, Double cost, Register register) {
+        super(id, profile, discountStatus, cost, register);
         this.resultStudy = resultStudy;
+        this.grade = grade;
+    }
+
+    public Grade getGrade() {
+        return grade;
+    }
+
+    public void setGrade(Grade grade) {
+        this.grade = grade;
     }
 
     public Result getResultStudy() {

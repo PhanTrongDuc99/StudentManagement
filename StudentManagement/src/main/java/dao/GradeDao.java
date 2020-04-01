@@ -13,8 +13,12 @@ import java.util.List;
  * @author PC
  */
 public interface GradeDao {
+
     public Grade getGrade(String id);
+
     public List<Grade> getAll();
+
     public void insertGrade(List<Grade> grades);
-    
+
+    public List<Grade> getAllGradesOfCourse(String idCourse);
 }

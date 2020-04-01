@@ -17,4 +17,6 @@ public interface StudentOfficialDao {
     public List<StudentOfficial> getAll();
 
     public StudentOfficial getStudent(String id);
+
+    public void insertStudent(StudentOfficial student);
 }

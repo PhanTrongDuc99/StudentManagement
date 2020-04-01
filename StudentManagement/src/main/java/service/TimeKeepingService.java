@@ -6,6 +6,7 @@
 package service;
 
 import entities.Teacher;
+import entities.TimeKeeping;
 import java.util.List;
 
 /**
@@ -15,4 +16,6 @@ import java.util.List;
 public interface TimeKeepingService {
 
     public void insertTimeKeeping(List<Teacher> teachers);
+
+    public TimeKeeping getTimeKeeping(String id);
 }

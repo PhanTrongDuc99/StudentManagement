@@ -20,4 +20,5 @@ public interface TeacherService {
 
     public void insertTeachers(List<Teacher> teachers);
 
+    public Teacher getTeacher(String id);
 }

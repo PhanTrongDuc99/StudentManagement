@@ -108,6 +108,10 @@ public class GradeDaoImpl implements GradeDao {
 
     }
 
+    public static void main(String[] args) {
+        System.out.println(new GradeDaoImpl().getGrade("Gr01").getCourse());
+    }
+
     @Override
     public Grade getGrade(String id) {
         String query = "SELECT Id, Name, StudentQuantity, IdTeacher,"
@@ -121,11 +125,10 @@ public class GradeDaoImpl implements GradeDao {
             result = preparedStatement.executeQuery();
             while (result.next()) {
                 Teacher teacher = new Teacher();
-                Course course = new Course();
+
+                Course course = new CourseDaoImpl().getCourse(result.getString("IdCourse"));
                 teacher.setIdTeacher(result.getString("IdTeacher"));
-                course.setIdCourse(result.getString("IdCourse"));
-                grade.setIdGrade(result.getString("Id"));
-                grade.setNameGrade(result.getString("Name"));
+
                 grade.setTeacher(teacher);
                 grade.setCourse(course);
                 grade.setStartTime(TimeUtils.convertStringToLocalTime(result.getString("StartTime")));
@@ -148,4 +151,35 @@ public class GradeDaoImpl implements GradeDao {
         return null;
     }
 
+    @Override
+    public List<Grade> getAllGradesOfCourse(String idCourse) {
+        List<Grade> grades = new ArrayList<>();
+        connection = connectionManager.getConnection();
+        String query = "SELECT * FROM grade" + " WHERE IdCourse =  '" + idCourse + "'";
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            result = preparedStatement.executeQuery();
+            while (result.next()) {
+                Teacher teacher = new Teacher();
+                Course course = new Course();
+                teacher.setIdTeacher(result.getString("IdTeacher"));
+                course.setIdCourse(result.getString("IdCourse"));
+                grades.add(new Grade(result.getString("Id"), result.getString("Name"), teacher, course,
+                        TimeUtils.convertStringToLocalTime(result.getString("StartTime")),
+                        TimeUtils.convertStringToLocalTime(result.getString("EndTime")),
+                        result.getInt("StudentQuantity"), DayOfWeekUtils.convertStringToDayOfWeek(result.getString("DaysOfWeek"))));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                result.close();
+                preparedStatement.close();
+                connection.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return grades;
+    }
 }

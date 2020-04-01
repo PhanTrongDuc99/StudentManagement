@@ -25,6 +25,8 @@ import java.util.logging.Logger;
  */
 public class TeacherDaoImpl implements TeacherDao {
 
+    private final ProfileDao profileDao;
+    private final TimeKeepingDao timeKeepingDao;
     private ConnectionManager connectionManager;
     private Connection connection;
     private PreparedStatement preparedStatement;
@@ -34,31 +36,24 @@ public class TeacherDaoImpl implements TeacherDao {
 
     public TeacherDaoImpl() {
         connectionManager = new ConnectionManagerImpl();
+        profileDao = new ProfileDaoImpl();
+        timeKeepingDao = new TimeKeepingDaoImpl();
     }
 
     @Override
     public List<Teacher> getAll() {
         connection = connectionManager.getConnection();
         List<Teacher> teachers = new ArrayList<>();
-        boolean gender;
-        String query = "SELECT tc.Id,tc.IdProfile, pr.Name, pr.Gender,  pr.DayOfBirth, pr.PhoneNumber, pr.Hometown, pr.CurrentAddress, pr.IdNumber,tc.Workplace, tc.Salary, pr.Email, tk.TeachingHours, tk.RewardLevel, tk.DisciplineLevel  \n"
-                + "FROM TEACHER tc\n"
-                + "INNER JOIN PROFILE pr ON pr.Id=tc.IdProfile\n"
-                + "INNER JOIN TIMEKEEPING tk ON tk.Id=tc.Id;";
+        String queryTeacher = "SELECT Id, Workplace, IdProfile,IdTimekeeping, Salary FROM TEACHER";
         try {
-            preparedStatement = connection.prepareStatement(query);
+            preparedStatement = connection.prepareStatement(queryTeacher);
             result = preparedStatement.executeQuery();
             while (result.next()) {
-                if (result.getInt("Gender") == 0) {
-                    gender = false;
-                } else {
-                    gender = true;
-                }
-                Profile profile = new Profile(result.getString("Id"), result.getString("Name"), gender, result.getDate("DayOfBirth"), result.getString("IdNumber"),
-                        result.getString("PhoneNumber"), result.getString("Email"), result.getString("Hometown"), result.getString("CurrentAddress"));
-                TimeKeeping timeKeeping = new TimeKeeping(result.getString("Id"), result.getDouble("TeachingHours"), result.getString("RewardLevel"), result.getString("DisciplineLevel"));
+                Profile profile = profileDao.getProfile(result.getString("IdProfile"));
+                TimeKeeping timeKeeping = timeKeepingDao.getTimeKeeping(result.getString("idTimeKeeping"));
                 teachers.add(new Teacher(result.getString("Id"), profile, result.getDouble("Salary"), timeKeeping, result.getString("Workplace")));
             }
+
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
@@ -126,6 +121,42 @@ public class TeacherDaoImpl implements TeacherDao {
                 Logger.getLogger(TeacherDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+
+    }
+
+    @Override
+    public Teacher getTeacher(String id) {
+        String queryStudent = "SELECT Id, Workplace, Salary, IdProfile, IdTimeKeeping FROM TEACHER WHERE Id= '" + id + "'";
+        connection = connectionManager.getConnection();
+        Teacher teacher = new Teacher();
+
+        try {
+            preparedStatement = connection.prepareStatement(queryStudent);
+            result = preparedStatement.executeQuery();
+            while (result.next()) {
+                Profile profile = profileDao.getProfile(result.getString("IdProfile"));
+
+                TimeKeeping timeKeeping = timeKeepingDao.getTimeKeeping(result.getString("IdTimeKeeping"));
+
+                teacher.setIdTeacher(result.getString("Id"));
+                teacher.setWorkPlace(result.getString("Workplace"));
+                teacher.setSalary(result.getDouble("Salary"));
+                teacher.setProfileTeacher(profile);
+                teacher.setTimeKeeping(timeKeeping);
+            }
+            return teacher;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                result.close();
+                preparedStatement.close();
+                connection.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
 
     }
 

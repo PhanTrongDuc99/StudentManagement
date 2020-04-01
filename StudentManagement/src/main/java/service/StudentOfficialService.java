@@ -17,4 +17,6 @@ public interface StudentOfficialService {
     public List<StudentOfficial> getAll();
 
     public StudentOfficial getStudent(String id);
+
+    public void insertStudent(StudentOfficial student);
 }

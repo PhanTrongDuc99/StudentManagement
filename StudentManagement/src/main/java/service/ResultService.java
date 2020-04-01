@@ -3,18 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dao;
+package service;
 
 import entities.Result;
 
 /**
  *
- * @author USER
+ * @author SMILE ^^
  */
-public interface ResultDao {
+public interface ResultService {
 
     public Result getResult(String id);
 
     public boolean insertResult(Result result);
-
 }
