@@ -19,11 +19,11 @@ import view.TrainingCenterFrame;
  * @author SMILE ^^
  */
 public class SettingFrame extends javax.swing.JFrame {
-
+    
     private TrainingCenterFrame trainingCenterFrame;
     //LoginForm loginForm = new LoginForm("Login");
     private StartFrame startFrame;
-
+    
     private JFrame frame;
 
     /**
@@ -32,27 +32,27 @@ public class SettingFrame extends javax.swing.JFrame {
     public SettingFrame() {
         //setLocation(331, 125);
         setUndecorated(true);
-
+        
         initComponents();
-
+        
         createButton(btLanguages);
         createButton(btLogout);
-
+        
         initEvents();
     }
-
+    
     public SettingFrame(JFrame frame) {
         //setLocation(331, 125);
         setUndecorated(true);
-
+        
         initComponents();
-
+        
         createButton(btLanguages);
         createButton(btLogout);
         this.frame = frame;
         initEvents();
     }
-
+    
     private void createButton(JButton button) {
         button.setFocusPainted(false);
         button.setFont(new Font(Font.DIALOG, Font.PLAIN, 20));
@@ -60,20 +60,22 @@ public class SettingFrame extends javax.swing.JFrame {
         button.setBackground(new Color(167, 207, 249));
         button.setForeground(Color.WHITE);
     }
-
+    
     private void initEvents() {
         btLogoutEvents();
     }
-
+    
     private void btLogoutEvents() {
         btLogout.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 frame.setVisible(false);
+                
                 startFrame = new StartFrame();
                 startFrame.setVisible(true);
+                setVisible(false);
             }
-
+            
         });
     }
 

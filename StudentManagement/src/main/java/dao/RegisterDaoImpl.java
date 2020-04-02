@@ -16,6 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import sun.applet.Main;
 
 /**
  *
@@ -113,16 +114,18 @@ public class RegisterDaoImpl implements RegisterDao {
 
         }
     }
-
+     
     @Override
     public boolean updateRegister(Register register) {
         String query = "UPDATE `studentmanagement`.`register` " + "SET `State` = ?" + " WHERE `Id` = '" + register.getId() + "'";
+        
         try {
             connection = connectionManager.getConnection();
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, register.getStatus().toString());
 
             rowsAffected = preparedStatement.executeUpdate();
+            System.out.println(rowsAffected);
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {

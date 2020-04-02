@@ -103,7 +103,7 @@ public class StudentOfficialDaoImpl implements StudentOfficialDao {
 
     @Override
     public StudentOfficial getStudent(String id) {
-        String queryStudent = "SELECT IdStudent, IdProfile, IdGrade, IdResult, IdRegister, DiscountStatus, Cost FROM STUDENTOFFICIAL WHERE IdStudent= '" + id + "'";
+        String queryStudent = "SELECT IdStudent, IdGrade, IdProfile, IdResult, IdRegister, DiscountStatus, Cost FROM STUDENTOFFICIAL WHERE IdStudent= '" + id + "'";
         connection = connectionManager.getConnection();
         StudentOfficial student = new StudentOfficial();
         try {
@@ -143,11 +143,13 @@ public class StudentOfficialDaoImpl implements StudentOfficialDao {
         int amountRowDeleted = 0;
         try {
             connection = connectionManager.getConnection();
+
             String query = " DELETE FROM STUDENTOFFICIAL WHERE IdStudent='" + id + "'";
             preparedStatement = connection.prepareStatement(query);
             amountRowDeleted = preparedStatement.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+
         } finally {
             try {
                 preparedStatement.close();

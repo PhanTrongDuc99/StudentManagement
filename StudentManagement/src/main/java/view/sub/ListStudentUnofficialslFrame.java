@@ -83,6 +83,7 @@ public class ListStudentUnofficialslFrame extends JFrame {
             row.add(studentUnofficial.getCost());
             row.add(studentUnofficial.getRegister().getType());
             row.add(new CourseServiceImpl().getCourseById(studentUnofficial.getIdRegisterCourse()).getNameCourse());
+
             model.addRow(row);
         }
         tblStudent.setModel(model);
