@@ -58,7 +58,7 @@ public class Register {
 
     @Override
     public String toString() {
-        return "Status: " + status + " - Type: " + type; //To change body of generated methods, choose Tools | Templates.
+        return id + "Status: " + status + " - Type: " + type; //To change body of generated methods, choose Tools | Templates.
     }
 
 }

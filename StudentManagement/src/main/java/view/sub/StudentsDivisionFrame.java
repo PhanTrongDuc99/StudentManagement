@@ -6,6 +6,7 @@
 package view.sub;
 
 import common.RegisterStatus;
+import common.RegisterType;
 import dao.GradeDao;
 import dao.GradeDaoImpl;
 import dao.ProfileDao;
@@ -35,6 +36,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 import javax.swing.border.Border;
 import service.CourseService;
 import service.CourseServiceImpl;
@@ -82,6 +84,7 @@ public class StudentsDivisionFrame extends javax.swing.JFrame {
     private String idSelectedCourse;
 
     public StudentsDivisionFrame() {
+
         CourseService courseService = new CourseServiceImpl();
         courses = courseService.getAll();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -105,7 +108,7 @@ public class StudentsDivisionFrame extends javax.swing.JFrame {
         lbTitile = new javax.swing.JLabel();
         pnCenter = new javax.swing.JPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setIconImage(ImageUtils.load(getClass().getResource("/images/logo.png").getPath()));
         setMinimumSize(new java.awt.Dimension(466, 253));
@@ -405,6 +408,7 @@ public class StudentsDivisionFrame extends javax.swing.JFrame {
 
                     StudentUnofficialService st = new StudentUnofficialServiceImpl();
                     List<StudentUnofficial> studentsUnofficial = st.getAll();
+                    
                     List<StudentUnofficial> students = new ArrayList<>();
 
                     Course selectedCourse = new Course();
@@ -423,14 +427,18 @@ public class StudentsDivisionFrame extends javax.swing.JFrame {
                     }
                     GradeService gradeService = new GradeServiceImpl();
                     List<Grade> grades = gradeService.getAllGradesOfCourse(selectedCourse.getIdCourse());
-                    for (StudentUnofficial s : studentsUnofficial) {
+                    for (StudentUnofficial s : students) {
+                        System.out.println(s);
                         String idResult = "RS";
                         for (Grade g : grades) {
                             for (int j = 0; j < g.getStudentQuantity(); j++) {
+                                System.out.println(g.getStudentQuantity());
+                                
                                 System.out.println("ID GRADE:" + g.getIdGrade());
-
-                                Register register = s.getRegister();
-                                register.setStatus(RegisterStatus.REGISTERED);
+                                
+                                System.out.println(s.getRegister().getId());
+                                Register register = new Register(s.getRegister().getId(), RegisterStatus.REGISTERED, s.getRegister().getType());
+                                System.out.println(register.getId());
                                 RegisterService registerService = new RegisterServiceImpl();
                                 registerService.updateRegister(register);
 
@@ -444,13 +452,15 @@ public class StudentsDivisionFrame extends javax.swing.JFrame {
                                 GradeDao gradeDao = new GradeDaoImpl();
 
                                 Grade grade = gradeDao.getGrade(g.getIdGrade());
-                                StudentOfficial so = new StudentOfficial(result, grade, result.getId(), profile, 0.0, 0.0, register);
+                                
+                                StudentOfficial so = new StudentOfficial(result, grade, s.getId(), profile, 0.0, 0.0, register);
                                 System.out.println(so);
+
                                 StudentOfficialService sos = new StudentOfficialServiceImpl();
                                 sos.insertStudent(so);
 
-//                                StudentUnofficialService studentUnofficialService = new StudentUnofficialServiceImpl();
-//                                System.out.println(studentUnofficialService.deleteUnofficialStudentById(s.getId()));
+                                StudentUnofficialService studentUnofficialService = new StudentUnofficialServiceImpl();
+                                System.out.println(studentUnofficialService.deleteUnofficialStudentById(s.getId()));
                             }
                         }
                     }
@@ -471,27 +481,31 @@ public class StudentsDivisionFrame extends javax.swing.JFrame {
         btShowWaitingStudents.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                Course selectedCourse = new Course();
-                for (Course c : courses) {
-                    if (c.getNameCourse().equalsIgnoreCase(lbSelectedCourse.getText())) {
-                        selectedCourse = c;
-                        System.out.println(selectedCourse);
-                        break;
+                if (!lbSelectedCourse.getText().isEmpty()) {
+                    Course selectedCourse = new Course();
+                    for (Course c : courses) {
+                        if (c.getNameCourse().equalsIgnoreCase(lbSelectedCourse.getText())) {
+                            selectedCourse = c;
+                            System.out.println(selectedCourse);
+                            break;
+                        }
                     }
-                }
-                StudentUnofficialService studentUnofficialService = new StudentUnofficialServiceImpl();
+                    StudentUnofficialService studentUnofficialService = new StudentUnofficialServiceImpl();
 
-                List<StudentUnofficial> studentUnofficials = studentUnofficialService.getAll();
+                    List<StudentUnofficial> studentUnofficials = studentUnofficialService.getAll();
 
-                for (StudentUnofficial s : studentUnofficials) {
-                    if (s.getIdRegisterCourse().equals(selectedCourse.getIdCourse())) {
-                        System.out.println(s);
-                        studentUnofficials.add(s);
+                    for (StudentUnofficial s : studentUnofficials) {
+                        if (s.getIdRegisterCourse().equals(selectedCourse.getIdCourse())) {
+                            System.out.println(s);
+                            studentUnofficials.add(s);
+                        }
                     }
-                }
 
-                ListOfStudentsFrame registeringStudentsFrame = new ListOfStudentsFrame(studentUnofficials, selectedCourse.getNameCourse());
-                registeringStudentsFrame.setVisible(true);
+                    ListOfStudentsFrame registeringStudentsFrame = new ListOfStudentsFrame(studentUnofficials, selectedCourse.getNameCourse());
+                    registeringStudentsFrame.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Please choose a course for dividing grades");
+                }
             }
 
         });

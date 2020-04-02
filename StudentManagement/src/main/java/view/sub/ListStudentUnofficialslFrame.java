@@ -82,7 +82,7 @@ public class ListStudentUnofficialslFrame extends JFrame {
             row.add(studentUnofficial.getDiscountStatus());
             row.add(studentUnofficial.getCost());
             row.add(studentUnofficial.getRegister().getType());
-            row.add(new CourseServiceImpl().getCourse(studentUnofficial.getIdRegisterCourse()).getNameCourse());
+            row.add(new CourseServiceImpl().getCourseById(studentUnofficial.getIdRegisterCourse()));
             model.addRow(row);
         }
         tblStudent.setModel(model);

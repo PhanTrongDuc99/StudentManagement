@@ -27,6 +27,8 @@ import java.util.logging.Logger;
  */
 public class StudentUnofficialDaoImpl implements StudentUnofficialDao {
 
+    private ProfileDao profileDao;
+    private final RegisterDao registerDao;
     private ConnectionManager connectionManager;
     private Connection connection;
     private PreparedStatement preparedStatement;
@@ -35,13 +37,16 @@ public class StudentUnofficialDaoImpl implements StudentUnofficialDao {
     private final String queryStudent = "INSERT INTO studentunofficial(Id, DiscountStatus, IdProfile , Cost, IdRegister, IdCourse) "
             + "VALUES(?,?,(SELECT Id from profile WHERE profile.Id=?),(SELECT Cost FROM course WHERE Id= ?),(SELECT Id from register WHERE register.Id=?),(SELECT Id from course WHERE course.Id=?))";
 
-    private final String query = "SELECT st.Id, st.IdCourse, pr.Name, pr.Gender, pr.DayOfBirth, pr.PhoneNumber, pr.Hometown, pr.CurrentAddress, pr.IdNumber, pr.Email,rg.State, rg.TypeOfRegister,st.DiscountStatus, st.Cost\n"
-            + "FROM STUDENTUNOFFICIAL st\n"
-            + "INNER JOIN REGISTER rg ON st.IdRegister = rg.Id\n"
-            + "INNER JOIN PROFILE pr ON st.IdProfile= pr.Id\n";
+    private final String query = "SELECT Id, DiscountStatus, IdProfile , Cost, IdRegister, IdCourse " + "FROM studentunofficial";
 
     public StudentUnofficialDaoImpl() {
         connectionManager = new ConnectionManagerImpl();
+        registerDao = new RegisterDaoImpl();
+        profileDao = new ProfileDaoImpl();
+    }
+
+    public static void main(String[] args) {
+        new StudentUnofficialDaoImpl().getAll().forEach(x -> System.out.println(x));
     }
 
     @Override
@@ -54,14 +59,9 @@ public class StudentUnofficialDaoImpl implements StudentUnofficialDao {
             preparedStatement = connection.prepareStatement(query);
             result = preparedStatement.executeQuery();
             while (result.next()) {
-                if (result.getInt("Gender") == 0) {
-                    gender = false;
-                } else {
-                    gender = true;
-                }
-                Profile profile = new Profile(result.getString("Id"), result.getString("Name"), gender, result.getDate("DayOfBirth"), result.getString("IdNumber"),
-                        result.getString("PhoneNumber"), result.getString("Email"), result.getString("Hometown"), result.getString("CurrentAddress"));
-                Register register = new Register(RegisterStatus.valueOf(result.getString("State")), RegisterType.valueOf(result.getString("TypeOfRegister")));
+
+                Profile profile = profileDao.getProfile(result.getString("Id"));
+                Register register = registerDao.getRegister(result.getString("IdRegister"));
                 StudentUnofficial studentUnofficial = new StudentUnofficial(result.getString("Id"), profile, result.getDouble("DiscountStatus"), result.getDouble("Cost"), register, result.getString("IdCourse"));
                 studentUnofficials.add(studentUnofficial);
             }
@@ -137,10 +137,10 @@ public class StudentUnofficialDaoImpl implements StudentUnofficialDao {
 
     @Override
     public StudentUnofficial getStudent(String id) {
-        String query = "SELECT st.Id, st.IdGrade, pr.Name, pr.Gender, pr.DayOfBirth, pr.PhoneNumber, pr.Hometown, pr.CurrentAddress, pr.IdNumber, pr.Email,rg.State, rg.TypeOfRegister,st.DiscountStatus, st.Cost\n"
+        String query = "SELECT st.Id, st.IdGrade, pr.Name, pr.Gender, pr.DayOfBirth, pr.PhoneNumber, pr.Hometown, pr.CurrentAddress, pr.IdNumber, pr.Email,rg.Id,rg.State, rg.TypeOfRegister,st.DiscountStatus, st.Cost\n"
                 + "FROM STUDENTUNOFFICIAL st\n"
-                + "INNER JOIN REGISTER rg ON st.Id = rg.Id\n"
-                + "INNER JOIN PROFILE pr ON st.Id= pr.Id\n"
+                + "INNER JOIN REGISTER rg ON st.IdRegister = rg.Id\n"
+                + "INNER JOIN PROFILE pr ON st.Idprofile= pr.Id\n"
                 + "WHERE st.Id=" + id;
         try {
             connection = connectionManager.getConnection();
@@ -150,7 +150,7 @@ public class StudentUnofficialDaoImpl implements StudentUnofficialDao {
             while (result.next()) {
                 Profile profile = new Profile(result.getString("Id"), result.getString("Name"), result.getBoolean("Gender"), result.getDate("DayOfBirth"), result.getString("IdNumber"),
                         result.getString("PhoneNumber"), result.getString("Email"), result.getString("Hometown"), result.getString("CurrentAddress"));
-                Register register = new Register(RegisterStatus.valueOf(result.getString("State")), RegisterType.valueOf(result.getString("TypeOfRegister")));
+                Register register = new Register(result.getString("IdRegister"), RegisterStatus.valueOf(result.getString("State")), RegisterType.valueOf(result.getString("TypeOfRegister")));
                 studentUnofficial.setId(result.getString("Id"));
                 studentUnofficial.setProfile(profile);
                 studentUnofficial.setDiscountStatus(result.getDouble("DiscountStatus"));

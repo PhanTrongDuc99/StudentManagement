@@ -36,7 +36,7 @@ public class StudentOfficialDaoImpl implements StudentOfficialDao {
     private final String query = "SELECT IdStudent, IdProfile, IdGrade, IdResult, IdRegister, DiscountStatus, Cost FROM STUDENTOFFICIAL";
     private final String queryStudent
             = "INSERT INTO `studentmanagement`.`studentofficial` (`IdStudent`, `IdGrade`, `IdProfile`, `IdResult`, `IdRegister`, `DiscountStatus`, `Cost`)"
-            + "VALUES(?,(SELECT Id FROM grade WHERE ID=?),(SELECT Id from profile WHERE profile.Id=?),?,(SELECT Id FROM RESULT WHERE ID=?),(SELECT Id from register WHERE register.Id=?),?,(SELECT Cost FROM course WHERE Id= ?))";
+            + "VALUES(?,(SELECT Id FROM grade WHERE ID=?),(SELECT Id from profile WHERE profile.Id=?),(SELECT Id FROM RESULT WHERE ID=?),(SELECT Id from register WHERE register.Id=?),?,(SELECT Cost FROM course WHERE Id= ?))";
 
     public StudentOfficialDaoImpl() {
         connectionManager = new ConnectionManagerImpl();
@@ -77,7 +77,7 @@ public class StudentOfficialDaoImpl implements StudentOfficialDao {
 
     @Override
     public StudentOfficial getStudent(String id) {
-        String queryStudent = "SELECT IdStudent, IdProfile, IdGrade, IdResult, IdRegister, DiscountStatus, Cost FROM STUDENTOFFICIAL WHERE IdStudent= '" + id + "'";
+        String queryStudent = "SELECT IdStudent, IdGrade, IdProfile, IdResult, IdRegister, DiscountStatus, Cost FROM STUDENTOFFICIAL WHERE IdStudent= '" + id + "'";
         connection = connectionManager.getConnection();
         StudentOfficial student = new StudentOfficial();
         try {
@@ -123,7 +123,7 @@ public class StudentOfficialDaoImpl implements StudentOfficialDao {
             preparedStatement.setString(4, student.getResultStudy().getId());
             preparedStatement.setString(5, student.getRegister().getId());
             preparedStatement.setDouble(6, student.getDiscountStatus());
-            preparedStatement.setDouble(7, student.getCost());
+            preparedStatement.setString(7, student.getGrade().getCourse().getIdCourse());
             preparedStatement.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
