@@ -22,8 +22,6 @@ public interface CourseService {
 
     public void updateCourseById(String id, Course course);
 
-    public Course getCourse(String id);
-
     public void insertCourses(List<Course> courses);
 
     public void insertCourse(Course course);

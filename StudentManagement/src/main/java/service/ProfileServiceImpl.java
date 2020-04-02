@@ -35,11 +35,6 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public void insertProfileTeacher(List<Teacher> teachers) {
-        profileDao.insertProfileTeachers(teachers);
-    }
-
-    @Override
     public List<Profile> getProfileStudents() {
         return profileDao.getProfileStudentUnofficial();
     }
@@ -47,6 +42,11 @@ public class ProfileServiceImpl implements ProfileService {
     @Override
     public List<Profile> getProfileTeacher() {
         return profileDao.getProfileTeacher();
+    }
+
+    @Override
+    public void deleteProfileById(String id) {
+        profileDao.deleteProfileById(id);
     }
 
 }

@@ -37,4 +37,9 @@ public class StudentOfficialServiceImpl implements StudentOfficialService {
         studentOfficialDao.insertStudent(student);
     }
 
+    @Override
+    public boolean deleteStudentById(String id) {
+        return studentOfficialDao.deleteStudentById(id);
+    }
+
 }

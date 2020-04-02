@@ -24,5 +24,5 @@ public interface ProfileService {
 
     public void insertProfileStudent(List<StudentUnofficial> students);
 
-    public void insertProfileTeacher(List<Teacher> teachers);
+    public void deleteProfileById(String id);
 }

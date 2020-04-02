@@ -18,8 +18,6 @@ public interface CourseDao {
 
     public Course getCourseById(String id);
 
-    public Course getCourse(String id);
-
     public void deleteCourseById(String id);
 
     public void updateCourseById(String id, Course course);

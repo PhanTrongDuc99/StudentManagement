@@ -17,4 +17,5 @@ public interface ResultDao {
 
     public boolean insertResult(Result result);
 
+    public boolean deleteResultById(String id);
 }

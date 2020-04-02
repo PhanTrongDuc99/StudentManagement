@@ -23,5 +23,7 @@ public interface GradeDao {
     public List<Grade> getAllGradesOfCourse(String idCourse);
 
     public void deleteGradeByIdCourse(String idCourse);
+    
+    public boolean deleteGradeById(String id);
 
 }

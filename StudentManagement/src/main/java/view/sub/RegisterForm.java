@@ -337,7 +337,7 @@ public class RegisterForm extends javax.swing.JFrame {
                 StudentUnofficialService studentService = new StudentUnofficialServiceImpl();
                 CourseService courseService = new CourseServiceImpl();
 
-                Course course = courseService.getCourse(courseRegisterTextField.getText());
+                Course course = courseService.getCourseById(courseRegisterTextField.getText());
                 Profile profile = new Profile(id, name, gender, dayOfBirth, idNumber, phone, email, hometown, address);
                 Register register = new Register(id, RegisterStatus.WAITTING, RegisterType.DIRECT);
                 StudentUnofficial student = new StudentUnofficial(id, profile, 0d, course.getCost(), register, course.getIdCourse());

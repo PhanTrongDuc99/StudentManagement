@@ -41,7 +41,7 @@ public class ResultDaoImpl implements ResultDao {
             Result resultStudent = new Result();
             result = preparedStatement.executeQuery();
             while (result.next()) {
-                resultStudent.setIdGrade(result.getString("Id"));
+                resultStudent.setId(result.getString("Id"));
                 resultStudent.setIdGrade(result.getString("IdGrade"));
                 resultStudent.setMoneyPaid(result.getDouble("MoneyPaid"));
                 resultStudent.setDisciplineMark(result.getDouble("DisciplineMark"));
@@ -92,6 +92,27 @@ public class ResultDaoImpl implements ResultDao {
             }
         }
         return rowsAffected != 0;
+    }
+
+    @Override
+    public boolean deleteResultById(String id) {
+        int amountRowDeleted = 0;
+        try {
+            connection = connectionManager.getConnection();
+            String query = " DELETE FROM RESULT WHERE Id='" + id + "'";
+            preparedStatement = connection.prepareStatement(query);
+            amountRowDeleted = preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                preparedStatement.close();
+                connection.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        return amountRowDeleted != 0;
     }
 
 }

@@ -5,15 +5,10 @@
  */
 package utils;
 
-import common.RegisterStatus;
-import common.RegisterType;
-import entities.Register;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
 import java.time.LocalTime;
-import java.util.Calendar;
 
 /**
  *
@@ -47,4 +42,5 @@ public class DateUtils {
         return null;
     }
 
+   
 }

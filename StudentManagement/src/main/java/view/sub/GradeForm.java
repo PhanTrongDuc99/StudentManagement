@@ -5,7 +5,7 @@
  */
 package view.sub;
 
-import entities.Course;
+import entities.Grade;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
@@ -16,22 +16,22 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
-import service.CourseService;
-import service.CourseServiceImpl;
+import service.GradeService;
+import service.GradeServiceImpl;
 
-/**
- *
- * @author USER
- */
-public class CourseForm extends JFrame {
+public class GradeForm extends JFrame {
 
     private JTable tblGrade;
     private DefaultTableModel model;
     private JScrollPane js;
-    private JTextField courseRegisterTextField;
+    private JTextField gradeRegisterTextField;
+    private JTextField courseTextField;
+    private JTextField costTextField;
 
-    public CourseForm(JTextField courseRegisterTextField) {
-        this.courseRegisterTextField = courseRegisterTextField;
+    public GradeForm(JTextField gradeRegisterTextField, JTextField courseTextField, JTextField costTextField) {
+        this.courseTextField = courseTextField;
+        this.costTextField = costTextField;
+        this.gradeRegisterTextField = gradeRegisterTextField;
         initComponent();
         events();
     }
@@ -49,7 +49,7 @@ public class CourseForm extends JFrame {
         loadDataGradeIntoJTable(mockData());
     }
 
-    private void loadDataGradeIntoJTable(List<Course> list) {
+    private void loadDataGradeIntoJTable(List<Grade> list) {
         model = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -59,20 +59,18 @@ public class CourseForm extends JFrame {
         Vector column = new Vector();
         column.add("Id");
         column.add("Name");
-        column.add("Start Day");
-        column.add("End Day");
-        column.add("Cost");
+        column.add("Start Time");
+        column.add("End Time");
         column.add("Select");
 
         model.setColumnIdentifiers(column);
         for (int i = 0; i < list.size(); i++) {
-            Course course = (Course) list.get(i);
+            Grade grade = (Grade) list.get(i);
             Vector row = new Vector();
-            row.add(course.getIdCourse());
-            row.add(course.getNameCourse());
-            row.add(course.getStartTime().toString());
-            row.add(course.getEndTime().toString());
-            row.add(course.getCost());
+            row.add(grade.getIdGrade());
+            row.add(grade.getNameGrade());
+            row.add(grade.getStartTime().toString());
+            row.add(grade.getEndTime().toString());
             row.add("<html><a href='select';' >Selected</a></html>");
             model.addRow(row);
         }
@@ -88,20 +86,20 @@ public class CourseForm extends JFrame {
             public void mouseClicked(MouseEvent evt) {
                 int row = tblGrade.rowAtPoint(evt.getPoint());
                 int col = tblGrade.columnAtPoint(evt.getPoint());
-                if ((row >= 0 && col == 5)) {
-                    Object[] rowData = new Object[tblGrade.getColumnCount()];
-                    for (int i = 0; i < tblGrade.getColumnCount(); i++) {
-                        rowData[i] = tblGrade.getValueAt(row, i);
-                    }
-                    courseRegisterTextField.setText((String) rowData[0]);
+                if ((row >= 0 && col == 4)) {
+                    String IdGrade = (String) tblGrade.getValueAt(row, 0);
+                    Grade grade = new GradeServiceImpl().getGrade(IdGrade);
+                    gradeRegisterTextField.setText(grade.getIdGrade());
+                    courseTextField.setText(grade.getCourse().getNameCourse());
+                    costTextField.setText(String.valueOf(grade.getCourse().getCost()));
                     setVisible(false);
                 }
             }
         });
     }
 
-    private List<Course> mockData() {
-        CourseService courseService = new CourseServiceImpl();
-        return courseService.getAll();
+    private List<Grade> mockData() {
+        GradeService gradeService = new GradeServiceImpl();
+        return gradeService.getAll();
     }
 }

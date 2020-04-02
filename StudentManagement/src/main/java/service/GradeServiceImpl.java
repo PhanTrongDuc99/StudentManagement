@@ -47,4 +47,9 @@ public class GradeServiceImpl implements GradeService {
         gradeDao.deleteGradeByIdCourse(idCourse);
     }
 
+    @Override
+    public boolean deleteGradeById(String id) {
+        return gradeDao.deleteGradeById(id);
+    }
+
 }

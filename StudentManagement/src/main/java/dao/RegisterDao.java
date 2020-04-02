@@ -22,4 +22,6 @@ public interface RegisterDao {
     public Register getRegister(String id);
 
     public boolean updateRegister(Register register);
+
+    public boolean deleteRegisterById(String id);
 }
