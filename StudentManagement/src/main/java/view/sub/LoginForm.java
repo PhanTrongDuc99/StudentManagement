@@ -33,7 +33,7 @@ public class LoginForm extends JFrame {
     private static final String APP_TITLE = "LOGIN FORM";
     private static final int APP_WIDTH = 850;
     private static final int APP_HEIGHT = 540;
-    private static final String PATH_IMAGE_BG = "/images/startBg.jpg";
+    private static final String PATH_IMAGE_BG = "/images/LoginBg.PNG";
 
     private final Container container = getContentPane();
     private JLabel lbBg;
@@ -56,7 +56,7 @@ public class LoginForm extends JFrame {
 
     private JButton btHidden;
 
-    private final TrainingCenterFrame trainingCenterFrame = new TrainingCenterFrame("Programming Training Center UI/UX");
+    private TrainingCenterFrame trainingCenterFrame;
 
     public LoginForm(String title) {
         super(title);
@@ -71,6 +71,7 @@ public class LoginForm extends JFrame {
     }
 
     private void initComponents() {
+
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(APP_WIDTH, APP_HEIGHT);
         setIconImage(ImageUtils.load(getClass().getResource("/images/logo.png").getPath()));
@@ -155,6 +156,7 @@ public class LoginForm extends JFrame {
                     if (checkAdmin()) {
                         JOptionPane.showMessageDialog(null, "Login successful!");
                         setVisible(false);
+                        trainingCenterFrame = new TrainingCenterFrame("Programming Training Center UI/UX");
                         trainingCenterFrame.setVisible(true);
                     } else {
                         System.out.println(tfPassword.getText());
