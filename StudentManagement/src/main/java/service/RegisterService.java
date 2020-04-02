@@ -20,4 +20,6 @@ public interface RegisterService {
     public void insertRegisters(List<StudentUnofficial> students);
 
     public boolean updateRegister(Register register);
+
+    public boolean deleteRegisterById(String id);
 }

@@ -38,11 +38,6 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Course getCourse(String id) {
-        return courseDao.getCourse(id);
-    }
-
-    @Override
     public void deleteCourseById(String id) {
         courseDao.deleteCourseById(id);
     }

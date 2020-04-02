@@ -124,39 +124,9 @@ public class CourseDaoImpl implements CourseDao {
         Course course = new Course();
         try {
             connection = connectionManager.getConnection();
-            String query = " SELECT Id,Name, ClassQuantity, StartDay, EndDay, Cost FROM COURSE WHERE Id= ?";
-            preparedStatement = connection.prepareStatement(query);
+            String queryCourse = " SELECT Id,Name, ClassQuantity, StartDay, EndDay, Cost FROM COURSE WHERE Id= ?";
+            preparedStatement = connection.prepareStatement(queryCourse);
             preparedStatement.setString(1, id);
-            result = preparedStatement.executeQuery();
-            while (result.next()) {
-                course.setIdCourse(result.getString("Id"));
-                course.setNameCourse(result.getString("Name"));
-                course.setStartTime(result.getDate("StartDay"));
-                course.setEndTime(result.getDate("EndDay"));
-                course.setGradeQuantity(result.getInt("ClassQuantity"));
-                course.setCost(result.getDouble("Cost"));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                result.close();
-                preparedStatement.close();
-                connection.close();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
-        return course;
-    }
-
-    @Override
-    public Course getCourse(String id) {
-        Course course = new Course();
-        try {
-            connection = connectionManager.getConnection();
-            String query = " SELECT Id,Name, ClassQuantity, StartDay, EndDay, Cost FROM COURSE";
-            preparedStatement = connection.prepareStatement(query);
             result = preparedStatement.executeQuery();
             while (result.next()) {
                 course.setIdCourse(result.getString("Id"));

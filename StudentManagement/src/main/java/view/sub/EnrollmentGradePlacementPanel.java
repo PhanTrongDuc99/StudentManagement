@@ -6,13 +6,10 @@
 package view.sub;
 
 import common.RegisterType;
-import entities.StudentOfficial;
 import entities.StudentUnofficial;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.Array;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -26,8 +23,6 @@ import service.ProfileService;
 import service.ProfileServiceImpl;
 import service.RegisterService;
 import service.RegisterServiceImpl;
-import service.StudentOfficialService;
-import service.StudentOfficialServiceImpl;
 import service.StudentUnofficialService;
 import service.StudentUnofficialServiceImpl;
 import utils.FileUtils;

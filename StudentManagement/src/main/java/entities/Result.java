@@ -133,7 +133,7 @@ public class Result {
 
     @Override
     public String toString() {
-        return "Result{" + "studyMark=" + studyMark + ", rewardMark=" + rewardMark + ", disciplineMark=" + disciplineMark + ", moneyPaid=" + moneyPaid + ", numberOfAbsences=" + numberOfAbsences + '}';
+        return "Result{" + "studyMark=" + studyMark + ", rewardMark=" + rewardMark + ", disciplineMark=" + disciplineMark + ", moneyPaid=" + moneyPaid + ", numberOfAbsences=" + numberOfAbsences + ", idGrade=" + idGrade + ", id=" + id + '}';
     }
 
 }

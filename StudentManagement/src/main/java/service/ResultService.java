@@ -16,4 +16,6 @@ public interface ResultService {
     public Result getResult(String id);
 
     public boolean insertResult(Result result);
+
+    public boolean deleteResultById(String id);
 }

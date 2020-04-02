@@ -16,7 +16,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import sun.applet.Main;
 
 /**
  *
@@ -135,6 +134,27 @@ public class RegisterDaoImpl implements RegisterDao {
             }
         }
         return rowsAffected != 0;
+    }
+
+    @Override
+    public boolean deleteRegisterById(String id) {
+        int amountRowDeleted = 0;
+        try {
+            connection = connectionManager.getConnection();
+            String query = " DELETE FROM REGISTER WHERE Id='" + id + "'";
+            preparedStatement = connection.prepareStatement(query);
+            amountRowDeleted = preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                preparedStatement.close();
+                connection.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        return amountRowDeleted != 0;
     }
 
 }

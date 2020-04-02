@@ -36,7 +36,7 @@ public class StudentOfficialDaoImpl implements StudentOfficialDao {
     private final String query = "SELECT IdStudent, IdProfile, IdGrade, IdResult, IdRegister, DiscountStatus, Cost FROM STUDENTOFFICIAL";
     private final String queryStudent
             = "INSERT INTO `studentmanagement`.`studentofficial` (`IdStudent`, `IdGrade`, `IdProfile`, `IdResult`, `IdRegister`, `DiscountStatus`, `Cost`)"
-            + "VALUES(?,(SELECT Id FROM grade WHERE ID=?),(SELECT Id from profile WHERE profile.Id=?),?,(SELECT Id FROM RESULT WHERE ID=?),(SELECT Id from register WHERE register.Id=?),?,(SELECT Cost FROM course WHERE Id= ?))";
+            + "VALUES(?,(SELECT Id FROM grade WHERE ID=?),(SELECT Id from profile WHERE profile.Id=?),(SELECT Id FROM RESULT WHERE ID=?),(SELECT Id from register WHERE register.Id=?),?,(SELECT Cost FROM course WHERE Id= ?))";
 
     public StudentOfficialDaoImpl() {
         connectionManager = new ConnectionManagerImpl();
@@ -44,6 +44,32 @@ public class StudentOfficialDaoImpl implements StudentOfficialDao {
         gradeDao = new GradeDaoImpl();
         resultDao = new ResultDaoImpl();
         registerDao = new RegisterDaoImpl();
+    }
+
+    @Override
+    public void insertStudent(StudentOfficial student) {
+        try {
+            connection = connectionManager.getConnection();
+            preparedStatement = connection.prepareStatement(queryStudent);
+            preparedStatement.setString(1, student.getId());
+            preparedStatement.setString(2, student.getResultStudy().getIdGrade());
+            preparedStatement.setString(3, student.getProfile().getId());
+            preparedStatement.setString(4, student.getResultStudy().getId());
+            preparedStatement.setString(5, student.getRegister().getId());
+            preparedStatement.setDouble(6, student.getDiscountStatus());
+            preparedStatement.setString(7, student.getGrade().getCourse().getIdCourse());
+            preparedStatement.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+
+        } finally {
+            try {
+                preparedStatement.close();
+                connection.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -88,7 +114,7 @@ public class StudentOfficialDaoImpl implements StudentOfficialDao {
                 Register register = registerDao.getRegister(result.getString("IdRegister"));
                 Grade grade = gradeDao.getGrade(result.getString("IdGrade"));
                 Result resultStudent = resultDao.getResult(result.getString("IdResult"));
-
+                student.setGrade(grade);
                 student.setResultStudy(resultStudent);
                 student.setId(result.getString("IdStudent"));
                 student.setDiscountStatus(result.getDouble("DiscountStatus"));
@@ -113,28 +139,24 @@ public class StudentOfficialDaoImpl implements StudentOfficialDao {
     }
 
     @Override
-    public void insertStudent(StudentOfficial student) {
+    public boolean deleteStudentById(String id) {
+        int amountRowDeleted = 0;
         try {
             connection = connectionManager.getConnection();
-            preparedStatement = connection.prepareStatement(queryStudent);
-            preparedStatement.setString(1, student.getId());
-            preparedStatement.setString(2, student.getResultStudy().getIdGrade());
-            preparedStatement.setString(3, student.getProfile().getId());
-            preparedStatement.setString(4, student.getResultStudy().getId());
-            preparedStatement.setString(5, student.getRegister().getId());
-            preparedStatement.setDouble(6, student.getDiscountStatus());
-            preparedStatement.setDouble(7, student.getCost());
-            preparedStatement.executeUpdate();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-
+            String query = " DELETE FROM STUDENTOFFICIAL WHERE IdStudent='" + id + "'";
+            preparedStatement = connection.prepareStatement(query);
+            amountRowDeleted = preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             try {
                 preparedStatement.close();
                 connection.close();
-            } catch (SQLException ex) {
+            } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }
+        return amountRowDeleted != 0;
     }
+
 }

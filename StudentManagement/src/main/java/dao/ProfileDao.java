@@ -28,6 +28,6 @@ public interface ProfileDao {
 
     public void insertProfileStudents(List<StudentUnofficial> students);
 
-    public void insertProfileTeachers(List<Teacher> teachers);
+    public void deleteProfileById(String id);
 
 }

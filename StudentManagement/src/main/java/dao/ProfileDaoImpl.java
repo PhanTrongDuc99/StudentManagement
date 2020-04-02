@@ -101,40 +101,7 @@ public class ProfileDaoImpl implements ProfileDao {
         }
     }
 
-    @Override
-    public void insertProfileTeachers(List<Teacher> teachers) {
-        try {
-            connection = connectionManager.getConnection();
-            connection.setAutoCommit(false);
-            preparedStatement = connection.prepareStatement(query);
-            for (Teacher teacher : teachers) {
-                Profile profile = teacher.getProfileTeacher();
-                preparedStatement.setString(1, profile.getFullName());
-                preparedStatement.setBoolean(2, profile.isGender());
-                preparedStatement.setDate(3, DateUtils.convertToSqlDate(profile.getDayOfBirth()));
-                preparedStatement.setString(4, profile.getPhoneNumber());
-                preparedStatement.setString(5, profile.getHomeTown());
-                preparedStatement.setString(6, profile.getCurrentAddress());
-                preparedStatement.setString(7, profile.getIdNumber());
-                preparedStatement.setString(8, profile.getEmail());
-                preparedStatement.setString(9, profile.getId());
-                preparedStatement.addBatch();
-            }
-            preparedStatement.executeBatch();
-            connection.commit();
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } finally {
-            try {
-                preparedStatement.close();
-                connection.close();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-
-        }
-    }
+   
 
     @Override
     public List<Profile> getProfileStudentUnofficial() {
@@ -186,6 +153,25 @@ public class ProfileDaoImpl implements ProfileDao {
     public List<Profile> getProfileStudentOfficial() {
         StudentOfficialDao studentDao = new StudentOfficialDaoImpl();
         return studentDao.getAll().stream().map(StudentOfficial::getProfile).collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteProfileById(String id) {
+        try {
+            connection = connectionManager.getConnection();
+            String query = " DELETE FROM PROFILE WHERE Id='" + id + "'";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                preparedStatement.close();
+                connection.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 
 }

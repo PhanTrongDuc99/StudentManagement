@@ -49,10 +49,8 @@ public class GradeDaoImpl implements GradeDao {
             preparedStatement = connection.prepareStatement(query);
             result = preparedStatement.executeQuery();
             while (result.next()) {
-                Teacher teacher = new Teacher();
-                Course course = new Course();
-                teacher.setIdTeacher(result.getString("IdTeacher"));
-                course.setIdCourse(result.getString("IdCourse"));
+                Teacher teacher = new TeacherDaoImpl().getTeacher(result.getString("IdTeacher"));
+                Course course = new CourseDaoImpl().getCourseById(result.getString("IdCourse"));
                 grades.add(new Grade(result.getString("Id"), result.getString("Name"), teacher, course,
                         TimeUtils.convertStringToLocalTime(result.getString("StartTime")),
                         TimeUtils.convertStringToLocalTime(result.getString("EndTime")),
@@ -109,7 +107,7 @@ public class GradeDaoImpl implements GradeDao {
     }
 
     public static void main(String[] args) {
-        System.out.println(new GradeDaoImpl().getGrade("Gr01").getCourse());
+        System.out.println(new GradeDaoImpl().getGrade("Gr02").getCourse());
     }
 
     @Override
@@ -124,13 +122,12 @@ public class GradeDaoImpl implements GradeDao {
             Grade grade = new Grade();
             result = preparedStatement.executeQuery();
             while (result.next()) {
-                Teacher teacher = new Teacher();
-
-                Course course = new CourseDaoImpl().getCourse(result.getString("IdCourse"));
-                teacher.setIdTeacher(result.getString("IdTeacher"));
-
+                Teacher teacher = new TeacherDaoImpl().getTeacher(result.getString("IdTeacher"));
+                Course course = new CourseDaoImpl().getCourseById(result.getString("IdCourse"));
                 grade.setTeacher(teacher);
                 grade.setCourse(course);
+                grade.setNameGrade(result.getString("Name"));
+                grade.setIdGrade(result.getString("Id"));
                 grade.setStartTime(TimeUtils.convertStringToLocalTime(result.getString("StartTime")));
                 grade.setEndTime(TimeUtils.convertStringToLocalTime(result.getString("EndTime")));
                 grade.setStudentQuantity(result.getInt("StudentQuantity"));
@@ -184,6 +181,7 @@ public class GradeDaoImpl implements GradeDao {
     }
 
     public void deleteGradeByIdCourse(String idCourse) {
+
         try {
             connection = connectionManager.getConnection();
             String query = " DELETE FROM GRADE WHERE IdCourse=?";
@@ -200,6 +198,27 @@ public class GradeDaoImpl implements GradeDao {
                 ex.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public boolean deleteGradeById(String id) {
+        int amountRowDeleted = 0;
+        try {
+            connection = connectionManager.getConnection();
+            String query = " DELETE FROM GRADE WHERE Id='" + id + "'";
+            preparedStatement = connection.prepareStatement(query);
+            amountRowDeleted = preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                preparedStatement.close();
+                connection.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        return amountRowDeleted != 0;
     }
 
 }

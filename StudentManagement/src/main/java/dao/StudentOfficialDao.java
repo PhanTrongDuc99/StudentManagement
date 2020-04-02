@@ -19,4 +19,6 @@ public interface StudentOfficialDao {
     public StudentOfficial getStudent(String id);
 
     public void insertStudent(StudentOfficial student);
+
+    public boolean deleteStudentById(String id);
 }

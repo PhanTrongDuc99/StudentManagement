@@ -38,4 +38,9 @@ public class RegisterServiceImpl implements RegisterService {
         return registerDao.updateRegister(register);
     }
 
+    @Override
+    public boolean deleteRegisterById(String id) {
+        return registerDao.deleteRegisterById(id);
+    }
+
 }

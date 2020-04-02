@@ -31,4 +31,9 @@ public class ResultServiceImpl implements ResultService {
         return resultDao.insertResult(result);
     }
 
+    @Override
+    public boolean deleteResultById(String id) {
+        return resultDao.deleteResultById(id);
+    }
+
 }
