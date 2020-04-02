@@ -408,7 +408,7 @@ public class StudentsDivisionFrame extends javax.swing.JFrame {
 
                     StudentUnofficialService st = new StudentUnofficialServiceImpl();
                     List<StudentUnofficial> studentsUnofficial = st.getAll();
-                    
+
                     List<StudentUnofficial> students = new ArrayList<>();
 
                     Course selectedCourse = new Course();
@@ -427,42 +427,51 @@ public class StudentsDivisionFrame extends javax.swing.JFrame {
                     }
                     GradeService gradeService = new GradeServiceImpl();
                     List<Grade> grades = gradeService.getAllGradesOfCourse(selectedCourse.getIdCourse());
-                    for (StudentUnofficial s : students) {
-                        System.out.println(s);
-                        String idResult = "RS";
-                        for (Grade g : grades) {
-                            for (int j = 0; j < g.getStudentQuantity(); j++) {
-                                System.out.println(g.getStudentQuantity());
-                                
-                                System.out.println("ID GRADE:" + g.getIdGrade());
-                                
-                                System.out.println(s.getRegister().getId());
-                                Register register = new Register(s.getRegister().getId(), RegisterStatus.REGISTERED, s.getRegister().getType());
-                                System.out.println(register.getId());
-                                RegisterService registerService = new RegisterServiceImpl();
-                                registerService.updateRegister(register);
-
-                                Result result = new Result(0.0, 0.0, 0.0, 0.0, 0, g.getIdGrade(), idResult + s.getId());
-                                ResultService resultService = new ResultServiceImpl();
-                                resultService.insertResult(result);
-
-                                ProfileDao profileDao = new ProfileDaoImpl();
-                                Profile profile = profileDao.getProfile(s.getProfile().getId());
-
-                                GradeDao gradeDao = new GradeDaoImpl();
-
-                                Grade grade = gradeDao.getGrade(g.getIdGrade());
-                                
-                                StudentOfficial so = new StudentOfficial(result, grade, s.getId(), profile, 0.0, 0.0, register);
-                                System.out.println(so);
-
-                                StudentOfficialService sos = new StudentOfficialServiceImpl();
-                                sos.insertStudent(so);
-
-                                StudentUnofficialService studentUnofficialService = new StudentUnofficialServiceImpl();
-                                System.out.println(studentUnofficialService.deleteUnofficialStudentById(s.getId()));
-                            }
+                    int sumStudents = students.size();
+                    int startIndex = 0;
+                    int endIndex = 0;
+                    for (Grade g : grades) {
+                        if (students.size() >= g.getStudentQuantity()) {
+                            sumStudents = g.getStudentQuantity();
                         }
+                        endIndex = sumStudents;
+                        for (int j = startIndex; j < endIndex; j++) {
+
+                            String idResult = "RS";
+
+                            System.out.println(g.getStudentQuantity());
+
+                            System.out.println("ID GRADE:" + g.getIdGrade());
+
+                            System.out.println(students.get(j).getRegister().getId());
+                            Register register = new Register(students.get(j).getRegister().getId(), RegisterStatus.REGISTERED, students.get(j).getRegister().getType());
+                            System.out.println(register.getId());
+                            RegisterService registerService = new RegisterServiceImpl();
+                            registerService.updateRegister(register);
+
+                            Result result = new Result(0.0, 0.0, 0.0, 0.0, 0, g.getIdGrade(), idResult + students.get(j).getId());
+                            ResultService resultService = new ResultServiceImpl();
+                            resultService.insertResult(result);
+
+                            ProfileDao profileDao = new ProfileDaoImpl();
+                            Profile profile = profileDao.getProfile(students.get(j).getProfile().getId());
+
+                            GradeDao gradeDao = new GradeDaoImpl();
+
+                            Grade grade = gradeDao.getGrade(g.getIdGrade());
+
+                            StudentOfficial so = new StudentOfficial(result, grade, students.get(j).getId(), profile, 0.0, 0.0, register);
+                            System.out.println(so);
+
+                            StudentOfficialService sos = new StudentOfficialServiceImpl();
+                            sos.insertStudent(so);
+
+                            // students.remove(students.get(j));
+                            StudentUnofficialService studentUnofficialService = new StudentUnofficialServiceImpl();
+                            System.out.println(studentUnofficialService.deleteUnofficialStudentById(students.get(j).getId()));
+
+                        }
+
                     }
 //                    for (StudentUnofficial o : students) {
 //                        System.out.println(o);
