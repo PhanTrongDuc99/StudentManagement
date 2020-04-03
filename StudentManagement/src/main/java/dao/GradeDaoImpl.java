@@ -33,6 +33,8 @@ public class GradeDaoImpl implements GradeDao {
     private Connection connection;
     private PreparedStatement preparedStatement;
     private ResultSet result;
+    private final String queryGrade = "INSERT INTO grade(Id, Name, StudentQuantity , Idteacher, IdCourse, StartTime, EndTime, DaysOfWeek) "
+            + "VALUES(?,?,?,(SELECT Id from teacher WHERE teacher.Id=?),(SELECT Id from course WHERE course.Id=?),?,?,?)";
 
     public GradeDaoImpl() {
         connectionManager = new ConnectionManagerImpl();
@@ -72,14 +74,12 @@ public class GradeDaoImpl implements GradeDao {
 
     @Override
     public void insertGrade(List<Grade> grades) {
-        String queryGrade = "INSERT INTO grade(Id, Name, StudentQuantity , Idteacher, IdCourse, StartTime, EndTime, DaysOfWeek) "
-                + "VALUES(?,?,?,(SELECT Id from teacher WHERE teacher.Id=?),(SELECT Id from course WHERE course.Id=?),?,?,?)";
+
         try {
             connection = connectionManager.getConnection();
             connection.setAutoCommit(false);
             preparedStatement = connection.prepareStatement(queryGrade);
             for (Grade grade : grades) {
-                System.out.println(grade + "------" + grade.getTeacher().getIdTeacher());
                 preparedStatement.setString(1, grade.getIdGrade());
                 preparedStatement.setString(2, grade.getNameGrade());
                 preparedStatement.setInt(3, grade.getStudentQuantity());
@@ -106,8 +106,37 @@ public class GradeDaoImpl implements GradeDao {
 
     }
 
-    public static void main(String[] args) {
-        System.out.println(new GradeDaoImpl().getGrade("Gr02").getCourse());
+    @Override
+    public boolean insertGrade(Grade grade) {
+        int amountRowInsert = 0;
+        try {
+            connection = connectionManager.getConnection();
+            connection.setAutoCommit(false);
+            preparedStatement = connection.prepareStatement(queryGrade);
+
+            preparedStatement.setString(1, grade.getIdGrade());
+            preparedStatement.setString(2, grade.getNameGrade());
+            preparedStatement.setInt(3, grade.getStudentQuantity());
+            preparedStatement.setString(4, grade.getTeacher().getIdTeacher());
+            preparedStatement.setString(5, grade.getCourse().getIdCourse());
+            preparedStatement.setString(6, grade.getStartTime().toString());
+            preparedStatement.setString(7, grade.getEndTime().toString());
+            preparedStatement.setString(8, String.join(",", Arrays.asList(grade.getDaysOfWeek()).stream().map(t -> t.toString()).collect(Collectors.toList())));
+
+            amountRowInsert = preparedStatement.executeUpdate();
+            connection.commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                preparedStatement.close();
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(TeacherDaoImpl.class.getName()).log(Level.ALL.SEVERE, null, ex);
+            }
+        }
+        return amountRowInsert != 0;
     }
 
     @Override
@@ -226,14 +255,16 @@ public class GradeDaoImpl implements GradeDao {
         int amountRowUpdated = 0;
         try {
             connection = connectionManager.getConnection();
-            String query = "UPDATE GRADE SET Name =?, StudentQuantity=?, StartTime=?, EndTime=?, IdTeacher=? WHERE Id=?";
+            String query = "UPDATE GRADE SET Name =?, StudentQuantity=?, StartTime=?, EndTime=?, IdTeacher=?, DaysOfWeek=?, IdCourse=? WHERE Id=?";
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, grade.getNameGrade());
             preparedStatement.setInt(2, grade.getStudentQuantity());
             preparedStatement.setString(3, grade.getStartTime().toString());
             preparedStatement.setString(4, grade.getEndTime().toString());
             preparedStatement.setString(5, grade.getTeacher().getIdTeacher());
-            preparedStatement.setString(6, id);
+            preparedStatement.setString(6, DayOfWeekUtils.convertDayOfWeekToString(grade.getDaysOfWeek()));
+            preparedStatement.setString(7, grade.getCourse().getIdCourse());
+            preparedStatement.setString(8, id);
             amountRowUpdated = preparedStatement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

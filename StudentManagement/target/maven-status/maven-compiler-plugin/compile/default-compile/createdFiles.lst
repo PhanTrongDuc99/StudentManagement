@@ -1,27 +1,10 @@
-view\sub\StudentInformationPanel$3.class
-connection\ConnectionManager.class
-utils\DayOfWeekUtils.class
-view\sub\EnrollmentGradePlacementPanel$4.class
 service\CourseService.class
 view\sub\EnrollmentGradePlacementPanel$1.class
-<<<<<<< HEAD
 utils\SizeUtils.class
-=======
-entities\StudentOfficial.class
-view\sub\StudentInformationPanel$6.class
-view\sub\GradePanel.class
-entities\Course.class
-view\sub\StudentInformationPanel$10.class
->>>>>>> PhanTrongDuc
 service\AdminService.class
-dao\RegisterDao.class
-view\sub\StudentInformationPanel$9.class
 entities\Result.class
-view\sub\StudentInformationPanel$13.class
 view\sub\StudentInformationPanel$2.class
-dao\TimeKeepingDaoImpl.class
 service\StudentOfficialService.class
-<<<<<<< HEAD
 view\sub\StudentInformationPanel.class
 utils\DateUtils.class
 view\sub\SettingFrame$1.class
@@ -36,6 +19,7 @@ service\AdminServiceImpl.class
 view\sub\LoginForm$1.class
 service\GradeServiceImpl.class
 dao\TeacherDao.class
+view\sub\GradeForm$2.class
 view\sub\CourseInformationPanel$6.class
 view\sub\RegisterForm$1.class
 view\sub\RegisterForm$16.class
@@ -61,13 +45,9 @@ dao\RegisterDao.class
 service\TeacherService.class
 service\ResultService.class
 view\sub\SettingFrame$2.class
-=======
->>>>>>> PhanTrongDuc
+view\sub\StudentInformationPanel$9.class
 entities\TimeKeeping.class
-common\NameColumn.class
-view\sub\StudentInformationPanel.class
 entities\Register.class
-<<<<<<< HEAD
 view\sub\StartFrame.class
 common\WorkBookValue.class
 common\CourseTableColumns.class
@@ -87,6 +67,7 @@ entities\Teacher.class
 view\sub\CoursePanel.class
 view\sub\RegisterForm$5.class
 service\RegisterServiceImpl.class
+view\sub\StudentInformationPanel$11.class
 view\sub\SettingFrame$4.class
 view\sub\StudentsDivisionFrame.class
 view\sub\DivisionGradePanel$1.class
@@ -109,6 +90,7 @@ view\sub\CourseForm.class
 service\RegisterService.class
 view\TrainingCenterFrame$6.class
 view\sub\RegisterForm$14.class
+view\sub\StudentInformationPanel$10.class
 view\sub\CourseInformationPanel$8.class
 view\sub\RegisterForm$3.class
 view\sub\StudentPanel.class
@@ -123,11 +105,14 @@ service\CourseServiceImpl.class
 service\ResultServiceImpl.class
 view\sub\CourseInformationPanel$4$1.class
 service\TeacherServiceImpl.class
+view\sub\ListStudentUnofficialslFrame.class
 view\sub\CourseInformationForm$4.class
 view\sub\CourseInformationForm.class
 service\GradeService.class
+view\sub\GradeForm.class
 model\CourseTableModel$1.class
 view\sub\RegisterForm$8.class
+view\sub\GradeForm$1.class
 view\sub\ListOfStudentsFrame$1.class
 view\sub\DivisionGradePanel.class
 view\sub\StudentInformationPanel$4.class
@@ -152,43 +137,16 @@ view\sub\DetailStudentUnOfficialForm.class
 service\ProfileService.class
 dao\TimeKeepingDaoImpl.class
 common\NameColumn.class
+view\sub\LoginForm$5.class
 view\TrainingCenterFrame$8.class
 service\ProfileServiceImpl.class
-=======
-utils\DateUtils.class
-entities\Profile.class
->>>>>>> PhanTrongDuc
 dao\StudentUnofficialDao.class
 view\sub\EnrollmentGradePlacementPanel$5.class
-entities\Admin.class
-view\sub\StudentInformationPanel$5.class
-common\CourseTableColumns.class
-view\sub\EnrollmentGradePlacementPanel.class
-common\RegisterStatus.class
 common\RegisterType.class
-service\CourseServiceImpl.class
 dao\CourseDaoImpl.class
-model\CourseTableModel.class
-view\sub\StudentInformationPanel$8.class
-view\sub\ListStudentUnofficialslFrame.class
-service\GradeService.class
 view\sub\StudentInformationPanel$1.class
 entities\Grade.class
-view\sub\GradeForm.class
 dao\TimeKeepingDao.class
-model\CourseTableModel$1.class
-entities\Teacher.class
-view\sub\GradeForm$2.class
-view\sub\StudentInformationPanel$11.class
 view\sub\EnrollmentGradePlacementPanel$2.class
-view\sub\GradeForm$1.class
-entities\StudentUnofficial.class
-dao\AdminDao.class
-view\sub\StudentInformationPanel$4.class
 view\sub\TeacherPanel.class
-service\StudentUnofficialService.class
-view\sub\StudentInformationPanel$7.class
-common\Time.class
 view\sub\EnrollmentGradePlacementPanel$3.class
-utils\ImageUtils.class
-dao\CourseDao.class

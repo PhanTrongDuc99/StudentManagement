@@ -26,5 +26,7 @@ public interface GradeService {
 
     public boolean deleteGradeById(String id);
 
+    public boolean insertGrade(Grade grade);
+
     public boolean updateGradeById(String id, Grade grade);
 }

@@ -20,6 +20,8 @@ public interface GradeDao {
 
     public void insertGrade(List<Grade> grades);
 
+    public boolean insertGrade(Grade grade);
+
     public List<Grade> getAllGradesOfCourse(String idCourse);
 
     public void deleteGradeByIdCourse(String idCourse);

@@ -34,7 +34,7 @@ import view.sub.FinancialPanel;
 import view.sub.GradePanel;
 import view.sub.HomepagePanel;
 import view.sub.SettingFrame;
-import view.sub.StudentInformationPanel;
+import view.sub.GradeInformationPanel;
 import view.sub.StudentPanel;
 import view.sub.TeacherPanel;
 import view.sub.TrainingPanel;
@@ -816,7 +816,7 @@ public class TrainingCenterFrame extends JFrame {
                     if (btItemPnGrade.getText().equalsIgnoreCase(itemGrades[0].getText())) {
                         pnCenter.removeAll();
                         pnCenter.revalidate();
-                        StudentInformationPanel studentPanel = new StudentInformationPanel();
+                        GradeInformationPanel studentPanel = new GradeInformationPanel();
                         pnCenter.add(studentPanel);
                         studentPanel.setVisible(true);
                     } else {

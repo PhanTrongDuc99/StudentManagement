@@ -6,13 +6,15 @@
 package utils;
 
 import java.time.DayOfWeek;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 /**
  *
  * @author USER
  */
 public class DayOfWeekUtils {
-    
+
     public static DayOfWeek[] convertStringNumberToDayOfWeek(String string) {
         String[] dayOfWeekString = string.split("[,]");
         int length = dayOfWeekString.length;
@@ -31,5 +33,9 @@ public class DayOfWeekUtils {
             daysOfWeek[i] = DayOfWeek.valueOf(dayOfWeekString[i]);
         }
         return daysOfWeek;
+    }
+
+    public static String convertDayOfWeekToString(DayOfWeek[] dayOfWeek) {
+        return String.join(",", Arrays.asList(dayOfWeek).stream().map(t -> t.toString()).collect(Collectors.toList()));
     }
 }

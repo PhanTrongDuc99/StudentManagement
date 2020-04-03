@@ -57,4 +57,9 @@ public class GradeServiceImpl implements GradeService {
         return gradeDao.updateGradeById(id, grade);
     }
 
+    @Override
+    public boolean insertGrade(Grade grade) {
+        return gradeDao.insertGrade(grade);
+    }
+
 }

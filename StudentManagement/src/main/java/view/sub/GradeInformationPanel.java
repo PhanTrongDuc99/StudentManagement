@@ -9,15 +9,16 @@ package view.sub;
 import entities.Grade;
 import entities.Profile;
 import entities.StudentOfficial;
-import java.awt.Dialog;
 import java.awt.Font;
-import java.awt.Frame;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.DayOfWeek;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Vector;
+import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -25,6 +26,7 @@ import javax.swing.RowFilter;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+import service.CourseServiceImpl;
 import service.GradeService;
 import service.GradeServiceImpl;
 import service.ProfileService;
@@ -35,19 +37,20 @@ import service.ResultService;
 import service.ResultServiceImpl;
 import service.StudentOfficialService;
 import service.StudentOfficialServiceImpl;
+import service.TeacherServiceImpl;
 import utils.ImageUtils;
-import view.TrainingCenterFrame;
+import utils.RandomUtils;
 
 /**
  *
  * @author Mr.Chien
  */
-public class StudentInformationPanel extends javax.swing.JPanel {
+public class GradeInformationPanel extends javax.swing.JPanel {
 
     private Font defaultFont;
     private final Font newFont = new Font("Tahoma", Font.BOLD, 14);
 
-    public StudentInformationPanel() {
+    public GradeInformationPanel() {
 
         initComponents();
         btAdd.setFocusPainted(false);
@@ -57,7 +60,6 @@ public class StudentInformationPanel extends javax.swing.JPanel {
         loadDataGradeIntoJTable(listStudents);
         initEvents();
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -83,7 +85,7 @@ public class StudentInformationPanel extends javax.swing.JPanel {
             @Override
             public void setValueAt(Object aValue, int row, int column) {
 
-                super.setValueAt(aValue, row, column); //To change body of generated methods, choose Tools | Templates.
+                super.setValueAt(aValue, row, column); 
             }
 
         };
@@ -142,7 +144,18 @@ public class StudentInformationPanel extends javax.swing.JPanel {
 
             @Override
             public void mousePressed(MouseEvent e) {
-
+                List<String> gradesId = gradeService.getAll().stream().map(t -> t.getIdGrade()).collect(Collectors.toList());
+                Grade grade = new Grade();
+                String idGrade = RandomUtils.randomId(gradesId, "Gr");
+                grade.setIdGrade(idGrade);
+                grade.setTeacher(new TeacherServiceImpl().getTeacher("GV01"));
+                grade.setCourse(new CourseServiceImpl().getCourseById("K01"));
+                grade.setStartTime(LocalTime.of(00, 00));
+                grade.setEndTime(LocalTime.of(00, 00));
+                grade.setStudentQuantity(0);
+                grade.setDaysOfWeek(new DayOfWeek[]{DayOfWeek.FRIDAY, DayOfWeek.MONDAY});
+                GradeInformationForm gradeForm = new GradeInformationForm(grade, 0);
+                gradeForm.setVisible(true);
             }
 
             @Override
@@ -167,7 +180,7 @@ public class StudentInformationPanel extends javax.swing.JPanel {
                 String name = tfSearch.getText();
                 int currentStudentQuantity = (int) listStudents.stream().filter(t -> t.getGrade().getNameGrade().equals(name)).count();
                 Grade grade = grades.stream().filter(t -> t.getNameGrade().equals(name)).findFirst().get();
-                System.out.println("------------" +grade);
+                System.out.println("------------" + grade);
                 GradeInformationForm gradeInforForm = new GradeInformationForm(grade, currentStudentQuantity);
                 gradeInforForm.setVisible(true);
             }
@@ -183,7 +196,7 @@ public class StudentInformationPanel extends javax.swing.JPanel {
                 String name = tfSearch.getText();
                 int currentStudentQuantity = (int) listStudents.stream().filter(t -> t.getGrade().getNameGrade().equals(name)).count();
                 if (!grades.stream().anyMatch(t -> t.getNameGrade().equals(name))) {
-                    JOptionPane.showMessageDialog(StudentInformationPanel.this,
+                    JOptionPane.showMessageDialog(GradeInformationPanel.this,
                             "This grade is not exists. Try again!!!", "Notification",
                             JOptionPane.OK_OPTION, ImageUtils.loadImageIcon(getClass().getResource("/images/alarm.png").getPath()));
                 } else {
@@ -232,10 +245,10 @@ public class StudentInformationPanel extends javax.swing.JPanel {
                         prsv.deleteProfileById(student.getProfile().getId());
                         ressv.deleteResultById(student.getResultStudy().getId());
                         regsv.deleteRegisterById(student.getRegister().getId());
-                        JOptionPane.showMessageDialog(StudentInformationPanel.this,
+                        JOptionPane.showMessageDialog(GradeInformationPanel.this,
                                 "delete successfully!!!", "Notification",
                                 JOptionPane.OK_OPTION, ImageUtils.loadImageIcon(getClass().getResource("/images/alarm.png").getPath()));
-                       
+
                         model.removeRow(row);
                     }
                 }
@@ -286,7 +299,7 @@ public class StudentInformationPanel extends javax.swing.JPanel {
         btAdd.setBackground(new java.awt.Color(153, 0, 153));
         btAdd.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btAdd.setForeground(new java.awt.Color(255, 255, 255));
-        btAdd.setText("Add Student");
+        btAdd.setText("Add Grade");
         btAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btAddActionPerformed(evt);
@@ -332,9 +345,9 @@ public class StudentInformationPanel extends javax.swing.JPanel {
                 .addComponent(showButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
                 .addComponent(btEdit1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 295, Short.MAX_VALUE)
+                .addGap(45, 45, 45)
                 .addComponent(btAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
+                .addContainerGap(277, Short.MAX_VALUE))
         );
         pnTopLayout.setVerticalGroup(
             pnTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
