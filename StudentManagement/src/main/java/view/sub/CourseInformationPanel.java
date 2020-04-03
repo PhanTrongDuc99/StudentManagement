@@ -171,12 +171,13 @@ public class CourseInformationPanel extends javax.swing.JPanel {
                 CourseInformationForm courseInformationForm = new CourseInformationForm(course) {
                     @Override
                     public void callbackInformation(Course course) {
+                        
                         //setInformationSelectedCourse
                         setInformationSelectedCourse();
                         //updateCourseById(Database)
                         courseService.updateCourseById(course.getIdCourse(), course);
                         //updateTableCourse???
-                        
+
                     }
                 };
                 courseInformationForm.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);

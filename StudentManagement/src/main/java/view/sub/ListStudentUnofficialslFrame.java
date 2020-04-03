@@ -30,10 +30,12 @@ public class ListStudentUnofficialslFrame extends JFrame {
         initEvents();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         pack();
-        setSize(1500, 600);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        //setSize(2000, 1000);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setTitle("List student register on center");
         setIconImage(ImageUtils.load(getClass().getResource("/images/student.png").getPath()));
-        setLocationRelativeTo(null);
         /* END - Nếu dùng Netbeans thì không cần quan tâm đến đoạn này làm gì */
     }
 
