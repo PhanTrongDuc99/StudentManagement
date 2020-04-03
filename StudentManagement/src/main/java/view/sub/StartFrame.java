@@ -17,6 +17,18 @@ import utils.ImageUtils;
  */
 public class StartFrame extends javax.swing.JFrame {
 
+    int i = 0;
+    Timer timer = new Timer(10, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            jProgressBar.setValue(i++);
+            if (i >= 101) {
+                timer.stop();
+                cls();
+            }
+        }
+    });
+
     /**
      * Creates new form StartFrame
      */
@@ -74,18 +86,6 @@ public class StartFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    int i = 0;
-    Timer timer = new Timer(10, new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            jProgressBar.setValue(i++);
-            if (i >= 101) {
-                timer.stop();
-                cls();
-            }
-        }
-    });
-
     private void cls() {
         dispose();
         LoginForm loginForm = new LoginForm("Login");
@@ -122,7 +122,6 @@ public class StartFrame extends javax.swing.JFrame {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JProgressBar jProgressBar;
     private javax.swing.JLabel lbStartBg;

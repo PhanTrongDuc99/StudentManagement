@@ -62,36 +62,39 @@ public class StudentsDivisionFrame extends javax.swing.JFrame {
      * Creates new form StudentsDivisionFrame
      */
     private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-
+    
     private GridLayout gridLayout = new GridLayout(5, 1, 5, 5);
-
+    
     private List<Course> courses;
-
+    
     private final Border defaultBorder = BorderFactory.createLineBorder(Color.WHITE, 5);
     private final Border pnSeparatetBorder = BorderFactory.createLineBorder(Color.YELLOW, 1);
     private final Border pnCenterButtonHighLightBorder = BorderFactory.createLineBorder(Color.RED, 5);
     private final Border pnCenterButtonBorder = BorderFactory.createLineBorder(Color.YELLOW, 5);
     private final Font defaultLabelFont = new Font("Tahoma", Font.BOLD, 18);
-
+    
     private JButton btDivide;
     private JButton btShowWaitingStudents;
-
+    
     private JPanel pnTopCenter;
     private JPanel pnMainCenter;
     private JLabel lbCourse;
     private JLabel lbSelectedCourse;
-
+    
     private String idSelectedCourse;
-
+    
     public StudentsDivisionFrame() {
-
+        
         CourseService courseService = new CourseServiceImpl();
         courses = courseService.getAll();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
+        //setSize(2000, 1000);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         initComponents();
         initPanels();
         initEvents();
-
+        
     }
 
     /**
@@ -193,7 +196,7 @@ public class StudentsDivisionFrame extends javax.swing.JFrame {
                 new StudentsDivisionFrame().setVisible(true);
             }
         });
-
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -206,27 +209,27 @@ public class StudentsDivisionFrame extends javax.swing.JFrame {
     private void initPanels() {
         pnBg.setPreferredSize(screenSize);
         initPnCenter();
-
+        
     }
-
+    
     private void initPnCenter() {
         initPnCenterComponents();
-
+        
     }
-
+    
     private void initPnCenterComponents() {
         pnCenter.setLayout(new BorderLayout());
         initPnTopCenter();
         initPnMainCenter();
-
+        
     }
-
+    
     private void initPnCenterEvents() {
         final Component[] components = pnMainCenter.getComponents();
-
+        
         for (Component component : components) {
             for (Component c : ((JPanel) component).getComponents()) {
-
+                
                 if (c instanceof JButton) {
                     final JButton button = (JButton) c;
                     button.addMouseListener(new MouseAdapter() {
@@ -237,18 +240,16 @@ public class StudentsDivisionFrame extends javax.swing.JFrame {
                             if (((String) button.getClientProperty(button.getText())) == null) {
                                 lbCourse.setText("COURSE:");
                                 lbSelectedCourse.setText(button.getText());
-
+                                
                                 JPanel panel = (JPanel) button.getParent();
-                                //System.out.println((String) panel.getClientProperty(lbSelectedCourse));
                                 idSelectedCourse = (String) panel.getClientProperty(lbSelectedCourse);
-                                // System.out.println(idSelectedCourse);
                             } else {
                                 List<StudentOfficial> studentsOfficials = new ArrayList<>();
-
+                                
                                 StudentUnofficialService studentUnofficialService = new StudentUnofficialServiceImpl();
-
+                                
                                 List<StudentUnofficial> studentUnofficials = studentUnofficialService.getAll();
-
+                                
                                 for (StudentUnofficial s : studentsOfficials) {
                                     if (s.getIdRegisterCourse().equals((String) button.getClientProperty(button.getText()))) {
                                         studentUnofficials.add(s);
@@ -257,36 +258,26 @@ public class StudentsDivisionFrame extends javax.swing.JFrame {
                                 ListOfStudentsFrame registeringStudentsFrame = new ListOfStudentsFrame(studentUnofficials, button.getText());
                                 registeringStudentsFrame.setVisible(true);
                             }
-
+                            
                         }
-
+                        
                         @Override
                         public void mouseEntered(MouseEvent e) {
                             disableHighLightButtons(((JPanel) component).getComponents());
                             button.setBorder(pnCenterButtonBorder);
                         }
-
+                        
                         @Override
                         public void mouseExited(MouseEvent e) {
                             disableHighLightButtons(((JPanel) component).getComponents());
                         }
-
+                        
                     });
-//                    button.addActionListener(new ActionListener() {
-//
-//                        public void actionPerformed(ActionEvent e) {
-//                            System.out.println(((JButton) e.getSource()).getParent() + "The current panel is ");
-//
-//                            idSelectedCourse = (String) ((JPanel) ((JButton) e.getSource()).getParent()).getClientProperty(lbSelectedCourse);
-//                            System.out.println(idSelectedCourse);
-//                        }
-//
-//                    });
                 }
             }
         }
     }
-
+    
     private void disableHighLightButtons(Component... components) {
         for (Component component : components) {
             if (component instanceof JButton) {
@@ -295,7 +286,7 @@ public class StudentsDivisionFrame extends javax.swing.JFrame {
             }
         }
     }
-
+    
     private void setPanelCourse(JPanel panel, Course course) {
         JButton button = createCourseButton(course.getNameCourse().toUpperCase());
         panel.putClientProperty(button.getText(), course.getIdCourse());
@@ -305,9 +296,9 @@ public class StudentsDivisionFrame extends javax.swing.JFrame {
         panel.add(button);
         setButtonClasses(course, panel);
         pnMainCenter.add(panel);
-
+        
     }
-
+    
     private void setButtonClasses(Course course, JPanel jPanel) {
         GradeService gradeService = new GradeServiceImpl();
         List<Grade> grades = gradeService.getAllGradesOfCourse(course.getIdCourse());
@@ -318,12 +309,12 @@ public class StudentsDivisionFrame extends javax.swing.JFrame {
             button.setFocusPainted(false);
             button.setText(grades.get(i).getNameGrade());
             jPanel.add(button);
-
+            
         }
     }
-
+    
     private JButton createCourseButton(String courseName) {
-
+        
         JButton button = new JButton();
         button.setOpaque(true);
         button.setBackground(new Color(51, 153, 255));
@@ -333,20 +324,20 @@ public class StudentsDivisionFrame extends javax.swing.JFrame {
         button.setHorizontalAlignment(JLabel.CENTER);
         return button;
     }
-
+    
     private void initEvents() {
         initPnCenterEvents();
         btDivideEvents();
         btShowWaitingStudents();
     }
-
+    
     private void createEventButtons(JPanel jPanel) {
         btDivide = new JButton("Divide");
         jPanel.add(btDivide);
         btShowWaitingStudents = new JButton("Show waiting students");
         jPanel.add(btShowWaitingStudents);
     }
-
+    
     private void initPnTopCenter() {
         pnTopCenter = new JPanel();
         pnTopCenter.setSize(675, 30);
@@ -360,16 +351,16 @@ public class StudentsDivisionFrame extends javax.swing.JFrame {
         pnTopCenter.add(lbSelectedCourse);
         createEventButtons(pnTopCenter);
         pnCenter.add(pnTopCenter, BorderLayout.PAGE_START);
-
+        
     }
-
+    
     private void initPnMainCenter() {
         pnMainCenter = new JPanel();
         createPanels();
         setPnMainCenter();
         pnCenter.add(pnMainCenter, BorderLayout.CENTER);
     }
-
+    
     private void createPanels() {
         for (int i = 0; i < courses.size(); i++) {
             JPanel pnCourse = new JPanel();
@@ -381,9 +372,9 @@ public class StudentsDivisionFrame extends javax.swing.JFrame {
             }
             pnMainCenter.add(pnCourse);
         }
-
+        
     }
-
+    
     private void setPnMainCenter() {
         int index = 0;
         pnMainCenter.setLayout(new BoxLayout(pnMainCenter, BoxLayout.X_AXIS));
@@ -397,7 +388,7 @@ public class StudentsDivisionFrame extends javax.swing.JFrame {
             }
         }
     }
-
+    
     private void btDivideEvents() {
         btDivide.addMouseListener(new MouseAdapter() {
             @Override
@@ -405,12 +396,12 @@ public class StudentsDivisionFrame extends javax.swing.JFrame {
                 // divideGrades();
 
                 if (!lbSelectedCourse.getText().isEmpty()) {
-
+                    
                     StudentUnofficialService st = new StudentUnofficialServiceImpl();
                     List<StudentUnofficial> studentsUnofficial = st.getAll();
-
+                    
                     List<StudentUnofficial> students = new ArrayList<>();
-
+                    
                     Course selectedCourse = new Course();
                     for (Course c : courses) {
                         if (c.getNameCourse().equalsIgnoreCase(lbSelectedCourse.getText())) {
@@ -422,70 +413,69 @@ public class StudentsDivisionFrame extends javax.swing.JFrame {
                         if (s.getIdRegisterCourse().equals(selectedCourse.getIdCourse())) {
                             System.out.println(s);
                             students.add(s);
-
+                            
                         }
                     }
                     GradeService gradeService = new GradeServiceImpl();
                     List<Grade> grades = gradeService.getAllGradesOfCourse(selectedCourse.getIdCourse());
-                    int sumStudents = students.size();
+                    int sumStudents = 0;
                     int startIndex = 0;
                     int endIndex = 0;
+                    int currentAmountOfStudentUnofficial = students.size();
+                    int amountRemainStudent = students.size();
                     for (Grade g : grades) {
-                        if (students.size() >= g.getStudentQuantity()) {
+                        if (amountRemainStudent >= g.getStudentQuantity()) {
                             sumStudents = g.getStudentQuantity();
+                        } else {
+                            sumStudents = amountRemainStudent;
                         }
-                        endIndex = sumStudents;
+                        endIndex += sumStudents;
                         for (int j = startIndex; j < endIndex; j++) {
-
                             String idResult = "RS";
-
                             System.out.println(g.getStudentQuantity());
-
                             System.out.println("ID GRADE:" + g.getIdGrade());
-
                             System.out.println(students.get(j).getRegister().getId());
+                            
                             Register register = new Register(students.get(j).getRegister().getId(), RegisterStatus.REGISTERED, students.get(j).getRegister().getType());
                             System.out.println(register.getId());
                             RegisterService registerService = new RegisterServiceImpl();
                             registerService.updateRegister(register);
-
+                            
                             Result result = new Result(0.0, 0.0, 0.0, 0.0, 0, g.getIdGrade(), idResult + students.get(j).getId());
                             ResultService resultService = new ResultServiceImpl();
                             resultService.insertResult(result);
-
+                            
                             ProfileDao profileDao = new ProfileDaoImpl();
                             Profile profile = profileDao.getProfile(students.get(j).getProfile().getId());
-
+                            
                             GradeDao gradeDao = new GradeDaoImpl();
-
                             Grade grade = gradeDao.getGrade(g.getIdGrade());
-
+                            
                             StudentOfficial so = new StudentOfficial(result, grade, students.get(j).getId(), profile, 0.0, 0.0, register);
                             System.out.println(so);
-
+                            
                             StudentOfficialService sos = new StudentOfficialServiceImpl();
                             sos.insertStudent(so);
-
-                            // students.remove(students.get(j));
                             StudentUnofficialService studentUnofficialService = new StudentUnofficialServiceImpl();
                             System.out.println(studentUnofficialService.deleteUnofficialStudentById(students.get(j).getId()));
-
+                            --amountRemainStudent;
                         }
-
+                        if (amountRemainStudent == 0) {
+                            break;
+                        }
+                        startIndex += currentAmountOfStudentUnofficial - amountRemainStudent;
+                        currentAmountOfStudentUnofficial = amountRemainStudent;
                     }
-//                    for (StudentUnofficial o : students) {
-//                        System.out.println(o);
-//                    }
                     JOptionPane.showMessageDialog(null, "Divide grades successfully!");
                 } else {
                     JOptionPane.showMessageDialog(null, "Please choose a course for dividing grades");
                 }
             }
-
+            
         });
-
+        
     }
-
+    
     private void btShowWaitingStudents() {
         btShowWaitingStudents.addMouseListener(new MouseAdapter() {
             @Override
@@ -495,30 +485,23 @@ public class StudentsDivisionFrame extends javax.swing.JFrame {
                     for (Course c : courses) {
                         if (c.getNameCourse().equalsIgnoreCase(lbSelectedCourse.getText())) {
                             selectedCourse = c;
+                            idSelectedCourse=c.getIdCourse();
                             System.out.println(selectedCourse);
                             break;
                         }
                     }
                     StudentUnofficialService studentUnofficialService = new StudentUnofficialServiceImpl();
-
-                    List<StudentUnofficial> studentUnofficials = studentUnofficialService.getAll();
-
-                    for (StudentUnofficial s : studentUnofficials) {
-                        if (s.getIdRegisterCourse().equals(selectedCourse.getIdCourse())) {
-                            System.out.println(s);
-                            studentUnofficials.add(s);
-                        }
-                    }
-
+                    List<StudentUnofficial> studentUnofficials = studentUnofficialService.getStudentByIdCourse(idSelectedCourse);
+                   
                     ListOfStudentsFrame registeringStudentsFrame = new ListOfStudentsFrame(studentUnofficials, selectedCourse.getNameCourse());
                     registeringStudentsFrame.setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(null, "Please choose a course for dividing grades");
                 }
             }
-
+            
         });
-
+        
     }
-
+    
 }

@@ -24,6 +24,7 @@ public interface StudentUnofficialDao {
 
     public void deleteStudentByIdCourse(String idCourse);
 
+    public List<StudentUnofficial> getStudentByIdCourse(String idCourse);
     //public List<Student> readStudentFromExcelFile(String excelFilePath);
     public boolean deleteUnofficialStudentById(String id);
 }

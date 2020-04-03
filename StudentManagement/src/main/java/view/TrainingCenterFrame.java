@@ -51,9 +51,9 @@ public class TrainingCenterFrame extends JFrame {
     private final BorderLayout borderLayout = new BorderLayout();
     private final GridLayout gridLayout = new GridLayout(8, 0, 25, 5);
     private final GridLayout gridLayoutPanelItemCourse = new GridLayout(2, 0, 5, 5);
-    private final GridLayout gridLayoutPanelItemGrade = new GridLayout(3, 0, 5, 5);
+    private final GridLayout gridLayoutPanelItemGrade = new GridLayout(2, 0, 5, 5);
     private final GridLayout gridLayoutPanelItemStudent = new GridLayout(3, 0, 5, 5);
-    private final GridLayout gridLayoutPanelItemTeacher = new GridLayout(2, 0, 5, 6);
+    private final GridLayout gridLayoutPanelItemTeacher = new GridLayout(3, 0, 5, 5);
     private final GridLayout gridLayoutPanelItemFinancial = new GridLayout(2, 0, 5, 5);
     private final GridLayout gridLayoutPanelItemTraining = new GridLayout(3, 0, 5, 5);
     private final CardLayout cardLayout = new CardLayout();
@@ -91,9 +91,9 @@ public class TrainingCenterFrame extends JFrame {
     private JPanel pnItemTraining;
 
     private final JButton[] itemCourses = {new JButton("Admissions and Class arrangement"), new JButton("List of courses")};
-    private final JButton[] itemGrades = {new JButton("List of grades"), new JButton("Grade division"), new JButton("Storage of reserved students")};
+    private final JButton[] itemGrades = {new JButton("List of grades"), new JButton("Grade division")};
     private final JButton[] itemStudents = {new JButton("List of students"), new JButton("Study results"), new JButton("List of students warned, reminded")};
-    private final JButton[] itemTeachers = {new JButton("List of teachers"), new JButton("Recruitment lecturers"), new JButton("Assess, reward and discipline lecturers"), new JButton("Salary")};
+    private final JButton[] itemTeachers = {new JButton("List of teacher"), new JButton("Assess, reward and discipline lecturers"), new JButton("Salary")};
     private final JButton[] itemFinancials = {new JButton("Student tuition management"), new JButton("Central management of revenue and expenditure")};
     private final JButton[] itemTrainings = {new JButton("Plan for the new courses"), new JButton("Arrange lecturers, classrooms, class schedule"), new JButton("Detailed plan for each course")};
 
@@ -116,9 +116,11 @@ public class TrainingCenterFrame extends JFrame {
     private JLabel lbAccount;
     private JLabel lbWelcome;
     private JLabel lbAdmin;
+    private JLabel lbTilte;
 
     private JButton btSetting;
     private JButton btAlarm;
+    private JButton btEmail;
 
     private final Font pnLeftButtonsFont = new Font("Tahoma", Font.BOLD, 18);
 
@@ -127,6 +129,7 @@ public class TrainingCenterFrame extends JFrame {
         setVisible(true);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setSize(1080, 700);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         setIconImage(ImageUtils.load(getClass().getResource("/images/logo.png").getPath()));
         container.setLayout(borderLayout);
@@ -144,23 +147,29 @@ public class TrainingCenterFrame extends JFrame {
 
     private void initPnTopComponents() {
         pnTop = new JPanel();
-        pnTop.setBackground(new Color(0, 102, 204));
+        pnTop.setBackground(new Color(100, 255, 255));
         pnTop.setPreferredSize(new Dimension(0, 100));
         pnTop.setLayout(null);
 
-        lbAccount = new JLabel(ImageUtils.loadImageIcon(getClass().getResource("/images/account.png").getPath(), 50, 50));
+        lbTilte = new JLabel("WELCOME TO HTD CENTER TRAINING CENTER MANAGEMENT SYSTEM");
+        lbTilte.setFont(new Font(Font.MONOSPACED, Font.BOLD, 45));
+        lbTilte.setForeground(Color.RED);
+        lbTilte.setBounds(300, 20, (int) lbTilte.getPreferredSize().getWidth(), (int) lbTilte.getPreferredSize().getHeight());
+        pnTop.add(lbTilte);
+
+        lbAccount = new JLabel(ImageUtils.loadImageIcon(getClass().getResource("/images/default_avatar.png").getPath(), 50, 50));
         lbAccount.setBounds(100, 20, 50, 50);
         pnTop.add(lbAccount);
 
         lbWelcome = new JLabel("Welcome");
         lbWelcome.setFont(new Font(Font.SERIF, Font.BOLD, 20));
-        lbWelcome.setForeground(Color.WHITE);
+        lbWelcome.setForeground(Color.BLUE);
         lbWelcome.setBounds(10, 20, (int) lbWelcome.getPreferredSize().getWidth(), (int) lbWelcome.getPreferredSize().getHeight());
         pnTop.add(lbWelcome);
 
         lbAdmin = new JLabel("Admin");
         lbAdmin.setFont(new Font(Font.SERIF, Font.BOLD, 20));
-        lbAdmin.setForeground(Color.WHITE);
+        lbAdmin.setForeground(Color.BLUE);
         lbAdmin.setBounds(20, 45, (int) lbAdmin.getPreferredSize().getWidth(), (int) lbAdmin.getPreferredSize().getHeight());
         pnTop.add(lbAdmin);
 
@@ -177,6 +186,13 @@ public class TrainingCenterFrame extends JFrame {
         btSetting.setBounds(180, 60, 35, 35);
         btSetting.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/setting.png").getPath(), 30, 30));
         pnTop.add(btSetting);
+
+        btEmail = new JButton();
+        btEmail.setBackground(Color.WHITE);
+        btEmail.setFocusPainted(false);
+        btEmail.setBounds(1855, 55, 50, 40);
+        btEmail.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/email.png").getPath(), 50, 40));
+        pnTop.add(btEmail);
 
         container.add(pnTop, BorderLayout.NORTH);
     }
@@ -230,6 +246,13 @@ public class TrainingCenterFrame extends JFrame {
         createButton(btTraining);
         pnLeftTop.add(btTraining);
 
+        btHomePage.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/homepage.png").getPath()));
+        btCourse.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/courseManager.png").getPath()));
+        btGrade.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/grade.jpg").getPath()));
+        btStudent.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/studentManager.png").getPath()));
+        btTeacher.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/teacherManager.png").getPath()));
+        btFinancial.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/financialManager.jpg").getPath()));
+        btTraining.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/trainingManager.jpg").getPath()));
         pnLeftBottom = new JPanel();
         pnLeftBottom.setBackground(new Color(0, 102, 153));
         splitPanePnLeft.add(pnLeftBottom, JSplitPane.BOTTOM);
@@ -275,7 +298,13 @@ public class TrainingCenterFrame extends JFrame {
         //Training
         createButton(btTraining);
         pnLeftTop.add(btTraining);
-
+        btHomePage.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/homepage.png").getPath()));
+        btCourse.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/courseManager.png").getPath()));
+        btGrade.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/grade.jpg").getPath()));
+        btStudent.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/studentManager.png").getPath()));
+        btTeacher.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/teacherManager.png").getPath()));
+        btFinancial.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/financialManager.jpg").getPath()));
+        btTraining.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/trainingManager.jpg").getPath()));
         pnLeftBottom = new JPanel();
         pnLeftBottom.setBackground(new Color(0, 102, 153));
         splitPanePnLeft.add(pnLeftBottom, JSplitPane.BOTTOM);
@@ -321,7 +350,13 @@ public class TrainingCenterFrame extends JFrame {
         //Training
         createButton(btTraining);
         pnLeftTop.add(btTraining);
-
+        btHomePage.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/homepage.png").getPath()));
+        btCourse.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/courseManager.png").getPath()));
+        btGrade.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/grade.jpg").getPath()));
+        btStudent.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/studentManager.png").getPath()));
+        btTeacher.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/teacherManager.png").getPath()));
+        btFinancial.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/financialManager.jpg").getPath()));
+        btTraining.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/trainingManager.jpg").getPath()));
         pnLeftBottom = new JPanel();
         pnLeftBottom.setBackground(new Color(0, 102, 153));
         splitPanePnLeft.add(pnLeftBottom, JSplitPane.BOTTOM);
@@ -367,7 +402,13 @@ public class TrainingCenterFrame extends JFrame {
         //Training
         createButton(btTraining);
         pnLeftTop.add(btTraining);
-
+        btHomePage.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/homepage.png").getPath()));
+        btCourse.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/courseManager.png").getPath()));
+        btGrade.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/grade.jpg").getPath()));
+        btStudent.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/studentManager.png").getPath()));
+        btTeacher.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/teacherManager.png").getPath()));
+        btFinancial.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/financialManager.jpg").getPath()));
+        btTraining.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/trainingManager.jpg").getPath()));
         pnLeftBottom = new JPanel();
         pnLeftBottom.setBackground(new Color(0, 102, 153));
         splitPanePnLeft.add(pnLeftBottom, JSplitPane.BOTTOM);
@@ -414,7 +455,13 @@ public class TrainingCenterFrame extends JFrame {
         //Training
         createButton(btTraining);
         pnLeftTop.add(btTraining);
-
+        btHomePage.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/homepage.png").getPath()));
+        btCourse.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/courseManager.png").getPath()));
+        btGrade.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/grade.jpg").getPath()));
+        btStudent.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/studentManager.png").getPath()));
+        btTeacher.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/teacherManager.png").getPath()));
+        btFinancial.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/financialManager.jpg").getPath()));
+        btTraining.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/trainingManager.jpg").getPath()));
         pnLeftBottom = new JPanel();
         pnLeftBottom.setBackground(new Color(0, 102, 153));
         splitPanePnLeft.add(pnLeftBottom, JSplitPane.BOTTOM);
@@ -460,7 +507,13 @@ public class TrainingCenterFrame extends JFrame {
         pnItemTraining.setLayout(gridLayoutPanelItemTraining);
         createItemPanel(pnItemTraining, itemTrainings);
         pnLeftTop.add(pnItemTraining);
-
+        btHomePage.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/homepage.png").getPath()));
+        btCourse.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/courseManager.png").getPath()));
+        btGrade.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/grade.jpg").getPath()));
+        btStudent.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/studentManager.png").getPath()));
+        btTeacher.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/teacherManager.png").getPath()));
+        btFinancial.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/financialManager.jpg").getPath()));
+        btTraining.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/trainingManager.jpg").getPath()));
         pnLeftBottom = new JPanel();
         pnLeftBottom.setBackground(new Color(0, 102, 153));
         splitPanePnLeft.add(pnLeftBottom, JSplitPane.BOTTOM);
@@ -502,7 +555,13 @@ public class TrainingCenterFrame extends JFrame {
         //Training
         createButton(btTraining);
         pnLeftTop.add(btTraining);
-
+        btHomePage.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/homepage.png").getPath()));
+        btCourse.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/courseManager.png").getPath()));
+        btGrade.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/grade.jpg").getPath()));
+        btStudent.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/studentManager.png").getPath()));
+        btTeacher.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/teacherManager.png").getPath()));
+        btFinancial.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/financialManager.jpg").getPath()));
+        btTraining.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/trainingManager.jpg").getPath()));
         pnLeftBottom = new JPanel();
         pnLeftBottom.setBackground(new Color(0, 102, 153));
         splitPanePnLeft.add(pnLeftBottom, JSplitPane.BOTTOM);
@@ -591,105 +650,96 @@ public class TrainingCenterFrame extends JFrame {
                             pnCenter.removeAll();
                             pnCenter.add(pnHomepage);
                             initEvents();
-                        }
-                        //display and hint item of panelCourse
-                        if (btCourse.getText().equalsIgnoreCase(button.getText())) {
-                            if (!statusBtCourse) {
-                                disableBackgroundButtons(btCourse);
-                                initPnLeftComponentsSelectedBtCourse();
-                                initEvents();
-                                pnItemCourseEvents();
-                                statusBtCourse = !statusBtCourse;
+                        } else {
+                            //display and hint item of panelCourse
+                            if (btCourse.getText().equalsIgnoreCase(button.getText())) {
+                                if (!statusBtCourse) {
+                                    disableBackgroundButtons(btCourse);
+                                    initPnLeftComponentsSelectedBtCourse();
+                                    initEvents();
+                                    pnItemCourseEvents();
+                                    statusBtCourse = !statusBtCourse;
+                                } else {
+                                    initPnLeftComponentsDefault();
+                                    initEvents();
+                                    statusBtCourse = !statusBtCourse;
+                                }
                             } else {
-                                initPnLeftComponentsDefault();
-                                initEvents();
-                                System.out.println("Hint");
-                                statusBtCourse = !statusBtCourse;
-                            }
-                        }
-                        //display and hint item of panelGrade
-                        if (btGrade.getText().equalsIgnoreCase(button.getText())) {
-                            if (!statusBtGrade) {
-                                initPnLeftComponentsSelectedBtGrade();
-                                initEvents();
-                                pnItemGradeEvents();
-                                statusBtGrade = !statusBtGrade;
-                            } else {
-                                initPnLeftComponentsDefault();
-                                initEvents();
-                                statusBtGrade = !statusBtGrade;
-                            }
-                        }
-                        //display and hint item of panelStudent
-                        if (btStudent.getText().equalsIgnoreCase(button.getText())) {
-                            if (!statusBtStudent) {
-                                initPnLeftComponentsSelectedBtStudent();
-                                initEvents();
-                                pnItemStudentEvents();
-                                statusBtStudent = !statusBtStudent;
-                            } else {
-                                initPnLeftComponentsDefault();
-                                initEvents();
-                                statusBtStudent = !statusBtStudent;
-                            }
-                        }
-                        //display and hint item of panelTeacher
-                        if (btTeacher.getText().equalsIgnoreCase(button.getText())) {
-                            if (!statusBtTeacher) {
-                                initPnItemsTeacher();
-                                initEvents();
-                                pnItemTeacherEvents();
-                                statusBtTeacher = !statusBtTeacher;
-                            } else {
-                                initPnLeftComponentsDefault();
-                                initEvents();
-                                statusBtTeacher = !statusBtTeacher;
-                            }
-                        }
+                                //display and hint item of panelGrade
+                                if (btGrade.getText().equalsIgnoreCase(button.getText())) {
+                                    if (!statusBtGrade) {
+                                        initPnLeftComponentsSelectedBtGrade();
+                                        initEvents();
+                                        pnItemGradeEvents();
+                                        statusBtGrade = !statusBtGrade;
+                                    } else {
+                                        initPnLeftComponentsDefault();
+                                        initEvents();
+                                        statusBtGrade = !statusBtGrade;
+                                    }
+                                } else {
+                                    //display and hint item of panelStudent
+                                    if (btStudent.getText().equalsIgnoreCase(button.getText())) {
+                                        if (!statusBtStudent) {
+                                            initPnLeftComponentsSelectedBtStudent();
+                                            initEvents();
+                                            pnItemStudentEvents();
+                                            statusBtStudent = !statusBtStudent;
+                                        } else {
+                                            initPnLeftComponentsDefault();
+                                            initEvents();
+                                            statusBtStudent = !statusBtStudent;
+                                        }
+                                    } else {
+                                        //display and hint item of panelTeacher
+                                        if (btTeacher.getText().equalsIgnoreCase(button.getText())) {
+                                            if (!statusBtTeacher) {
+                                                initPnLeftComponentsSelectedBtTeacher();
+                                                initEvents();
+                                                pnItemTeacherEvents();
+                                                statusBtTeacher = !statusBtTeacher;
+                                            } else {
+                                                initPnLeftComponentsDefault();
+                                                initEvents();
+                                                statusBtTeacher = !statusBtTeacher;
+                                            }
+                                        } else {
+                                            //display and hint item of panelFinancial
+                                            if (btFinancial.getText().equalsIgnoreCase(button.getText())) {
+                                                if (!statusBtFinancial) {
+                                                    initPnLeftComponentsSelectedBtFinancial();
+                                                    initEvents();
+                                                    pnItemFinicialEvents();
+                                                    statusBtFinancial = !statusBtFinancial;
+                                                } else {
+                                                    initPnLeftComponentsDefault();
+                                                    initEvents();
+                                                    statusBtFinancial = !statusBtFinancial;
+                                                }
+                                            } else {
+                                                //display and hint item of panelTraining
+                                                if (btTraining.getText().equalsIgnoreCase(button.getText())) {
+                                                    if (!statusBtTraining) {
+                                                        initPnLeftComponentsSelectedBtTraining();
+                                                        initEvents();
+                                                        pnItemTrainingEvents();
+                                                        statusBtTraining = !statusBtTraining;
+                                                    } else {
 
-                        //display and hint item of panelFinancial
-                        if (btFinancial.getText().equalsIgnoreCase(button.getText())) {
-                            if (!statusBtFinancial) {
-                                System.out.println("Show");
-                                gridLayoutPanelItemFinancial.setRows(3);
-                                initPnLeftComponentsSelectedBtFinancial();
-                                initEvents();
-                                pnItemFinicialEvents();
-                                statusBtFinancial = !statusBtFinancial;
-                            } else {
-                                initPnLeftComponentsDefault();
-                                initEvents();
-                                System.out.println("Hint");
-                                statusBtFinancial = !statusBtFinancial;
-                            }
-                        }
-                        //display and hint item of panelTraining
-                        if (btTraining.getText().equalsIgnoreCase(button.getText())) {
-                            if (!statusBtTraining) {
-                                System.out.println("Show" + button.getText());
-                                initPnLeftComponentsSelectedBtTraining();
-                                initEvents();
-                                pnItemTrainingEvents();
-                                statusBtTraining = !statusBtTraining;
-                            } else {
+                                                        initPnLeftComponentsDefault();
+                                                        initEvents();
+                                                        statusBtTraining = !statusBtTraining;
+                                                    }
+                                                }
+                                            }
 
-                                initPnLeftComponentsDefault();
-                                initEvents();
-                                System.out.println("Hint");
-                                statusBtTraining = !statusBtTraining;
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
                 });
-            }
-        }
-    }
-
-    private void disableHighLightButtons(Component... components) {
-        for (Component component : components) {
-            if (component instanceof JButton) {
-                final JButton button = (JButton) component;
-                button.setBorder(defaultBorder);
             }
         }
     }
@@ -709,7 +759,6 @@ public class TrainingCenterFrame extends JFrame {
             public void mousePressed(MouseEvent e) {
                 JFrame settingFrame = new SettingFrame((JFrame) SwingUtilities.getRoot(btSetting));
                 settingFrame.setLocation(btSetting.getLocationOnScreen().getLocation());
-
                 settingFrame.setVisible(true);
             }
 
@@ -730,14 +779,15 @@ public class TrainingCenterFrame extends JFrame {
                         EnrollmentGradePlacementPanel enrollmentGradePlacementPanel = new EnrollmentGradePlacementPanel();
                         pnCenter.add(enrollmentGradePlacementPanel);
                         enrollmentGradePlacementPanel.setVisible(true);
-                    }
-                    //show list courses
-                    if (btItemPnCourse.getText().equalsIgnoreCase(itemCourses[1].getText())) {
-                        pnCenter.removeAll();
-                        pnCenter.revalidate();
-                        CourseInformationPanel courseInformationPanel = new CourseInformationPanel();
-                        pnCenter.add(courseInformationPanel);
-                        courseInformationPanel.setVisible(true);
+                    } else {
+                        //show list courses
+                        if (btItemPnCourse.getText().equalsIgnoreCase(itemCourses[1].getText())) {
+                            pnCenter.removeAll();
+                            pnCenter.revalidate();
+                            CourseInformationPanel courseInformationPanel = new CourseInformationPanel();
+                            pnCenter.add(courseInformationPanel);
+                            courseInformationPanel.setVisible(true);
+                        }
                     }
                 }
 
@@ -769,18 +819,15 @@ public class TrainingCenterFrame extends JFrame {
                         StudentInformationPanel studentPanel = new StudentInformationPanel();
                         pnCenter.add(studentPanel);
                         studentPanel.setVisible(true);
-                    }
-                    //Grade division
-                    if (btItemPnGrade.getText().equalsIgnoreCase(itemGrades[1].getText())) {
-                        pnCenter.removeAll();
-                        pnCenter.revalidate();
-                        DivisionGradePanel divisionGradePanel = new DivisionGradePanel();
-                        pnCenter.add(divisionGradePanel);
-                        divisionGradePanel.setVisible(true);
-                    }
-                    //Storage of reserved students
-                    if (btItemPnGrade.getText().equalsIgnoreCase(itemGrades[2].getText())) {
-
+                    } else {
+                        //Grade division
+                        if (btItemPnGrade.getText().equalsIgnoreCase(itemGrades[1].getText())) {
+                            pnCenter.removeAll();
+                            pnCenter.revalidate();
+                            DivisionGradePanel divisionGradePanel = new DivisionGradePanel();
+                            pnCenter.add(divisionGradePanel);
+                            divisionGradePanel.setVisible(true);
+                        }
                     }
                 }
 
@@ -808,14 +855,16 @@ public class TrainingCenterFrame extends JFrame {
                     //List students
                     if (btItemPnStudent.getText().equalsIgnoreCase(itemStudents[0].getText())) {
 
-                    }
-                    //Student results
-                    if (btItemPnStudent.getText().equalsIgnoreCase(itemStudents[1].getText())) {
+                    } else {
+                        //Student results
+                        if (btItemPnStudent.getText().equalsIgnoreCase(itemStudents[1].getText())) {
 // Đức
-                    }
-                    //List of students warned, reminded
-                    if (btItemPnStudent.getText().equalsIgnoreCase(itemStudents[2].getText())) {
+                        } else {
+                            //List of students warned, reminded
+                            if (btItemPnStudent.getText().equalsIgnoreCase(itemStudents[2].getText())) {
 
+                            }
+                        }
                     }
                 }
 
@@ -843,18 +892,16 @@ public class TrainingCenterFrame extends JFrame {
                     //List of teachers 
                     if (btItemPnTeacher.getText().equalsIgnoreCase(itemTeachers[0].getText())) {
 //Đức
-                    }
-                    //Recruitment lecturers
-                    if (btItemPnTeacher.getText().equalsIgnoreCase(itemTeachers[1].getText())) {
+                    } else {
+                        // Assess, reward and discipline lecturers
+                        if (btItemPnTeacher.getText().equalsIgnoreCase(itemTeachers[1].getText())) {
 
-                    }
-                    /// Assess, reward and discipline lecturers
-                    if (btItemPnTeacher.getText().equalsIgnoreCase(itemTeachers[2].getText())) {
+                        } else {
+                            ///Salary
+                            if (btItemPnTeacher.getText().equalsIgnoreCase(itemTeachers[2].getText())) {
 
-                    }
-                    ///Salary
-                    if (btItemPnTeacher.getText().equalsIgnoreCase(itemTeachers[3].getText())) {
-
+                            }
+                        }
                     }
                 }
 
@@ -882,10 +929,11 @@ public class TrainingCenterFrame extends JFrame {
                     ///Student tuition management
                     if (btItemPnFinicial.getText().equalsIgnoreCase(itemFinancials[0].getText())) {
 
-                    }
-                    ///Central management of revenue and expenditure
-                    if (btItemPnFinicial.getText().equalsIgnoreCase(itemFinancials[1].getText())) {
+                    } else {
+                        ///Central management of revenue and expenditure
+                        if (btItemPnFinicial.getText().equalsIgnoreCase(itemFinancials[1].getText())) {
 
+                        }
                     }
                 }
 
@@ -913,14 +961,16 @@ public class TrainingCenterFrame extends JFrame {
                     //Plan for course
                     if (btItemPnTraining.getText().equalsIgnoreCase(itemTrainings[0].getText())) {
 
-                    }
-                    //Arrange lecturers, classrooms, class schedule
-                    if (btItemPnTraining.getText().equalsIgnoreCase(itemTrainings[1].getText())) {
+                    } else {
+                        //Arrange lecturers, classrooms, class schedule
+                        if (btItemPnTraining.getText().equalsIgnoreCase(itemTrainings[1].getText())) {
 
-                    }
-                    //Detailed plan for each course
-                    if (btItemPnTraining.getText().equalsIgnoreCase(itemTrainings[2].getText())) {
+                        } else {
+                            //Detailed plan for each course
+                            if (btItemPnTraining.getText().equalsIgnoreCase(itemTrainings[2].getText())) {
 
+                            }
+                        }
                     }
                 }
 
@@ -936,34 +986,6 @@ public class TrainingCenterFrame extends JFrame {
                 }
             });
         }
-    }
-
-    private void initBtTeacher() {
-        pnLeftTop = new JPanel();
-        pnLeftTop.setLayout(gridLayout);
-        pnLeftTop.setBackground(defaultBackground);
-        pnLeftTop.setPreferredSize(new Dimension(220, 300));
-        splitPanePnLeft.add(pnLeftTop, JSplitPane.TOP);
-        btTeacher = new JButton("Teacher management");
-
-        createButton(btTeacher);
-        pnLeftTop.add(btTeacher);
-    }
-
-    private void initPnItemsTeacher() {
-        pnLeftTop.removeAll();
-        pnLeftTop.revalidate();
-        pnItemTeacher = new JPanel();
-        pnItemTeacher.setLayout(gridLayoutPanelItemTeacher);
-        createItemPanel(pnItemTeacher, itemTeachers);
-        pnLeftTop.add(pnItemTeacher);
-        JButton btBack = new JButton("Back");
-        btBack.setBackground(Color.GRAY);
-        btBack.setForeground(Color.WHITE);
-        btBack.setFocusPainted(false);
-        btBack.addMouseListener(new MouseAdapter() {
-            //trở về trạng thái ban đầu  
-        });
     }
 
     public static void main(String[] args) {

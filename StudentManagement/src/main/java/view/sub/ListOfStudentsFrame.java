@@ -222,27 +222,4 @@ public class ListOfStudentsFrame extends javax.swing.JFrame {
         loadDataIntoJTable(listProfileStudents);
 
     }
-
-//    private void btAddEvents() {
-//
-//        btAdd.addMouseListener(new MouseAdapter() {
-//            @Override
-//            public void mousePressed(MouseEvent e) {
-//                btAdd.setVisible(false);
-//                JButton btShowRemaingStudents = new JButton("Show Waiting Students");
-//                btShowRemaingStudents.setBackground(new java.awt.Color(255, 255, 255));
-//                btShowRemaingStudents.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-//                JButton btShowStudentOfficials = new JButton("Show Student Officials");
-//
-//                btShowStudentOfficials.setBackground(new java.awt.Color(255, 255, 255));
-//                btShowStudentOfficials.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-//
-//                pnCenterTop.add(btShowStudentOfficials);
-//                pnCenterTop.add(btShowRemaingStudents);
-//                btShowStudentOfficials.setVisible(true);
-//                btShowRemaingStudents.setVisible(true);
-//            }
-//
-//        });
-//    }
 }
