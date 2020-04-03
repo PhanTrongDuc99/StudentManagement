@@ -2,19 +2,17 @@ utils\ExcelUtils.class
 dao\StudentUnofficialDaoImpl.class
 service\CourseService.class
 view\sub\EnrollmentGradePlacementPanel$1.class
-view\sub\StudentInformationForm$8.class
 utils\SizeUtils.class
 service\AdminService.class
 view\sub\RegisterForm$6.class
 view\sub\RegisterForm$11.class
 dao\ProfileDao.class
 entities\Result.class
+view\sub\StudentInformationPanel$13.class
 view\sub\StudentInformationPanel$2.class
 service\StudentOfficialService.class
-view\sub\StudentInformationForm$2.class
 view\sub\StudentInformationPanel.class
 utils\DateUtils.class
-view\sub\StudentInformationForm.class
 view\sub\SettingFrame$1.class
 entities\Admin.class
 view\sub\RegisterForm$17.class
@@ -35,7 +33,6 @@ view\sub\StudentsDivisionFrame$3.class
 service\TimeKeepingService.class
 common\CellValue.class
 dao\AdminDao.class
-view\sub\StudentInformationForm$7.class
 view\sub\CourseInformationPanel$5.class
 view\sub\RegisterForm$7.class
 service\StudentUnofficialServiceImpl.class
@@ -68,11 +65,9 @@ view\TrainingCenterFrame.class
 view\sub\RegisterForm$2.class
 view\sub\LoginForm.class
 view\sub\TrainingPanel.class
-view\sub\StudentInformationForm$6.class
 view\sub\StudentInformationPanel$8.class
 view\sub\CourseInformationPanel$9.class
 view\sub\CourseForm$2.class
-view\sub\StudentInformationForm$3.class
 view\TrainingCenterFrame$4.class
 entities\Teacher.class
 view\sub\CoursePanel.class
@@ -87,7 +82,6 @@ view\TrainingCenterFrame$3.class
 view\sub\StudentInformationPanel$7.class
 view\sub\CourseForm$1.class
 common\Time.class
-view\sub\StudentInformationForm$4.class
 view\sub\RegisterForm.class
 view\sub\SettingFrame$3.class
 view\sub\DetailStudentUnOfficialForm$1.class
@@ -101,7 +95,6 @@ view\sub\CourseForm.class
 service\RegisterService.class
 view\TrainingCenterFrame$6.class
 view\sub\RegisterForm$14.class
-view\sub\StudentInformationForm$5.class
 view\sub\CourseInformationPanel$8.class
 view\sub\RegisterForm$3.class
 view\sub\StudentPanel.class
@@ -134,7 +127,6 @@ view\sub\ListOfStudentsFrame$2.class
 dao\CourseDao.class
 view\sub\StudentsDivisionFrame$2.class
 view\sub\RegisterForm$15.class
-view\sub\StudentInformationForm$1.class
 utils\CheckUtil.class
 view\sub\CourseInformationPanel$4.class
 view\sub\StudentInformationPanel$3.class

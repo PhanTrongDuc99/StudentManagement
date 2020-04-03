@@ -9,6 +9,7 @@ package view.sub;
 import entities.Grade;
 import entities.Profile;
 import entities.StudentOfficial;
+import java.awt.Dialog;
 import java.awt.Font;
 import java.awt.Frame;
 import java.awt.event.KeyAdapter;
@@ -26,9 +27,16 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import service.GradeService;
 import service.GradeServiceImpl;
+import service.ProfileService;
+import service.ProfileServiceImpl;
+import service.RegisterService;
+import service.RegisterServiceImpl;
+import service.ResultService;
+import service.ResultServiceImpl;
 import service.StudentOfficialService;
 import service.StudentOfficialServiceImpl;
 import utils.ImageUtils;
+import view.TrainingCenterFrame;
 
 /**
  *
@@ -40,9 +48,9 @@ public class StudentInformationPanel extends javax.swing.JPanel {
     private final Font newFont = new Font("Tahoma", Font.BOLD, 14);
 
     public StudentInformationPanel() {
+
         initComponents();
         btAdd.setFocusPainted(false);
-        btDelete.setFocusPainted(false);
         tbStudent = new JTable();
         jSGrade = new JScrollPane(tbStudent);
         add(jSGrade);
@@ -50,12 +58,6 @@ public class StudentInformationPanel extends javax.swing.JPanel {
         initEvents();
     }
 
-    public static void main(String[] args) {
-        Frame frame = new Frame();
-        frame.setExtendedState(Frame.MAXIMIZED_BOTH);
-        frame.add(new StudentInformationPanel());
-        frame.setVisible(true);
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -68,6 +70,7 @@ public class StudentInformationPanel extends javax.swing.JPanel {
         tfSearchEvent();
         btShowEvents();
         detailColumnEvents();
+        deleteColumnEvents();
     }
 
     private void loadDataGradeIntoJTable(List<StudentOfficial> list) {
@@ -79,7 +82,7 @@ public class StudentInformationPanel extends javax.swing.JPanel {
 
             @Override
             public void setValueAt(Object aValue, int row, int column) {
-                
+
                 super.setValueAt(aValue, row, column); //To change body of generated methods, choose Tools | Templates.
             }
 
@@ -156,21 +159,17 @@ public class StudentInformationPanel extends javax.swing.JPanel {
     }
 
     private void btEditEvents() {
-        btDelete.addMouseListener(new MouseAdapter() {
+        btEdit1.addMouseListener(new MouseAdapter() {
 
             @Override
             public void mousePressed(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                btDelete.setFont(newFont);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                btDelete.setFont(defaultFont);
+                List<Grade> grades = gradeService.getAll();
+                String name = tfSearch.getText();
+                int currentStudentQuantity = (int) listStudents.stream().filter(t -> t.getGrade().getNameGrade().equals(name)).count();
+                Grade grade = grades.stream().filter(t -> t.getNameGrade().equals(name)).findFirst().get();
+                System.out.println("------------" +grade);
+                GradeInformationForm gradeInforForm = new GradeInformationForm(grade, currentStudentQuantity);
+                gradeInforForm.setVisible(true);
             }
 
         });
@@ -180,6 +179,7 @@ public class StudentInformationPanel extends javax.swing.JPanel {
         showButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
+                List<Grade> grades = gradeService.getAll();
                 String name = tfSearch.getText();
                 int currentStudentQuantity = (int) listStudents.stream().filter(t -> t.getGrade().getNameGrade().equals(name)).count();
                 if (!grades.stream().anyMatch(t -> t.getNameGrade().equals(name))) {
@@ -195,6 +195,7 @@ public class StudentInformationPanel extends javax.swing.JPanel {
                     lbTeacher.setText(grade.getTeacher().getProfileTeacher().getFullName());
                 }
             }
+
         }
         );
     }
@@ -202,24 +203,41 @@ public class StudentInformationPanel extends javax.swing.JPanel {
     private void detailColumnEvents() {
         tbStudent.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent evt) {
+            public void mousePressed(MouseEvent evt) {
                 int row = tbStudent.rowAtPoint(evt.getPoint());
                 int col = tbStudent.columnAtPoint(evt.getPoint());
-                int i = tbStudent.getSelectedRow();
                 if ((row >= 0 && col == 7)) {
-                    StudentOfficial student = listStudents.stream().filter(t -> t.getId().equals(tbStudent.getValueAt(row, 0))).findFirst().get();
-                    DetailStudentOfficialForm form = new DetailStudentOfficialForm(student, model,row);
+                    StudentOfficial student = stService.getStudent((String) tbStudent.getValueAt(row, 0));
+                    DetailStudentOfficialForm form = new DetailStudentOfficialForm(student, model, row);
                     form.setVisible(true);
                     System.out.println(student);
-//                    model.setValueAt(student.getId(), i, 0);
-//                    model.setValueAt(student.getProfile().getFullName(), i, 1);
-//                    model.setValueAt(student.getGrade().getNameGrade(), i, 2);
-//                    model.setValueAt(student.getProfile().getEmail(), i, 3);
-//                    model.setValueAt(student.getProfile().isGender(), i, 4);
-//                    model.setValueAt(student.getProfile().getIdNumber(), i, 5);
-//                    model.setValueAt(student.getProfile().getCurrentAddress(), i, 6);
-//                    model.updateFile(model.);
+                }
+            }
+        });
+    }
 
+    private void deleteColumnEvents() {
+        tbStudent.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                int row = tbStudent.rowAtPoint(e.getPoint());
+                int col = tbStudent.columnAtPoint(e.getPoint());
+                if ((row >= 0 && col == 8)) {
+                    int option = JOptionPane.showConfirmDialog(null, "Are you sure to delete this student?",
+                            "Notification", JOptionPane.YES_NO_OPTION);
+                    if (option == 0) {
+                        StudentOfficial student = stService.getStudent((String) tbStudent.getValueAt(row, 0));
+
+                        stService.deleteStudentById(student.getId());
+                        prsv.deleteProfileById(student.getProfile().getId());
+                        ressv.deleteResultById(student.getResultStudy().getId());
+                        regsv.deleteRegisterById(student.getRegister().getId());
+                        JOptionPane.showMessageDialog(StudentInformationPanel.this,
+                                "delete successfully!!!", "Notification",
+                                JOptionPane.OK_OPTION, ImageUtils.loadImageIcon(getClass().getResource("/images/alarm.png").getPath()));
+                       
+                        model.removeRow(row);
+                    }
                 }
             }
         });
@@ -233,7 +251,6 @@ public class StudentInformationPanel extends javax.swing.JPanel {
         lbFind = new javax.swing.JLabel();
         tfSearch = new javax.swing.JTextField();
         btAdd = new javax.swing.JButton();
-        btDelete = new javax.swing.JButton();
         showButton = new javax.swing.JButton();
         btEdit1 = new javax.swing.JButton();
         pnBottom = new javax.swing.JPanel();
@@ -276,30 +293,24 @@ public class StudentInformationPanel extends javax.swing.JPanel {
             }
         });
 
-        btDelete.setBackground(new java.awt.Color(255, 102, 102));
-        btDelete.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btDelete.setForeground(new java.awt.Color(255, 255, 255));
-        btDelete.setText("Delete");
-        btDelete.setMaximumSize(new java.awt.Dimension(67, 25));
-        btDelete.setMinimumSize(new java.awt.Dimension(67, 25));
-        btDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btDeleteActionPerformed(evt);
-            }
-        });
-
         showButton.setBackground(new java.awt.Color(153, 153, 255));
         showButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         showButton.setForeground(new java.awt.Color(255, 255, 255));
-        showButton.setText("Show");
+        showButton.setText("Show Grade");
         showButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         showButton.setFocusPainted(false);
+        showButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showButtonActionPerformed(evt);
+            }
+        });
 
         btEdit1.setBackground(new java.awt.Color(255, 102, 102));
         btEdit1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btEdit1.setForeground(new java.awt.Color(255, 255, 255));
         btEdit1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/edit-icon.gif"))); // NOI18N
-        btEdit1.setText("Edit");
+        btEdit1.setText("Edit Grade");
+        btEdit1.setFocusPainted(false);
         btEdit1.setMaximumSize(new java.awt.Dimension(67, 25));
         btEdit1.setMinimumSize(new java.awt.Dimension(67, 25));
         btEdit1.addActionListener(new java.awt.event.ActionListener() {
@@ -317,15 +328,13 @@ public class StudentInformationPanel extends javax.swing.JPanel {
                 .addComponent(lbFind)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
+                .addGap(18, 18, 18)
                 .addComponent(showButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 182, Short.MAX_VALUE)
-                .addComponent(btDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
+                .addGap(34, 34, 34)
                 .addComponent(btEdit1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 295, Short.MAX_VALUE)
                 .addComponent(btAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43))
+                .addGap(27, 27, 27))
         );
         pnTopLayout.setVerticalGroup(
             pnTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -335,7 +344,6 @@ public class StudentInformationPanel extends javax.swing.JPanel {
                     .addComponent(lbFind)
                     .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btAdd)
-                    .addComponent(btDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(showButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btEdit1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(4, 11, Short.MAX_VALUE))
@@ -394,46 +402,44 @@ public class StudentInformationPanel extends javax.swing.JPanel {
                 .addGroup(pnBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnBottomLayout.createSequentialGroup()
                         .addComponent(lbEndTime, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(362, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(pnBottomLayout.createSequentialGroup()
                         .addComponent(lbStartTime)
-                        .addGap(100, 100, 100)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 157, Short.MAX_VALUE)
                         .addComponent(jLabel8)
                         .addGap(30, 30, 30)
                         .addComponent(lbTeacher)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(102, 102, 102))))
         );
         pnBottomLayout.setVerticalGroup(
             pnBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnBottomLayout.createSequentialGroup()
                 .addGroup(pnBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnBottomLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(pnBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(lbTeacher))
-                        .addGap(28, 28, 28))
                     .addComponent(lbAvatarCourse, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pnBottomLayout.createSequentialGroup()
                         .addContainerGap()
+                        .addGroup(pnBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(nameLabel)
+                            .addComponent(lbFulname))
+                        .addGap(18, 18, 18)
+                        .addGroup(pnBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(lbStudentQuantity))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(pnBottomLayout.createSequentialGroup()
                         .addGroup(pnBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel3)
+                                .addComponent(lbStartTime))
                             .addGroup(pnBottomLayout.createSequentialGroup()
-                                .addGroup(pnBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(nameLabel)
-                                    .addComponent(lbFulname))
-                                .addGap(18, 18, 18)
-                                .addGroup(pnBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel2)
-                                    .addComponent(lbStudentQuantity))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(pnBottomLayout.createSequentialGroup()
-                                .addGroup(pnBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel3)
-                                    .addComponent(lbStartTime))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(pnBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel7)
-                                    .addComponent(lbEndTime))))))
+                                .addGap(21, 21, 21)
+                                .addGroup(pnBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(lbTeacher))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(pnBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(lbEndTime))))
                 .addContainerGap())
         );
 
@@ -490,18 +496,17 @@ public class StudentInformationPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btAddActionPerformed
 
-    private void btDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeleteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btDeleteActionPerformed
-
     private void btEdit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEdit1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btEdit1ActionPerformed
 
+    private void showButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_showButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAdd;
-    private javax.swing.JButton btDelete;
     private javax.swing.JButton btEdit1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -524,9 +529,11 @@ public class StudentInformationPanel extends javax.swing.JPanel {
     private javax.swing.JTextField tfSearch;
     // End of variables declaration//GEN-END:variables
     private DefaultTableModel model;
-    private StudentOfficialService soService = new StudentOfficialServiceImpl();
-    private GradeService gradeService = new GradeServiceImpl();
-    private final List<StudentOfficial> listStudents = soService.getAll();
-    private final List<Grade> grades = gradeService.getAll();
+    private final StudentOfficialService stService = new StudentOfficialServiceImpl();
+    private final GradeService gradeService = new GradeServiceImpl();
+    private final ResultService ressv = new ResultServiceImpl();
+    private final ProfileService prsv = new ProfileServiceImpl();
+    private final RegisterService regsv = new RegisterServiceImpl();
+    private final List<StudentOfficial> listStudents = stService.getAll();
 
 }

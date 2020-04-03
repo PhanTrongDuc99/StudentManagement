@@ -221,4 +221,31 @@ public class GradeDaoImpl implements GradeDao {
         return amountRowDeleted != 0;
     }
 
+    @Override
+    public boolean updateGradeById(String id, Grade grade) {
+        int amountRowUpdated = 0;
+        try {
+            connection = connectionManager.getConnection();
+            String query = "UPDATE GRADE SET Name =?, StudentQuantity=?, StartTime=?, EndTime=?, IdTeacher=? WHERE Id=?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, grade.getNameGrade());
+            preparedStatement.setInt(2, grade.getStudentQuantity());
+            preparedStatement.setString(3, grade.getStartTime().toString());
+            preparedStatement.setString(4, grade.getEndTime().toString());
+            preparedStatement.setString(5, grade.getTeacher().getIdTeacher());
+            preparedStatement.setString(6, id);
+            amountRowUpdated = preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                preparedStatement.close();
+                connection.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        return amountRowUpdated != 0;
+    }
+
 }

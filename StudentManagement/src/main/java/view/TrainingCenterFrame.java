@@ -125,7 +125,7 @@ public class TrainingCenterFrame extends JFrame {
     public TrainingCenterFrame(String title) {
         super(title);
         setVisible(true);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setSize(1080, 700);
         setLocationRelativeTo(null);
         setIconImage(ImageUtils.load(getClass().getResource("/images/logo.png").getPath()));

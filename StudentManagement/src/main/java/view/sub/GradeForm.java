@@ -48,7 +48,7 @@ public class GradeForm extends JFrame {
         add(js);
         loadDataGradeIntoJTable(mockData());
     }
-
+    
     private void loadDataGradeIntoJTable(List<Grade> list) {
         model = new DefaultTableModel() {
             @Override

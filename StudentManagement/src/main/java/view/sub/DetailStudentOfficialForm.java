@@ -109,8 +109,11 @@ public class DetailStudentOfficialForm extends javax.swing.JFrame {
                 GradeService grsv = new GradeServiceImpl();
 
                 stsv.deleteStudentById(student.getId());
+
                 prsv.deleteProfileById(student.getProfile().getId());
+
                 ressv.deleteResultById(student.getResultStudy().getId());
+
                 Boolean gender = Boolean.parseBoolean(String.valueOf(genderTextField.getText()));
 
                 Profile profile = null;
@@ -152,7 +155,6 @@ public class DetailStudentOfficialForm extends javax.swing.JFrame {
 
         });
     }
-
 
     public void showButtonEvents() {
         showButton.addMouseListener(new MouseAdapter() {

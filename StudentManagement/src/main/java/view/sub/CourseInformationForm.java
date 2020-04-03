@@ -6,14 +6,11 @@
 package view.sub;
 
 import entities.Course;
-import java.awt.Frame;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.Arrays;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-import javax.swing.WindowConstants;
 import org.apache.commons.io.FilenameUtils;
 import utils.FileUtils;
 import utils.ImageUtils;
