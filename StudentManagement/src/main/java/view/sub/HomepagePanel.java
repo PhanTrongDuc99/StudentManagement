@@ -5,6 +5,27 @@
  */
 package view.sub;
 
+import dao.CourseDao;
+import dao.CourseDaoImpl;
+import dao.GradeDao;
+import dao.GradeDaoImpl;
+import dao.StudentOfficialDao;
+import dao.StudentOfficialDaoImpl;
+import dao.TeacherDao;
+import dao.TeacherDaoImpl;
+import entities.Course;
+import entities.Grade;
+import entities.StudentOfficial;
+import entities.Teacher;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.util.List;
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
+import javax.swing.border.Border;
+import utils.ImageUtils;
+
 /**
  *
  * @author SMILE ^^
@@ -14,8 +35,17 @@ public class HomepagePanel extends javax.swing.JPanel {
     /**
      * Creates new form NewJPanel
      */
+    private CourseDao courseDao;
+    private GradeDao gradeDao;
+    private StudentOfficialDao studentOfficialDao;
+    private TeacherDao teacherDao;
+    private final Border separatePanelBorder = BorderFactory.createLineBorder(new Color(0, 0, 50), 1);
+
     public HomepagePanel() {
         initComponents();
+
+        this.setOpaque(false);
+        initPanels();
     }
 
     /**
@@ -27,161 +57,270 @@ public class HomepagePanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pnNews3 = new java.awt.Panel();
-        lbNews3 = new javax.swing.JLabel();
-        panel7 = new java.awt.Panel();
-        pnNews4 = new java.awt.Panel();
-        lbNews4 = new javax.swing.JLabel();
-        panel8 = new java.awt.Panel();
-        pnNews5 = new java.awt.Panel();
-        lbNews5 = new javax.swing.JLabel();
-        panel9 = new java.awt.Panel();
+        pnCourse = new java.awt.Panel();
+        lbCourse = new javax.swing.JLabel();
+        pnCourseQty = new java.awt.Panel();
+        lbCourseQty = new javax.swing.JLabel();
+        courseSum = new javax.swing.JLabel();
+        pnGrade = new java.awt.Panel();
+        lbGrade = new javax.swing.JLabel();
+        pnGradeQty = new java.awt.Panel();
+        lbGradeQty = new javax.swing.JLabel();
+        gradeSum = new javax.swing.JLabel();
+        pnTeacher = new java.awt.Panel();
+        lbTeacher = new javax.swing.JLabel();
+        pnTeacherQty = new java.awt.Panel();
+        lbTeacherQty = new javax.swing.JLabel();
+        teacherSum = new javax.swing.JLabel();
+        pnStudent = new java.awt.Panel();
+        lbStudent = new javax.swing.JLabel();
+        pnStudentQty = new java.awt.Panel();
+        lbStudentQty = new javax.swing.JLabel();
+        studentSum = new javax.swing.JLabel();
 
-        setLayout(new java.awt.GridLayout());
+        setBackground(new java.awt.Color(255, 255, 255));
+        setPreferredSize(new java.awt.Dimension(1560, 100));
+        setLayout(new java.awt.GridLayout(1, 4));
 
-        pnNews3.setBackground(new java.awt.Color(255, 255, 255));
-        pnNews3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        pnCourse.setBackground(new java.awt.Color(255, 255, 255));
+        pnCourse.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        pnCourse.setPreferredSize(new java.awt.Dimension(376, 100));
 
-        lbNews3.setBackground(new java.awt.Color(102, 153, 255));
-        lbNews3.setText("News");
+        lbCourse.setBackground(new java.awt.Color(102, 153, 255));
+        lbCourse.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/courseManager.png"))); // NOI18N
+        lbCourse.setText("COURSES");
+        pnCourse.add(lbCourse);
 
-        panel7.setBackground(new java.awt.Color(153, 204, 255));
+        pnCourseQty.setBackground(new java.awt.Color(153, 204, 255));
+        pnCourseQty.setPreferredSize(new java.awt.Dimension(255, 255));
 
-        javax.swing.GroupLayout panel7Layout = new javax.swing.GroupLayout(panel7);
-        panel7.setLayout(panel7Layout);
-        panel7Layout.setHorizontalGroup(
-            panel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        panel7Layout.setVerticalGroup(
-            panel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 255, Short.MAX_VALUE)
-        );
+        lbCourseQty.setBackground(new java.awt.Color(255, 255, 255));
+        lbCourseQty.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lbCourseQty.setText("Number of courses: ");
 
-        javax.swing.GroupLayout pnNews3Layout = new javax.swing.GroupLayout(pnNews3);
-        pnNews3.setLayout(pnNews3Layout);
-        pnNews3Layout.setHorizontalGroup(
-            pnNews3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnNews3Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(lbNews3)
-                .addGap(69, 69, 69))
-            .addGroup(pnNews3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        courseSum.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        courseSum.setText("jLabel1");
+
+        javax.swing.GroupLayout pnCourseQtyLayout = new javax.swing.GroupLayout(pnCourseQty);
+        pnCourseQty.setLayout(pnCourseQtyLayout);
+        pnCourseQtyLayout.setHorizontalGroup(
+            pnCourseQtyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnCourseQtyLayout.createSequentialGroup()
+                .addGap(112, 112, 112)
+                .addComponent(courseSum)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(pnCourseQtyLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(lbCourseQty, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        pnNews3Layout.setVerticalGroup(
-            pnNews3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnNews3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lbNews3)
+        pnCourseQtyLayout.setVerticalGroup(
+            pnCourseQtyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnCourseQtyLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(lbCourseQty, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(courseSum)
+                .addGap(192, 192, 192))
+        );
+
+        pnCourse.add(pnCourseQty);
+
+        add(pnCourse);
+
+        pnGrade.setBackground(new java.awt.Color(255, 255, 255));
+        pnGrade.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        lbGrade.setBackground(new java.awt.Color(102, 153, 255));
+        lbGrade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/grade.jpg"))); // NOI18N
+        lbGrade.setText("GRADES");
+        pnGrade.add(lbGrade);
+
+        pnGradeQty.setBackground(new java.awt.Color(206, 230, 255));
+        pnGradeQty.setPreferredSize(new java.awt.Dimension(255, 255));
+
+        lbGradeQty.setBackground(new java.awt.Color(255, 255, 255));
+        lbGradeQty.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lbGradeQty.setText("Number of grades: ");
+
+        gradeSum.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        gradeSum.setText("jLabel2");
+
+        javax.swing.GroupLayout pnGradeQtyLayout = new javax.swing.GroupLayout(pnGradeQty);
+        pnGradeQty.setLayout(pnGradeQtyLayout);
+        pnGradeQtyLayout.setHorizontalGroup(
+            pnGradeQtyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnGradeQtyLayout.createSequentialGroup()
+                .addGap(99, 99, 99)
+                .addComponent(gradeSum)
+                .addContainerGap(22, Short.MAX_VALUE))
+            .addGroup(pnGradeQtyLayout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(lbGradeQty, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
-
-        add(pnNews3);
-
-        pnNews4.setBackground(new java.awt.Color(255, 255, 255));
-        pnNews4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        lbNews4.setBackground(new java.awt.Color(102, 153, 255));
-        lbNews4.setText("News");
-
-        panel8.setBackground(new java.awt.Color(153, 204, 255));
-
-        javax.swing.GroupLayout panel8Layout = new javax.swing.GroupLayout(panel8);
-        panel8.setLayout(panel8Layout);
-        panel8Layout.setHorizontalGroup(
-            panel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        panel8Layout.setVerticalGroup(
-            panel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 255, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout pnNews4Layout = new javax.swing.GroupLayout(pnNews4);
-        pnNews4.setLayout(pnNews4Layout);
-        pnNews4Layout.setHorizontalGroup(
-            pnNews4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnNews4Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(lbNews4)
-                .addGap(69, 69, 69))
-            .addGroup(pnNews4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        pnNews4Layout.setVerticalGroup(
-            pnNews4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnNews4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lbNews4)
+        pnGradeQtyLayout.setVerticalGroup(
+            pnGradeQtyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnGradeQtyLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(lbGradeQty, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(gradeSum)
+                .addGap(193, 193, 193))
+        );
+
+        pnGrade.add(pnGradeQty);
+
+        add(pnGrade);
+
+        pnTeacher.setBackground(new java.awt.Color(255, 255, 255));
+        pnTeacher.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        lbTeacher.setBackground(new java.awt.Color(102, 153, 255));
+        lbTeacher.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/teacherManager.png"))); // NOI18N
+        lbTeacher.setText("TEACHERS");
+        lbTeacher.setMaximumSize(new java.awt.Dimension(120, 50));
+        lbTeacher.setMinimumSize(new java.awt.Dimension(120, 50));
+        lbTeacher.setPreferredSize(new java.awt.Dimension(120, 50));
+        pnTeacher.add(lbTeacher);
+
+        pnTeacherQty.setBackground(new java.awt.Color(153, 204, 255));
+        pnTeacherQty.setPreferredSize(new java.awt.Dimension(255, 255));
+
+        lbTeacherQty.setBackground(new java.awt.Color(255, 255, 255));
+        lbTeacherQty.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lbTeacherQty.setText("Number of teachers: ");
+
+        teacherSum.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        teacherSum.setText("jLabel4");
+
+        javax.swing.GroupLayout pnTeacherQtyLayout = new javax.swing.GroupLayout(pnTeacherQty);
+        pnTeacherQty.setLayout(pnTeacherQtyLayout);
+        pnTeacherQtyLayout.setHorizontalGroup(
+            pnTeacherQtyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnTeacherQtyLayout.createSequentialGroup()
+                .addGap(111, 111, 111)
+                .addComponent(teacherSum)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(pnTeacherQtyLayout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(lbTeacherQty, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
-
-        add(pnNews4);
-
-        pnNews5.setBackground(new java.awt.Color(255, 255, 255));
-        pnNews5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        lbNews5.setBackground(new java.awt.Color(102, 153, 255));
-        lbNews5.setText("News");
-
-        panel9.setBackground(new java.awt.Color(153, 204, 255));
-
-        javax.swing.GroupLayout panel9Layout = new javax.swing.GroupLayout(panel9);
-        panel9.setLayout(panel9Layout);
-        panel9Layout.setHorizontalGroup(
-            panel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        panel9Layout.setVerticalGroup(
-            panel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 255, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout pnNews5Layout = new javax.swing.GroupLayout(pnNews5);
-        pnNews5.setLayout(pnNews5Layout);
-        pnNews5Layout.setHorizontalGroup(
-            pnNews5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnNews5Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(lbNews5)
-                .addGap(69, 69, 69))
-            .addGroup(pnNews5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        pnNews5Layout.setVerticalGroup(
-            pnNews5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnNews5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lbNews5)
+        pnTeacherQtyLayout.setVerticalGroup(
+            pnTeacherQtyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnTeacherQtyLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(lbTeacherQty, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(teacherSum)
+                .addGap(193, 193, 193))
         );
 
-        add(pnNews5);
+        pnTeacher.add(pnTeacherQty);
+
+        add(pnTeacher);
+
+        pnStudent.setBackground(new java.awt.Color(255, 255, 255));
+        pnStudent.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        lbStudent.setBackground(new java.awt.Color(102, 153, 255));
+        lbStudent.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        lbStudent.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/studentManager.png"))); // NOI18N
+        lbStudent.setText("STUDENTS");
+        lbStudent.setMaximumSize(new java.awt.Dimension(120, 50));
+        lbStudent.setMinimumSize(new java.awt.Dimension(120, 50));
+        lbStudent.setPreferredSize(new java.awt.Dimension(120, 50));
+        pnStudent.add(lbStudent);
+
+        pnStudentQty.setBackground(new java.awt.Color(206, 230, 255));
+        pnStudentQty.setPreferredSize(new java.awt.Dimension(255, 255));
+
+        lbStudentQty.setBackground(new java.awt.Color(255, 255, 255));
+        lbStudentQty.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lbStudentQty.setText("Number of students: ");
+
+        studentSum.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        studentSum.setText("jLabel3");
+
+        javax.swing.GroupLayout pnStudentQtyLayout = new javax.swing.GroupLayout(pnStudentQty);
+        pnStudentQty.setLayout(pnStudentQtyLayout);
+        pnStudentQtyLayout.setHorizontalGroup(
+            pnStudentQtyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnStudentQtyLayout.createSequentialGroup()
+                .addGap(111, 111, 111)
+                .addComponent(studentSum)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(pnStudentQtyLayout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(lbStudentQty, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        pnStudentQtyLayout.setVerticalGroup(
+            pnStudentQtyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnStudentQtyLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(lbStudentQty, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(studentSum)
+                .addGap(193, 193, 193))
+        );
+
+        pnStudent.add(pnStudentQty);
+
+        add(pnStudent);
     }// </editor-fold>//GEN-END:initComponents
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel lbNews3;
-    private javax.swing.JLabel lbNews4;
-    private javax.swing.JLabel lbNews5;
-    private java.awt.Panel panel7;
-    private java.awt.Panel panel8;
-    private java.awt.Panel panel9;
-    private java.awt.Panel pnNews3;
-    private java.awt.Panel pnNews4;
-    private java.awt.Panel pnNews5;
+    private javax.swing.JLabel courseSum;
+    private javax.swing.JLabel gradeSum;
+    private javax.swing.JLabel lbCourse;
+    private javax.swing.JLabel lbCourseQty;
+    private javax.swing.JLabel lbGrade;
+    private javax.swing.JLabel lbGradeQty;
+    private javax.swing.JLabel lbStudent;
+    private javax.swing.JLabel lbStudentQty;
+    private javax.swing.JLabel lbTeacher;
+    private javax.swing.JLabel lbTeacherQty;
+    private java.awt.Panel pnCourse;
+    private java.awt.Panel pnCourseQty;
+    private java.awt.Panel pnGrade;
+    private java.awt.Panel pnGradeQty;
+    private java.awt.Panel pnStudent;
+    private java.awt.Panel pnStudentQty;
+    private java.awt.Panel pnTeacher;
+    private java.awt.Panel pnTeacherQty;
+    private javax.swing.JLabel studentSum;
+    private javax.swing.JLabel teacherSum;
     // End of variables declaration//GEN-END:variables
+
+    private void initPanels() {
+        courseDao = new CourseDaoImpl();
+        List<Course> courses = courseDao.getAll();
+        gradeDao = new GradeDaoImpl();
+        List<Grade> grades = gradeDao.getAll();
+        studentOfficialDao = new StudentOfficialDaoImpl();
+        List<StudentOfficial> studentOfficials = studentOfficialDao.getAll();
+        teacherDao = new TeacherDaoImpl();
+        List<Teacher> teachers = teacherDao.getAll();
+
+        courseSum.setText(String.valueOf(courses.size()));
+        gradeSum.setText(String.valueOf(grades.size()));
+        studentSum.setText(String.valueOf(studentOfficials.size()));
+        teacherSum.setText(String.valueOf(teachers.size()));
+    }
+
+//    @Override
+//    protected void paintComponent(Graphics g) {
+//        Image image = ImageUtils.load(getClass().getResource("/images/HomepageBg.jpg").getPath());
+//        g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+//        super.paintComponent(g);
+//
+//    }
+
+    @Override
+    public void paintComponents(Graphics g) {
+        super.paintComponents(g); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

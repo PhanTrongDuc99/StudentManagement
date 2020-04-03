@@ -12,6 +12,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -19,6 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
+import javax.swing.border.Border;
 import service.AdminService;
 import service.AdminServiceImpl;
 import utils.ImageUtils;
@@ -34,6 +36,7 @@ public class LoginForm extends JFrame {
     private static final int APP_WIDTH = 850;
     private static final int APP_HEIGHT = 540;
     private static final String PATH_IMAGE_BG = "/images/LoginBg.PNG";
+    private final Border highLightBorder = BorderFactory.createLineBorder(Color.BLUE, 3);
 
     private final Container container = getContentPane();
     private JLabel lbBg;
@@ -152,6 +155,7 @@ public class LoginForm extends JFrame {
         btLogin.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
+                btLogin.setBorder(highLightBorder);
                 if (checkInput()) {
                     if (checkAdmin()) {
                         JOptionPane.showMessageDialog(null, "Login successful!");
