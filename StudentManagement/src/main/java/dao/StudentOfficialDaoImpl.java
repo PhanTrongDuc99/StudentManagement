@@ -139,6 +139,46 @@ public class StudentOfficialDaoImpl implements StudentOfficialDao {
     }
 
     @Override
+    public List<StudentOfficial> getStudentsByNameGrade(String nameGrade) {
+        String queryStudent = "SELECT IdStudent, IdGrade, IdProfile, IdResult, IdRegister, DiscountStatus, Cost FROM STUDENTOFFICIAL WHERE IdGrade= (SELECT Id FROM GRADE WHERE Name=?)";
+        connection = connectionManager.getConnection();
+        List<StudentOfficial> studentOfficials = new ArrayList<>();
+        try {
+            preparedStatement = connection.prepareStatement(queryStudent);
+            preparedStatement.setString(1, nameGrade);
+            result = preparedStatement.executeQuery();
+            while (result.next()) {
+                Profile profile = profileDao.getProfile(result.getString("IdProfile"));
+                Register register = registerDao.getRegister(result.getString("IdRegister"));
+                Grade grade = gradeDao.getGrade(result.getString("IdGrade"));
+                Result resultStudent = resultDao.getResult(result.getString("IdResult"));
+                StudentOfficial student = new StudentOfficial();
+                student.setGrade(grade);
+                student.setResultStudy(resultStudent);
+                student.setId(result.getString("IdStudent"));
+                student.setDiscountStatus(result.getDouble("DiscountStatus"));
+                student.setProfile(profile);
+                student.setCost(grade.getCourse().getCost());
+                student.setRegister(register);
+                student.setIdRegisterCourse(grade.getCourse().getIdCourse());
+                studentOfficials.add(student);
+            }
+            return studentOfficials;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                result.close();
+                preparedStatement.close();
+                connection.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    @Override
     public boolean deleteStudentById(String id) {
         int amountRowDeleted = 0;
         try {

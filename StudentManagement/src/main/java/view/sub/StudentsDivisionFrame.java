@@ -244,19 +244,10 @@ public class StudentsDivisionFrame extends javax.swing.JFrame {
                                 JPanel panel = (JPanel) button.getParent();
                                 idSelectedCourse = (String) panel.getClientProperty(lbSelectedCourse);
                             } else {
-                                List<StudentOfficial> studentsOfficials = new ArrayList<>();
+                                List<StudentOfficial> studentsOfficials = new StudentOfficialServiceImpl().getStudentsByNameGrade(button.getText());
+                                ListOfStudentsOnGradeFrame studentsOnGradeFrame = new ListOfStudentsOnGradeFrame(studentsOfficials, button.getText());
+                                studentsOnGradeFrame.setVisible(true);
                                 
-                                StudentUnofficialService studentUnofficialService = new StudentUnofficialServiceImpl();
-                                
-                                List<StudentUnofficial> studentUnofficials = studentUnofficialService.getAll();
-                                
-                                for (StudentUnofficial s : studentsOfficials) {
-                                    if (s.getIdRegisterCourse().equals((String) button.getClientProperty(button.getText()))) {
-                                        studentUnofficials.add(s);
-                                    }
-                                }
-                                ListOfStudentsFrame registeringStudentsFrame = new ListOfStudentsFrame(studentUnofficials, button.getText());
-                                registeringStudentsFrame.setVisible(true);
                             }
                             
                         }
@@ -485,14 +476,14 @@ public class StudentsDivisionFrame extends javax.swing.JFrame {
                     for (Course c : courses) {
                         if (c.getNameCourse().equalsIgnoreCase(lbSelectedCourse.getText())) {
                             selectedCourse = c;
-                            idSelectedCourse=c.getIdCourse();
+                            idSelectedCourse = c.getIdCourse();
                             System.out.println(selectedCourse);
                             break;
                         }
                     }
                     StudentUnofficialService studentUnofficialService = new StudentUnofficialServiceImpl();
                     List<StudentUnofficial> studentUnofficials = studentUnofficialService.getStudentByIdCourse(idSelectedCourse);
-                   
+                    
                     ListOfStudentsFrame registeringStudentsFrame = new ListOfStudentsFrame(studentUnofficials, selectedCourse.getNameCourse());
                     registeringStudentsFrame.setVisible(true);
                 } else {

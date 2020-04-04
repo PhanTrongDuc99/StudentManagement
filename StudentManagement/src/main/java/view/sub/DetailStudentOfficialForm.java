@@ -228,17 +228,17 @@ public class DetailStudentOfficialForm extends javax.swing.JFrame {
         lbStudentInfo.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         lbStudentInfo.setForeground(new java.awt.Color(0, 51, 153));
         lbStudentInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/student.png"))); // NOI18N
-        lbStudentInfo.setText("  THÔNG TIN HỌC VIÊN");
+        lbStudentInfo.setText("INFORMATION OFFICIAL STUDENT");
         lbStudentInfo.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
         javax.swing.GroupLayout topPanelLayout = new javax.swing.GroupLayout(topPanel);
         topPanel.setLayout(topPanelLayout);
         topPanelLayout.setHorizontalGroup(
             topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(topPanelLayout.createSequentialGroup()
-                .addGap(152, 152, 152)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, topPanelLayout.createSequentialGroup()
+                .addContainerGap(92, Short.MAX_VALUE)
                 .addComponent(lbStudentInfo)
-                .addContainerGap(239, Short.MAX_VALUE))
+                .addGap(86, 86, 86))
         );
         topPanelLayout.setVerticalGroup(
             topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -442,7 +442,6 @@ public class DetailStudentOfficialForm extends javax.swing.JFrame {
         jLabel2.setText("Cost");
 
         saveButton.setBackground(new java.awt.Color(0, 0, 204));
-        saveButton.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         saveButton.setForeground(new java.awt.Color(255, 255, 255));
         saveButton.setText("Save");
         saveButton.setFocusPainted(false);
@@ -453,7 +452,6 @@ public class DetailStudentOfficialForm extends javax.swing.JFrame {
         });
 
         editButton.setBackground(new java.awt.Color(255, 0, 0));
-        editButton.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         editButton.setForeground(new java.awt.Color(255, 255, 255));
         editButton.setText("Edit");
         editButton.setFocusPainted(false);

@@ -38,6 +38,11 @@ public class StudentOfficialServiceImpl implements StudentOfficialService {
     }
 
     @Override
+    public List<StudentOfficial> getStudentsByNameGrade(String nameGrade) {
+        return studentOfficialDao.getStudentsByNameGrade(nameGrade);
+    }
+
+    @Override
     public boolean deleteStudentById(String id) {
         return studentOfficialDao.deleteStudentById(id);
     }

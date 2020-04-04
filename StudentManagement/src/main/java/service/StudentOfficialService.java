@@ -17,6 +17,8 @@ public interface StudentOfficialService {
     public List<StudentOfficial> getAll();
 
     public StudentOfficial getStudent(String id);
+    
+    public List<StudentOfficial> getStudentsByNameGrade(String nameGrade);
 
     public void insertStudent(StudentOfficial student);
 

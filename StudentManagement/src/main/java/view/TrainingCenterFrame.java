@@ -25,16 +25,17 @@ import javax.swing.JSplitPane;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
 import utils.ImageUtils;
 import view.sub.CourseInformationPanel;
 import view.sub.CoursePanel;
 import view.sub.DivisionGradePanel;
 import view.sub.EnrollmentGradePlacementPanel;
 import view.sub.FinancialPanel;
+import view.sub.GradeInformationPanel;
 import view.sub.GradePanel;
 import view.sub.HomepagePanel;
 import view.sub.SettingFrame;
-import view.sub.GradeInformationPanel;
 import view.sub.StudentPanel;
 import view.sub.TeacherPanel;
 import view.sub.TrainingPanel;
@@ -121,6 +122,8 @@ public class TrainingCenterFrame extends JFrame {
     private JButton btSetting;
     private JButton btAlarm;
     private JButton btEmail;
+    private long amountGmail = 0;
+    private TitledBorder titledBorder = new TitledBorder(defaultBorder, String.valueOf(amountGmail), 0, 1, new Font("Tahoma", Font.PLAIN, 14), Color.RED);
 
     private final Font pnLeftButtonsFont = new Font("Tahoma", Font.BOLD, 18);
 
@@ -131,7 +134,7 @@ public class TrainingCenterFrame extends JFrame {
         setSize(1080, 700);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
-        setIconImage(ImageUtils.load(getClass().getResource("/images/logo.png").getPath()));
+        setIconImage(ImageUtils.load(getClass().getResource("/images/logoApp.png").getPath()));
         container.setLayout(borderLayout);
         initComponents();
         initEvents();
@@ -177,21 +180,22 @@ public class TrainingCenterFrame extends JFrame {
         btAlarm.setBackground(Color.WHITE);
         btAlarm.setFocusPainted(false);
         btAlarm.setBounds(180, 15, 35, 35);
-        btAlarm.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/alarm.png").getPath(), 30, 30));
+        btAlarm.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/alarm.png").getPath(), 40, 40));
         pnTop.add(btAlarm);
 
         btSetting = new JButton();
         btSetting.setBackground(Color.WHITE);
         btSetting.setFocusPainted(false);
         btSetting.setBounds(180, 60, 35, 35);
-        btSetting.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/setting.png").getPath(), 30, 30));
+        btSetting.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/setting.png").getPath(), 40, 40));
         pnTop.add(btSetting);
 
         btEmail = new JButton();
         btEmail.setBackground(Color.WHITE);
+        btEmail.setBorder(titledBorder);
         btEmail.setFocusPainted(false);
         btEmail.setBounds(1855, 55, 50, 40);
-        btEmail.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/email.png").getPath(), 50, 40));
+        btEmail.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/icons8-gmail-50.png").getPath(), 50, 40));
         pnTop.add(btEmail);
 
         container.add(pnTop, BorderLayout.NORTH);
@@ -246,13 +250,13 @@ public class TrainingCenterFrame extends JFrame {
         createButton(btTraining);
         pnLeftTop.add(btTraining);
 
-        btHomePage.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/homepage.png").getPath()));
-        btCourse.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/courseManager.png").getPath()));
-        btGrade.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/grade.jpg").getPath()));
-        btStudent.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/studentManager.png").getPath()));
-        btTeacher.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/teacherManager.png").getPath()));
-        btFinancial.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/financialManager.jpg").getPath()));
-        btTraining.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/trainingManager.jpg").getPath()));
+        btHomePage.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/homeNoBg.png").getPath()));
+        btCourse.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/courseNoBg.png").getPath()));
+        btGrade.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/gradeNoBg.png").getPath()));
+        btStudent.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/studentNoBg.png").getPath()));
+        btTeacher.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/teacherNoBg.png").getPath()));
+        btFinancial.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/financialNoBg.png").getPath()));
+        btTraining.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/trainingnoBg.png").getPath()));
         pnLeftBottom = new JPanel();
         pnLeftBottom.setBackground(new Color(0, 102, 153));
         splitPanePnLeft.add(pnLeftBottom, JSplitPane.BOTTOM);
@@ -298,13 +302,13 @@ public class TrainingCenterFrame extends JFrame {
         //Training
         createButton(btTraining);
         pnLeftTop.add(btTraining);
-        btHomePage.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/homepage.png").getPath()));
-        btCourse.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/courseManager.png").getPath()));
-        btGrade.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/grade.jpg").getPath()));
-        btStudent.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/studentManager.png").getPath()));
-        btTeacher.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/teacherManager.png").getPath()));
-        btFinancial.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/financialManager.jpg").getPath()));
-        btTraining.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/trainingManager.jpg").getPath()));
+        btHomePage.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/homeNoBg.png").getPath()));
+        btCourse.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/courseNoBg.png").getPath()));
+        btGrade.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/gradeNoBg.png").getPath()));
+        btStudent.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/studentNoBg.png").getPath()));
+        btTeacher.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/teacherNoBg.png").getPath()));
+        btFinancial.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/financialNoBg.png").getPath()));
+        btTraining.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/trainingnoBg.png").getPath()));
         pnLeftBottom = new JPanel();
         pnLeftBottom.setBackground(new Color(0, 102, 153));
         splitPanePnLeft.add(pnLeftBottom, JSplitPane.BOTTOM);
@@ -350,13 +354,13 @@ public class TrainingCenterFrame extends JFrame {
         //Training
         createButton(btTraining);
         pnLeftTop.add(btTraining);
-        btHomePage.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/homepage.png").getPath()));
-        btCourse.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/courseManager.png").getPath()));
-        btGrade.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/grade.jpg").getPath()));
-        btStudent.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/studentManager.png").getPath()));
-        btTeacher.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/teacherManager.png").getPath()));
-        btFinancial.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/financialManager.jpg").getPath()));
-        btTraining.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/trainingManager.jpg").getPath()));
+        btHomePage.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/homeNoBg.png").getPath()));
+        btCourse.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/courseNoBg.png").getPath()));
+        btGrade.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/gradeNoBg.png").getPath()));
+        btStudent.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/studentNoBg.png").getPath()));
+        btTeacher.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/teacherNoBg.png").getPath()));
+        btFinancial.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/financialNoBg.png").getPath()));
+        btTraining.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/trainingnoBg.png").getPath()));
         pnLeftBottom = new JPanel();
         pnLeftBottom.setBackground(new Color(0, 102, 153));
         splitPanePnLeft.add(pnLeftBottom, JSplitPane.BOTTOM);
@@ -402,13 +406,13 @@ public class TrainingCenterFrame extends JFrame {
         //Training
         createButton(btTraining);
         pnLeftTop.add(btTraining);
-        btHomePage.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/homepage.png").getPath()));
-        btCourse.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/courseManager.png").getPath()));
-        btGrade.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/grade.jpg").getPath()));
-        btStudent.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/studentManager.png").getPath()));
-        btTeacher.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/teacherManager.png").getPath()));
-        btFinancial.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/financialManager.jpg").getPath()));
-        btTraining.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/trainingManager.jpg").getPath()));
+        btHomePage.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/homeNoBg.png").getPath()));
+        btCourse.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/courseNoBg.png").getPath()));
+        btGrade.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/gradeNoBg.png").getPath()));
+        btStudent.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/studentNoBg.png").getPath()));
+        btTeacher.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/teacherNoBg.png").getPath()));
+        btFinancial.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/financialNoBg.png").getPath()));
+        btTraining.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/trainingnoBg.png").getPath()));
         pnLeftBottom = new JPanel();
         pnLeftBottom.setBackground(new Color(0, 102, 153));
         splitPanePnLeft.add(pnLeftBottom, JSplitPane.BOTTOM);
@@ -455,13 +459,13 @@ public class TrainingCenterFrame extends JFrame {
         //Training
         createButton(btTraining);
         pnLeftTop.add(btTraining);
-        btHomePage.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/homepage.png").getPath()));
-        btCourse.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/courseManager.png").getPath()));
-        btGrade.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/grade.jpg").getPath()));
-        btStudent.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/studentManager.png").getPath()));
-        btTeacher.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/teacherManager.png").getPath()));
-        btFinancial.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/financialManager.jpg").getPath()));
-        btTraining.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/trainingManager.jpg").getPath()));
+        btHomePage.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/homeNoBg.png").getPath()));
+        btCourse.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/courseNoBg.png").getPath()));
+        btGrade.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/gradeNoBg.png").getPath()));
+        btStudent.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/studentNoBg.png").getPath()));
+        btTeacher.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/teacherNoBg.png").getPath()));
+        btFinancial.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/financialNoBg.png").getPath()));
+        btTraining.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/trainingnoBg.png").getPath()));
         pnLeftBottom = new JPanel();
         pnLeftBottom.setBackground(new Color(0, 102, 153));
         splitPanePnLeft.add(pnLeftBottom, JSplitPane.BOTTOM);
@@ -507,13 +511,13 @@ public class TrainingCenterFrame extends JFrame {
         pnItemTraining.setLayout(gridLayoutPanelItemTraining);
         createItemPanel(pnItemTraining, itemTrainings);
         pnLeftTop.add(pnItemTraining);
-        btHomePage.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/homepage.png").getPath()));
-        btCourse.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/courseManager.png").getPath()));
-        btGrade.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/grade.jpg").getPath()));
-        btStudent.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/studentManager.png").getPath()));
-        btTeacher.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/teacherManager.png").getPath()));
-        btFinancial.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/financialManager.jpg").getPath()));
-        btTraining.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/trainingManager.jpg").getPath()));
+        btHomePage.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/homeNoBg.png").getPath()));
+        btCourse.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/courseNoBg.png").getPath()));
+        btGrade.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/gradeNoBg.png").getPath()));
+        btStudent.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/studentNoBg.png").getPath()));
+        btTeacher.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/teacherNoBg.png").getPath()));
+        btFinancial.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/financialNoBg.png").getPath()));
+        btTraining.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/trainingnoBg.png").getPath()));
         pnLeftBottom = new JPanel();
         pnLeftBottom.setBackground(new Color(0, 102, 153));
         splitPanePnLeft.add(pnLeftBottom, JSplitPane.BOTTOM);
@@ -555,13 +559,13 @@ public class TrainingCenterFrame extends JFrame {
         //Training
         createButton(btTraining);
         pnLeftTop.add(btTraining);
-        btHomePage.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/homepage.png").getPath()));
-        btCourse.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/courseManager.png").getPath()));
-        btGrade.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/grade.jpg").getPath()));
-        btStudent.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/studentManager.png").getPath()));
-        btTeacher.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/teacherManager.png").getPath()));
-        btFinancial.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/financialManager.jpg").getPath()));
-        btTraining.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/trainingManager.jpg").getPath()));
+        btHomePage.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/homeNoBg.png").getPath()));
+        btCourse.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/courseNoBg.png").getPath()));
+        btGrade.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/gradeNoBg.png").getPath()));
+        btStudent.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/studentNoBg.png").getPath()));
+        btTeacher.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/teacherNoBg.png").getPath()));
+        btFinancial.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/financialNoBg.png").getPath()));
+        btTraining.setIcon(ImageUtils.loadImageIcon(getClass().getResource("/images/trainingnoBg.png").getPath()));
         pnLeftBottom = new JPanel();
         pnLeftBottom.setBackground(new Color(0, 102, 153));
         splitPanePnLeft.add(pnLeftBottom, JSplitPane.BOTTOM);
@@ -596,12 +600,12 @@ public class TrainingCenterFrame extends JFrame {
         pnTraining = new TrainingPanel();
 
         pnCenter.add(pnHomepage, btHomePage.getText());
-        pnCenter.add(pnCourse, btCourse.getText());
-        pnCenter.add(pnGrade, btGrade.getText());
-        pnCenter.add(pnStudent, btStudent.getText());
-        pnCenter.add(pnTeacher, btTeacher.getText());
-        pnCenter.add(pnFinancial, btFinancial.getText());
-        pnCenter.add(pnTraining, btTraining.getText());
+//        pnCenter.add(pnCourse, btCourse.getText());
+//        pnCenter.add(pnGrade, btGrade.getText());
+//        pnCenter.add(pnStudent, btStudent.getText());
+//        pnCenter.add(pnTeacher, btTeacher.getText());
+//        pnCenter.add(pnFinancial, btFinancial.getText());
+//        pnCenter.add(pnTraining, btTraining.getText());
 
         splitPane.add(splitPanePnLeft, JSplitPane.LEFT);
         splitPane.add(pnCenter, JSplitPane.RIGHT);
@@ -612,6 +616,11 @@ public class TrainingCenterFrame extends JFrame {
     private void initEvents() {
         pnLeftTopButtonsEvents();
         btSettingEvents();
+        btGmailEvents();
+
+    }
+
+    private void btGmailEvents() {
 
     }
 
@@ -854,15 +863,18 @@ public class TrainingCenterFrame extends JFrame {
                 public void mousePressed(MouseEvent e) {
                     //List students
                     if (btItemPnStudent.getText().equalsIgnoreCase(itemStudents[0].getText())) {
-
+                        pnCenter.removeAll();
+                        pnCenter.revalidate();
                     } else {
                         //Student results
                         if (btItemPnStudent.getText().equalsIgnoreCase(itemStudents[1].getText())) {
-// Đức
+// ĐứcpnCenter.removeAll();
+                            pnCenter.revalidate();
                         } else {
                             //List of students warned, reminded
                             if (btItemPnStudent.getText().equalsIgnoreCase(itemStudents[2].getText())) {
-
+                                pnCenter.removeAll();
+                                pnCenter.revalidate();
                             }
                         }
                     }

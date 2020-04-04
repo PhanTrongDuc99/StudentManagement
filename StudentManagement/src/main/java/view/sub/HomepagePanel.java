@@ -82,7 +82,7 @@ public class HomepagePanel extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(1560, 100));
         setLayout(new java.awt.GridLayout(1, 4));
 
-        pnCourse.setBackground(new java.awt.Color(255, 255, 255));
+        pnCourse.setBackground(new java.awt.Color(153, 102, 0));
         pnCourse.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnCourse.setPreferredSize(new java.awt.Dimension(376, 100));
 
@@ -128,7 +128,7 @@ public class HomepagePanel extends javax.swing.JPanel {
 
         add(pnCourse);
 
-        pnGrade.setBackground(new java.awt.Color(255, 255, 255));
+        pnGrade.setBackground(new java.awt.Color(204, 153, 0));
         pnGrade.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         lbGrade.setBackground(new java.awt.Color(102, 153, 255));
@@ -173,7 +173,7 @@ public class HomepagePanel extends javax.swing.JPanel {
 
         add(pnGrade);
 
-        pnTeacher.setBackground(new java.awt.Color(255, 255, 255));
+        pnTeacher.setBackground(new java.awt.Color(204, 204, 0));
         pnTeacher.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         lbTeacher.setBackground(new java.awt.Color(102, 153, 255));
@@ -221,7 +221,7 @@ public class HomepagePanel extends javax.swing.JPanel {
 
         add(pnTeacher);
 
-        pnStudent.setBackground(new java.awt.Color(255, 255, 255));
+        pnStudent.setBackground(new java.awt.Color(255, 255, 51));
         pnStudent.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         lbStudent.setBackground(new java.awt.Color(102, 153, 255));

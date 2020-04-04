@@ -38,6 +38,7 @@ import service.ResultServiceImpl;
 import service.StudentOfficialService;
 import service.StudentOfficialServiceImpl;
 import service.TeacherServiceImpl;
+import utils.ConvertDataTypesUtils;
 import utils.ImageUtils;
 import utils.RandomUtils;
 
@@ -85,7 +86,7 @@ public class GradeInformationPanel extends javax.swing.JPanel {
             @Override
             public void setValueAt(Object aValue, int row, int column) {
 
-                super.setValueAt(aValue, row, column); 
+                super.setValueAt(aValue, row, column);
             }
 
         };
@@ -110,7 +111,7 @@ public class GradeInformationPanel extends javax.swing.JPanel {
             row.add(pro.getFullName());
             row.add(grade.getNameGrade());
             row.add(pro.getEmail());
-            row.add(pro.isGender());
+            row.add(ConvertDataTypesUtils.valueOf(pro.isGender()));
             row.add(pro.getIdNumber());
             row.add(pro.getCurrentAddress());
             row.add("<html><a href='Detail' >Detail</a></html>");

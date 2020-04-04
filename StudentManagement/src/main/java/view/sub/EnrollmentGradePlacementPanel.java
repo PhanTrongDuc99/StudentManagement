@@ -6,6 +6,7 @@
 package view.sub;
 
 import common.RegisterType;
+import entities.StudentOfficial;
 import entities.StudentUnofficial;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
@@ -23,6 +24,8 @@ import service.ProfileService;
 import service.ProfileServiceImpl;
 import service.RegisterService;
 import service.RegisterServiceImpl;
+import service.StudentOfficialService;
+import service.StudentOfficialServiceImpl;
 import service.StudentUnofficialService;
 import service.StudentUnofficialServiceImpl;
 import utils.FileUtils;
@@ -36,6 +39,7 @@ import utils.ExcelUtils;
 public class EnrollmentGradePlacementPanel extends javax.swing.JPanel {
 
     private final StudentUnofficialService studentUnofficialService;
+    private final StudentOfficialService studentOfficialService;
     private final String titleBarChart = "Statistical bar chart of registered student sources";
     private final String titlePieChart = "Statistical pie chart of registered student sources";
     private final String xColumnName = "The sourses of registeration";
@@ -54,6 +58,7 @@ public class EnrollmentGradePlacementPanel extends javax.swing.JPanel {
      */
     public EnrollmentGradePlacementPanel() {
         studentUnofficialService = new StudentUnofficialServiceImpl();
+        studentOfficialService = new StudentOfficialServiceImpl();
         initComponents();
         initEvents();
     }
@@ -223,7 +228,8 @@ public class EnrollmentGradePlacementPanel extends javax.swing.JPanel {
             @Override
             public void mousePressed(MouseEvent e) {
                 List<StudentUnofficial> studentUnofficials = studentUnofficialService.getAll();
-                ChartPanel chartPanel = new ChartPanel(createChart(studentUnofficials));
+                List<StudentOfficial> studentOfficials = studentOfficialService.getAll();
+                ChartPanel chartPanel = new ChartPanel(createChart(studentUnofficials, studentOfficials));
                 chartPanel.setPreferredSize(new java.awt.Dimension(500, 400));
                 JFrame frame = new JFrame();
                 frame.add(chartPanel);
@@ -236,21 +242,22 @@ public class EnrollmentGradePlacementPanel extends javax.swing.JPanel {
         );
     }
 
-    private long soursesCount(String source, List<StudentUnofficial> studentUnofficials) {
-        return studentUnofficials.stream().filter(item -> source.equalsIgnoreCase(item.getRegister().getType().toString())).count();
+    private long soursesCount(String source, List<StudentUnofficial> studentUnofficials, List<StudentOfficial> studentOfficials) {
+        return studentUnofficials.stream().filter(item -> source.equalsIgnoreCase(item.getRegister().getType().toString())).count()
+                + studentOfficials.stream().filter(item -> source.equalsIgnoreCase(item.getRegister().getType().toString())).count();
     }
 
-    private JFreeChart createChart(List<StudentUnofficial> studentUnofficials) {
-        JFreeChart barChart = ChartFactory.createBarChart(titleBarChart, xColumnName, yCloumnName, createDataset(studentUnofficials), PlotOrientation.VERTICAL,
+    private JFreeChart createChart(List<StudentUnofficial> studentUnofficials, List<StudentOfficial> studentOfficials) {
+        JFreeChart barChart = ChartFactory.createBarChart(titleBarChart, xColumnName, yCloumnName, createDataset(studentUnofficials, studentOfficials), PlotOrientation.VERTICAL,
                 false, false, false);
         return barChart;
     }
 
-    private CategoryDataset createDataset(List<StudentUnofficial> studentUnofficials) {
+    private CategoryDataset createDataset(List<StudentUnofficial> studentUnofficials, List<StudentOfficial> studentOfficials) {
         final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.addValue(soursesCount(RegisterType.INTERNET.toString(), studentUnofficials), yCloumnName, RegisterType.INTERNET.toString());
-        dataset.addValue(soursesCount(RegisterType.MARKETING.toString(), studentUnofficials), yCloumnName, RegisterType.MARKETING.toString());
-        dataset.addValue(soursesCount(RegisterType.DIRECT.toString(), studentUnofficials), yCloumnName, RegisterType.DIRECT.toString());
+        dataset.addValue(soursesCount(RegisterType.INTERNET.toString(), studentUnofficials, studentOfficials), yCloumnName, RegisterType.INTERNET.toString());
+        dataset.addValue(soursesCount(RegisterType.MARKETING.toString(), studentUnofficials, studentOfficials), yCloumnName, RegisterType.MARKETING.toString());
+        dataset.addValue(soursesCount(RegisterType.DIRECT.toString(), studentUnofficials, studentOfficials), yCloumnName, RegisterType.DIRECT.toString());
         return dataset;
     }
 }

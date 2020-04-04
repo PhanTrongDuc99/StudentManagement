@@ -16,6 +16,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.WindowConstants;
 import javax.swing.table.AbstractTableModel;
@@ -168,20 +169,23 @@ public class CourseInformationPanel extends javax.swing.JPanel {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                CourseInformationForm courseInformationForm = new CourseInformationForm(course) {
-                    @Override
-                    public void callbackInformation(Course course) {
-                        
-                        //setInformationSelectedCourse
-                        setInformationSelectedCourse();
-                        //updateCourseById(Database)
-                        courseService.updateCourseById(course.getIdCourse(), course);
-                        //updateTableCourse???
+                if (course==null) {
+                    JOptionPane.showMessageDialog(null, "Please choose a course you want to edit");
+                } else {
+                    CourseInformationForm courseInformationForm = new CourseInformationForm(course) {
+                        @Override
+                        public void callbackInformation(Course course) {
+                            //setInformationSelectedCourse
+                            setInformationSelectedCourse();
+                            //updateCourseById(Database)
+                            courseService.updateCourseById(course.getIdCourse(), course);
+                            //updateTableCourse???
 
-                    }
-                };
-                courseInformationForm.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-                courseInformationForm.setVisible(true);
+                        }
+                    };
+                    courseInformationForm.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+                    courseInformationForm.setVisible(true);
+                }
             }
 
             @Override

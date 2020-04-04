@@ -5,18 +5,15 @@
  */
 package view.sub;
 
-import dao.StudentUnofficialDaoImpl;
 import entities.Profile;
 import entities.Register;
+import entities.StudentOfficial;
 import entities.StudentUnofficial;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -28,7 +25,7 @@ import utils.ImageUtils;
  *
  * @author SMILE ^^
  */
-public class ListOfStudentsFrame extends javax.swing.JFrame {
+public class ListOfStudentsOnGradeFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form ListOfStudentsFrame
@@ -39,9 +36,9 @@ public class ListOfStudentsFrame extends javax.swing.JFrame {
 
     private DefaultTableModel model;
     private JScrollPane js;
-    private List<StudentUnofficial> listProfileStudents = new ArrayList<>();
+    private List<StudentOfficial> listProfileStudents = new ArrayList<>();
 
-    public ListOfStudentsFrame() {
+    public ListOfStudentsOnGradeFrame() {
 
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -53,7 +50,7 @@ public class ListOfStudentsFrame extends javax.swing.JFrame {
         initEvents();
     }
 
-    public ListOfStudentsFrame(List<StudentUnofficial> studentUnofficials, String gradeName) {
+    public ListOfStudentsOnGradeFrame(List<StudentOfficial> studentOfficials, String gradeName) {
 
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -64,7 +61,7 @@ public class ListOfStudentsFrame extends javax.swing.JFrame {
         pnBg.add(js, java.awt.BorderLayout.CENTER);
         lbTitile.setText("GRADE: " + gradeName);
         //add(js);
-        this.listProfileStudents = studentUnofficials;
+        this.listProfileStudents = studentOfficials;
         initEvents();
     }
 
@@ -123,14 +120,26 @@ public class ListOfStudentsFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListOfStudentsFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListOfStudentsOnGradeFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListOfStudentsFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListOfStudentsOnGradeFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListOfStudentsFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListOfStudentsOnGradeFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListOfStudentsFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListOfStudentsOnGradeFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -139,7 +148,7 @@ public class ListOfStudentsFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ListOfStudentsFrame().setVisible(true);
+                new ListOfStudentsOnGradeFrame().setVisible(true);
             }
         });
     }
@@ -151,12 +160,10 @@ public class ListOfStudentsFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
      private void initEvents() {
         showButtonEvents();
-        events();
-        //btAddEvents();
     }
 
-    private void loadDataIntoJTable(List<StudentUnofficial> studentUnofficials) {
-        studentUnofficials.forEach(t -> System.out.println(t.getId()));
+    private void loadDataIntoJTable(List<StudentOfficial> studentOfficials) {
+        studentOfficials.forEach(t -> System.out.println(t.getId()));
         model = new DefaultTableModel() {
 
             @Override
@@ -176,8 +183,8 @@ public class ListOfStudentsFrame extends javax.swing.JFrame {
 
 //        column.add("Show Details");
         model.setColumnIdentifiers(column);
-        for (int i = 0; i < studentUnofficials.size(); i++) {
-            StudentUnofficial s = (StudentUnofficial) studentUnofficials.get(i);
+        for (int i = 0; i < studentOfficials.size(); i++) {
+            StudentUnofficial s = (StudentOfficial) studentOfficials.get(i);
             Profile pro = s.getProfile();
             Register register = s.getRegister();
             System.out.println(pro);
@@ -196,26 +203,7 @@ public class ListOfStudentsFrame extends javax.swing.JFrame {
         tblStudent.setRowSelectionAllowed(false);
         tblStudent.setCellSelectionEnabled(true);
         tblStudent.setFocusable(false);
-    }
 
-    private void events() {
-        tblStudent.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent evt) {
-                int row = tblStudent.rowAtPoint(evt.getPoint());
-                int col = tblStudent.columnAtPoint(evt.getPoint());
-                if ((row >= 0 && col == 9)) {
-                    Object[] rowData = new Object[tblStudent.getColumnCount()];
-                    for (int i = row; i < tblStudent.getColumnCount(); i++) {
-                        rowData[i] = tblStudent.getValueAt(0, i);
-                    }
-                    StudentUnofficial student = new StudentUnofficialDaoImpl().getStudent((String) rowData[0]);
-                    DetailStudentUnOfficialForm detailStudentUnOfficial = new DetailStudentUnOfficialForm(student);
-                    detailStudentUnOfficial.setVisible(true);
-
-                }
-            }
-        });
     }
 
     private void showButtonEvents() {
