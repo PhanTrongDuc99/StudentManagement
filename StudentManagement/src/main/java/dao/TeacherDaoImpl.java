@@ -78,7 +78,7 @@ public class TeacherDaoImpl implements TeacherDao {
             preparedStatement.setString(2, teacher.getWorkPlace());
             preparedStatement.setDouble(3, teacher.getSalary());
             preparedStatement.setString(4, teacher.getIdTeacher());
-            preparedStatement.setString(5, teacher.getIdTeacher());
+            preparedStatement.setString(5, teacher.getTimeKeeping().getId());
             preparedStatement.execute(query);
 
         } catch (Exception e) {

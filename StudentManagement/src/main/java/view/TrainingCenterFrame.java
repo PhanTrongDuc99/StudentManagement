@@ -37,6 +37,7 @@ import view.sub.GradePanel;
 import view.sub.HomepagePanel;
 import view.sub.SettingFrame;
 import view.sub.StudentPanel;
+import view.sub.TeacherInformationPanel;
 import view.sub.TeacherPanel;
 import view.sub.TrainingPanel;
 
@@ -903,7 +904,11 @@ public class TrainingCenterFrame extends JFrame {
                 public void mousePressed(MouseEvent e) {
                     //List of teachers 
                     if (btItemPnTeacher.getText().equalsIgnoreCase(itemTeachers[0].getText())) {
-//Đức
+                        pnCenter.removeAll();
+                        pnCenter.revalidate();
+                        TeacherInformationPanel teacherInformationPanel = new TeacherInformationPanel();
+                        pnCenter.add(teacherInformationPanel);
+                        teacherInformationPanel.setVisible(true);
                     } else {
                         // Assess, reward and discipline lecturers
                         if (btItemPnTeacher.getText().equalsIgnoreCase(itemTeachers[1].getText())) {

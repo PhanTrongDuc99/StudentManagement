@@ -33,4 +33,9 @@ public class TimeKeepingServiceImpl implements TimeKeepingService {
         return tkDao.getTimeKeeping(id);
     }
 
+    @Override
+    public List<TimeKeeping> getAll() {
+        return tkDao.getAll();
+    }
+
 }

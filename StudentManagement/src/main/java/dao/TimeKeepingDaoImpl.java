@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -93,4 +94,34 @@ public class TimeKeepingDaoImpl implements TimeKeepingDao {
         return timeKeeping;
     }
 
+    @Override
+    public List<TimeKeeping> getAll() {
+        List<TimeKeeping> timeKeepings = new ArrayList<>();
+        connection = connectionManager.getConnection();
+        String query = "SELECT * FROM studentmanagement.timekeeping";
+
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            result = preparedStatement.executeQuery();
+            while (result.next()) {
+                timeKeepings.add(new TimeKeeping(result.getString("Id"), result.getDouble("TeachingHours"), result.getString("RewardLevel"), result.getString("DisciplineLevel")));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                result.close();
+                preparedStatement.close();
+                connection.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return timeKeepings;
+    }
+
+    public static void main(String[] args) {
+        TimeKeepingDao keepingDao = new TimeKeepingDaoImpl();
+        keepingDao.getAll().forEach(s -> System.out.println(s));
+    }
 }
