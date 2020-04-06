@@ -15,7 +15,7 @@ import java.util.List;
  */
 public interface TimeKeepingService {
 
-    public void insertTimeKeeping(List<Teacher> teachers);
+    public void insertTimeKeeping(TimeKeeping timeKeeping);
 
     public TimeKeeping getTimeKeeping(String id);
 

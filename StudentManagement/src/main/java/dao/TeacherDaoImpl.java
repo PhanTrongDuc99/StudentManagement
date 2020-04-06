@@ -32,7 +32,7 @@ public class TeacherDaoImpl implements TeacherDao {
     private PreparedStatement preparedStatement;
     private ResultSet result;
     private final String query = "INSERT INTO teacher(Id, Workplace, Salary, IdProfile, IdTimeKeeping) "
-            + "VALUES(?,?,?,(SELECT Id from profile WHERE profile.Id=?),(SELECT Id from timekeeping WHERE timekeeping.Id=?))";
+            + "VALUES(?,?,?,(SELECT Id from profile WHERE profile.Id=?)";
 
     public TeacherDaoImpl() {
         connectionManager = new ConnectionManagerImpl();
@@ -44,14 +44,14 @@ public class TeacherDaoImpl implements TeacherDao {
     public List<Teacher> getAll() {
         connection = connectionManager.getConnection();
         List<Teacher> teachers = new ArrayList<>();
-        String queryTeacher = "SELECT Id, Workplace, IdProfile,IdTimekeeping, Salary FROM TEACHER";
+        String queryTeacher = "SELECT Id, Workplace, IdProfile, Salary FROM TEACHER";
         try {
             preparedStatement = connection.prepareStatement(queryTeacher);
             result = preparedStatement.executeQuery();
             while (result.next()) {
                 Profile profile = profileDao.getProfile(result.getString("IdProfile"));
-                TimeKeeping timeKeeping = timeKeepingDao.getTimeKeeping(result.getString("idTimeKeeping"));
-                teachers.add(new Teacher(result.getString("Id"), profile, result.getDouble("Salary"), timeKeeping, result.getString("Workplace")));
+
+                teachers.add(new Teacher(result.getString("Id"), profile, result.getDouble("Salary"), result.getString("Workplace")));
             }
 
         } catch (Exception ex) {
@@ -78,7 +78,6 @@ public class TeacherDaoImpl implements TeacherDao {
             preparedStatement.setString(2, teacher.getWorkPlace());
             preparedStatement.setDouble(3, teacher.getSalary());
             preparedStatement.setString(4, teacher.getIdTeacher());
-            preparedStatement.setString(5, teacher.getTimeKeeping().getId());
             preparedStatement.execute(query);
 
         } catch (Exception e) {
@@ -105,7 +104,6 @@ public class TeacherDaoImpl implements TeacherDao {
                 preparedStatement.setString(2, teacher.getWorkPlace());
                 preparedStatement.setDouble(3, teacher.getSalary());
                 preparedStatement.setString(4, teacher.getProfileTeacher().getId());
-                preparedStatement.setString(5, teacher.getTimeKeeping().getId());
                 preparedStatement.addBatch();
             }
             preparedStatement.executeBatch();
@@ -126,7 +124,7 @@ public class TeacherDaoImpl implements TeacherDao {
 
     @Override
     public Teacher getTeacher(String id) {
-        String queryStudent = "SELECT Id, Workplace, Salary, IdProfile, IdTimeKeeping FROM TEACHER WHERE Id= '" + id + "'";
+        String queryStudent = "SELECT Id, Workplace, Salary, IdProfile FROM TEACHER WHERE Id= '" + id + "'";
         connection = connectionManager.getConnection();
         Teacher teacher = new Teacher();
 
@@ -136,13 +134,10 @@ public class TeacherDaoImpl implements TeacherDao {
             while (result.next()) {
                 Profile profile = profileDao.getProfile(result.getString("IdProfile"));
 
-                TimeKeeping timeKeeping = timeKeepingDao.getTimeKeeping(result.getString("IdTimeKeeping"));
-
                 teacher.setIdTeacher(result.getString("Id"));
                 teacher.setWorkPlace(result.getString("Workplace"));
                 teacher.setSalary(result.getDouble("Salary"));
                 teacher.setProfileTeacher(profile);
-                teacher.setTimeKeeping(timeKeeping);
             }
             return teacher;
         } catch (Exception ex) {

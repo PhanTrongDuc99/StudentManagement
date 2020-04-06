@@ -15,15 +15,17 @@ public class TimeKeeping {
     private Double teachingHours;
     private String rewardLevel;
     private String disciplineLevel;
+    private String idTeacher;
 
     public TimeKeeping() {
     }
 
-    public TimeKeeping(String id, Double teachingHours, String rewardLevel, String disciplineLevel) {
+    public TimeKeeping(String id, Double teachingHours, String rewardLevel, String disciplineLevel, String idTeacher) {
         this.id = id;
         this.teachingHours = teachingHours;
         this.rewardLevel = rewardLevel;
         this.disciplineLevel = disciplineLevel;
+        this.idTeacher = idTeacher;
     }
 
     public String getId() {
@@ -58,11 +60,17 @@ public class TimeKeeping {
         this.disciplineLevel = disciplineLevel;
     }
 
-    @Override
-    public String toString() {
-        return "TimeKeeping{" + "id=" + id + ", teachingHours=" + teachingHours + ", rewardLevel=" + rewardLevel + ", disciplineLevel=" + disciplineLevel + '}';
+    public String getIdTeacher() {
+        return idTeacher;
     }
 
-   
+    public void setIdTeacher(String idTeacher) {
+        this.idTeacher = idTeacher;
+    }
+
+    @Override
+    public String toString() {
+        return "TimeKeeping{" + "id=" + id + ", teachingHours=" + teachingHours + ", rewardLevel=" + rewardLevel + ", disciplineLevel=" + disciplineLevel + ", idTeacher=" + idTeacher + '}';
+    }
 
 }

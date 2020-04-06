@@ -1,12 +1,4 @@
-SELECT *FROM COURSE;
-SELECT *FROM STUDENTUNOFFICIAL;
-SELECT *FROM STUDENTOFFICIAL;
-SELECT *FROM PROFILE;
-SELECT *FROM REGISTER;
-SELECT *FROM RESULT;
-SELECT *FROM GRADE;
-SELECT *FROM TEACHER;
-SELECT *FROM TIMEKEEPING;
+
 
              -- SQL FOR COURSE --
 
@@ -42,18 +34,19 @@ INSERT INTO `studentmanagement`.`profile` (`Name`, `Gender`, `DayOfBirth`, `Phon
 INSERT INTO `studentmanagement`.`profile` (`Name`, `Gender`, `DayOfBirth`, `PhoneNumber`, `Hometown`, `CurrentAddress`, `IdNumber`, `Email`, `Id`) VALUES ('Phan Ngoc Quyen', '0', '1995-12-02', '0123876832', 'Hue', 'Da Nang', '476361959', 'phanquyen@gmail.com', 'ProG4');
 INSERT INTO `studentmanagement`.`profile` (`Name`, `Gender`, `DayOfBirth`, `PhoneNumber`, `Hometown`, `CurrentAddress`, `IdNumber`, `Email`, `Id`) VALUES ('Pham Minh Tuan', '0', '1989-10-16', '0904987212', 'Hai Phong', 'Da Nang', '409362009', 'phamtuan@gmail.com', 'ProG5');
 
+INSERT INTO `studentmanagement`.`teacher` (`Id`, `Workplace`, `Salary`, `IdProfile`) VALUES ('GV01', 'Phú Yên', '20000000', 'ProG1');
+INSERT INTO `studentmanagement`.`teacher` (`Id`, `Workplace`, `Salary`, `IdProfile`) VALUES ('GV02', 'Da Nang', '10000000', 'ProG2');
+INSERT INTO `studentmanagement`.`teacher` (`Id`, `Workplace`, `Salary`, `IdProfile`) VALUES ('GV03', 'Ho Chi Minh', '30000000', 'ProG3');
+INSERT INTO `studentmanagement`.`teacher` (`Id`, `Workplace`, `Salary`, `IdProfile`) VALUES ('GV04', 'Ha Noi', '15000000', 'ProG4');
+INSERT INTO `studentmanagement`.`teacher` (`Id`, `Workplace`, `Salary`, `IdProfile`) VALUES ('GV05', 'Da Nang', '45000000', 'ProG5');
 
-INSERT INTO `studentmanagement`.`timekeeping` (`TeachingHours`, `RewardLevel`, `DisciplineLevel`,`Id`) VALUES ('0', 'Good', 'No problem','TK01');
-INSERT INTO `studentmanagement`.`timekeeping` (`TeachingHours`, `RewardLevel`, `DisciplineLevel`,`Id`) VALUES ('0', 'Good', 'No problem','TK02');
-INSERT INTO `studentmanagement`.`timekeeping` (`TeachingHours`, `RewardLevel`, `DisciplineLevel`,`Id`) VALUES ('0', 'Pretty Good', 'No problem','TK03');
-INSERT INTO `studentmanagement`.`timekeeping` (`TeachingHours`, `RewardLevel`, `DisciplineLevel`,`Id`) VALUES ('0', 'Very Good', 'No problem','TK04');
-INSERT INTO `studentmanagement`.`timekeeping` (`TeachingHours`, `RewardLevel`, `DisciplineLevel`,`Id`) VALUES ('0', 'Medium', 'No problem','TK05');
+INSERT INTO `studentmanagement`.`timekeeping` (`TeachingHours`, `RewardLevel`, `DisciplineLevel`,`Id`,`IdTeacher`) VALUES ('0', 'Good', 'No problem','TK01','GV01');
+INSERT INTO `studentmanagement`.`timekeeping` (`TeachingHours`, `RewardLevel`, `DisciplineLevel`,`Id`,`IdTeacher`) VALUES ('0', 'Good', 'No problem','TK02','GV02');
+INSERT INTO `studentmanagement`.`timekeeping` (`TeachingHours`, `RewardLevel`, `DisciplineLevel`,`Id`,`IdTeacher`) VALUES ('0', 'Pretty Good', 'No problem','TK03','GV03');
+INSERT INTO `studentmanagement`.`timekeeping` (`TeachingHours`, `RewardLevel`, `DisciplineLevel`,`Id`,`IdTeacher`) VALUES ('0', 'Very Good', 'No problem','TK04','GV04');
+INSERT INTO `studentmanagement`.`timekeeping` (`TeachingHours`, `RewardLevel`, `DisciplineLevel`,`Id`,`IdTeacher`) VALUES ('0', 'Medium', 'No problem','TK05','GV05');
 
-INSERT INTO `studentmanagement`.`teacher` (`Id`, `Workplace`, `Salary`, `IdProfile`,`IdTimeKeeping`) VALUES ('GV01', 'Phú Yên', '20000000', 'ProG1','TK01');
-INSERT INTO `studentmanagement`.`teacher` (`Id`, `Workplace`, `Salary`, `IdProfile`,`IdTimeKeeping`) VALUES ('GV02', 'Da Nang', '10000000', 'ProG2','TK02');
-INSERT INTO `studentmanagement`.`teacher` (`Id`, `Workplace`, `Salary`, `IdProfile`,`IdTimeKeeping`) VALUES ('GV03', 'Ho Chi Minh', '30000000', 'ProG3','TK03');
-INSERT INTO `studentmanagement`.`teacher` (`Id`, `Workplace`, `Salary`, `IdProfile`,`IdTimeKeeping`) VALUES ('GV04', 'Ha Noi', '15000000', 'ProG4','TK04');
-INSERT INTO `studentmanagement`.`teacher` (`Id`, `Workplace`, `Salary`, `IdProfile`,`IdTimeKeeping`) VALUES ('GV05', 'Da Nang', '45000000', 'ProG5','TK05');
+
 
 INSERT INTO `studentmanagement`.`grade` (`Id`, `Name`, `StudentQuantity`, `IdTeacher`, `IdCourse`,`StartTime`,`EndTime`,`DaysOfWeek`) VALUES ('Gr01', 'JAVA01', '5', 'GV01', 'K01','19:00:00','22:00:00','MONDAY,TUESDAY');
 INSERT INTO `studentmanagement`.`grade` (`Id`, `Name`, `StudentQuantity`, `IdTeacher`, `IdCourse`,`StartTime`,`EndTime`,`DaysOfWeek`) VALUES ('Gr02', 'JAVA02', '5', 'GV01', 'K01','9:00:00','12:00:00','SUNDAY,TUESDAY');

@@ -24,11 +24,6 @@ public class TimeKeepingServiceImpl implements TimeKeepingService {
     }
 
     @Override
-    public void insertTimeKeeping(List<Teacher> teachers) {
-        tkDao.insertTimeKeeping(teachers);
-    }
-
-    @Override
     public TimeKeeping getTimeKeeping(String id) {
         return tkDao.getTimeKeeping(id);
     }
@@ -36,6 +31,11 @@ public class TimeKeepingServiceImpl implements TimeKeepingService {
     @Override
     public List<TimeKeeping> getAll() {
         return tkDao.getAll();
+    }
+
+    @Override
+    public void insertTimeKeeping(TimeKeeping timeKeeping) {
+        tkDao.insertTimeKeeping(timeKeeping);
     }
 
 }

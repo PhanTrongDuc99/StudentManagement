@@ -5,7 +5,6 @@
  */
 package dao;
 
-import entities.Teacher;
 import entities.TimeKeeping;
 import java.util.List;
 
@@ -15,7 +14,7 @@ import java.util.List;
  */
 public interface TimeKeepingDao {
 
-    public void insertTimeKeeping(List<Teacher> teachers);
+    public void insertTimeKeeping(TimeKeeping timeKeeping);
 
     public TimeKeeping getTimeKeeping(String id);
 

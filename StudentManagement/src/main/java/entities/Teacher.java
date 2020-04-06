@@ -16,17 +16,15 @@ public class Teacher {
     private String idTeacher;
     private Profile profileTeacher;
     private Double salary;
-    private TimeKeeping timeKeeping;
     private String workPlace;
 
     public Teacher() {
     }
 
-    public Teacher(String idTeacher, Profile profileTeacher, Double salary, TimeKeeping timeKeeping, String workPlace) {
+    public Teacher(String idTeacher, Profile profileTeacher, Double salary, String workPlace) {
         this.idTeacher = idTeacher;
         this.profileTeacher = profileTeacher;
         this.salary = salary;
-        this.timeKeeping = timeKeeping;
         this.workPlace = workPlace;
     }
 
@@ -54,14 +52,6 @@ public class Teacher {
         this.salary = salary;
     }
 
-    public TimeKeeping getTimeKeeping() {
-        return timeKeeping;
-    }
-
-    public void setTimeKeeping(TimeKeeping timeKeeping) {
-        this.timeKeeping = timeKeeping;
-    }
-
     public String getWorkPlace() {
         return workPlace;
     }
@@ -76,7 +66,6 @@ public class Teacher {
         hash = 73 * hash + Objects.hashCode(this.idTeacher);
         hash = 73 * hash + Objects.hashCode(this.profileTeacher);
         hash = 73 * hash + Objects.hashCode(this.salary);
-        hash = 73 * hash + Objects.hashCode(this.timeKeeping);
         hash = 73 * hash + Objects.hashCode(this.workPlace);
         return hash;
     }
@@ -102,18 +91,12 @@ public class Teacher {
         if (!Objects.equals(this.profileTeacher, other.profileTeacher)) {
             return false;
         }
-        if (!Objects.equals(this.salary, other.salary)) {
-            return false;
-        }
-        if (!Objects.equals(this.timeKeeping, other.timeKeeping)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.salary, other.salary);
     }
 
     @Override
     public String toString() {
-        return "Teacher{" + "idTeacher=" + idTeacher + ", profileTeacher=" + profileTeacher + ", salary=" + salary + ", timeKeeping=" + timeKeeping + ", workPlace=" + workPlace + '}';
+        return "Teacher{" + "idTeacher=" + idTeacher + ", profileTeacher=" + profileTeacher + ", salary=" + salary + ", workPlace=" + workPlace + '}';
     }
 
 }

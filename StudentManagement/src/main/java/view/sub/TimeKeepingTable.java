@@ -40,6 +40,7 @@ public class TimeKeepingTable extends JFrame {
         setTitle("Timekeepings");
         setSize(800, 350);
         setLocationRelativeTo(null);
+        setUndecorated(true);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         tbTimekeeping = new JTable();
