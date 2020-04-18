@@ -12,6 +12,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -106,7 +109,6 @@ public class LoginForm extends JFrame {
 //        loginForm.setVisible(true);
 //
 //    }
-
     private void initComponents() {
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -213,9 +215,28 @@ public class LoginForm extends JFrame {
         return !(tfUsername.getText().isEmpty() || tfPassword.getText().isEmpty());
     }
 
+    public static String convertByteToHex(byte[] data) {
+        BigInteger number = new BigInteger(1, data);
+        String hashtext = number.toString(16);
+        while (hashtext.length() < 32) {
+            hashtext = "0" + hashtext;
+        }
+        return hashtext;
+    }
+
+    public static String getMD5(String input) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] messageDigest = md.digest(input.getBytes());
+            return convertByteToHex(messageDigest);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private boolean checkAdmin() {
         AdminService adminService = new AdminServiceImpl();
-        return adminService.getAdmin(tfUsername.getText(), tfPassword.getText()) != null;
+        return adminService.getAdmin(tfUsername.getText(), getMD5(tfPassword.getText())) != null;
     }
 
     private void focusOnTextField() {

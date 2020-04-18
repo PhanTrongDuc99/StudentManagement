@@ -8,9 +8,9 @@ FROM STUDENTUNOFFICIAL st
 INNER JOIN REGISTER rg ON st.IdRegister = rg.Id
 INNER JOIN PROFILE pr ON st.IdProfile= pr.Id;
 
-INSERT INTO ADMIN(`Id`,`Username`,`Password`) VALUES('1','User01','123456');
-INSERT INTO ADMIN(`Id`,`Username`,`Password`) VALUES('2','User02','654321');
-INSERT INTO ADMIN(`Id`,`Username`,`Password`) VALUES('4','User04','111111');
+INSERT INTO ADMIN(`Id`,`Username`,`Password`) VALUES('1','User01',MD5('123456'));
+INSERT INTO ADMIN(`Id`,`Username`,`Password`) VALUES('2','User02',MD5('654321'));
+INSERT INTO ADMIN(`Id`,`Username`,`Password`) VALUES('4','User04',MD5('122333'));
 
 
 

@@ -355,10 +355,10 @@ public class TeacherAdditionForm extends javax.swing.JFrame {
                 TimeKeepingService timeKeepingService = new TimeKeepingServiceImpl();
                 TimeKeeping timeKeeping = timeKeepingService.getTimeKeeping(tfTimekeeping.getText());
                 Profile profile = new Profile(id, name, gender, dayOfBirth, idNumber, phone, email, hometown, address);
-                Teacher teacher = new Teacher(id, profile, 0.0, timeKeeping, workplace);
+                //Teacher teacher = new Teacher(id, profile, 0.0, timeKeeping, workplace);
 
                 profileServices.insertProfile(profile);
-                teacherService.insertTeacher(teacher);
+                //teacherService.insertTeacher(teacher);
 
             }
         });
